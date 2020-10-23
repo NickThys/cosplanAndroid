@@ -1,4 +1,4 @@
-package com.example.cosplan.ui.gallery;
+package com.example.cosplan.ui.calender;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

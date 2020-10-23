@@ -1,4 +1,4 @@
-package com.example.cosplan.ui.gallery;
+package com.example.cosplan.ui.calender;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
