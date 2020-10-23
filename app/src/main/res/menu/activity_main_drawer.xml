@@ -16,5 +16,9 @@
             android:id="@+id/nav_webshop"
             android:icon="@drawable/ic_menu_webshop"
             android:title="@string/menu_webshop" />
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/ic_menu_settings"
+            android:title="@string/menu_settings" />
     </group>
 </menu>

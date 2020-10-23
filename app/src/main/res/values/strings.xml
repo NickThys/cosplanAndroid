@@ -13,4 +13,7 @@
     <string name="Slogan_Cosplan">Stop procrastinating and go craft!</string>
     <string name="menu_calender">Convention calender</string>
     <string name="menu_webshop">Webshops</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="menu_settings">Settings</string>
 </resources>
