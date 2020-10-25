@@ -9,13 +9,21 @@ import androidx.lifecycle.LiveData;
 import java.util.List;
 
 public class WebshopViewModel extends AndroidViewModel {
+
     private WebshopRepository mRepository;
-    private LiveData<List<Webshop>>mAllWebshops;
+    LiveData<List<Webshop>> mAllWebshops;
+
     public WebshopViewModel(@NonNull Application application) {
         super(application);
-        mRepository=new WebshopRepository(application);
-        mAllWebshops=mRepository.getAllWebshops();
+        mRepository = new WebshopRepository(application);
+        mAllWebshops = mRepository.getAllWebshops();
     }
-    LiveData<List<Webshop>> getAllWebshops(){return mAllWebshops;}
-    public void insert (Webshop webshop){mRepository.insert(webshop);}
+
+    public LiveData<List<Webshop>> getAllWebshops() {
+        return mAllWebshops;
+    }
+
+    public void insert(Webshop webshop) {
+        mRepository.insert(webshop);
+    }
 }
