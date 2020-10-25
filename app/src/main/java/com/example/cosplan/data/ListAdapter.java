@@ -2,6 +2,7 @@ package com.example.cosplan.data;
 
 
 import android.content.Context;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,9 +10,14 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.ListFragment;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cosplan.R;
+import com.example.cosplan.ui.webshop.WebshopFragment;
+import com.example.cosplan.ui.webshop.updateFragment;
 
 
 import java.util.List;
@@ -66,7 +72,12 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.WebshopViewHol
         holder.textviewLink.setText(tempLink);
 
         holder.WebsiteName.setText(tempName);
-
+        holder.itemView.findViewById(R.id.rowLayout).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.action_nav_webshop_to_updateFragment);
+            }
+        });
 
     }
 
