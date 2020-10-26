@@ -74,6 +74,16 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.WebshopViewHol
 
         holder.WebsiteName.setText(tempName);
 
+<<<<<<< HEAD
+=======
+        holder.itemView.findViewById(R.id.rowLayout).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.action_nav_webshop_to_updateFragment);
+            }
+        });
+
+>>>>>>> master
     }
     public Webshop getWebshopAtPosition(int position){
         return mWebshops.get(position);

@@ -37,21 +37,18 @@ public class WebshopFragment extends Fragment {
 
     private WebshopViewModel webshopViewModel;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        final View  root = inflater.inflate(R.layout.fragment_webshop, container, false);
+        final View root = inflater.inflate(R.layout.fragment_webshop, container, false);
 
-        final ListAdapter listAdapter=new ListAdapter(requireContext());
-
-
+        final ListAdapter listAdapter = new ListAdapter(requireContext());
 
 
-
-        RecyclerView recyclerView= root.findViewById(R.id.recyclerView);
+        RecyclerView recyclerView = root.findViewById(R.id.recyclerView);
         recyclerView.setAdapter(listAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
-        ItemTouchHelper helper=new ItemTouchHelper(
-                new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT) {
+        ItemTouchHelper helper = new ItemTouchHelper(
+                new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
                     @Override
                     public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
                         return false;
@@ -59,15 +56,15 @@ public class WebshopFragment extends Fragment {
 
                     @Override
                     public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                        int position=viewHolder.getAdapterPosition();
-                        Webshop myWebshop=listAdapter.getWebshopAtPosition(position);
-                        Toast.makeText(getContext(),"Deleting "+myWebshop.getWebsiteName(),Toast.LENGTH_SHORT).show();
+                        int position = viewHolder.getAdapterPosition();
+                        Webshop myWebshop = listAdapter.getWebshopAtPosition(position);
+                        Toast.makeText(getContext(), "Deleting " + myWebshop.getWebsiteName(), Toast.LENGTH_SHORT).show();
                         webshopViewModel.delete(myWebshop);
                     }
                 }
         );
         helper.attachToRecyclerView(recyclerView);
-        webshopViewModel= new ViewModelProvider(this).get(WebshopViewModel.class);
+        webshopViewModel = new ViewModelProvider(this).get(WebshopViewModel.class);
         webshopViewModel.getAllWebshops().observe(getViewLifecycleOwner(), new Observer<List<Webshop>>() {
             @Override
             public void onChanged(List<Webshop> webshops) {
