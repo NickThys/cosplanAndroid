@@ -74,8 +74,6 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.WebshopViewHol
 
         holder.WebsiteName.setText(tempName);
 
-
-
     }
     public Webshop getWebshopAtPosition(int position){
         return mWebshops.get(position);
