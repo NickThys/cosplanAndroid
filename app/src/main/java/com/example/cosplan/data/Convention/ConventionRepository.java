@@ -1,6 +1,7 @@
 package com.example.cosplan.data.Convention;
 
 import android.app.Application;
+import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 
@@ -16,9 +17,19 @@ public class ConventionRepository {
         mAllConventionsBelgium=mConventionDao.getAllConventionsBelgium();
         mAllConventionsNetherland=mConventionDao.getAllConventionsNetherland();
     }
+    public void insert(Convention convention){new insertAsyncTaks(mConventionDao).execute(convention);}
     LiveData<List<Convention>>getAllConventionsBelgium(){return mAllConventionsBelgium;}
     LiveData<List<Convention>>getAllConventionsNetherland(){return mAllConventionsNetherland;}
+    private class insertAsyncTaks extends AsyncTask<Convention,Void,Void>{
+        private ConventionDao mConDao;
+        insertAsyncTaks(ConventionDao dao){mConDao=dao;}
 
+        @Override
+        protected Void doInBackground(Convention... conventions) {
+            mConDao.insert(conventions[0]);
+            return null;
+        }
+    }
 
 
 

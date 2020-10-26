@@ -52,7 +52,7 @@ public class ConventionAdapter extends RecyclerView.Adapter<ConventionAdapter.Co
         String tempConEndDate=current.mConEndDate.toString();
         holder.ConventionName.setText(tempConName);
         holder.ConventionPlace.setText(tempConPlace);
-        holder.ConventionDate.setText("from" + tempConBeginDate +"to"+tempConEndDate);
+        holder.ConventionDate.setText("from " + tempConBeginDate +" to "+tempConEndDate);
     }
 
     @Override
