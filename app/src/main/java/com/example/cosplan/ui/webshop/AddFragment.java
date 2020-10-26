@@ -1,5 +1,7 @@
 package com.example.cosplan.ui.webshop;
 
+import android.content.Context;
+import android.inputmethodservice.Keyboard;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -9,6 +11,8 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethod;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -55,7 +59,14 @@ public class AddFragment extends Fragment {
         else{
             Toast.makeText(requireContext(), R.string.ToastFailedNewWebshop,Toast.LENGTH_SHORT).show();
         }
+        closeKeyboard(view);
     }
+
+    private void closeKeyboard(View view) {
+        InputMethodManager imm=(InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(),0);
+    }
+
     private boolean inputCheck(String name,String link){
         return !(name==null||link==null);
     }
