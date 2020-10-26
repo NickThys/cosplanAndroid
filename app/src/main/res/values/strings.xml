@@ -22,4 +22,5 @@
     <string name="ToastSuccessNewWebshop">Webshop successfully added</string>
     <string name="ToastFailedNewWebshop">Please fill out all fields.</string>
     <string name="UpdateDb">Update</string>
+    <string name="deleteDatafromdb">Delete</string>
 </resources>
