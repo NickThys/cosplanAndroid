@@ -13,23 +13,19 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.cosplan.R;
+import com.example.cosplan.data.Convention.ConventionViewModel;
 
 public class CalenderFragment extends Fragment {
 
-    private CalenderViewModel calenderViewModel;
+    private ConventionViewModel conventionViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        calenderViewModel =
-                ViewModelProviders.of(this).get(CalenderViewModel.class);
+        conventionViewModel =
+                ViewModelProviders.of(this).get(ConventionViewModel.class);
         View root = inflater.inflate(R.layout.fragment_calender, container, false);
         final TextView textView = root.findViewById(R.id.text_calender);
-        calenderViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+
         return root;
     }
 }
