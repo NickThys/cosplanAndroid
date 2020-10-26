@@ -2,6 +2,7 @@ package com.example.cosplan.data;
 
 
 import android.content.Context;
+import android.os.Bundle;
 import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -63,22 +64,21 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.WebshopViewHol
     }
 
     @Override
-    public void onBindViewHolder(@NonNull WebshopViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final WebshopViewHolder holder, int position) {
 
 
-        Webshop current = mWebshops.get(position);
+        final Webshop current = mWebshops.get(position);
         String tempName = current.mSiteName;
         String tempLink = current.mSiteLink;
         holder.textviewLink.setText(tempLink);
 
         holder.WebsiteName.setText(tempName);
-        holder.itemView.findViewById(R.id.rowLayout).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_nav_webshop_to_updateFragment);
-            }
-        });
 
+
+
+    }
+    public Webshop getWebshopAtPosition(int position){
+        return mWebshops.get(position);
     }
 
 }
