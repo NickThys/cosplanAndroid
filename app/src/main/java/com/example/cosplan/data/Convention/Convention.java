@@ -6,7 +6,7 @@ import androidx.room.Entity;
 
 import com.google.type.Date;
 
-enum Country{Belgium,Netherlands}
+
 @Entity(tableName = "convention_table")
 public class Convention {
     @NonNull
@@ -20,7 +20,7 @@ public class Convention {
     public Date mConEndDate;
     @NonNull
     @ColumnInfo(name = "Country")
-    public Country mConCountry;
+    public String mConCountry;
     @NonNull
     @ColumnInfo(name = "Place")
     public String mConPlace;
@@ -28,7 +28,7 @@ public class Convention {
     public String getConventionName(){return this.mConName;}
     public Date getConventionBeginDate(){return this.mConBeginDate;}
     public Date getConventionEndDate(){return this.mConEndDate;}
-    public Country getConventionCountry(){return this.mConCountry;}
+    public String getConventionCountry(){return this.mConCountry;}
     public String getConventionPlace(){return this.mConPlace;}
 
 }
