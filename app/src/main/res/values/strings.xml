@@ -16,4 +16,11 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="menu_settings">Settings</string>
+    <string name="WebsiteName">Name</string>
+    <string name="WebsiteLink">Website</string>
+    <string name="AddWebshopToDb">Add webshop</string>
+    <string name="ToastSuccessNewWebshop">Webshop successfully added</string>
+    <string name="ToastFailedNewWebshop">Please fill out all fields.</string>
+    <string name="UpdateDb">Update</string>
+    <string name="deleteDatafromdb">Delete</string>
 </resources>

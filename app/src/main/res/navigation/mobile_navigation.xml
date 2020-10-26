@@ -21,10 +21,38 @@
         android:id="@+id/nav_webshop"
         android:name="com.example.cosplan.ui.webshop.WebshopFragment"
         android:label="@string/menu_webshop"
-        tools:layout="@layout/fragment_webshop" />
+        tools:layout="@layout/fragment_webshop" >
+        <action
+            android:id="@+id/action_nav_webshop_to_addFragment"
+            app:destination="@id/addFragment" />
+        <action
+            android:id="@+id/action_nav_webshop_to_updateFragment"
+            app:destination="@id/updateFragment" />
+    </fragment>
     <fragment
         android:id="@+id/nav_settings"
         android:name="com.example.cosplan.ui.settings.SettingsFragment"
         android:label="@string/menu_settings"
         tools:layout="@layout/fragment_settings"/>
+    <fragment
+        android:id="@+id/addFragment"
+        android:name="com.example.cosplan.ui.webshop.AddFragment"
+        android:label="fragment_add"
+        tools:layout="@layout/fragment_add" >
+        <action
+            android:id="@+id/action_addFragment_to_nav_webshop"
+            app:destination="@id/nav_webshop" />
+    </fragment>
+    <fragment
+        android:id="@+id/updateFragment"
+        android:name="com.example.cosplan.ui.webshop.updateFragment"
+        android:label="update"
+        tools:layout="@layout/fragment_update" >
+        <action
+            android:id="@+id/action_updateFragment_to_nav_webshop"
+            app:destination="@id/nav_webshop" />
+        <argument
+            android:name="currentWebshop"
+            app:argType="com.example.cosplan.data.Webshop" />
+    </fragment>
 </navigation>
