@@ -2,10 +2,8 @@ package com.example.cosplan.ui.webshop;
 
 import android.os.Bundle;
 
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavArgs;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,8 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.cosplan.R;
-import com.example.cosplan.data.Webshop;
-import com.example.cosplan.data.WebshopViewModel;
+import com.example.cosplan.data.webshop.WebshopViewModel;
 
 
 public class updateFragment extends Fragment {

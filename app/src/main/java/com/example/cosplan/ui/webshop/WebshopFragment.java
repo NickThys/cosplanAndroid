@@ -1,33 +1,25 @@
 package com.example.cosplan.ui.webshop;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.navigation.NavController;
-import androidx.navigation.NavHostController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.cosplan.MainActivity;
 import com.example.cosplan.R;
-import com.example.cosplan.data.ListAdapter;
-import com.example.cosplan.data.Webshop;
-import com.example.cosplan.data.WebshopViewModel;
+import com.example.cosplan.data.webshop.WebshopAdapter;
+import com.example.cosplan.data.webshop.Webshop;
+import com.example.cosplan.data.webshop.WebshopViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
@@ -41,11 +33,11 @@ public class WebshopFragment extends Fragment {
 
         final View root = inflater.inflate(R.layout.fragment_webshop, container, false);
 
-        final ListAdapter listAdapter = new ListAdapter(requireContext());
+        final WebshopAdapter webshopAdapter = new WebshopAdapter(requireContext());
 
 
         RecyclerView recyclerView = root.findViewById(R.id.recyclerView);
-        recyclerView.setAdapter(listAdapter);
+        recyclerView.setAdapter(webshopAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         ItemTouchHelper helper = new ItemTouchHelper(
                 new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
@@ -57,7 +49,7 @@ public class WebshopFragment extends Fragment {
                     @Override
                     public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                         int position = viewHolder.getAdapterPosition();
-                        Webshop myWebshop = listAdapter.getWebshopAtPosition(position);
+                        Webshop myWebshop = webshopAdapter.getWebshopAtPosition(position);
                         Toast.makeText(getContext(), "Deleting " + myWebshop.getWebsiteName(), Toast.LENGTH_SHORT).show();
                         webshopViewModel.delete(myWebshop);
                     }
@@ -68,7 +60,7 @@ public class WebshopFragment extends Fragment {
         webshopViewModel.getAllWebshops().observe(getViewLifecycleOwner(), new Observer<List<Webshop>>() {
             @Override
             public void onChanged(List<Webshop> webshops) {
-                listAdapter.setWebshops(webshops);
+                webshopAdapter.setWebshops(webshops);
             }
         });
 

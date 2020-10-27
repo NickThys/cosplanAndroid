@@ -1,4 +1,4 @@
-package com.example.cosplan.data;
+package com.example.cosplan.data.webshop;
 
 import android.content.Context;
 

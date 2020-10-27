@@ -48,8 +48,8 @@ public class ConventionAdapter extends RecyclerView.Adapter<ConventionAdapter.Co
         final Convention current=mConventions.get(position);
         String tempConName=current.mConName;
         String tempConPlace=current.mConPlace;
-        String tempConBeginDate=current.mConBeginDate.toString();
-        String tempConEndDate=current.mConEndDate.toString();
+        String tempConBeginDate= current.mConBeginDate;
+        String tempConEndDate= current.mConEndDate;
         holder.ConventionName.setText(tempConName);
         holder.ConventionPlace.setText(tempConPlace);
         holder.ConventionDate.setText("from " + tempConBeginDate +" to "+tempConEndDate);

@@ -1,33 +1,25 @@
-package com.example.cosplan.data;
+package com.example.cosplan.data.webshop;
 
 
 import android.content.Context;
-import android.os.Bundle;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.ListFragment;
-import androidx.navigation.NavController;
-import androidx.navigation.NavDirections;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cosplan.R;
-import com.example.cosplan.ui.webshop.WebshopFragment;
-import com.example.cosplan.ui.webshop.updateFragment;
 
 
 import java.util.List;
 
-public class ListAdapter extends RecyclerView.Adapter<ListAdapter.WebshopViewHolder> {
+public class WebshopAdapter extends RecyclerView.Adapter<WebshopAdapter.WebshopViewHolder> {
     private List<Webshop> mWebshops;
     private final LayoutInflater mInflater;
 
-    public ListAdapter(Context context) {
+    public WebshopAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
     }
 
