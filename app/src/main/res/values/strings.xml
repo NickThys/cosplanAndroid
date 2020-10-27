@@ -23,4 +23,6 @@
     <string name="ToastFailedNewWebshop">Please fill out all fields.</string>
     <string name="UpdateDb">Update</string>
     <string name="deleteDatafromdb">Delete</string>
+    <string name="Laber_Belgium">Belgium</string>
+    <string name="Label_Netherland">Netherland</string>
 </resources>
