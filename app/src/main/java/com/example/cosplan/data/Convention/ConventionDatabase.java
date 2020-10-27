@@ -45,6 +45,11 @@ abstract class ConventionDatabase extends RoomDatabase {
         String []ConEndDateBel={"14/02/2021","4/04/2021"};
         String []ConPlaceBel={"Tour & Taxis","Flanders Expo"};
 
+        String []ConNamesNl={"Comic Con Ahoy","Dutch Comic Con","Magical Castle Event","Comic Con Amsterdam"};
+        String []ConStartDateNl={"27/02/2021","27/03/2021","29/50/2021","28/08/2021"};
+        String []ConEndDateNl={"28/02/2021","28/03/2021","30/05/2021","29/08/2021"};
+        String []ConPlaceNl={"Ahoy rotterdam","Jaarbeurs Utrecht","Park Spelderholt","RAI Amsterdam"};
+
         @Override
         protected Void doInBackground(Void... voids) {
             if (mdao.getAnyConvention().length<1){
@@ -55,6 +60,15 @@ abstract class ConventionDatabase extends RoomDatabase {
                     con.mConBeginDate=ConStartDateBel[i];
                     con.mConEndDate=ConEndDateBel[i];
                     con.mConPlace=ConPlaceBel[i];
+                    mdao.insert(con);
+                }
+                for (int i=0;i<ConNamesNl.length;i++){
+                    Convention con=new Convention();
+                    con.mConName=ConNamesNl[i];
+                    con.mConCountry=ConCountry[1];
+                    con.mConBeginDate=ConStartDateNl[i];
+                    con.mConEndDate=ConEndDateNl[i];
+                    con.mConPlace=ConPlaceNl[i];
                     mdao.insert(con);
                 }
             }

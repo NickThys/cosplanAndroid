@@ -30,11 +30,15 @@ public class CalenderFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,ViewGroup container, Bundle savedInstanceState) {
         conventionViewModel =ViewModelProviders.of(this).get(ConventionViewModel.class);
         final View root = inflater.inflate(R.layout.fragment_calender, container, false);
-        final ConventionAdapter conventionAdapter=new ConventionAdapter(requireContext());
-        RecyclerView recyclerView=root.findViewById(R.id.recyclerView);
-        recyclerView.setAdapter(conventionAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
-        ItemTouchHelper helper=new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,0) {
+        final ConventionAdapter conventionAdapterBelgium=new ConventionAdapter(requireContext());
+        final ConventionAdapter conventionAdapterNetherland=new ConventionAdapter(requireContext());
+
+
+        //RecyclerView Belgium
+        RecyclerView recyclerViewBelgium=root.findViewById(R.id.recyclerViewBelgium);
+        recyclerViewBelgium.setAdapter(conventionAdapterBelgium);
+        recyclerViewBelgium.setLayoutManager(new LinearLayoutManager(requireContext()));
+        ItemTouchHelper helperBelgium=new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,0) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
                 return false;
@@ -45,14 +49,38 @@ public class CalenderFragment extends Fragment {
 
             }
         });
-        helper.attachToRecyclerView(recyclerView);
+        helperBelgium.attachToRecyclerView(recyclerViewBelgium);
         conventionViewModel=new ViewModelProvider(this).get(ConventionViewModel.class);
         conventionViewModel.getAllConventionsBelgium().observe(getViewLifecycleOwner(), new Observer<List<Convention>>() {
             @Override
             public void onChanged(List<Convention> conventions) {
-                conventionAdapter.setConventions(conventions);
+                conventionAdapterBelgium.setConventions(conventions);
             }
         });
+        //RecyclerView Netherland
+        RecyclerView recyclerViewNetherland=root.findViewById(R.id.recyclerViewNetherland);
+        recyclerViewNetherland.setAdapter(conventionAdapterNetherland);
+        recyclerViewNetherland.setLayoutManager(new LinearLayoutManager(requireContext()));
+        ItemTouchHelper helperNetherland=new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,0) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+
+            }
+        });
+        helperNetherland.attachToRecyclerView(recyclerViewNetherland);
+        conventionViewModel.getAllConventionsNetherland().observe(getViewLifecycleOwner(), new Observer<List<Convention>>() {
+            @Override
+            public void onChanged(List<Convention> conventions) {
+                conventionAdapterNetherland.setConventions(conventions);
+            }
+        });
+
+
 
         return root;
     }
