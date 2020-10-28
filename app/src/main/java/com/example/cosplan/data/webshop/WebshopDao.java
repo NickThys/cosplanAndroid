@@ -6,6 +6,8 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
+import com.example.cosplan.data.Convention.Convention;
+
 import java.util.List;
 
 @Dao
@@ -18,4 +20,6 @@ public interface WebshopDao {
 
     @Query("SELECT * FROM webshop_table ORDER BY name ASC")
     LiveData<List<Webshop>> getAllWebshops();
+    @Query("SELECT * FROM webshop_table LIMIT 1")
+    Webshop[]getAnyWebshop();
 }
