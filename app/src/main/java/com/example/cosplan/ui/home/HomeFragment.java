@@ -36,6 +36,6 @@ public class HomeFragment extends Fragment {
     }
     public void createNewCosplayDialog(){
         dialogBuilder=new AlertDialog.Builder(requireContext());
-        final View cosplayPopUpView=getLayoutInflater().inflate(R.layout.addCosplay)
+        final View cosplayPopUpView=getLayoutInflater().inflate(R.layout.add_cosplay,null);
     }
 }
