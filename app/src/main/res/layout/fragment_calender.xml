@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -9,6 +9,12 @@
     android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/HalfScreenGuideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.5" />
         <TextView
             android:id="@+id/ConventionLabelBelgium"
             android:layout_width="match_parent"
@@ -25,10 +31,13 @@
 
             android:id="@+id/recyclerViewBelgium"
             android:layout_width="match_parent"
-            android:layout_height="fill_parent"
-            android:layout_marginTop="6dp"
+            android:layout_height="wrap_content"
+            app:layout_constrainedHeight="true"
+            app:layout_constraintVertical_bias="1.0"
+            app:layout_constraintBottom_toTopOf="@+id/HalfScreenGuideline"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ConventionLabelBelguim" />
+            app:layout_constraintTop_toBottomOf="@+id/ConventionLabelBelgium" />
 
         <TextView
 
@@ -41,16 +50,19 @@
             android:textSize="18dp"
             app:fontFamily="sans-serif-black"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recyclerViewBelgium" />
+            app:layout_constraintTop_toBottomOf="@+id/HalfScreenGuideline"/>
 
         <androidx.recyclerview.widget.RecyclerView
 
             android:id="@+id/recyclerViewNetherland"
             android:layout_width="match_parent"
-            android:layout_height="fill_parent"
+             android:layout_height="wrap_content"
+            app:layout_constrainedHeight="true"
+            app:layout_constraintVertical_bias="1.0"
             android:layout_marginTop="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ConventoinLabelNetherland" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
