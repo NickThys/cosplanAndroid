@@ -1,5 +1,6 @@
 package com.example.cosplan.ui.home;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,8 +16,9 @@ import androidx.lifecycle.ViewModelProviders;
 import com.example.cosplan.R;
 
 public class HomeFragment extends Fragment {
-
     private HomeViewModel homeViewModel;
+    private AlertDialog.Builder dialogBuilder;
+    private AlertDialog dialog;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -31,5 +33,9 @@ public class HomeFragment extends Fragment {
             }
         });
         return root;
+    }
+    public void createNewCosplayDialog(){
+        dialogBuilder=new AlertDialog.Builder(requireContext());
+        final View cosplayPopUpView=getLayoutInflater().inflate(R.layout.addCosplay)
     }
 }
