@@ -19,10 +19,8 @@
             android:id="@+id/ConventionLabelBelgium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:text="@string/Laber_Belgium"
-            android:textStyle="bold"
-            android:textSize="18dp"
+            style="@style/Titles"
             app:fontFamily="sans-serif-black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -45,9 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/Label_Netherland"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:textSize="18dp"
+            style="@style/Titles"
             app:fontFamily="sans-serif-black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/HalfScreenGuideline"/>
