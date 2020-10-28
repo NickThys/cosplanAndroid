@@ -17,6 +17,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.cosplan.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class HomeFragment extends Fragment {
     private HomeViewModel homeViewModel;
@@ -25,6 +26,7 @@ public class HomeFragment extends Fragment {
     private EditText mCosplayName,mCosplayStartDate,mCosplayEndDate,mCosplayBudget;
     private ImageView mCosplayImage;
     private Button mChoosePicture,mCancel,mAddNewCosplay;
+    private FloatingActionButton mfabAddCosplay;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         homeViewModel =
@@ -35,11 +37,21 @@ public class HomeFragment extends Fragment {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
+
+            }
+        });
+
+        mfabAddCosplay=root.findViewById(R.id.fabAddCosplay);
+        mfabAddCosplay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 createNewCosplayDialog();
             }
         });
+
         return root;
     }
+
     public void createNewCosplayDialog(){
         dialogBuilder=new AlertDialog.Builder(requireContext());
         final View cosplayPopUpView=getLayoutInflater().inflate(R.layout.add_cosplay,null);
