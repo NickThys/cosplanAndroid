@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-black"
-        android:text="New Cosplay"
+        android:text="@string/txtTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -23,7 +23,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
         android:layout_marginTop="36dp"
-        android:text="Name"
+        android:text="@string/txtName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/labelAddNewCosplay" />
 
@@ -34,7 +34,7 @@
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
         android:ems="10"
-        android:hint="Name"
+        android:hint="@string/editTextHintName"
         android:inputType="textPersonName"
         app:layout_constraintBaseline_toBaselineOf="@+id/textviewName"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -63,7 +63,7 @@
         android:id="@+id/textViewStartDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Start date"
+        android:text="@string/txtStartDate"
         app:layout_constraintBaseline_toBaselineOf="@+id/editTextBeginDate"
         app:layout_constraintStart_toStartOf="@+id/textviewName" />
 
@@ -71,7 +71,7 @@
         android:id="@+id/textViewEndDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="End date"
+        android:text="@string/txtEndDate"
         app:layout_constraintBaseline_toBaselineOf="@+id/editTextEndDate"
         app:layout_constraintStart_toStartOf="@+id/textViewStartDate" />
 
@@ -79,7 +79,7 @@
         android:id="@+id/textViewBudget"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Budget"
+        android:text="@string/txtBudget"
         app:layout_constraintBaseline_toBaselineOf="@+id/editTextBudget"
         app:layout_constraintStart_toStartOf="@+id/textViewEndDate" />
 
@@ -98,7 +98,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:text="Choose a picture"
+        android:text="@string/btnChooseCosplayImg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextBudget" />
@@ -122,8 +122,19 @@
         android:layout_marginTop="12dp"
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
-        android:text="Add cosplay"
+        android:text="@string/btn_add_cosplay"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/buttonCancel"
         app:layout_constraintTop_toBottomOf="@+id/imageViewCosplayImgPreview" />
+
+    <Button
+        android:id="@+id/buttonCancel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:text="@string/btnCancel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/buttonAddCosplay" />
 </androidx.constraintlayout.widget.ConstraintLayout>

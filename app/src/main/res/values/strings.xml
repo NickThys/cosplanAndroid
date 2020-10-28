@@ -25,4 +25,13 @@
     <string name="deleteDatafromdb">Delete</string>
     <string name="Laber_Belgium">Belgium</string>
     <string name="Label_Netherland">Netherland</string>
+    <string name="btn_add_cosplay">Add cosplay</string>
+    <string name="btnChooseCosplayImg">Choose a picture</string>
+    <string name="txtBudget">Budget</string>
+    <string name="txtEndDate">End date</string>
+    <string name="txtStartDate">Start date</string>
+    <string name="editTextHintName">Name</string>
+    <string name="txtName">Name</string>
+    <string name="txtTitle">New Cosplay</string>
+    <string name="btnCancel">Cancel</string>
 </resources>
