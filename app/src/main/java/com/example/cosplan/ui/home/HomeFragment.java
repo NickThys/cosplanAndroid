@@ -2,6 +2,7 @@ package com.example.cosplan.ui.home;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -82,9 +84,11 @@ public class HomeFragment extends Fragment {
         dialogBuilder.setView(cosplayPopUpView);
         dialog=dialogBuilder.create();
         dialog.show();
-        mCosplayStartDate.setOnClickListener(new View.OnClickListener() {
+        mCosplayStartDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onClick(View v) {
+            public void onFocusChange(View v,boolean hasFocus) {
+                InputMethodManager imm=(InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(v.getWindowToken(),0);
                 int year;
                 int month;
                 int day;
