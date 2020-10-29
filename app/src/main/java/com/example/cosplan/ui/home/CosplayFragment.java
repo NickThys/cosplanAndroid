@@ -17,7 +17,6 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -32,8 +31,8 @@ import java.util.Calendar;
 
 import static java.lang.Integer.getInteger;
 
-public class HomeFragment extends Fragment {
-    private HomeViewModel homeViewModel;
+public class CosplayFragment extends Fragment {
+    private CosplayViewModel cosplayViewModel;
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
 
@@ -49,11 +48,11 @@ public class HomeFragment extends Fragment {
     public static final int GALLERY_REQUEST_CODE = 1;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
-                ViewModelProviders.of(this).get(HomeViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_home, container, false);
+        cosplayViewModel =
+                ViewModelProviders.of(this).get(CosplayViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_cosplay, container, false);
         final TextView textView = root.findViewById(R.id.text_home);
-        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        cosplayViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
