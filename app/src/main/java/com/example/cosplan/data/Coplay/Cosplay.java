@@ -1,6 +1,7 @@
 package com.example.cosplan.data.Coplay;
 
 
+import android.graphics.Bitmap;
 import android.net.Uri;
 
 import androidx.annotation.NonNull;
@@ -30,11 +31,11 @@ public class Cosplay {
     public double mCosplayBudget;
     @NonNull
     @ColumnInfo(typeAffinity = ColumnInfo.BLOB,name = "CosplayIMG")
-    public Blob mCosplayIMG;
+    public Bitmap mCosplayIMG;
 
     public String getCosplayName(){return this.mCosplayName;}
     public String getCosplayStartDate(){return this.mCosplayStartDate;}
     public String getCosplayEndDate(){return this.mCosplayEndDate;}
     public double getCosplayBudget(){return this.mCosplayBudget;}
-    public Blob getCosplayIMG(){return this.mCosplayIMG;}
+    public Bitmap getCosplayIMG(){return this.mCosplayIMG;}
 }
