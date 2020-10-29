@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,13 +38,16 @@ public class HomeFragment extends Fragment {
     private AlertDialog dialog;
 
 
-    private EditText mCosplayName,mCosplayStartDate,mCosplayEndDate,mCosplayBudget;
+    private EditText mCosplayName, mCosplayStartDate, mCosplayEndDate, mCosplayBudget;
     private ImageView mCosplayImage;
-    private Button mChoosePicture,mCancel,mAddNewCosplay;
+    private Button mChoosePicture, mCancel, mAddNewCosplay;
     private FloatingActionButton mfabAddCosplay;
 
     private DatePickerDialog.OnDateSetListener mStartDateSetListener;
     private DatePickerDialog.OnDateSetListener mEndDateSetListener;
+
+    public static final int GALLERY_REQUEST_CODE = 1;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         homeViewModel =
@@ -58,7 +62,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        mfabAddCosplay=root.findViewById(R.id.fabAddCosplay);
+        mfabAddCosplay = root.findViewById(R.id.fabAddCosplay);
         mfabAddCosplay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,55 +73,55 @@ public class HomeFragment extends Fragment {
         return root;
     }
 
-    public void createNewCosplayDialog(){
-        dialogBuilder=new AlertDialog.Builder(requireContext());
-        final View cosplayPopUpView=getLayoutInflater().inflate(R.layout.add_cosplay,null);
-        mCosplayName=cosplayPopUpView.findViewById(R.id.EditTextCosplayName);
-        mCosplayStartDate=cosplayPopUpView.findViewById(R.id.editTextBeginDate);
-        mCosplayEndDate=cosplayPopUpView.findViewById(R.id.editTextEndDate);
-        mCosplayBudget=cosplayPopUpView.findViewById(R.id.editTextBudget);
-        mCosplayImage=cosplayPopUpView.findViewById(R.id.imageViewCosplayImgPreview);
-        mChoosePicture=cosplayPopUpView.findViewById(R.id.btnChooseCosplayImg);
-        mCancel=cosplayPopUpView.findViewById(R.id.buttonCancel);
-        mAddNewCosplay=cosplayPopUpView.findViewById(R.id.buttonAddCosplay);
+
+    public void createNewCosplayDialog() {
+        dialogBuilder = new AlertDialog.Builder(requireContext());
+        final View cosplayPopUpView = getLayoutInflater().inflate(R.layout.add_cosplay, null);
+        mCosplayName = cosplayPopUpView.findViewById(R.id.EditTextCosplayName);
+        mCosplayStartDate = cosplayPopUpView.findViewById(R.id.editTextBeginDate);
+        mCosplayEndDate = cosplayPopUpView.findViewById(R.id.editTextEndDate);
+        mCosplayBudget = cosplayPopUpView.findViewById(R.id.editTextBudget);
+        mCosplayImage = cosplayPopUpView.findViewById(R.id.imageViewCosplayImgPreview);
+        mChoosePicture = cosplayPopUpView.findViewById(R.id.btnChooseCosplayImg);
+        mCancel = cosplayPopUpView.findViewById(R.id.buttonCancel);
+        mAddNewCosplay = cosplayPopUpView.findViewById(R.id.buttonAddCosplay);
 
         dialogBuilder.setView(cosplayPopUpView);
-        dialog=dialogBuilder.create();
+        dialog = dialogBuilder.create();
         dialog.show();
         mCosplayStartDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onFocusChange(View v,boolean hasFocus) {
-                InputMethodManager imm=(InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(v.getWindowToken(),0);
+            public void onFocusChange(View v, boolean hasFocus) {
+                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
                 int year;
                 int month;
                 int day;
-                String mtemp =mCosplayStartDate.getText().toString().trim();
-                if (mtemp.matches("")){
-                Calendar calendar=Calendar.getInstance();
-                year=calendar.get(Calendar.YEAR);
-                month=calendar.get(Calendar.MONTH);
-                day=calendar.get(Calendar.DAY_OF_MONTH);}
-                else {
-                String mDateComlete=mCosplayStartDate.getText().toString();
-                String [] mDate=mDateComlete.split("/");
-                day= Integer.parseInt( mDate[0].trim());
-                month=Integer.parseInt(mDate[1].trim());
-                year=Integer.parseInt(mDate[2].trim());
-                month=month-1;
+                String mtemp = mCosplayStartDate.getText().toString().trim();
+                if (mtemp.matches("")) {
+                    Calendar calendar = Calendar.getInstance();
+                    year = calendar.get(Calendar.YEAR);
+                    month = calendar.get(Calendar.MONTH);
+                    day = calendar.get(Calendar.DAY_OF_MONTH);
+                } else {
+                    String mDateComlete = mCosplayStartDate.getText().toString();
+                    String[] mDate = mDateComlete.split("/");
+                    day = Integer.parseInt(mDate[0].trim());
+                    month = Integer.parseInt(mDate[1].trim());
+                    year = Integer.parseInt(mDate[2].trim());
+                    month = month - 1;
                 }
 
-                DatePickerDialog datePickerDialog=new DatePickerDialog(getContext(),R.style.Theme_MaterialComponents_Light_Dialog_MinWidth,mStartDateSetListener,year,month,day);
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), R.style.Theme_MaterialComponents_Light_Dialog_MinWidth, mStartDateSetListener, year, month, day);
                 datePickerDialog.getDatePicker().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 datePickerDialog.show();
             }
         });
-        mStartDateSetListener=new DatePickerDialog.OnDateSetListener() {
+        mStartDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-
-                month=month+1;
-                mCosplayStartDate.setText(dayOfMonth+"/"+month+"/"+year);
+                month = month + 1;
+                mCosplayStartDate.setText(dayOfMonth + "/" + month + "/" + year);
             }
         };
         mCosplayEndDate.setOnClickListener(new View.OnClickListener() {
@@ -126,32 +130,31 @@ public class HomeFragment extends Fragment {
                 int year;
                 int month;
                 int day;
-                String mtemp =mCosplayEndDate.getText().toString().trim();
-                if (mtemp.matches("")){
-                    Calendar calendar=Calendar.getInstance();
-                    year=calendar.get(Calendar.YEAR);
-                    month=calendar.get(Calendar.MONTH);
-                    day=calendar.get(Calendar.DAY_OF_MONTH);}
-                else {
-                    String mDateComlete=mCosplayEndDate.getText().toString();
-                    String [] mDate=mDateComlete.split("/");
-                    day= Integer.parseInt( mDate[0].trim());
-                    month=Integer.parseInt(mDate[1].trim());
-                    year=Integer.parseInt(mDate[2].trim());
-                    month=month-1;
+                String mtemp = mCosplayEndDate.getText().toString().trim();
+                if (mtemp.matches("")) {
+                    Calendar calendar = Calendar.getInstance();
+                    year = calendar.get(Calendar.YEAR);
+                    month = calendar.get(Calendar.MONTH);
+                    day = calendar.get(Calendar.DAY_OF_MONTH);
+                } else {
+                    String mDateComlete = mCosplayEndDate.getText().toString();
+                    String[] mDate = mDateComlete.split("/");
+                    day = Integer.parseInt(mDate[0].trim());
+                    month = Integer.parseInt(mDate[1].trim());
+                    year = Integer.parseInt(mDate[2].trim());
+                    month = month - 1;
                 }
 
-                DatePickerDialog datePickerDialog=new DatePickerDialog(getContext(),R.style.Theme_MaterialComponents_Light_Dialog_MinWidth,mEndDateSetListener,year,month,day);
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), R.style.Theme_MaterialComponents_Light_Dialog_MinWidth, mEndDateSetListener, year, month, day);
                 datePickerDialog.getDatePicker().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 datePickerDialog.show();
             }
         });
-        mEndDateSetListener=new DatePickerDialog.OnDateSetListener() {
+        mEndDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-
-                month=month+1;
-                mCosplayEndDate.setText(dayOfMonth+"/"+month+"/"+year);
+                month = month + 1;
+                mCosplayEndDate.setText(dayOfMonth + "/" + month + "/" + year);
             }
         };
         mCancel.setOnClickListener(new View.OnClickListener() {
@@ -160,5 +163,28 @@ public class HomeFragment extends Fragment {
                 dialog.dismiss();
             }
         });
+        mChoosePicture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, getString(R.string.txt_chooseImg_intent)), GALLERY_REQUEST_CODE);
+
+            }
+        });
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == GALLERY_REQUEST_CODE) {
+            if (data == null) {
+                return;
+            } else {
+                Uri imageData = data.getData();
+                mCosplayImage.setImageURI(imageData);
+            }
+        }
     }
 }
