@@ -20,28 +20,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textviewName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="36dp"
-        android:text="@string/txtName"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/labelAddNewCosplay" />
-
     <EditText
         android:id="@+id/EditTextCosplayName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:layout_marginRight="24dp"
+        android:layout_marginTop="24dp"
         android:ems="10"
         android:hint="@string/editTextHintName"
         android:inputType="textPersonName"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textviewName"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/labelAddNewCosplay" />
 
     <EditText
         android:id="@+id/editTextBeginDate"
@@ -49,6 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:ems="10"
+        android:hint="@string/txtStartDate"
         android:inputType="date"
         app:layout_constraintEnd_toEndOf="@+id/EditTextCosplayName"
         app:layout_constraintTop_toBottomOf="@+id/EditTextCosplayName" />
@@ -59,33 +49,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:ems="10"
+        android:hint="@string/txtEndDate"
         android:inputType="date"
         app:layout_constraintEnd_toEndOf="@+id/editTextBeginDate"
         app:layout_constraintTop_toBottomOf="@+id/editTextBeginDate" />
-
-    <TextView
-        android:id="@+id/textViewStartDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/txtStartDate"
-        app:layout_constraintBaseline_toBaselineOf="@+id/editTextBeginDate"
-        app:layout_constraintStart_toStartOf="@+id/textviewName" />
-
-    <TextView
-        android:id="@+id/textViewEndDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/txtEndDate"
-        app:layout_constraintBaseline_toBaselineOf="@+id/editTextEndDate"
-        app:layout_constraintStart_toStartOf="@+id/textViewStartDate" />
-
-    <TextView
-        android:id="@+id/textViewBudget"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/txtBudget"
-        app:layout_constraintBaseline_toBaselineOf="@+id/editTextBudget"
-        app:layout_constraintStart_toStartOf="@+id/textViewEndDate" />
 
     <EditText
         android:id="@+id/editTextBudget"
@@ -93,6 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:ems="10"
+        android:hint="@string/txtBudget"
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="@+id/editTextEndDate"
         app:layout_constraintTop_toBottomOf="@+id/editTextEndDate" />
@@ -112,10 +80,11 @@
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_marginTop="12dp"
+        android:background="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnChooseCosplayImg"
-        app:srcCompat="@mipmap/ic_launcher" />
+        app:srcCompat="@drawable/ic_cosplan_logo" />
 
     <Button
         android:id="@+id/buttonAddCosplay"
