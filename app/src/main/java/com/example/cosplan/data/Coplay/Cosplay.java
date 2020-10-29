@@ -8,6 +8,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.sql.Blob;
 
 
 @Entity(tableName = "cosplay_table")
@@ -28,12 +29,12 @@ public class Cosplay {
     @ColumnInfo(name = "CosplayBudget")
     public double mCosplayBudget;
     @NonNull
-    @ColumnInfo(name = "CosplayIMG")
-    public Uri mCosplayIMG;
+    @ColumnInfo(typeAffinity = ColumnInfo.BLOB,name = "CosplayIMG")
+    public Blob mCosplayIMG;
 
     public String getCosplayName(){return this.mCosplayName;}
     public String getCosplayStartDate(){return this.mCosplayStartDate;}
     public String getCosplayEndDate(){return this.mCosplayEndDate;}
     public double getCosplayBudget(){return this.mCosplayBudget;}
-    public Uri getCosplayIMG(){return this.mCosplayIMG;}
+    public Blob getCosplayIMG(){return this.mCosplayIMG;}
 }
