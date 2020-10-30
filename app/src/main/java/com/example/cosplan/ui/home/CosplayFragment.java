@@ -114,29 +114,31 @@ public class CosplayFragment extends Fragment {
         mCosplayStartDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-                int year;
-                int month;
-                int day;
-                String mtemp = mCosplayStartDate.getText().toString().trim();
-                if (mtemp.matches("")) {
-                    Calendar calendar = Calendar.getInstance();
-                    year = calendar.get(Calendar.YEAR);
-                    month = calendar.get(Calendar.MONTH);
-                    day = calendar.get(Calendar.DAY_OF_MONTH);
-                } else {
-                    String mDateComlete = mCosplayStartDate.getText().toString();
-                    String[] mDate = mDateComlete.split("/");
-                    day = Integer.parseInt(mDate[0].trim());
-                    month = Integer.parseInt(mDate[1].trim());
-                    year = Integer.parseInt(mDate[2].trim());
-                    month = month - 1;
-                }
+                if (hasFocus){
+                    InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                    int year;
+                    int month;
+                    int day;
+                    String mtemp = mCosplayStartDate.getText().toString().trim();
+                    if (mtemp.matches("")) {
+                        Calendar calendar = Calendar.getInstance();
+                        year = calendar.get(Calendar.YEAR);
+                        month = calendar.get(Calendar.MONTH);
+                        day = calendar.get(Calendar.DAY_OF_MONTH);
+                    } else {
+                        String mDateComlete = mCosplayStartDate.getText().toString();
+                        String[] mDate = mDateComlete.split("/");
+                        day = Integer.parseInt(mDate[0].trim());
+                        month = Integer.parseInt(mDate[1].trim());
+                        year = Integer.parseInt(mDate[2].trim());
+                        month = month - 1;
+                    }
 
-                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), R.style.Theme_MaterialComponents_Light_Dialog_MinWidth, mStartDateSetListener, year, month, day);
-                datePickerDialog.getDatePicker().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                datePickerDialog.show();
+                    DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), R.style.Theme_MaterialComponents_Light_Dialog_MinWidth, mStartDateSetListener, year, month, day);
+                    datePickerDialog.getDatePicker().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    datePickerDialog.show();
+                }
             }
         });
         mStartDateSetListener = new DatePickerDialog.OnDateSetListener() {
@@ -146,32 +148,35 @@ public class CosplayFragment extends Fragment {
                 mCosplayStartDate.setText(dayOfMonth + "/" + month + "/" + year);
             }
         };
-        mCosplayEndDate.setOnClickListener(new View.OnClickListener() {
+        mCosplayEndDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onClick(View v) {
-                int year;
-                int month;
-                int day;
-                String mtemp = mCosplayEndDate.getText().toString().trim();
-                if (mtemp.matches("")) {
-                    Calendar calendar = Calendar.getInstance();
-                    year = calendar.get(Calendar.YEAR);
-                    month = calendar.get(Calendar.MONTH);
-                    day = calendar.get(Calendar.DAY_OF_MONTH);
-                } else {
-                    String mDateComlete = mCosplayEndDate.getText().toString();
-                    String[] mDate = mDateComlete.split("/");
-                    day = Integer.parseInt(mDate[0].trim());
-                    month = Integer.parseInt(mDate[1].trim());
-                    year = Integer.parseInt(mDate[2].trim());
-                    month = month - 1;
-                }
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    int year;
+                    int month;
+                    int day;
+                    String mtemp = mCosplayEndDate.getText().toString().trim();
+                    if (mtemp.matches("")) {
+                        Calendar calendar = Calendar.getInstance();
+                        year = calendar.get(Calendar.YEAR);
+                        month = calendar.get(Calendar.MONTH);
+                        day = calendar.get(Calendar.DAY_OF_MONTH);
+                    } else {
+                        String mDateComlete = mCosplayEndDate.getText().toString();
+                        String[] mDate = mDateComlete.split("/");
+                        day = Integer.parseInt(mDate[0].trim());
+                        month = Integer.parseInt(mDate[1].trim());
+                        year = Integer.parseInt(mDate[2].trim());
+                        month = month - 1;
+                    }
 
-                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), R.style.Theme_MaterialComponents_Light_Dialog_MinWidth, mEndDateSetListener, year, month, day);
-                datePickerDialog.getDatePicker().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                datePickerDialog.show();
+                    DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), R.style.Theme_MaterialComponents_Light_Dialog_MinWidth, mEndDateSetListener, year, month, day);
+                    datePickerDialog.getDatePicker().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    datePickerDialog.show();
+                }
             }
         });
+
         mEndDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
