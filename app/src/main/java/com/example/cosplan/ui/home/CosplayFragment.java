@@ -4,10 +4,13 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.SpannableStringBuilder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,12 +25,20 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cosplan.R;
+import com.example.cosplan.data.Coplay.Cosplay;
+import com.example.cosplan.data.Coplay.CosplayAdapter;
+import com.example.cosplan.data.Coplay.CosplayViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Calendar;
+import java.util.List;
 
 import static java.lang.Integer.getInteger;
 
@@ -48,18 +59,31 @@ public class CosplayFragment extends Fragment {
     public static final int GALLERY_REQUEST_CODE = 1;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        cosplayViewModel =
-                ViewModelProviders.of(this).get(CosplayViewModel.class);
+
         View root = inflater.inflate(R.layout.fragment_cosplay, container, false);
-        final TextView textView = root.findViewById(R.id.text_home);
-        cosplayViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        final CosplayAdapter cosplayAdapter = new CosplayAdapter(requireContext());
+        RecyclerView recyclerView = root.findViewById(R.id.recyclerViewCosplay);
+        recyclerView.setAdapter(cosplayAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        ItemTouchHelper helper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, 0) {
             @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
 
             }
         });
-
+        helper.attachToRecyclerView(recyclerView);
+        cosplayViewModel = new ViewModelProvider(this).get(CosplayViewModel.class);
+        cosplayViewModel.getAllConventions().observe(getViewLifecycleOwner(), new Observer<List<Cosplay>>() {
+            @Override
+            public void onChanged(List<Cosplay> cosplays) {
+                cosplayAdapter.setCosplays(cosplays);
+            }
+        });
         mfabAddCosplay = root.findViewById(R.id.fabAddCosplay);
         mfabAddCosplay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -169,6 +193,19 @@ public class CosplayFragment extends Fragment {
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(Intent.createChooser(intent, getString(R.string.txt_chooseImg_intent)), GALLERY_REQUEST_CODE);
 
+            }
+        });
+        mAddNewCosplay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Cosplay temp = new Cosplay();
+                temp.mCosplayName=mCosplayName.getText().toString();
+                temp.mCosplayStartDate=mCosplayStartDate.getText().toString();
+                temp.mCosplayEndDate=mCosplayEndDate.getText().toString();
+                temp.mCosplayBudget= Double.parseDouble(mCosplayBudget.getText().toString());
+                temp.mCosplayIMG=((BitmapDrawable)mCosplayImage.getDrawable()).getBitmap();
+                cosplayViewModel.insert(temp);
+                dialog.dismiss();
             }
         });
 

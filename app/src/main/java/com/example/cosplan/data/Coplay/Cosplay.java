@@ -31,7 +31,7 @@ public class Cosplay {
     public double mCosplayBudget;
     @NonNull
     @ColumnInfo(typeAffinity = ColumnInfo.BLOB,name = "CosplayIMG")
-    public Bitmap mCosplayIMG;
+    public Bitmap  mCosplayIMG;
 
     public String getCosplayName(){return this.mCosplayName;}
     public String getCosplayStartDate(){return this.mCosplayStartDate;}

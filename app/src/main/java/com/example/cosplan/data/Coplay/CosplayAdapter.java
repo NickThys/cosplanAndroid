@@ -3,6 +3,7 @@ package com.example.cosplan.data.Coplay;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.media.Image;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,19 +28,22 @@ public class CosplayAdapter extends RecyclerView.Adapter<CosplayAdapter.CosplayV
         View itemView=mInflater.inflate(R.layout.cosplay_normalview,parent,false);
         return new CosplayViewHolder(itemView);
     }
-
+    public void setCosplays(List<Cosplay> cosplays){
+        mCosplays=cosplays;
+        notifyDataSetChanged();
+    }
     @Override
     public void onBindViewHolder(@NonNull CosplayViewHolder holder, int position) {
         final Cosplay current=mCosplays.get(position);
         String tempName=current.mCosplayName;
         String tempEndDate=current.mCosplayEndDate;
         String tempPercentage="%";
-        Bitmap tempBitmap=current.mCosplayIMG;
+        Bitmap bitmap=current.mCosplayIMG;
 
         holder.CosplayName.setText(tempName);
         holder.CosplayEndDate.setText(tempEndDate);
         holder.CosplayPercentage.setText(tempPercentage);
-        holder.CosplayImg.setImageBitmap(tempBitmap);
+        holder.CosplayImg.setImageBitmap(bitmap);
 
     }
 
