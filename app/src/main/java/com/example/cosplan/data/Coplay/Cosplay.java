@@ -2,14 +2,12 @@ package com.example.cosplan.data.Coplay;
 
 
 import android.graphics.Bitmap;
-import android.net.Uri;
+
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-
-import java.sql.Blob;
 
 
 @Entity(tableName = "cosplay_table")
@@ -30,12 +28,26 @@ public class Cosplay {
     @ColumnInfo(name = "CosplayBudget")
     public double mCosplayBudget;
     @NonNull
-    @ColumnInfo(typeAffinity = ColumnInfo.BLOB,name = "CosplayIMG")
-    public Bitmap  mCosplayIMG;
+    @ColumnInfo(typeAffinity = ColumnInfo.BLOB, name = "CosplayIMG")
+    public Bitmap mCosplayIMG;
 
-    public String getCosplayName(){return this.mCosplayName;}
-    public String getCosplayStartDate(){return this.mCosplayStartDate;}
-    public String getCosplayEndDate(){return this.mCosplayEndDate;}
-    public double getCosplayBudget(){return this.mCosplayBudget;}
-    public Bitmap getCosplayIMG(){return this.mCosplayIMG;}
+    public String getCosplayName() {
+        return this.mCosplayName;
+    }
+
+    public String getCosplayStartDate() {
+        return this.mCosplayStartDate;
+    }
+
+    public String getCosplayEndDate() {
+        return this.mCosplayEndDate;
+    }
+
+    public double getCosplayBudget() {
+        return this.mCosplayBudget;
+    }
+
+    public Bitmap getCosplayIMG() {
+        return this.mCosplayIMG;
+    }
 }
