@@ -27,6 +27,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -64,6 +65,7 @@ public class CosplayFragment extends Fragment {
         final CosplayAdapter cosplayAdapter = new CosplayAdapter(requireContext());
         RecyclerView recyclerView = root.findViewById(R.id.recyclerViewCosplay);
         recyclerView.setAdapter(cosplayAdapter);
+        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL));
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         ItemTouchHelper helper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, 0) {
             @Override
@@ -76,6 +78,7 @@ public class CosplayFragment extends Fragment {
 
             }
         });
+
         helper.attachToRecyclerView(recyclerView);
         cosplayViewModel = new ViewModelProvider(this).get(CosplayViewModel.class);
         cosplayViewModel.getAllConventions().observe(getViewLifecycleOwner(), new Observer<List<Cosplay>>() {
@@ -84,6 +87,7 @@ public class CosplayFragment extends Fragment {
                 cosplayAdapter.setCosplays(cosplays);
             }
         });
+        //Add the FAB to go to the add cosplay popup
         mfabAddCosplay = root.findViewById(R.id.fabAddCosplay);
         mfabAddCosplay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,14 +111,15 @@ public class CosplayFragment extends Fragment {
         mChoosePicture = cosplayPopUpView.findViewById(R.id.btnChooseCosplayImg);
         mCancel = cosplayPopUpView.findViewById(R.id.buttonCancel);
         mAddNewCosplay = cosplayPopUpView.findViewById(R.id.buttonAddCosplay);
-
         dialogBuilder.setView(cosplayPopUpView);
         dialog = dialogBuilder.create();
         dialog.show();
+
+        //create dateSelector and add the selected date to the Edit text
         mCosplayStartDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus){
+               if (hasFocus){
                     InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
                     int year;
@@ -148,6 +153,8 @@ public class CosplayFragment extends Fragment {
                 mCosplayStartDate.setText(dayOfMonth + "/" + month + "/" + year);
             }
         };
+
+        //create dateSelector and add the selected date to the Edit text
         mCosplayEndDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -176,7 +183,6 @@ public class CosplayFragment extends Fragment {
                 }
             }
         });
-
         mEndDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -184,12 +190,16 @@ public class CosplayFragment extends Fragment {
                 mCosplayEndDate.setText(dayOfMonth + "/" + month + "/" + year);
             }
         };
+
+        //Cancel. dismiss the popup
         mCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
             }
         });
+
+        //Choose the picture from the gallery
         mChoosePicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -200,6 +210,8 @@ public class CosplayFragment extends Fragment {
 
             }
         });
+
+        //Add Copslay to the database
         mAddNewCosplay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
