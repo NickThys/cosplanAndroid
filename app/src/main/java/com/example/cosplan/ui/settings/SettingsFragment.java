@@ -60,36 +60,6 @@ public class SettingsFragment extends Fragment {
             }
         });
 
-        // creating the the settings for switching between normal & compact mode
-        sharedPreferences=getContext().getSharedPreferences("compact",0);
-        boolean CompactModeEnabled=sharedPreferences.getBoolean("compact_mode",false);
-        final CosplayFragment temp= new CosplayFragment();
-        if (CompactModeEnabled){
-
-            temp.setIsCompactModeEnabled(CompactModeEnabled);
-            enableCompactMode.setChecked(true);
-        }
-        enableCompactMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
-                    temp.setIsCompactModeEnabled(true);
-                    enableCompactMode.setChecked(true);
-                    SharedPreferences.Editor editor=sharedPreferences.edit();
-                    editor.putBoolean("compact_mode",true);
-                    getActivity().recreate();
-                    editor.apply();
-                }
-                else {
-                    temp.setIsCompactModeEnabled(false);
-                    enableCompactMode.setChecked(false);
-                    SharedPreferences.Editor editor=sharedPreferences.edit();
-                    editor.putBoolean("compact_mode",false);
-                    getActivity().recreate();
-                    editor.apply();
-                }
-            }
-        });
 
         return root;
     }

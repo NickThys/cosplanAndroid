@@ -17,7 +17,7 @@ public class CosplayRepository {
  }
  LiveData<List<Cosplay>> getAllCosplays(){return mAllCosplays;}
  public void insert(Cosplay cosplay){new insertAsyncTask(mCosplayDao).execute(cosplay);}
-
+ public void delete(Cosplay cosplay){new deleteAsyncTask(mCosplayDao).execute(cosplay);}
     private class insertAsyncTask extends AsyncTask<Cosplay,Void,Void> {
         private CosplayDao mAsyncTaskDao;
         public insertAsyncTask(CosplayDao mCosplayDao) {mAsyncTaskDao=mCosplayDao;}
@@ -30,4 +30,14 @@ public class CosplayRepository {
     }
 
 
+    private class deleteAsyncTask extends AsyncTask<Cosplay,Void,Void>{
+     private CosplayDao mAsyncTaskDao;
+        public deleteAsyncTask(CosplayDao mCosplayDao) {mAsyncTaskDao=mCosplayDao;}
+
+        @Override
+        protected Void doInBackground(Cosplay... cosplays) {
+            mAsyncTaskDao.deleteCosplay(cosplays[0]);
+            return null;
+        }
+    }
 }
