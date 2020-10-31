@@ -18,27 +18,32 @@ import com.example.cosplan.R;
 import java.util.List;
 
 public class CosplayAdapter extends RecyclerView.Adapter<CosplayAdapter.CosplayViewHolder> {
-    private List<Cosplay>mCosplays;
+    private List<Cosplay> mCosplays;
     private final LayoutInflater mInflater;
-    public CosplayAdapter(Context context){mInflater=LayoutInflater.from(context);}
+
+    public CosplayAdapter(Context context) {
+        mInflater = LayoutInflater.from(context);
+    }
 
     @NonNull
     @Override
     public CosplayViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView=mInflater.inflate(R.layout.cosplay_normalview,parent,false);
+        View itemView = mInflater.inflate(R.layout.cosplay_normalview, parent, false);
         return new CosplayViewHolder(itemView);
     }
-    public void setCosplays(List<Cosplay> cosplays){
-        mCosplays=cosplays;
+
+    public void setCosplays(List<Cosplay> cosplays) {
+        mCosplays = cosplays;
         notifyDataSetChanged();
     }
+
     @Override
     public void onBindViewHolder(@NonNull CosplayViewHolder holder, int position) {
-        final Cosplay current=mCosplays.get(position);
-        String tempName=current.mCosplayName;
-        String tempEndDate=current.mCosplayEndDate;
-        String tempPercentage="%";
-        Bitmap bitmap=current.mCosplayIMG;
+        final Cosplay current = mCosplays.get(position);
+        String tempName = current.mCosplayName;
+        String tempEndDate = current.mCosplayEndDate;
+        String tempPercentage = "% Complete";
+        Bitmap bitmap = current.mCosplayIMG;
 
         holder.CosplayName.setText(tempName);
         holder.CosplayEndDate.setText(tempEndDate);
@@ -64,10 +69,10 @@ public class CosplayAdapter extends RecyclerView.Adapter<CosplayAdapter.CosplayV
 
         public CosplayViewHolder(@NonNull View itemView) {
             super(itemView);
-            CosplayName=itemView.findViewById(R.id.txtCosplayName);
-            CosplayEndDate=itemView.findViewById(R.id.txtEndDate);
-            CosplayPercentage=itemView.findViewById(R.id.txtPercentage);
-            CosplayImg=itemView.findViewById(R.id.cosplayImgView);
+            CosplayName = itemView.findViewById(R.id.txtCosplayName);
+            CosplayEndDate = itemView.findViewById(R.id.txtEndDate);
+            CosplayPercentage = itemView.findViewById(R.id.txtPercentage);
+            CosplayImg = itemView.findViewById(R.id.cosplayImgView);
         }
     }
 }
