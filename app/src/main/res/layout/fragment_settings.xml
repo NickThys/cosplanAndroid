@@ -7,14 +7,9 @@
     tools:context=".ui.settings.SettingsFragment">
 
     <TextView
+        style="@style/txtViews_Settings"
         android:id="@+id/text_settings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="24dp"
-        android:text="Dark Mode"
-        android:textSize="20sp"
+        android:text="@string/txt_dark_mode"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -28,5 +23,22 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />
+
+    <TextView
+        android:id="@+id/txt_CompactView"
+        style="@style/txtViews_Settings"
+        android:text="@string/txt_compact_mode"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_settings" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/EnableCompactMode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/EnableDarkMode"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
