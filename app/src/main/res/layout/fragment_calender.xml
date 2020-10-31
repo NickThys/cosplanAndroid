@@ -6,6 +6,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+<<<<<<< HEAD
+=======
+<<<<<<< Updated upstream
+    android:layout_height="match_parent"
+    tools:context=".ui.calender.CalenderFragment">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="1dp"
+        android:layout_marginLeft="1dp"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
+=======
+>>>>>>> COS-53-ConventionCalender
     android:layout_height="wrap_content"
         android:orientation="vertical">
 
@@ -15,6 +30,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.5" />
+<<<<<<< HEAD
         <TextView
             android:id="@+id/ConventionLabelBelgium"
             android:layout_width="match_parent"
@@ -24,22 +40,43 @@
             app:fontFamily="sans-serif-black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+=======
+
+        <TextView
+            android:id="@+id/ConventionLabelBelgium"
+            style="@style/Titles"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/Laber_Belgium"
+            app:fontFamily="sans-serif-black"
+            app:layout_constraintStart_toStartOf="parent" />
+>>>>>>> COS-53-ConventionCalender
 
         <androidx.recyclerview.widget.RecyclerView
 
             android:id="@+id/recyclerViewBelgium"
+<<<<<<< HEAD
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constrainedHeight="true"
             app:layout_constraintVertical_bias="1.0"
             app:layout_constraintBottom_toTopOf="@+id/HalfScreenGuideline"
             app:layout_constraintEnd_toEndOf="parent"
+=======
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constrainedHeight="true"
+            app:layout_constraintBottom_toTopOf="@+id/ConventoinLabelNetherland"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+>>>>>>> COS-53-ConventionCalender
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ConventionLabelBelgium" />
 
         <TextView
 
             android:id="@+id/ConventoinLabelNetherland"
+<<<<<<< HEAD
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/Label_Netherland"
@@ -47,18 +84,36 @@
             app:fontFamily="sans-serif-black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/HalfScreenGuideline"/>
+=======
+            style="@style/Titles"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/Label_Netherland"
+            app:fontFamily="sans-serif-black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/HalfScreenGuideline" />
+>>>>>>> COS-53-ConventionCalender
 
         <androidx.recyclerview.widget.RecyclerView
 
             android:id="@+id/recyclerViewNetherland"
             android:layout_width="match_parent"
+<<<<<<< HEAD
              android:layout_height="wrap_content"
             app:layout_constrainedHeight="true"
             app:layout_constraintVertical_bias="1.0"
             android:layout_marginTop="4dp"
             app:layout_constraintBottom_toBottomOf="parent"
+=======
+            android:layout_height="wrap_content"
+            app:layout_constrainedHeight="true"
+>>>>>>> COS-53-ConventionCalender
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ConventoinLabelNetherland" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+<<<<<<< HEAD
+=======
+>>>>>>> Stashed changes
+>>>>>>> COS-53-ConventionCalender
