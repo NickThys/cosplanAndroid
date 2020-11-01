@@ -75,4 +75,7 @@ public class CosplayAdapter extends RecyclerView.Adapter<CosplayAdapter.CosplayV
             CosplayImg = itemView.findViewById(R.id.cosplayImgView);
         }
     }
+    public Cosplay getCosplayAtPosition(int position){
+        return mCosplays.get(position);
+    }
 }

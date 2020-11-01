@@ -19,4 +19,5 @@ public class CosplayViewModel extends AndroidViewModel {
     }
     public LiveData<List<Cosplay>>getAllConventions(){return mAllConventions;}
     public void insert(Cosplay cosplay){mRepository.insert(cosplay);}
+    public void delete(Cosplay cosplay){mRepository.delete(cosplay);}
 }

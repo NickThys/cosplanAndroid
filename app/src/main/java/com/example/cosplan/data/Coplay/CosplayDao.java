@@ -3,6 +3,7 @@ package com.example.cosplan.data.Coplay;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
@@ -18,5 +19,7 @@ public interface CosplayDao {
 
     @Query("SELECT * FROM cosplay_table LIMIT 1")
     Cosplay[] getAnyCosplay();
+    @Delete
+    void deleteCosplay(Cosplay cosplay);
 
 }
