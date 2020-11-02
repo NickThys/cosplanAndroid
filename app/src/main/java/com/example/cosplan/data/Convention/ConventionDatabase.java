@@ -35,35 +35,16 @@ abstract class ConventionDatabase extends RoomDatabase {
     private static class PopulateDb extends AsyncTask<Void,Void,Void>{
         private final ConventionDao mdao;
         PopulateDb(ConventionDatabase db){mdao= db.conventionDao();}
-<<<<<<< HEAD
-        String []ConNamesBel={"Comic Con Brussels","Facts Spring","Made in Asia"};
-        String []ConCountry={"Belgium","Netherland"};
-        String []ConStartDateBel={"13/02/2021","3/04/2021","12/03/2021"};
-        String []ConEndDateBel={"14/02/2021","4/04/2021","14/03/2021"};
-        String []ConPlaceBel={"Tour & Taxis","Flanders Expo","Brussels Expo"};
-=======
-<<<<<<< Updated upstream
-        String []ConNamesBel={"Comic Con Brussels","Facts Spring"};
-        String []ConCountry={"Belgium","Netherland"};
-        String []ConStartDateBel={"13/02/2021","3/04/2021"};
-        String []ConEndDateBel={"14/02/2021","4/04/2021"};
-        String []ConPlaceBel={"Tour & Taxis","Flanders Expo"};
-=======
         String []ConNamesBel={"Comic Con Brussels","Facts Spring","Made in Asia","Comic Con Antwerp","Elftopia"};
         String []ConCountry={"Belgium","Netherland"};
         String []ConStartDateBel={"13/02/2021","3/04/2021","12/03/2021","05/05/2021","08/08/2021"};
         String []ConEndDateBel={"14/02/2021","4/04/2021","14/03/2021","06/05/2021","09/08/2021"};
         String []ConPlaceBel={"Tour & Taxis","Flanders Expo","Brussels Expo","Waagnatie","kasteel Ooidonk"};
->>>>>>> COS-53-ConventionCalender
 
         String []ConNamesNl={"Comic Con Ahoy","Dutch Comic Con","Magical Castle Event","Comic Con Amsterdam"};
         String []ConStartDateNl={"27/02/2021","27/03/2021","29/50/2021","28/08/2021"};
         String []ConEndDateNl={"28/02/2021","28/03/2021","30/05/2021","29/08/2021"};
         String []ConPlaceNl={"Ahoy rotterdam","Jaarbeurs Utrecht","Park Spelderholt","RAI Amsterdam"};
-<<<<<<< HEAD
-=======
->>>>>>> Stashed changes
->>>>>>> COS-53-ConventionCalender
 
         @Override
         protected Void doInBackground(Void... voids) {
