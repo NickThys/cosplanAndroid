@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -37,6 +38,7 @@ public class CalenderFragment extends Fragment {
         //RecyclerView Belgium
         RecyclerView recyclerViewBelgium=root.findViewById(R.id.recyclerViewBelgium);
         recyclerViewBelgium.setAdapter(conventionAdapterBelgium);
+        recyclerViewBelgium.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL));
         recyclerViewBelgium.setLayoutManager(new LinearLayoutManager(requireContext()));
         ItemTouchHelper helperBelgium=new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,0) {
             @Override
@@ -60,6 +62,8 @@ public class CalenderFragment extends Fragment {
         //RecyclerView Netherland
         RecyclerView recyclerViewNetherland=root.findViewById(R.id.recyclerViewNetherland);
         recyclerViewNetherland.setAdapter(conventionAdapterNetherland);
+        recyclerViewNetherland.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL));
+
         recyclerViewNetherland.setLayoutManager(new LinearLayoutManager(requireContext()));
         ItemTouchHelper helperNetherland=new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,0) {
             @Override
