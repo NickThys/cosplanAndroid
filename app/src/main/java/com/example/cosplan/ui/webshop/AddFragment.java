@@ -25,7 +25,7 @@ public class AddFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        final View view =inflater.inflate(R.layout.fragment_add, container, false);
+        final View view =inflater.inflate(R.layout.fragment_add_webshop, container, false);
         mWebshopViewModel= new ViewModelProvider(this).get(WebshopViewModel.class);
         Button btnAdd=view.findViewById(R.id.btn_addToDb);
         final EditText mName= view.findViewById(R.id.WebsiteName);

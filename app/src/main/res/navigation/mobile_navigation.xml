@@ -38,7 +38,7 @@
         android:id="@+id/addFragment"
         android:name="com.example.cosplan.ui.webshop.AddFragment"
         android:label="fragment_add"
-        tools:layout="@layout/fragment_add" >
+        tools:layout="@layout/fragment_add_webshop" >
         <action
             android:id="@+id/action_addFragment_to_nav_webshop"
             app:destination="@id/nav_webshop" />
