@@ -8,13 +8,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.calender.CalenderFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="1dp"
-        android:layout_marginLeft="1dp" />
-
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/HalfScreenGuideline"
@@ -29,21 +22,24 @@
         style="@style/Titles"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
         android:text="@string/Laber_Belgium"
         app:fontFamily="sans-serif-black"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewBelgium"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="6dp"
         app:layout_constrainedHeight="true"
         app:layout_constraintBottom_toTopOf="@+id/HalfScreenGuideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
 
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ConventionLabelBelgium"
         app:layout_constraintVertical_bias="1.0" />
 
@@ -54,6 +50,7 @@
         style="@style/Titles"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
         android:text="@string/Label_Netherland"
         app:fontFamily="sans-serif-black"
         app:layout_constraintStart_toStartOf="parent"
@@ -64,10 +61,12 @@
         android:id="@+id/recyclerViewNetherland"
         android:layout_width="match_parent"
 
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="6dp"
         app:layout_constrainedHeight="true"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ConventoinLabelNetherland"
         app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
