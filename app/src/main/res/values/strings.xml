@@ -39,4 +39,5 @@
     <string name="txt_compact_mode">Compact mode</string>
     <string name="txt_cancelDeleteCOsplay">No</string>
     <string name="txt_deleteCosplay">Yes</string>
+    <string name="ConformationDeleteCosplay">Are you sure you want to delete</string>
 </resources>

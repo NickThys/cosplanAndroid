@@ -20,6 +20,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -77,7 +78,7 @@ public class CosplayFragment extends Fragment {
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 int position=viewHolder.getAdapterPosition();
                 Cosplay myCosplay=cosplayAdapter.getCosplayAtPosition(position);
-                cosplayViewModel.delete(myCosplay);
+                DeleteCosplayDialog(myCosplay);
             }
         });
 
@@ -100,7 +101,34 @@ public class CosplayFragment extends Fragment {
 
         return root;
     }
+    public void DeleteCosplayDialog(final Cosplay cosplay){
+        dialogBuilder=new AlertDialog.Builder(requireContext());
+        final View deleteCosplayView=getLayoutInflater().inflate(R.layout.delete_cosplay,null);
+        TextView mDeleteText=deleteCosplayView.findViewById(R.id.text_deleteCosplay);
+        mDeleteText.setText(getString(R.string.ConformationDeleteCosplay)+cosplay.mCosplayName);
+        Button yes,no;
+        no=deleteCosplayView.findViewById(R.id.btnCancelDeleteCosplay);
+        yes=deleteCosplayView.findViewById(R.id.btnDeleteCosplay);
+        dialogBuilder.setView(deleteCosplayView);
+        dialog=dialogBuilder.create();
+        dialog.show();
+        yes.setOnClickListener(new View.OnClickListener()        {
+            @Override
+            public void onClick(View v) {
+               cosplayViewModel.delete(cosplay);
+                Toast.makeText(requireContext(), cosplay.mCosplayName+ " deleted",Toast.LENGTH_SHORT).show();
 
+                dialog.dismiss();
+            }
+        });
+        no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                getActivity().recreate();
+            }
+        });
+    }
 
     public void createNewCosplayDialog() {
         dialogBuilder = new AlertDialog.Builder(requireContext());
@@ -229,6 +257,8 @@ public class CosplayFragment extends Fragment {
         });
 
     }
+
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
