@@ -37,7 +37,7 @@ public class WebshopAdapter extends RecyclerView.Adapter<WebshopAdapter.WebshopV
 
     @Override
     public WebshopViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = mInflater.inflate(R.layout.custum_row, parent, false);
+        View itemView = mInflater.inflate(R.layout.custum_webshop_row, parent, false);
         return new WebshopViewHolder(itemView);
     }
 
