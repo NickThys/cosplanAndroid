@@ -37,4 +37,7 @@
     <string name="txt_chooseImg_intent">Choose an image</string>
     <string name="txt_dark_mode">Dark Mode</string>
     <string name="txt_compact_mode">Compact mode</string>
+    <string name="txt_cancelDeleteCOsplay">No</string>
+    <string name="txt_deleteCosplay">Yes</string>
+    <string name="ConformationDeleteCosplay">Are you sure you want to delete</string>
 </resources>
