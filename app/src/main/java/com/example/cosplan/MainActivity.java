@@ -40,7 +40,9 @@ public class MainActivity extends AppCompatActivity {
         boolean booleanValue=sharedPreferences.getBoolean("night_mode",true);
         if (booleanValue){
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-
+        }
+        else{
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
