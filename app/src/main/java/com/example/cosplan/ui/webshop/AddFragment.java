@@ -49,7 +49,7 @@ public class AddFragment extends Fragment {
         String name=mName.getText().toString();
         String link= mLink.getText().toString();
         if (inputCheck(name,link)){
-            Webshop webshop=new Webshop(name,link);
+            Webshop webshop=new Webshop(0,name,link);
             mWebshopViewModel.insert(webshop);
             Toast.makeText(requireContext(), R.string.ToastSuccessNewWebshop,Toast.LENGTH_SHORT).show();
             Navigation.findNavController(view).navigate(R.id.action_addFragment_to_nav_webshop);

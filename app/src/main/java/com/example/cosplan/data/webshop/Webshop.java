@@ -10,32 +10,33 @@ import androidx.room.PrimaryKey;
 import androidx.versionedparcelable.VersionedParcelize;
 
 
-@Entity(tableName="webshop_table")
+@Entity(tableName = "webshop_table")
 public class Webshop implements Parcelable {
-@PrimaryKey
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id")
+    public int mId;
+
     @NonNull
-    @ColumnInfo(name="Name")
+    @ColumnInfo(name = "Name")
     public String mSiteName;
     @NonNull
     @ColumnInfo(name = "Link")
     public String mSiteLink;
-    public Webshop(){}
-    public Webshop(@NonNull String name,@NonNull String link){this.mSiteLink=link;this.mSiteName=name;}
+
+    public Webshop() {
+    }
+
+    public Webshop(@NonNull int Id,@NonNull String name, @NonNull String link) {
+        this.mId=Id;
+        this.mSiteLink = link;
+        this.mSiteName = name;
+    }
+
 
     protected Webshop(Parcel in) {
+        mId = in.readInt();
         mSiteName = in.readString();
         mSiteLink = in.readString();
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(mSiteName);
-        dest.writeString(mSiteLink);
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
     }
 
     public static final Creator<Webshop> CREATOR = new Creator<Webshop>() {
@@ -50,8 +51,24 @@ public class Webshop implements Parcelable {
         }
     };
 
-    public String getWebsiteLink(){return this.mSiteLink;}
-    public String getWebsiteName(){return this.mSiteName;}
+    public String getWebsiteLink() {
+        return this.mSiteLink;
+    }
+
+    public String getWebsiteName() {
+        return this.mSiteName;
+    }
 
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(mId);
+        dest.writeString(mSiteName);
+        dest.writeString(mSiteLink);
+    }
 }
