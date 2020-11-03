@@ -52,7 +52,7 @@
     </fragment>
     <fragment
         android:id="@+id/updateFragment"
-        android:name="com.example.cosplan.ui.webshop.updateFragment"
+        android:name="com.example.cosplan.ui.webshop.UpdateFragment"
         android:label="update"
         tools:layout="@layout/fragment_update" >
         <action

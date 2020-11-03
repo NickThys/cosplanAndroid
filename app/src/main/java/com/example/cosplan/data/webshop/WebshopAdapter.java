@@ -2,15 +2,18 @@ package com.example.cosplan.data.webshop;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cosplan.R;
+import com.example.cosplan.ui.webshop.UpdateFragment;
 
 
 import java.util.List;
@@ -65,6 +68,17 @@ public class WebshopAdapter extends RecyclerView.Adapter<WebshopAdapter.WebshopV
         holder.textviewLink.setText(tempLink);
 
         holder.WebsiteName.setText(tempName);
+        View itemView = holder.itemView;
+        itemView.findViewById(R.id.rowLayout);
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(this, UpdateFragment.class);
+
+                Navigation.findNavController(v).navigate(R.id.action_nav_webshop_to_updateFragment);
+
+            }
+        });
 
     }
     public Webshop getWebshopAtPosition(int position){

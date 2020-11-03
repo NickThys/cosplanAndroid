@@ -2,6 +2,8 @@ package com.example.cosplan.ui.webshop;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -14,11 +16,11 @@ import com.example.cosplan.R;
 import com.example.cosplan.data.webshop.WebshopViewModel;
 
 
-public class updateFragment extends Fragment {
+public class UpdateFragment extends Fragment {
 
     private WebshopViewModel mWebshopViewModel ;
 
-    public updateFragment() {
+    public UpdateFragment() {
         // Required empty public constructor
     }
 
@@ -45,4 +47,6 @@ public class updateFragment extends Fragment {
 
     public void DeleteUser(View view) {
     }
+
+
 }
