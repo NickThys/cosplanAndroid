@@ -5,6 +5,7 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.example.cosplan.data.Convention.Convention;
 
@@ -17,7 +18,8 @@ public interface WebshopDao {
 
     @Delete
     void deleteWebshop(Webshop webshop);
-
+    @Update
+    void updateWebshop(Webshop webshop);
     @Query("SELECT * FROM webshop_table ORDER BY name ASC")
     LiveData<List<Webshop>> getAllWebshops();
     @Query("SELECT * FROM webshop_table LIMIT 1")
