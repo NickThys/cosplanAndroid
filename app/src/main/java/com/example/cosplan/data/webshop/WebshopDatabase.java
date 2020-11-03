@@ -40,6 +40,7 @@ abstract class WebshopDatabase extends RoomDatabase {
             if (mdao.getAnyWebshop().length<1){
                 for (int i=0;i<WebshopName.length;i++){
                     Webshop temp=new Webshop();
+                    temp.mId=0;
                     temp.mSiteName=WebshopName[i];
                     temp.mSiteLink=WebshopLink[i];
                     mdao.insert(temp);

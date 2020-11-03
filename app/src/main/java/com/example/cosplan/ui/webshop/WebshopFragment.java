@@ -41,6 +41,7 @@ public class WebshopFragment extends Fragment {
         recyclerView.setAdapter(webshopAdapter);
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL));
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        //Delete webshop
         ItemTouchHelper helper = new ItemTouchHelper(
                 new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
                     @Override
@@ -66,8 +67,8 @@ public class WebshopFragment extends Fragment {
             }
         });
 
+        //add new webshop
         FloatingActionButton fab = root.findViewById(R.id.floatingActionButton);
-
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,6 +76,7 @@ public class WebshopFragment extends Fragment {
                 Navigation.findNavController(root).navigate(R.id.action_nav_webshop_to_addFragment);
             }
         });
+
         return root;
     }
 
