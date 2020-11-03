@@ -27,4 +27,5 @@ public class WebshopViewModel extends AndroidViewModel {
         mRepository.insert(webshop);
     }
     public void delete(Webshop webshop){mRepository.delete(webshop);}
+    public void update(Webshop webshop){mRepository.update(webshop);}
 }
