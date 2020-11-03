@@ -11,8 +11,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.cosplan.R;
+import com.example.cosplan.data.webshop.Webshop;
 import com.example.cosplan.data.webshop.WebshopViewModel;
 
 
@@ -33,13 +35,15 @@ public class UpdateFragment extends Fragment {
 
         View view=inflater.inflate(R.layout.fragment_update, container, false);
         mWebshopViewModel= new ViewModelProvider(this).get(WebshopViewModel.class);
-
-
+        Webshop temp=UpdateFragmentArgs.fromBundle(getArguments()).getCurrentWebshop();
+        TextView mName,mLink;
+        mName=view.findViewById(R.id.UpdateWebsiteName);
+        mLink=view.findViewById(R.id.UpdateWebsiteLink);
+        mName.setText(temp.mSiteName);
+        mLink.setText(temp.mSiteLink);
         return view;
     }
 
-    public void DeleteUser(View view) {
-    }
 
 
 }
