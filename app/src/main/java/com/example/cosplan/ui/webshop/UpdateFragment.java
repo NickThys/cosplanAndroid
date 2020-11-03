@@ -33,14 +33,7 @@ public class UpdateFragment extends Fragment {
 
         View view=inflater.inflate(R.layout.fragment_update, container, false);
         mWebshopViewModel= new ViewModelProvider(this).get(WebshopViewModel.class);
-        Button btnDelete=view.findViewById(R.id.btn_DeleteFromDb);
-        btnDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                DeleteUser(v);
-            }
-        });
 
         return view;
     }

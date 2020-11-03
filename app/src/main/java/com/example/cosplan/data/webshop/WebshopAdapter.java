@@ -9,11 +9,15 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.NotificationCompat;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cosplan.R;
 import com.example.cosplan.ui.webshop.UpdateFragment;
+import com.example.cosplan.ui.webshop.WebshopFragment;
+import com.example.cosplan.ui.webshop.WebshopFragmentDirections;
 
 
 import java.util.List;
@@ -73,10 +77,8 @@ public class WebshopAdapter extends RecyclerView.Adapter<WebshopAdapter.WebshopV
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(this, UpdateFragment.class);
-
-                Navigation.findNavController(v).navigate(R.id.action_nav_webshop_to_updateFragment);
-
+                WebshopFragmentDirections.ActionNavWebshopToUpdateFragment action=WebshopFragmentDirections.actionNavWebshopToUpdateFragment(current);
+                Navigation.findNavController(v).navigate(action);
             }
         });
 
