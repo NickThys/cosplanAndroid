@@ -18,7 +18,7 @@ public class WebshopRepository{
     LiveData<List<Webshop>> getAllWebshops(){return mAllWebshops;}
     public void insert(Webshop webshop){new insertAsyncTask(mWebshopDao).execute(webshop);}
     public void delete(Webshop webshop){new deleteWebshopAsyncTask(mWebshopDao).execute(webshop);}
-
+    public void update(Webshop webshop){new updateWebshopAsyncTask(mWebshopDao).execute(webshop);}
     private class insertAsyncTask extends AsyncTask<Webshop,Void,Void>{
         private WebshopDao mAsyncTaskDao;
         insertAsyncTask(WebshopDao dao){mAsyncTaskDao=dao;}
@@ -36,6 +36,15 @@ public class WebshopRepository{
         @Override
         protected Void doInBackground(Webshop... params) {
             mAsyncTaskDao.deleteWebshop(params[0]);
+            return null;
+        }
+    }
+    private static class updateWebshopAsyncTask extends AsyncTask<Webshop,Void,Void>{
+        private WebshopDao mAsyncTaskDao;
+        updateWebshopAsyncTask(WebshopDao dao){mAsyncTaskDao=dao;}
+        @Override
+        protected Void doInBackground(Webshop... webshops) {
+            mAsyncTaskDao.updateWebshop(webshops[0]);
             return null;
         }
     }

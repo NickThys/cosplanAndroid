@@ -52,11 +52,14 @@
     </fragment>
     <fragment
         android:id="@+id/updateFragment"
-        android:name="com.example.cosplan.ui.webshop.updateFragment"
+        android:name="com.example.cosplan.ui.webshop.UpdateFragment"
         android:label="update"
         tools:layout="@layout/fragment_update" >
         <action
             android:id="@+id/action_updateFragment_to_nav_webshop"
             app:destination="@id/nav_webshop" />
+        <argument
+            android:name="currentWebshop"
+            app:argType="com.example.cosplan.data.webshop.Webshop" />
     </fragment>
 </navigation>
