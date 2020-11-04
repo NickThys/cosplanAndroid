@@ -9,7 +9,11 @@
         android:id="@+id/nav_home"
         android:name="com.example.cosplan.ui.home.CosplayFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_cosplay" />
+        tools:layout="@layout/fragment_cosplay" >
+        <action
+            android:id="@+id/action_nav_home_to_cosplay_screen"
+            app:destination="@id/cosplay_screen" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_calender"
@@ -61,5 +65,17 @@
         <argument
             android:name="currentWebshop"
             app:argType="com.example.cosplan.data.webshop.Webshop" />
+    </fragment>
+    <fragment
+        android:id="@+id/cosplay_screen"
+        android:name="com.example.cosplan.cosplay_screen"
+        android:label="fragment_cosplay_screen"
+        tools:layout="@layout/fragment_cosplay_screen" >
+        <action
+            android:id="@+id/action_cosplay_screen_to_nav_home"
+            app:destination="@id/nav_home" />
+        <argument
+            android:name="current_cosplay"
+            app:argType="com.example.cosplan.data.Coplay.Cosplay" />
     </fragment>
 </navigation>
