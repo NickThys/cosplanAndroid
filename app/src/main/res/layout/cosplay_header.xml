@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".">
+    tools:context=".CosplayMain">
 
     <ImageView
         android:id="@+id/CosScreenImg"
@@ -16,6 +16,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_cosplan_logo"
+        android:background="@android:color/white"
         android:contentDescription="Img of the cosplay" />
 
     <TextView
