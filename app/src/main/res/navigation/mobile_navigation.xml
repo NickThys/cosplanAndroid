@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_cosplay" >
         <action
             android:id="@+id/action_nav_home_to_cosplay_screen"
-            app:destination="@id/cosplay_screen" />
+            app:destination="@id/cosplayScreen" />
     </fragment>
 
     <fragment
@@ -67,10 +67,10 @@
             app:argType="com.example.cosplan.data.webshop.Webshop" />
     </fragment>
     <fragment
-        android:id="@+id/cosplay_screen"
-        android:name="com.example.cosplan.cosplay_screen"
-        android:label="fragment_cosplay_screen"
-        tools:layout="@layout/fragment_cosplay_screen" >
+        android:id="@+id/cosplayScreen"
+        android:name="com.example.cosplan.cosplayScreen"
+        android:label="fragment_cosplayScreen"
+        tools:layout="@layout/fragment_cosplay_screen">
         <action
             android:id="@+id/action_cosplay_screen_to_nav_home"
             app:destination="@id/nav_home" />
