@@ -68,7 +68,7 @@
     </fragment>
     <fragment
         android:id="@+id/cosplayScreen"
-        android:name="com.example.cosplan.cosplayScreen"
+        android:name="com.example.cosplan.ui.cosplay_screen.cosplayScreen"
         android:label="fragment_cosplayScreen"
         tools:layout="@layout/fragment_cosplay_screen">
         <action
