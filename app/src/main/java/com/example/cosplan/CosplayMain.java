@@ -1,4 +1,7 @@
 package com.example.cosplan;
 
-public class CosplayMain {
+import androidx.appcompat.app.AppCompatActivity;
+
+public class CosplayMain extends AppCompatActivity {
+
 }
