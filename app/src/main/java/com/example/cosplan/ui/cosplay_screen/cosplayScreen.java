@@ -212,6 +212,11 @@ public class cosplayScreen extends Fragment {
 
                 cosplayViewModel.update(CosUP);
                 dialog.dismiss();
+                mName.setText(CosUP.mCosplayName);
+                mEndDate.setText(CosUP.mCosplayEndDate);
+                mBudget.setText(Double.toString(CosUP.mCosplayBudget));
+                mImage.setImageBitmap(CosUP.mCosplayIMG);
+                mPercentage.setText("% complete");
 
             }
         });
@@ -226,7 +231,8 @@ public class cosplayScreen extends Fragment {
                 return;
             } else {
                 Uri imageData = data.getData();
-                mImage.setImageURI(imageData);
+
+                mCosplayImage.setImageURI(imageData);
             }
         }
     }
