@@ -8,22 +8,37 @@ import androidx.lifecycle.LiveData;
 import java.util.List;
 
 public class CosplayRepository {
- private CosplayDao mCosplayDao;
- private LiveData<List<Cosplay>>mAllCosplays;
- CosplayRepository(Application application){
-     CosplayDatabase db=CosplayDatabase.getDatabase(application);
-     mCosplayDao=db.cosplayDao();
-     mAllCosplays=mCosplayDao.getAllCosplays();
- }
- LiveData<List<Cosplay>> getAllCosplays(){return mAllCosplays;}
+    private CosplayDao mCosplayDao;
+    private LiveData<List<Cosplay>> mAllCosplays;
 
- public void insert(Cosplay cosplay){new insertAsyncTask(mCosplayDao).execute(cosplay);}
- public void delete(Cosplay cosplay){new deleteAsyncTask(mCosplayDao).execute(cosplay);}
-public void update(Cosplay cosplay){new updateAsyncTask(mCosplayDao).execute(cosplay);}
+    CosplayRepository(Application application) {
+        CosplayDatabase db = CosplayDatabase.getDatabase(application);
+        mCosplayDao = db.cosplayDao();
+        mAllCosplays = mCosplayDao.getAllCosplays();
+    }
 
-    private class insertAsyncTask extends AsyncTask<Cosplay,Void,Void> {
+    LiveData<List<Cosplay>> getAllCosplays() {
+        return mAllCosplays;
+    }
+
+    public void insert(Cosplay cosplay) {
+        new insertAsyncTask(mCosplayDao).execute(cosplay);
+    }
+
+    public void delete(Cosplay cosplay) {
+        new deleteAsyncTask(mCosplayDao).execute(cosplay);
+    }
+
+    public void update(Cosplay cosplay) {
+        new updateAsyncTask(mCosplayDao).execute(cosplay);
+    }
+
+    private class insertAsyncTask extends AsyncTask<Cosplay, Void, Void> {
         private CosplayDao mAsyncTaskDao;
-        public insertAsyncTask(CosplayDao mCosplayDao) {mAsyncTaskDao=mCosplayDao;}
+
+        public insertAsyncTask(CosplayDao mCosplayDao) {
+            mAsyncTaskDao = mCosplayDao;
+        }
 
         @Override
         protected Void doInBackground(Cosplay... cosplays) {
@@ -33,9 +48,12 @@ public void update(Cosplay cosplay){new updateAsyncTask(mCosplayDao).execute(cos
     }
 
 
-    private class deleteAsyncTask extends AsyncTask<Cosplay,Void,Void>{
-     private CosplayDao mAsyncTaskDao;
-        public deleteAsyncTask(CosplayDao mCosplayDao) {mAsyncTaskDao=mCosplayDao;}
+    private class deleteAsyncTask extends AsyncTask<Cosplay, Void, Void> {
+        private CosplayDao mAsyncTaskDao;
+
+        public deleteAsyncTask(CosplayDao mCosplayDao) {
+            mAsyncTaskDao = mCosplayDao;
+        }
 
         @Override
         protected Void doInBackground(Cosplay... cosplays) {
@@ -43,9 +61,14 @@ public void update(Cosplay cosplay){new updateAsyncTask(mCosplayDao).execute(cos
             return null;
         }
     }
-    private class updateAsyncTask extends AsyncTask<Cosplay,Void,Void>{
+
+    private class updateAsyncTask extends AsyncTask<Cosplay, Void, Void> {
         private CosplayDao mAsyncDao;
-        public updateAsyncTask(CosplayDao dao){mAsyncDao=dao;}
+
+        public updateAsyncTask(CosplayDao dao) {
+            mAsyncDao = dao;
+        }
+
         @Override
         protected Void doInBackground(Cosplay... cosplays) {
             mAsyncDao.updateCosplay(cosplays[0]);
