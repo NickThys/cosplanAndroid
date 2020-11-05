@@ -41,15 +41,14 @@ public class SettingsFragment extends Fragment {
         if (NightmodeEnabled) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
             enableDarkMode.setChecked(true);
-        }
-        else{
+        } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
         }
         enableDarkMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
+                if (isChecked) {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                     enableDarkMode.setChecked(true);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -57,8 +56,7 @@ public class SettingsFragment extends Fragment {
                     editor.apply();
                     getActivity().recreate();
 
-                }
-                else {
+                } else {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                     enableDarkMode.setChecked(false);
                     SharedPreferences.Editor editor = sharedPreferences.edit();

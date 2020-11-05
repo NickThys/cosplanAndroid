@@ -11,9 +11,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cosplan.R;
+import com.example.cosplan.ui.home.CosplayFragment;
+import com.example.cosplan.ui.home.CosplayFragmentDirections;
 
 import java.util.List;
 
@@ -50,6 +53,15 @@ public class CosplayAdapter extends RecyclerView.Adapter<CosplayAdapter.CosplayV
         holder.CosplayPercentage.setText(tempPercentage);
         holder.CosplayImg.setImageBitmap(bitmap);
 
+        View itemView=holder.itemView;
+        itemView.findViewById(R.id.cosplayrowLayout);
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CosplayFragmentDirections.ActionNavHomeToCosplayScreen action=CosplayFragmentDirections.actionNavHomeToCosplayScreen(current);
+                Navigation.findNavController(v).navigate(action);
+            }
+        });
     }
 
     @Override
