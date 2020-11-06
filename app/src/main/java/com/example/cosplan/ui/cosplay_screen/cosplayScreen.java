@@ -58,7 +58,8 @@ public class cosplayScreen extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v=inflater.inflate(R.layout.cosplay_header, container, false);
+        View v=inflater.inflate(R.layout.fragment_cosplay_screen, container, false);
+
         cosplayViewModel=new ViewModelProvider(this).get(CosplayViewModel.class);
         final Cosplay tempCosplay= cosplayScreenArgs.fromBundle(getArguments()).getCurrentCosplay();
         cosplayAdapter=new CosplayAdapter(requireContext());
