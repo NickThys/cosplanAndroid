@@ -99,7 +99,7 @@ public class cosplayScreen extends Fragment {
         dialogBuilder.setView(cosplayPopUpView);
 
         mUpdateCosplays.setText("Update Cosplay");
-
+        mChoosePicture.setEnabled(false);
         mCosplayName.setText(cosplay.mCosplayName);
         mCosplayStartDate.setText(cosplay.mCosplayStartDate);
         mCosplayEndDate.setText(cosplay.mCosplayEndDate);
@@ -194,6 +194,8 @@ public class cosplayScreen extends Fragment {
         });
 
         //Choose the picture from the gallery
+        /*
+        todo: fix this bug cardNr= COS-69
         mChoosePicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -204,7 +206,7 @@ public class cosplayScreen extends Fragment {
 
             }
         });
-
+*/
         //Add Copslay to the database
         mUpdateCosplays.setOnClickListener(new View.OnClickListener() {
             @Override
