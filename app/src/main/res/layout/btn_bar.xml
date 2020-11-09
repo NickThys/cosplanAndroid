@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ContentCosplay"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+ <!--Grey deviders between the buttons -->
+ <View
+     android:id="@+id/div1"
+     android:layout_width="1dp"
+     android:layout_height="0dp"
+     android:background="@android:color/darker_gray"
+     app:layout_constraintBottom_toTopOf="@+id/div5"
+     app:layout_constraintEnd_toStartOf="@+id/guideLine1_2"
+     app:layout_constraintTop_toTopOf="@+id/div2" />
+
+ <View
+     android:id="@+id/div2"
+     android:layout_width="1dp"
+     android:layout_height="0dp"
+     android:background="@android:color/darker_gray"
+     app:layout_constraintBottom_toTopOf="@+id/div5"
+     app:layout_constraintEnd_toStartOf="@+id/guideLine1_"
+     app:layout_constraintStart_toStartOf="@+id/guideLine1_"
+     app:layout_constraintTop_toTopOf="parent" />
+
+ <View
+     android:id="@+id/div3"
+     android:layout_width="1dp"
+     android:layout_height="0dp"
+     android:background="@android:color/darker_gray"
+     app:layout_constraintBottom_toTopOf="@+id/div5"
+     app:layout_constraintEnd_toStartOf="@+id/guideLine3_"
+     app:layout_constraintStart_toStartOf="@+id/guideLine3_"
+     app:layout_constraintTop_toTopOf="parent" />
+
+ <View
+     android:id="@+id/div4"
+     android:layout_width="411dp"
+     android:layout_height="1dp"
+     android:background="@android:color/darker_gray"
+     app:layout_constraintBottom_toBottomOf="@+id/div2"
+     app:layout_constraintEnd_toEndOf="parent"
+     app:layout_constraintTop_toTopOf="parent" />
+
+ <View
+     android:id="@+id/div5"
+     android:layout_width="411dp"
+     android:layout_height="1dp"
+     android:background="@android:color/darker_gray"
+     app:layout_constraintEnd_toEndOf="parent"
+     app:layout_constraintStart_toStartOf="parent"
+     app:layout_constraintTop_toBottomOf="@+id/btn_cosplayEvents"
+     tools:layout_editor_absoluteY="111dp" />
+
+ <View
+     android:id="@+id/div6"
+     android:layout_width="411dp"
+     android:layout_height="1dp"
+     android:background="@android:color/darker_gray"
+     app:layout_constraintEnd_toEndOf="parent"
+     app:layout_constraintStart_toStartOf="parent"
+     app:layout_constraintTop_toTopOf="parent" />
+
+ <Button
+     android:id="@+id/btn_cosplayparts"
+     style="?android:attr/borderlessButtonStyle"
+     android:layout_width="103dp"
+     android:layout_height="54dp"
+     android:minHeight="0dp"
+     android:text="@string/btnText_cosplay_parts"
+     app:layout_constraintBottom_toBottomOf="@+id/div4"
+     app:layout_constraintEnd_toStartOf="@+id/guideLine1_2"
+     app:layout_constraintStart_toStartOf="parent"
+     app:layout_constraintTop_toTopOf="parent" />
+
+ <Button
+     android:id="@+id/btn_cosplayNotes"
+     style="?android:attr/borderlessButtonStyle"
+     android:layout_width="103dp"
+     android:layout_height="53dp"
+     android:minHeight="0dp"
+     android:text="@string/btnText_notes"
+     app:layout_constraintBottom_toTopOf="@+id/div4"
+     app:layout_constraintEnd_toStartOf="@+id/guideLine1_"
+     app:layout_constraintStart_toStartOf="@+id/guideLine1_2"
+     app:layout_constraintTop_toTopOf="parent" />
+
+ <Button
+     android:id="@+id/btn_cosplayReferencePic"
+     style="?android:attr/borderlessButtonStyle"
+     android:layout_width="103dp"
+     android:layout_height="54dp"
+     android:minHeight="0dp"
+     android:text="@string/btnText_reference_pictures"
+     app:layout_constraintBottom_toTopOf="@+id/div4"
+     app:layout_constraintEnd_toStartOf="@+id/guideLine3_"
+     app:layout_constraintStart_toStartOf="@+id/guideLine1_"
+     app:layout_constraintTop_toTopOf="parent" />
+
+ <Button
+     android:id="@+id/btn_cosplayWIPImage"
+     style="?android:attr/borderlessButtonStyle"
+     android:layout_width="103dp"
+     android:layout_height="wrap_content"
+     android:minHeight="0dp"
+     android:text="@string/btnText_wip_pictures"
+     app:layout_constraintBottom_toTopOf="@+id/div4"
+     app:layout_constraintEnd_toEndOf="parent"
+     app:layout_constraintStart_toStartOf="@+id/guideLine3_"
+     app:layout_constraintTop_toTopOf="parent" />
+
+ <Button
+     android:id="@+id/btn_cosplayChecklist"
+     style="?android:attr/borderlessButtonStyle"
+     android:layout_width="103dp"
+     android:layout_height="0dp"
+     android:minHeight="0dp"
+     android:text="@string/btnText_checklist"
+     app:layout_constraintBottom_toTopOf="@+id/div5"
+     app:layout_constraintEnd_toStartOf="@+id/guideLine1_2"
+     app:layout_constraintStart_toStartOf="parent"
+     app:layout_constraintTop_toBottomOf="@+id/div4" />
+
+ <Button
+     android:id="@+id/btn_cosplayShoppinnglist"
+     style="?android:attr/borderlessButtonStyle"
+     android:layout_width="103dp"
+     android:layout_height="wrap_content"
+     android:minHeight="0dp"
+     android:text="@string/btnText_shopping_list"
+     app:layout_constraintBottom_toTopOf="@+id/div5"
+     app:layout_constraintEnd_toStartOf="@+id/guideLine1_"
+     app:layout_constraintStart_toStartOf="@+id/guideLine1_2"
+     app:layout_constraintTop_toBottomOf="@+id/div4" />
+
+ <Button
+     android:id="@+id/btn_cosplayWebshops"
+     style="?android:attr/borderlessButtonStyle"
+     android:layout_width="103dp"
+     android:layout_height="0dp"
+     android:minHeight="0dp"
+     android:text="@string/btnText_webshops"
+     app:layout_constraintBottom_toTopOf="@+id/div5"
+     app:layout_constraintEnd_toStartOf="@+id/guideLine3_"
+     app:layout_constraintStart_toStartOf="@+id/guideLine1_"
+     app:layout_constraintTop_toBottomOf="@+id/div4" />
+
+ <Button
+     android:id="@+id/btn_cosplayEvents"
+     style="?android:attr/borderlessButtonStyle"
+     android:layout_width="103dp"
+     android:layout_height="0dp"
+     android:minHeight="0dp"
+     android:text="@string/btnText_events"
+     app:layout_constraintBottom_toTopOf="@+id/div5"
+     app:layout_constraintEnd_toEndOf="parent"
+     app:layout_constraintStart_toStartOf="@+id/guideLine3_"
+     app:layout_constraintTop_toBottomOf="@+id/div4" />
+
+ <!-- guidelines that devide te screen in 4 parts.
+        Those are used to give the buttons the same width-->
+ <androidx.constraintlayout.widget.Guideline
+     android:id="@+id/guideLine3_"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:orientation="vertical"
+     app:layout_constraintGuide_percent="0.75" />
+
+ <androidx.constraintlayout.widget.Guideline
+     android:id="@+id/guideLine1_"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:orientation="vertical"
+     app:layout_constraintGuide_percent="0.50121653" />
+
+ <androidx.constraintlayout.widget.Guideline
+     android:id="@+id/guideLine1_2"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:orientation="vertical"
+     app:layout_constraintGuide_percent="0.25" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
