@@ -26,6 +26,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.cosplan.R;
@@ -48,14 +49,14 @@ public class cosplayScreen extends Fragment {
     private EditText mCosplayName, mCosplayStartDate, mCosplayEndDate, mCosplayBudget;
 
     private ImageView mCosplayImage;
-    private Button mChoosePicture, mCancel, mUpdateCosplays;
+    private Button mChoosePicture, mCancel, mUpdateCosplays,mCosplayParts,mCosplayNotes,  mCosplayRefPic,mCosplayWIPPic,mCosplayChecklist ,    mCosplayShoppinglist,    mCosplayWebshop,    mCosplayEvents;
 
     private DatePickerDialog.OnDateSetListener mStartDateSetListener;
     private DatePickerDialog.OnDateSetListener mEndDateSetListener;
     public static final int GALLERY_REQUEST_CODE = 1;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_cosplay_screen, container, false);
@@ -91,7 +92,15 @@ public class cosplayScreen extends Fragment {
                 UpdateCosplayDialog(tempCosplay);
             }
         });
-
+        mCosplayNotes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RelativeLayout Rlayout=v.findViewById(R.id.ContentCosplay);
+                View layout=inflater.inflate(R.layout.fragment_cosplay_notes,null);
+                Rlayout.removeAllViewsInLayout();
+                Rlayout.addView(layout);
+            }
+        });
         return v;
     }
     public void UpdateCosplayDialog(final Cosplay cosplay){

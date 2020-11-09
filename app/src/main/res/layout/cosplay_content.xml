@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/ContentCosplay">
 
    <!--Grey deviders between the buttons -->
     <View
@@ -180,13 +181,13 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.25" />
 
-    <include
-        android:id="@+id/include2"
-        layout="@layout/fragment_cosplay_parts"
-        android:layout_width="411dp"
-        android:layout_height="513dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/div5" />
+ <include
+     android:id="@+id/include2"
+     layout="@layout/fragment_cosplay_parts"
+     android:layout_width="0dp"
+     android:layout_height="513dp"
+     app:layout_constraintEnd_toEndOf="parent"
+     app:layout_constraintStart_toStartOf="parent"
+     app:layout_constraintTop_toBottomOf="@+id/div5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
