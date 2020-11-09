@@ -65,6 +65,7 @@ public class cosplayScreen extends Fragment {
         cosplayViewModel = new ViewModelProvider(this).get(CosplayViewModel.class);
         final Cosplay tempCosplay = cosplayScreenArgs.fromBundle(getArguments()).getCurrentCosplay();
         final ViewGroup fl=v.findViewById(R.id.FrameLayout);
+        //Initial view for the framelayout
         fl.addView(getLayoutInflater().inflate(R.layout.fragment_cosplay_parts,null));
         cosplayAdapter = new CosplayAdapter(requireContext());
 
@@ -96,12 +97,23 @@ public class cosplayScreen extends Fragment {
                 UpdateCosplayDialog(tempCosplay);
             }
         });
+
+        mCosplayParts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fl.removeAllViews();
+                View view=getLayoutInflater().inflate(R.layout.fragment_cosplay_parts,null);
+                fl.addView(view);
+            }
+        });
+
         mCosplayNotes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 fl.removeAllViews();
                 View view=getLayoutInflater().inflate(R.layout.fragment_cosplay_notes,null);
                 fl.addView(view);
+
             }
         });
         return v;
