@@ -8,12 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class cosplay_parts extends Fragment {
+public class cosplay_notes extends Fragment {
 
-
-
-
-    @Override
+       @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -23,6 +20,6 @@ public class cosplay_parts extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_cosplay_parts, container, false);
+        return inflater.inflate(R.layout.fragment_cosplay_notes, container, false);
     }
 }
