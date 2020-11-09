@@ -64,7 +64,10 @@ public class cosplayScreen extends Fragment {
 
         cosplayViewModel = new ViewModelProvider(this).get(CosplayViewModel.class);
         final Cosplay tempCosplay = cosplayScreenArgs.fromBundle(getArguments()).getCurrentCosplay();
+        final ViewGroup fl=v.findViewById(R.id.FrameLayout);
+        fl.addView(getLayoutInflater().inflate(R.layout.fragment_cosplay_parts,null));
         cosplayAdapter = new CosplayAdapter(requireContext());
+
 
         mName = v.findViewById(R.id.CosScreenName);
         mEndDate = v.findViewById(R.id.CosScreenEndDate);
