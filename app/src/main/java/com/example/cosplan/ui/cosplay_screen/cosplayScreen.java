@@ -58,17 +58,26 @@ public class cosplayScreen extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v=inflater.inflate(R.layout.fragment_cosplay_screen, container, false);
+        View v = inflater.inflate(R.layout.fragment_cosplay_screen, container, false);
 
-        cosplayViewModel=new ViewModelProvider(this).get(CosplayViewModel.class);
-        final Cosplay tempCosplay= cosplayScreenArgs.fromBundle(getArguments()).getCurrentCosplay();
-        cosplayAdapter=new CosplayAdapter(requireContext());
-        mName=v.findViewById(R.id.CosScreenName);
-        mEndDate=v.findViewById(R.id.CosScreenEndDate);
-        mPercentage=v.findViewById(R.id.CosScreenPercentage);
-        mBudget=v.findViewById(R.id.CosScreenBudget);
-        mImage=v.findViewById(R.id.CosScreenImg);
-        mUpdateCosplay=v.findViewById(R.id.CosScreenUpdate);
+        cosplayViewModel = new ViewModelProvider(this).get(CosplayViewModel.class);
+        final Cosplay tempCosplay = cosplayScreenArgs.fromBundle(getArguments()).getCurrentCosplay();
+        cosplayAdapter = new CosplayAdapter(requireContext());
+
+        mName = v.findViewById(R.id.CosScreenName);
+        mEndDate = v.findViewById(R.id.CosScreenEndDate);
+        mPercentage = v.findViewById(R.id.CosScreenPercentage);
+        mBudget = v.findViewById(R.id.CosScreenBudget);
+        mImage = v.findViewById(R.id.CosScreenImg);
+        mUpdateCosplay = v.findViewById(R.id.CosScreenUpdate);
+        mCosplayParts = v.findViewById(R.id.btn_cosplayparts);
+        mCosplayNotes = v.findViewById(R.id.btn_cosplayNotes);
+        mCosplayRefPic = v.findViewById(R.id.btn_cosplayReferencePic);
+        mCosplayWIPPic = v.findViewById(R.id.btn_cosplayWIPImage);
+        mCosplayChecklist = v.findViewById(R.id.btn_cosplayChecklist);
+        mCosplayShoppinglist = v.findViewById(R.id.btn_cosplayShoppinnglist);
+        mCosplayWebshop = v.findViewById(R.id.btn_cosplayWebshops);
+        mCosplayEvents = v.findViewById(R.id.btn_cosplayEvents);
 
         mName.setText(tempCosplay.mCosplayName);
         mEndDate.setText(tempCosplay.mCosplayEndDate);
