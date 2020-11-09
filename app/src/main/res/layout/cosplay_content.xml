@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+   <!--Grey deviders between the buttons -->
     <View
         android:id="@+id/div1"
         android:layout_width="1dp"
@@ -66,7 +67,7 @@
         android:layout_width="103dp"
         android:layout_height="54dp"
         android:minHeight="0dp"
-        android:text="Cosplay parts"
+        android:text="@string/btnText_cosplay_parts"
         app:layout_constraintBottom_toBottomOf="@+id/div4"
         app:layout_constraintEnd_toStartOf="@+id/guideLine1_2"
         app:layout_constraintStart_toStartOf="parent"
@@ -78,7 +79,7 @@
         android:layout_width="103dp"
         android:layout_height="53dp"
         android:minHeight="0dp"
-        android:text="Notes"
+        android:text="@string/btnText_notes"
         app:layout_constraintBottom_toTopOf="@+id/div4"
         app:layout_constraintEnd_toStartOf="@+id/guideLine1_"
         app:layout_constraintStart_toStartOf="@+id/guideLine1_2"
@@ -90,7 +91,7 @@
         android:layout_width="103dp"
         android:layout_height="54dp"
         android:minHeight="0dp"
-        android:text="Reference pictures"
+        android:text="@string/btnText_reference_pictures"
         app:layout_constraintBottom_toTopOf="@+id/div4"
         app:layout_constraintEnd_toStartOf="@+id/guideLine3_"
         app:layout_constraintStart_toStartOf="@+id/guideLine1_"
@@ -102,7 +103,7 @@
         android:layout_width="103dp"
         android:layout_height="wrap_content"
         android:minHeight="0dp"
-        android:text="WIP pictures"
+        android:text="@string/btnText_wip_pictures"
         app:layout_constraintBottom_toTopOf="@+id/div4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideLine3_"
@@ -114,7 +115,7 @@
         android:layout_width="103dp"
         android:layout_height="0dp"
         android:minHeight="0dp"
-        android:text="Checklist"
+        android:text="@string/btnText_checklist"
         app:layout_constraintBottom_toTopOf="@+id/div5"
         app:layout_constraintEnd_toStartOf="@+id/guideLine1_2"
         app:layout_constraintStart_toStartOf="parent"
@@ -126,7 +127,7 @@
         android:layout_width="103dp"
         android:layout_height="wrap_content"
         android:minHeight="0dp"
-        android:text="shopping list"
+        android:text="@string/btnText_shopping_list"
         app:layout_constraintBottom_toTopOf="@+id/div5"
         app:layout_constraintEnd_toStartOf="@+id/guideLine1_"
         app:layout_constraintStart_toStartOf="@+id/guideLine1_2"
@@ -138,7 +139,7 @@
         android:layout_width="103dp"
         android:layout_height="0dp"
         android:minHeight="0dp"
-        android:text="Webshops"
+        android:text="@string/btnText_webshops"
         app:layout_constraintBottom_toTopOf="@+id/include2"
         app:layout_constraintEnd_toStartOf="@+id/guideLine3_"
         app:layout_constraintStart_toStartOf="@+id/guideLine1_"
@@ -150,12 +151,14 @@
         android:layout_width="103dp"
         android:layout_height="0dp"
         android:minHeight="0dp"
-        android:text="Events"
+        android:text="@string/btnText_events"
         app:layout_constraintBottom_toTopOf="@+id/div5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideLine3_"
         app:layout_constraintTop_toBottomOf="@+id/div4" />
 
+    <!-- guidelines that devide te screen in 4 parts.
+        Those are used to give the buttons the same width-->
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideLine3_"
         android:layout_width="wrap_content"
