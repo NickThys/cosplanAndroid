@@ -13,6 +13,7 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
@@ -95,10 +96,9 @@ public class cosplayScreen extends Fragment {
         mCosplayNotes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RelativeLayout Rlayout=v.findViewById(R.id.ContentCosplay);
-                View layout=inflater.inflate(R.layout.fragment_cosplay_notes,null);
-                Rlayout.removeAllViewsInLayout();
-                Rlayout.addView(layout);
+                fl.removeAllViews();
+                View view=getLayoutInflater().inflate(R.layout.fragment_cosplay_notes,null);
+                fl.addView(view);
             }
         });
         return v;
