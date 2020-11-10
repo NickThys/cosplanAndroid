@@ -35,6 +35,14 @@ public class Part {
     public String mCosplayPartEndDate;
     @ColumnInfo(typeAffinity = ColumnInfo.BLOB,name = "CosplayPartImage")
     public Bitmap mCosplayPartImg;
-    // TODO: 10/11/2020 Define the constructors 
+    public Part(@NonNull int partId,@NonNull String partName,String partMakeBuy,String partLink,double partCost,String partEndDate,Bitmap partImage){
+        mCosplayId=partId;
+        mCosplayPartName=partName;
+        mCosplayPartBuyMake=partMakeBuy;
+        mCosplayPartLink=partLink;
+        mCosplayPartCost=partCost;
+        mCosplayPartEndDate=partEndDate;
+        mCosplayPartImg=partImage;
+    }
 
 }
