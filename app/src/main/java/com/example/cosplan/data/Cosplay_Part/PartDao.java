@@ -5,7 +5,11 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Relation;
+import androidx.room.Transaction;
 import androidx.room.Update;
+
+import com.example.cosplan.data.Coplay.Cosplay;
 
 import java.util.List;
 
@@ -24,4 +28,5 @@ public interface PartDao {
 
     @Update
     void update(Part part);
+
 }

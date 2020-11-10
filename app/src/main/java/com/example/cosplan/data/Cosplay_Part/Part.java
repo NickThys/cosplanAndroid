@@ -16,7 +16,7 @@ import com.example.cosplan.data.Coplay.Cosplay;
         childColumns = "CosplayId"))
 public class Part {
     @ColumnInfo(name = "CosplayId")
-    private int mCosplayId;
+    public int mCosplayId;
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "CosplayPartId")
@@ -35,6 +35,8 @@ public class Part {
     public String mCosplayPartEndDate;
     @ColumnInfo(typeAffinity = ColumnInfo.BLOB,name = "CosplayPartImage")
     public Bitmap mCosplayPartImg;
+
+    public Part(){}
     public Part(@NonNull int partId,@NonNull String partName,String partMakeBuy,String partLink,double partCost,String partEndDate,Bitmap partImage){
         mCosplayId=partId;
         mCosplayPartName=partName;
