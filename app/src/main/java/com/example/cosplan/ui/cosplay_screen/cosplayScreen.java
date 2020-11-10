@@ -156,6 +156,14 @@ public class cosplayScreen extends Fragment {
                 fl.addView(view);
             }
         });
+        mCosplayEvents.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fl.removeAllViews();
+                View view=getLayoutInflater().inflate(R.layout.fragment_copslay_events,null);
+                fl.addView(view);
+            }
+        });
         return v;
     }
     public void UpdateCosplayDialog(final Cosplay cosplay){
