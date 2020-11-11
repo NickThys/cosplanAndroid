@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/img_PartImage"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginLeft="26dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_cosplan_logo" />
+
+    <TextView
+        android:id="@+id/txt_PartName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
+        android:text="PartName"
+        app:layout_constraintStart_toEndOf="@+id/img_PartImage"
+        app:layout_constraintTop_toTopOf="@+id/img_PartImage" />
+
+    <TextView
+        android:id="@+id/txt_PartCost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="PartCost"
+        app:layout_constraintBottom_toBottomOf="@+id/img_PartImage"
+        app:layout_constraintStart_toStartOf="@+id/txt_PartName" />
+
+    <TextView
+        android:id="@+id/txt_PartStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginLeft="48dp"
+        android:text="PartStatus"
+        app:layout_constraintBaseline_toBaselineOf="@+id/txt_PartName"
+        app:layout_constraintStart_toEndOf="@+id/txt_PartName" />
+
+    <TextView
+        android:id="@+id/txt_PartEnddate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PartEndDate"
+        app:layout_constraintBaseline_toBaselineOf="@+id/txt_PartCost"
+        app:layout_constraintStart_toStartOf="@+id/txt_PartStatus" />
+</androidx.constraintlayout.widget.ConstraintLayout>
