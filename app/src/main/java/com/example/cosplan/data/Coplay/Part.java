@@ -1,9 +1,10 @@
-package com.example.cosplan.data.Cosplay_Part;
+package com.example.cosplan.data.Coplay;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
@@ -39,8 +40,9 @@ public class Part {
     public Bitmap mCosplayPartImg;
 
     public Part(){}
-    public Part(@NonNull int partId,@NonNull String partName,String partMakeBuy,String partLink,double partCost,String partStatus,String partEndDate,Bitmap partImage){
-        mCosplayId=partId;
+    public Part(@NonNull int cosplayId, @NonNull int partId, @NonNull String partName, String partMakeBuy, String partLink, double partCost, String partStatus, String partEndDate, Bitmap partImage){
+        mCosplayId=cosplayId;
+        mCosplayPartId=partId;
         mCosplayPartName=partName;
         mCosplayPartBuyMake=partMakeBuy;
         mCosplayPartLink=partLink;

@@ -1,15 +1,11 @@
-package com.example.cosplan.data.Cosplay_Part;
+package com.example.cosplan.data.Coplay;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
-import androidx.room.Relation;
-import androidx.room.Transaction;
 import androidx.room.Update;
-
-import com.example.cosplan.data.Coplay.Cosplay;
 
 import java.util.List;
 

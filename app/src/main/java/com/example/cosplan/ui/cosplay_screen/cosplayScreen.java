@@ -39,9 +39,9 @@ import com.example.cosplan.R;
 import com.example.cosplan.data.Coplay.Cosplay;
 import com.example.cosplan.data.Coplay.CosplayAdapter;
 import com.example.cosplan.data.Coplay.CosplayViewModel;
-import com.example.cosplan.data.Cosplay_Part.Part;
-import com.example.cosplan.data.Cosplay_Part.PartAdapter;
-import com.example.cosplan.data.Cosplay_Part.PartViewModel;
+import com.example.cosplan.data.Coplay.Part;
+import com.example.cosplan.data.Coplay.PartAdapter;
+import com.example.cosplan.data.Coplay.PartViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Calendar;
@@ -404,6 +404,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             @Override
             public void onClick(View v) {
                 Part temp=new Part();
+                temp.mCosplayId=cosplay.mCosplayId;
                 temp.mCosplayPartId=0;
                 temp.mCosplayPartName=mPartName.getText().toString();
                 temp.mCosplayPartBuyMake=mPartmakeBuy.getSelectedItem().toString();

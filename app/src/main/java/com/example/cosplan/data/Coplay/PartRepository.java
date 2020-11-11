@@ -1,4 +1,4 @@
-package com.example.cosplan.data.Cosplay_Part;
+package com.example.cosplan.data.Coplay;
 
 import android.app.Application;
 import android.os.AsyncTask;
@@ -12,7 +12,7 @@ public class PartRepository {
     private LiveData<List<Part>>mAllPartsToMake;
     private LiveData<List<Part>>mAllPartsToBuy;
     PartRepository(Application application){
-        PartDatabase db=PartDatabase.getDatabase(application);
+        CosplayDatabase db= CosplayDatabase.getDatabase(application);
         mPartDao=db.partDao();
 
         mAllPartsToMake=mPartDao.getPartsToMake();

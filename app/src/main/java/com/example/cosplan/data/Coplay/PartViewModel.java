@@ -1,4 +1,4 @@
-package com.example.cosplan.data.Cosplay_Part;
+package com.example.cosplan.data.Coplay;
 
 import android.app.Application;
 
