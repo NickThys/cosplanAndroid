@@ -90,13 +90,14 @@
 
     <ImageView
         android:id="@+id/imgView_PartImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="@+id/btn_Part_ChooseImg"
         app:layout_constraintStart_toStartOf="@+id/btn_Part_ChooseImg"
         app:layout_constraintTop_toBottomOf="@+id/btn_Part_ChooseImg"
-        app:srcCompat="@drawable/ic_cosplan_logo" />
+        app:srcCompat="@drawable/ic_cosplan_logo"
+        tools:srcCompat="@tools:sample/backgrounds/scenic[5]" />
 
     <Button
         android:id="@+id/btn_PartAddPart"
