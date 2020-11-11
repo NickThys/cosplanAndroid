@@ -106,64 +106,7 @@ public class cosplayScreen extends Fragment {
                 fl.addView(view);
             }
         });
-
-        mCosplayNotes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                fl.removeAllViews();
-                View view=getLayoutInflater().inflate(R.layout.fragment_cosplay_notes,null);
-                fl.addView(view);
-
-            }
-        });
-        mCosplayRefPic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                fl.removeAllViews();
-                View view=getLayoutInflater().inflate(R.layout.fragment_cosplay_reference_img,null);
-                fl.addView(view);
-            }
-        });
-        mCosplayWIPPic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                fl.removeAllViews();
-                View view=getLayoutInflater().inflate(R.layout.fragment_cosplay_wip_img,null);
-                fl.addView(view);
-            }
-        });
-        mCosplayChecklist.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                fl.removeAllViews();
-                View view=getLayoutInflater().inflate(R.layout.fragment_cosplay_checklist,null);
-                fl.addView(view);
-            }
-        });
-        mCosplayShoppinglist.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                fl.removeAllViews();
-                View view=getLayoutInflater().inflate(R.layout.fragment_cosplay_shoppinglist,null);
-                fl.addView(view);
-            }
-        });
-        mCosplayWebshop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                fl.removeAllViews();
-                View view=getLayoutInflater().inflate(R.layout.fragment_cosplay_webshops,null);
-                fl.addView(view);
-            }
-        });
-        mCosplayEvents.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                fl.removeAllViews();
-                View view=getLayoutInflater().inflate(R.layout.fragment_copslay_events,null);
-                fl.addView(view);
-            }
-        });
+        
         return v;
     }
     public void UpdateCosplayDialog(final Cosplay cosplay){
