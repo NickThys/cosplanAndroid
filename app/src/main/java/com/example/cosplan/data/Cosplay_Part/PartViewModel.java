@@ -19,6 +19,6 @@ LiveData<List<Part>>mAllPartsToBuy;
         mAllPartsToBuy=mRepository.getAllPartsToBuy();
     }
     public LiveData<List<Part>>getAllPartsToMake(){return mAllPartsToMake;}
-    public LiveData<List<Part>>getAllPartsToBoy(){return mAllPartsToBuy;}
+    public LiveData<List<Part>> getAllPartsToBuy(){return mAllPartsToBuy;}
     public void insert(Part part){mRepository.insert(part);}
 }
