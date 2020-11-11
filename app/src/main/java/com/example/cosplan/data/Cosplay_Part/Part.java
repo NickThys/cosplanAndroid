@@ -31,18 +31,21 @@ public class Part {
     public String mCosplayPartLink;
     @ColumnInfo(name = "CosplayPartCost")
     public double mCosplayPartCost;
+    @ColumnInfo(name = "CosplayPartStatus")
+    public String mCosplayPartStatus;
     @ColumnInfo(name = "CosplayPartEndDate")
     public String mCosplayPartEndDate;
     @ColumnInfo(typeAffinity = ColumnInfo.BLOB,name = "CosplayPartImage")
     public Bitmap mCosplayPartImg;
 
     public Part(){}
-    public Part(@NonNull int partId,@NonNull String partName,String partMakeBuy,String partLink,double partCost,String partEndDate,Bitmap partImage){
+    public Part(@NonNull int partId,@NonNull String partName,String partMakeBuy,String partLink,double partCost,String partStatus,String partEndDate,Bitmap partImage){
         mCosplayId=partId;
         mCosplayPartName=partName;
         mCosplayPartBuyMake=partMakeBuy;
         mCosplayPartLink=partLink;
         mCosplayPartCost=partCost;
+        mCosplayPartStatus=partStatus;
         mCosplayPartEndDate=partEndDate;
         mCosplayPartImg=partImage;
     }
