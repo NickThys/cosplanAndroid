@@ -8,7 +8,7 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
 @TypeConverters(Converters.class)
-@Database(entities = Cosplay.class,version = 1,exportSchema = false)
+@Database(entities = Cosplay.class,version = 2,exportSchema = false)
 abstract class CosplayDatabase extends RoomDatabase {
     public abstract CosplayDao cosplayDao();
     private static CosplayDatabase INSTANCE;

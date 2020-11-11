@@ -18,15 +18,19 @@ public interface PartDao {
     @Insert
     void insert(Part part);
 
-    @Query("SELECT * FROM CosplayPart_table WHERE CosplayPartBuyMake='Make'")
+    @Query("SELECT * FROM CosplayPart_table WHERE CosplayPartBuyMake='Make' ")
     LiveData<List<Part>> getPartsToMake();
-    @Query("SELECT * FROM CosplayPart_table WHERE CosplayPartBuyMake='Buy'")
+    @Query("SELECT * FROM CosplayPart_table WHERE CosplayPartBuyMake='Buy' ")
     LiveData<List<Part>> getPartsToBuy();
-
+   /* @Query("SELECT * FROM CosplayPart_table WHERE CosplayPartBuyMake='Make' AND CosplayId=:CosplayId")
+    LiveData<List<Part>> getPartsToMake(final int CosplayId);
+    @Query("SELECT * FROM CosplayPart_table WHERE CosplayPartBuyMake='Buy' AND CosplayId=:CosplayId")
+    LiveData<List<Part>> getPartsToBuy(final int CosplayId);*/
     @Delete
     void delete(Part part);
 
     @Update
     void update(Part part);
+
 
 }

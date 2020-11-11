@@ -12,7 +12,7 @@ import androidx.room.PrimaryKey;
 import com.example.cosplan.data.Coplay.Cosplay;
 
 @Entity(tableName = "CosplayPart_table", foreignKeys = @ForeignKey(entity = Cosplay.class,
-        parentColumns = "CosplayId",
+        parentColumns = "Id",
         childColumns = "CosplayId"))
 public class Part {
     @ColumnInfo(name = "CosplayId")

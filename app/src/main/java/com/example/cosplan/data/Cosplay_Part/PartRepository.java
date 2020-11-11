@@ -14,6 +14,7 @@ public class PartRepository {
     PartRepository(Application application){
         PartDatabase db=PartDatabase.getDatabase(application);
         mPartDao=db.partDao();
+
         mAllPartsToMake=mPartDao.getPartsToMake();
         mAllPartsToBuy=mPartDao.getPartsToBuy();
     }

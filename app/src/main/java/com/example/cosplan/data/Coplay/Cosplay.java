@@ -15,7 +15,7 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "cosplay_table")
 public class Cosplay implements Parcelable {
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "CosplayId")
+    @ColumnInfo(name = "Id")
     public int mCosplayId;
     @NonNull
     @ColumnInfo(name = "CosplayName")
