@@ -127,7 +127,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         helperMake.attachToRecyclerView(recyclerViewMake);
 
         partViewModel = new ViewModelProvider(this).get(PartViewModel.class);
-        partViewModel.getAllPartsToMake().observe(getViewLifecycleOwner(), new Observer<List<Part>>() {
+        partViewModel.getAllPartsToMake(tempCosplay.mCosplayId).observe(getViewLifecycleOwner(), new Observer<List<Part>>() {
             @Override
             public void onChanged(List<Part> parts) {
                 partAdapterMake.setParts(parts);
@@ -152,7 +152,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         helperBuy.attachToRecyclerView(recyclerViewBuy);
 
         partViewModel = new ViewModelProvider(this).get(PartViewModel.class);
-        partViewModel.getAllPartsToBuy().observe(getViewLifecycleOwner(), new Observer<List<Part>>() {
+        partViewModel.getAllPartsToBuy(tempCosplay.mCosplayId).observe(getViewLifecycleOwner(), new Observer<List<Part>>() {
             @Override
             public void onChanged(List<Part> parts) {
                 partAdapterBuy.setParts(parts);
