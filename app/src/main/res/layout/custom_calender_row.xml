@@ -13,6 +13,7 @@
         android:id="@+id/convention_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="ConName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -20,6 +21,7 @@
         android:id="@+id/Convention_place"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="ConPlace"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -28,6 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        android:text="ConDate"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/convention_name" />
 

@@ -40,4 +40,28 @@
     <string name="txt_cancelDeleteCOsplay">No</string>
     <string name="txt_deleteCosplay">Yes</string>
     <string name="ConformationDeleteCosplay">Are you sure you want to delete</string>
+    <string name="btnText_cosplay_parts">Cosplay parts</string>
+    <string name="btnText_notes">Notes</string>
+    <string name="btnText_reference_pictures">Reference pictures</string>
+    <string name="btnText_wip_pictures">WIP pictures</string>
+    <string name="btnText_checklist">Checklist</string>
+    <string name="btnText_shopping_list">shopping list</string>
+    <string name="btnText_webshops">Webshops</string>
+    <string name="btnText_events">Events</string>
+    <string name="title_newCosplayPart">New Part</string>
+    <string-array name="BuyMake">
+        <item>Buy</item>
+        <item>Make</item>
+    </string-array>
+    <string-array name="Status">
+        <item>Planned</item>
+        <item>Designed</item>
+        <item>Material ordered</item>
+        <item>Material received</item>
+        <item>Assembled</item>
+        <item>Primed</item>
+        <item>Painted</item>
+        <item>Test Fit</item>
+        <item>Finished</item>
+    </string-array>
 </resources>

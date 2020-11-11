@@ -18,11 +18,24 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <include
-        layout="@layout/button_row_cosplay_screen"
+        android:id="@+id/include2"
+        layout="@layout/btn_bar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include" />
+
+    <include
+        android:id="@+id/inlcude3"
+        layout="@layout/cosplay_part"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include2"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+    </include>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

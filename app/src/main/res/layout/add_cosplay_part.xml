@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/txt_NewPartTitle"
+        style="@style/Titles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="sans-serif-black"
+        android:text="@string/title_newCosplayPart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/EditText_PartName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:ems="10"
+        android:hint="Name"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_NewPartTitle" />
+
+    <Spinner
+        android:id="@+id/Spinner_PartBuyMake"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/EditText_PartName"
+        app:layout_constraintStart_toStartOf="@+id/EditText_PartName"
+        app:layout_constraintTop_toBottomOf="@+id/EditText_PartName" />
+
+    <EditText
+        android:id="@+id/EditText_partLink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="Link"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/Spinner_PartBuyMake"
+        app:layout_constraintStart_toStartOf="@+id/Spinner_PartBuyMake"
+        app:layout_constraintTop_toBottomOf="@+id/Spinner_PartBuyMake" />
+
+    <EditText
+        android:id="@+id/editTextCost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="Cost"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/EditText_partLink"
+        app:layout_constraintStart_toStartOf="@+id/EditText_partLink"
+        app:layout_constraintTop_toBottomOf="@+id/EditText_partLink" />
+
+    <EditText
+        android:id="@+id/EditTextEndDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="End date"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/editTextCost"
+        app:layout_constraintStart_toStartOf="@+id/editTextCost"
+        app:layout_constraintTop_toBottomOf="@+id/editTextCost" />
+
+    <Button
+        android:id="@+id/btn_Part_ChooseImg"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Choose a picture"
+        app:layout_constraintEnd_toEndOf="@+id/EditTextEndDate"
+        app:layout_constraintStart_toStartOf="@+id/EditTextEndDate"
+        app:layout_constraintTop_toBottomOf="@+id/EditTextEndDate" />
+
+    <ImageView
+        android:id="@+id/imgView_PartImage"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/btn_Part_ChooseImg"
+        app:layout_constraintStart_toStartOf="@+id/btn_Part_ChooseImg"
+        app:layout_constraintTop_toBottomOf="@+id/btn_Part_ChooseImg"
+        app:srcCompat="@drawable/ic_cosplan_logo"
+        tools:srcCompat="@tools:sample/backgrounds/scenic[5]" />
+
+    <Button
+        android:id="@+id/btn_PartAddPart"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Add part"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_partCancel"
+        app:layout_constraintTop_toTopOf="@+id/btn_partCancel" />
+
+    <Button
+        android:id="@+id/btn_partCancel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="Cancel"
+        app:layout_constraintEnd_toStartOf="@+id/btn_PartAddPart"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgView_PartImage" />
+</androidx.constraintlayout.widget.ConstraintLayout>
