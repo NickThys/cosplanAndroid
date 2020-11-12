@@ -39,7 +39,8 @@ public class PartViewModel extends AndroidViewModel {
     public void insert(Part part) {
         mRepository.insert(part);
     }
-
+    public void delete(Part part){mRepository.delete(part);}
+    public void update(Part part){mRepository.update(part);}
 
 
 }
