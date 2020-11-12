@@ -79,9 +79,16 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_cosplay_screen, container, false);
-
+        //Views of all the fragments
         final View PartsView=inflater.inflate(R.layout.cosplay_screen_parts,container,false);
+        final View RefImgView=inflater.inflate(R.layout.cosplay_screen_ref_img,container,false);
+        final View ShoppingListView=inflater.inflate(R.layout.cosplay_screen_shopping_list,container,false);
         final View NotesView = inflater.inflate(R.layout.cosplay_screen_notes, container, false);
+        final View CheckListView=inflater.inflate(R.layout.cosplay_screen_checklist,container,false);
+        final View WipImgView=inflater.inflate(R.layout.cosplay_screen_wip_img,container,false);
+        final View EventsView=inflater.inflate(R.layout.cosplay_screen_events,container,false);
+        final View WebshopsView=inflater.inflate(R.layout.cosplay_screen_webshops,container,false);
+
         final PartAdapter partAdapterMake = new PartAdapter(requireContext());
         final PartAdapter partAdapterBuy = new PartAdapter(requireContext());
         cosplayViewModel = new ViewModelProvider(this).get(CosplayViewModel.class);
