@@ -77,11 +77,11 @@ public class cosplayScreen_part extends Fragment implements AdapterView.OnItemSe
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_cosplay_screen, container, false);
+        View v = inflater.inflate(R.layout.fragment_cosplay_screen_part, container, false);
         final PartAdapter partAdapterMake=new PartAdapter(requireContext());
         final PartAdapter partAdapterBuy=new PartAdapter(requireContext());
         cosplayViewModel = new ViewModelProvider(this).get(CosplayViewModel.class);
-        final Cosplay tempCosplay = cosplayScreenArgs.fromBundle(getArguments()).getCurrentCosplay();
+        final Cosplay tempCosplay = cosplayScreen_partArgs.fromBundle(getArguments()).getCurrentCosplay();
         final ViewGroup fl=v.findViewById(R.id.inlcude3);
         //Initial view for the framelayout
         cosplayAdapter = new CosplayAdapter(requireContext());

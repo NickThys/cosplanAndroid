@@ -70,7 +70,7 @@
         android:id="@+id/cosplayScreen"
         android:name="com.example.cosplan.ui.cosplay_screen.cosplayScreen_part"
         android:label="fragment_cosplayScreen"
-        tools:layout="@layout/fragment_cosplay_screen">
+        tools:layout="@layout/fragment_cosplay_screen_part">
         <action
             android:id="@+id/action_cosplay_screen_to_nav_home"
             app:destination="@id/nav_home" />
