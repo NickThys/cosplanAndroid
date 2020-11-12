@@ -47,7 +47,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.Calendar;
 import java.util.List;
 
-public class cosplayScreen extends Fragment implements AdapterView.OnItemSelectedListener {
+public class cosplayScreen_part extends Fragment implements AdapterView.OnItemSelectedListener {
 
     private CosplayViewModel cosplayViewModel;
     private AlertDialog.Builder dialogBuilder;
