@@ -143,13 +143,54 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                 fl.addView(PartsView);
             }
         });
+        mCosplayRefPic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fl.removeAllViews();
+                fl.addView(RefImgView);
+            }
+        });
+        mCosplayShoppinglist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fl.removeAllViews();
+                fl.addView(ShoppingListView);
+            }
+        });
         mCosplayNotes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 fl.removeAllViews();
                 fl.addView(NotesView);
 
+            }
+        });
+        mCosplayChecklist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fl.removeAllViews();
+                fl.addView(CheckListView);
+            }
+        });
+        mCosplayWIPPic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fl.removeAllViews();
+                fl.addView(WipImgView);
+            }
+        });
+        mCosplayEvents.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fl.removeAllViews();
+                fl.addView(EventsView);
+            }
+        });
+        mCosplayWebshop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fl.removeAllViews();
+                fl.addView(WebshopsView);
             }
         });
 
