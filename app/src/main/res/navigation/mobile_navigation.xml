@@ -68,9 +68,9 @@
     </fragment>
     <fragment
         android:id="@+id/cosplayScreen"
-        android:name="com.example.cosplan.ui.cosplay_screen.cosplayScreen_part"
+        android:name="com.example.cosplan.ui.cosplay_screen.cosplayScreen"
         android:label="fragment_cosplayScreen"
-        tools:layout="@layout/fragment_cosplay_screen_part">
+        tools:layout="@layout/fragment_cosplay_screen">
         <action
             android:id="@+id/action_cosplay_screen_to_nav_home"
             app:destination="@id/nav_home" />

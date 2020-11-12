@@ -33,6 +33,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.cosplan.R;
 
@@ -47,7 +48,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.Calendar;
 import java.util.List;
 
-public class cosplayScreen_part extends Fragment implements AdapterView.OnItemSelectedListener {
+public class cosplayScreen extends Fragment implements AdapterView.OnItemSelectedListener {
 
     private CosplayViewModel cosplayViewModel;
     private AlertDialog.Builder dialogBuilder;
@@ -55,18 +56,18 @@ public class cosplayScreen_part extends Fragment implements AdapterView.OnItemSe
     private CosplayAdapter cosplayAdapter;
     private PartViewModel partViewModel;
 
-    TextView mName,mStartDate,mEndDate,mPercentage,mBudget;
+    TextView mName, mStartDate, mEndDate, mPercentage, mBudget;
     ImageView mImage;
     ImageButton mUpdateCosplay;
     private EditText mCosplayName, mCosplayStartDate, mCosplayEndDate, mCosplayBudget;
-    private EditText mPartName, mPartLink,mPartCost, mPartEndDate ;
+    private EditText mPartName, mPartLink, mPartCost, mPartEndDate;
     private Spinner mPartmakeBuy;
     private ImageView mPartImage;
     private Button mPartChooseImage, mPartCancel, mPartAddPart;
     private FloatingActionButton mfabAddPart;
 
     private ImageView mCosplayImage;
-    private Button mChoosePicture, mCancel, mUpdateCosplays,mCosplayParts,mCosplayNotes,  mCosplayRefPic,mCosplayWIPPic,mCosplayChecklist ,    mCosplayShoppinglist,    mCosplayWebshop,    mCosplayEvents;
+    private Button mChoosePicture, mCancel, mUpdateCosplays, mCosplayParts, mCosplayNotes, mCosplayRefPic, mCosplayWIPPic, mCosplayChecklist, mCosplayShoppinglist, mCosplayWebshop, mCosplayEvents, mBtnTest;
 
     public static final int GALLERY_REQUEST_CODE_PART = 2;
     private DatePickerDialog.OnDateSetListener mStartDateSetListener;
@@ -77,22 +78,27 @@ public class cosplayScreen_part extends Fragment implements AdapterView.OnItemSe
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_cosplay_screen_part, container, false);
-        final PartAdapter partAdapterMake=new PartAdapter(requireContext());
-        final PartAdapter partAdapterBuy=new PartAdapter(requireContext());
+        View v = inflater.inflate(R.layout.fragment_cosplay_screen, container, false);
+
+        final View PartsView=inflater.inflate(R.layout.cosplay_screen_parts,container,false);
+        final View NotesView = inflater.inflate(R.layout.cosplay_screen_notes, container, false);
+        final PartAdapter partAdapterMake = new PartAdapter(requireContext());
+        final PartAdapter partAdapterBuy = new PartAdapter(requireContext());
         cosplayViewModel = new ViewModelProvider(this).get(CosplayViewModel.class);
-        final Cosplay tempCosplay = cosplayScreen_partArgs.fromBundle(getArguments()).getCurrentCosplay();
-        final ViewGroup fl=v.findViewById(R.id.inlcude3);
+        final Cosplay tempCosplay = cosplayScreenArgs.fromBundle(getArguments()).getCurrentCosplay();
+        final ViewGroup fl = v.findViewById(R.id.inlcude3);
         //Initial view for the framelayout
+        fl.addView(PartsView);
         cosplayAdapter = new CosplayAdapter(requireContext());
 
-
+        //Items from the header
         mName = v.findViewById(R.id.CosScreenName);
         mEndDate = v.findViewById(R.id.CosScreenEndDate);
         mPercentage = v.findViewById(R.id.CosScreenPercentage);
         mBudget = v.findViewById(R.id.CosScreenBudget);
         mImage = v.findViewById(R.id.CosScreenImg);
         mUpdateCosplay = v.findViewById(R.id.CosScreenUpdate);
+        //Items from the button bar
         mCosplayParts = v.findViewById(R.id.btn_cosplayparts);
         mCosplayNotes = v.findViewById(R.id.btn_cosplayNotes);
         mCosplayRefPic = v.findViewById(R.id.btn_cosplayReferencePic);
@@ -101,19 +107,52 @@ public class cosplayScreen_part extends Fragment implements AdapterView.OnItemSe
         mCosplayShoppinglist = v.findViewById(R.id.btn_cosplayShoppinnglist);
         mCosplayWebshop = v.findViewById(R.id.btn_cosplayWebshops);
         mCosplayEvents = v.findViewById(R.id.btn_cosplayEvents);
-        mfabAddPart=v.findViewById(R.id.fabAddPart);
+        //Items from the Notes
+        mBtnTest = NotesView.findViewById(R.id.BtnTest);
 
+        //Header
+        //Adding text to the items from the header
         mName.setText(tempCosplay.mCosplayName);
         mEndDate.setText(tempCosplay.mCosplayEndDate);
         mBudget.setText(Double.toString(tempCosplay.mCosplayBudget));
         mImage.setImageBitmap(tempCosplay.mCosplayIMG);
         mPercentage.setText("% complete");
+        mfabAddPart = v.findViewById(R.id.fabAddPart);
+
+        //onclick listener from the header
+        mUpdateCosplay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UpdateCosplayDialog(tempCosplay);
+            }
+        });
+
+        //Button Bar
+        //onclick listener from the buttons
+        mCosplayParts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fl.removeAllViews();
+                fl.addView(PartsView);
+            }
+        });
+        mCosplayNotes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                fl.removeAllViews();
+                fl.addView(NotesView);
+
+            }
+        });
+
+        //Part View
         //recyclerview Make
-        RecyclerView recyclerViewMake=v.findViewById(R.id.RecViewMake);
+        RecyclerView recyclerViewMake = v.findViewById(R.id.RecViewMake);
         recyclerViewMake.setAdapter(partAdapterMake);
-        recyclerViewMake.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL));
+        recyclerViewMake.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         recyclerViewMake.setLayoutManager(new LinearLayoutManager(requireContext()));
-        ItemTouchHelper helperMake=new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,0) {
+        ItemTouchHelper helperMake = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, 0) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
                 return false;
@@ -125,7 +164,6 @@ public class cosplayScreen_part extends Fragment implements AdapterView.OnItemSe
             }
         });
         helperMake.attachToRecyclerView(recyclerViewMake);
-
         partViewModel = new ViewModelProvider(this).get(PartViewModel.class);
         partViewModel.getAllPartsToMake(tempCosplay.mCosplayId).observe(getViewLifecycleOwner(), new Observer<List<Part>>() {
             @Override
@@ -134,11 +172,11 @@ public class cosplayScreen_part extends Fragment implements AdapterView.OnItemSe
             }
         });
         //recyclerview buy
-        RecyclerView recyclerViewBuy=v.findViewById(R.id.RecViewBuy);
+        final RecyclerView recyclerViewBuy = v.findViewById(R.id.RecViewBuy);
         recyclerViewBuy.setAdapter(partAdapterBuy);
-        recyclerViewBuy.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL));
+        recyclerViewBuy.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         recyclerViewBuy.setLayoutManager(new LinearLayoutManager(requireContext()));
-        ItemTouchHelper helperBuy=new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,0) {
+        ItemTouchHelper helperBuy = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, 0) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
                 return false;
@@ -150,7 +188,6 @@ public class cosplayScreen_part extends Fragment implements AdapterView.OnItemSe
             }
         });
         helperBuy.attachToRecyclerView(recyclerViewBuy);
-
         partViewModel = new ViewModelProvider(this).get(PartViewModel.class);
         partViewModel.getAllPartsToBuy(tempCosplay.mCosplayId).observe(getViewLifecycleOwner(), new Observer<List<Part>>() {
             @Override
@@ -158,6 +195,8 @@ public class cosplayScreen_part extends Fragment implements AdapterView.OnItemSe
                 partAdapterBuy.setParts(parts);
             }
         });
+
+
         //fab to add a new cosplay part
         mfabAddPart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -165,18 +204,19 @@ public class cosplayScreen_part extends Fragment implements AdapterView.OnItemSe
                 createNewPartDialog(tempCosplay);
             }
         });
-        mUpdateCosplay.setOnClickListener(new View.OnClickListener() {
+
+
+        mBtnTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UpdateCosplayDialog(tempCosplay);
+                Toast.makeText(requireContext(), "it works!!", Toast.LENGTH_SHORT).show();
             }
         });
 
-
-
         return v;
     }
-    public void UpdateCosplayDialog(final Cosplay cosplay){
+
+    public void UpdateCosplayDialog(final Cosplay cosplay) {
         dialogBuilder = new AlertDialog.Builder(requireContext());
         final View cosplayPopUpView = getLayoutInflater().inflate(R.layout.add_cosplay, null);
         mCosplayName = cosplayPopUpView.findViewById(R.id.EditTextCosplayName);
@@ -204,7 +244,7 @@ public class cosplayScreen_part extends Fragment implements AdapterView.OnItemSe
         mCosplayStartDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus){
+                if (hasFocus) {
                     InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
                     int year;
@@ -302,7 +342,7 @@ public class cosplayScreen_part extends Fragment implements AdapterView.OnItemSe
         mUpdateCosplays.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Cosplay CosUP = new Cosplay(cosplay.mCosplayId,mCosplayName.getText().toString(),mCosplayStartDate.getText().toString(),mCosplayEndDate.getText().toString(),Double.parseDouble(mCosplayBudget.getText().toString()),((BitmapDrawable)mCosplayImage.getDrawable()).getBitmap());
+                Cosplay CosUP = new Cosplay(cosplay.mCosplayId, mCosplayName.getText().toString(), mCosplayStartDate.getText().toString(), mCosplayEndDate.getText().toString(), Double.parseDouble(mCosplayBudget.getText().toString()), ((BitmapDrawable) mCosplayImage.getDrawable()).getBitmap());
 
                 cosplayViewModel.update(CosUP);
                 dialog.dismiss();
@@ -323,14 +363,14 @@ public class cosplayScreen_part extends Fragment implements AdapterView.OnItemSe
 
         mPartName = PartPopUpView.findViewById(R.id.EditText_PartName);
 
-        mPartmakeBuy=PartPopUpView.findViewById(R.id.Spinner_PartBuyMake);
-        if (mPartmakeBuy!=null){
+        mPartmakeBuy = PartPopUpView.findViewById(R.id.Spinner_PartBuyMake);
+        if (mPartmakeBuy != null) {
             mPartmakeBuy.setOnItemSelectedListener(this);
         }
-        ArrayAdapter<CharSequence>adapter=ArrayAdapter.createFromResource(requireContext(),R.array.BuyMake, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(requireContext(), R.array.BuyMake, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mPartmakeBuy.setAdapter(adapter);
-        mPartLink=PartPopUpView.findViewById(R.id.EditText_partLink);
+        mPartLink = PartPopUpView.findViewById(R.id.EditText_partLink);
         mPartEndDate = PartPopUpView.findViewById(R.id.EditTextEndDate);
         mPartCost = PartPopUpView.findViewById(R.id.editTextCost);
         mPartImage = PartPopUpView.findViewById(R.id.imgView_PartImage);
@@ -341,7 +381,6 @@ public class cosplayScreen_part extends Fragment implements AdapterView.OnItemSe
         dialogBuilder.setView(PartPopUpView);
         dialog = dialogBuilder.create();
         dialog.show();
-
 
 
         //create dateSelector and add the selected date to the Edit text
@@ -403,21 +442,22 @@ public class cosplayScreen_part extends Fragment implements AdapterView.OnItemSe
         mPartAddPart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Part temp=new Part();
-                temp.mCosplayId=cosplay.mCosplayId;
-                temp.mCosplayPartId=0;
-                temp.mCosplayPartName=mPartName.getText().toString();
-                temp.mCosplayPartBuyMake=mPartmakeBuy.getSelectedItem().toString();
-                temp.mCosplayPartLink=mPartLink.getText().toString();
-                temp.mCosplayPartCost=Double.parseDouble(mPartCost.getText().toString());
-                temp.mCosplayPartEndDate=mPartEndDate.getText().toString();
-                temp.mCosplayPartImg=cosplay.mCosplayIMG;
-                temp.mCosplayPartStatus="Planned";
+                Part temp = new Part();
+                temp.mCosplayId = cosplay.mCosplayId;
+                temp.mCosplayPartId = 0;
+                temp.mCosplayPartName = mPartName.getText().toString();
+                temp.mCosplayPartBuyMake = mPartmakeBuy.getSelectedItem().toString();
+                temp.mCosplayPartLink = mPartLink.getText().toString();
+                temp.mCosplayPartCost = Double.parseDouble(mPartCost.getText().toString());
+                temp.mCosplayPartEndDate = mPartEndDate.getText().toString();
+                temp.mCosplayPartImg = cosplay.mCosplayIMG;
+                temp.mCosplayPartStatus = "Planned";
                 partViewModel.insert(temp);
                 dialog.dismiss();
             }
         });
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == GALLERY_REQUEST_CODE) {

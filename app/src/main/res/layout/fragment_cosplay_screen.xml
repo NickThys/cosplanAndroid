@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.cosplay_screen.cosplayScreen_part">
+    tools:context=".ui.cosplay_screen.cosplayScreen">
 
     <include
         android:id="@+id/include"
@@ -26,9 +26,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include" />
 
-    <include
+    <FrameLayout
         android:id="@+id/inlcude3"
-        layout="@layout/cosplay_part"
+        android:clickable="true"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,6 +36,6 @@
         app:layout_constraintTop_toBottomOf="@+id/include2"
         app:layout_constraintBottom_toBottomOf="parent">
 
-    </include>
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
