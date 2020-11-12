@@ -40,9 +40,9 @@ import com.example.cosplan.R;
 import com.example.cosplan.data.Coplay.Cosplay;
 import com.example.cosplan.data.Coplay.CosplayAdapter;
 import com.example.cosplan.data.Coplay.CosplayViewModel;
-import com.example.cosplan.data.Coplay.Part;
-import com.example.cosplan.data.Coplay.PartAdapter;
-import com.example.cosplan.data.Coplay.PartViewModel;
+import com.example.cosplan.data.Coplay.Part.Part;
+import com.example.cosplan.data.Coplay.Part.PartAdapter;
+import com.example.cosplan.data.Coplay.Part.PartViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Calendar;

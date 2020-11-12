@@ -1,4 +1,4 @@
-package com.example.cosplan.data.Coplay;
+package com.example.cosplan.data.Coplay.Part;
 
 import android.content.Context;
 import android.graphics.Bitmap;

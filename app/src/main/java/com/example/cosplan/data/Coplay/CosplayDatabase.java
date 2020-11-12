@@ -7,9 +7,12 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
+import com.example.cosplan.data.Coplay.Part.Part;
+import com.example.cosplan.data.Coplay.Part.PartDao;
+
 @TypeConverters(Converters.class)
 @Database(entities = {Part.class, Cosplay.class},version = 1,exportSchema = false)
-abstract class CosplayDatabase extends RoomDatabase {
+public abstract class CosplayDatabase extends RoomDatabase {
     public abstract CosplayDao cosplayDao();
     public abstract PartDao partDao();
     private static CosplayDatabase INSTANCE;

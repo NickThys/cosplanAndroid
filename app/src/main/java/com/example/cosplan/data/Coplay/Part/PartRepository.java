@@ -1,9 +1,11 @@
-package com.example.cosplan.data.Coplay;
+package com.example.cosplan.data.Coplay.Part;
 
 import android.app.Application;
 import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
+
+import com.example.cosplan.data.Coplay.CosplayDatabase;
 
 import java.util.List;
 
