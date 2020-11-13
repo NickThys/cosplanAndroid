@@ -9,18 +9,25 @@ import androidx.room.TypeConverters;
 
 import com.example.cosplan.data.Coplay.Part.Part;
 import com.example.cosplan.data.Coplay.Part.PartDao;
+import com.example.cosplan.data.Coplay.RefImg.ReferenceImg;
+import com.example.cosplan.data.Coplay.RefImg.ReferenceImgDao;
 
 @TypeConverters(Converters.class)
-@Database(entities = {Part.class, Cosplay.class},version = 1,exportSchema = false)
+@Database(entities = {Cosplay.class, Part.class, ReferenceImg.class}, version = 1, exportSchema = false)
 public abstract class CosplayDatabase extends RoomDatabase {
     public abstract CosplayDao cosplayDao();
+
     public abstract PartDao partDao();
+
+    public abstract ReferenceImgDao referenceImgDao();
+
     private static CosplayDatabase INSTANCE;
-    public static CosplayDatabase getDatabase(final Context context){
-        if (INSTANCE==null){
-            synchronized (CosplayDatabase.class){
-                if (INSTANCE==null){
-                    INSTANCE= Room.databaseBuilder(context.getApplicationContext(),CosplayDatabase.class,"cosplayDatabase").build();
+
+    public static CosplayDatabase getDatabase(final Context context) {
+        if (INSTANCE == null) {
+            synchronized (CosplayDatabase.class) {
+                if (INSTANCE == null) {
+                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(), CosplayDatabase.class, "cosplayDatabase").build();
                 }
             }
         }
