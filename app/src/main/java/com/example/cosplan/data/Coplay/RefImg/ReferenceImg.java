@@ -11,9 +11,10 @@ import androidx.room.PrimaryKey;
 
 import com.example.cosplan.data.Coplay.Cosplay;
 
-@Entity(tableName = "CosplayRefImg_table", foreignKeys = @ForeignKey(entity = Cosplay.class,
-        parentColumns = "Id",
-        childColumns = "CosplayId"))
+@Entity(tableName = "CosplayRefImg_table",
+        foreignKeys = @ForeignKey(entity = Cosplay.class,
+                parentColumns = "Id",
+                childColumns = "CosplayId"))
 public class ReferenceImg {
     @ColumnInfo(name = "CosplayId")
     public int mCosplayId;
@@ -22,14 +23,16 @@ public class ReferenceImg {
     @ColumnInfo(name = "CosplayRefImgId")
     public int mCosplayRefImgId;
 
-    @ColumnInfo(typeAffinity = ColumnInfo.BLOB,name = "CosplayRefImgImage")
+    @ColumnInfo(typeAffinity = ColumnInfo.BLOB, name = "CosplayRefImgImage")
     public Bitmap mCosplayRefImgImage;
 
-    public ReferenceImg(){}
-    public ReferenceImg(@NonNull int cosplayId,@NonNull int RefImgId,@NonNull Bitmap RefImgImage){
-        mCosplayId=cosplayId;
-        mCosplayRefImgId=RefImgId;
-        mCosplayRefImgImage=RefImgImage;
+    public ReferenceImg() {
+    }
+
+    public ReferenceImg(@NonNull int cosplayId, @NonNull int RefImgId, @NonNull Bitmap RefImgImage) {
+        mCosplayId = cosplayId;
+        mCosplayRefImgId = RefImgId;
+        mCosplayRefImgImage = RefImgImage;
     }
 
 }
