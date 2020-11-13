@@ -60,10 +60,10 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
     ImageView mImage;
     ImageButton mUpdateCosplay;
     private EditText mCosplayName, mCosplayStartDate, mCosplayEndDate, mCosplayBudget;
-    private EditText mPartName, mPartLink, mPartCost, mPartEndDate;
+    private EditText mPartName, mPartLink, mPartCost, mPartEndDate,mCosplayNote;
     private Spinner mPartmakeBuy;
     private ImageView mPartImage;
-    private Button mPartChooseImage, mPartCancel, mPartAddPart;
+    private Button mPartChooseImage, mPartCancel, mPartAddPart,mCosplayNotesSave;
     private FloatingActionButton mfabAddPart;
 
     private ImageView mCosplayImage;
@@ -115,7 +115,8 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mCosplayWebshop = v.findViewById(R.id.btn_cosplayWebshops);
         mCosplayEvents = v.findViewById(R.id.btn_cosplayEvents);
         //Items from the Notes
-        mBtnTest = NotesView.findViewById(R.id.BtnTest);
+        mCosplayNote=NotesView.findViewById(R.id.EditTest_CosplayNote);
+        mCosplayNotesSave=NotesView.findViewById(R.id.btn_CosplayNote_Save);
 
         //Header
         //Adding text to the items from the header
@@ -252,12 +253,16 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                 createNewPartDialog(tempCosplay);
             }
         });
-
-
-        mBtnTest.setOnClickListener(new View.OnClickListener() {
+        //Notes
+        mCosplayNote.setText(tempCosplay.mCosplayNote);
+        mCosplayNotesSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(requireContext(), "it works!!", Toast.LENGTH_SHORT).show();
+                Cosplay CosUP = new Cosplay(tempCosplay.mCosplayId, tempCosplay.mCosplayName, tempCosplay.mCosplayStartDate, tempCosplay.mCosplayEndDate, tempCosplay.mCosplayBudget, tempCosplay.mCosplayIMG,mCosplayNote.getText().toString());
+
+                cosplayViewModel.update(CosUP);
+                closeKeyboard(v);
+                Toast.makeText(requireContext(),"The note is saved",Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -390,7 +395,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mUpdateCosplays.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Cosplay CosUP = new Cosplay(cosplay.mCosplayId, mCosplayName.getText().toString(), mCosplayStartDate.getText().toString(), mCosplayEndDate.getText().toString(), Double.parseDouble(mCosplayBudget.getText().toString()), ((BitmapDrawable) mCosplayImage.getDrawable()).getBitmap());
+                Cosplay CosUP = new Cosplay(cosplay.mCosplayId, mCosplayName.getText().toString(), mCosplayStartDate.getText().toString(), mCosplayEndDate.getText().toString(), Double.parseDouble(mCosplayBudget.getText().toString()), ((BitmapDrawable) mCosplayImage.getDrawable()).getBitmap(),mCosplayNote.getText().toString());
 
                 cosplayViewModel.update(CosUP);
                 dialog.dismiss();
@@ -399,7 +404,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                 mBudget.setText(Double.toString(CosUP.mCosplayBudget));
                 mImage.setImageBitmap(CosUP.mCosplayIMG);
                 mPercentage.setText("% complete");
-
+                mCosplayNote.setText(CosUP.mCosplayNote);
             }
         });
 
@@ -505,7 +510,10 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             }
         });
     }
-
+    private void closeKeyboard(View view) {
+        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == GALLERY_REQUEST_CODE) {
