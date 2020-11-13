@@ -23,6 +23,6 @@ public class ReferenceImgViewModel extends AndroidViewModel {
         mAllRefImg=mRepository.getAllRefImg(mCosplayId);
         return mAllRefImg;
     }
-    public void insert(ReferenceImg referenceImg){mRepository.insert(referenceImg);}    
+    public void insert(ReferenceImg referenceImg){mRepository.insert(referenceImg);}
 
 }

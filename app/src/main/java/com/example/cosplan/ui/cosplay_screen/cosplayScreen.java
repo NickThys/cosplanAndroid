@@ -29,6 +29,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -43,6 +44,9 @@ import com.example.cosplan.data.Coplay.CosplayViewModel;
 import com.example.cosplan.data.Coplay.Part.Part;
 import com.example.cosplan.data.Coplay.Part.PartAdapter;
 import com.example.cosplan.data.Coplay.Part.PartViewModel;
+import com.example.cosplan.data.Coplay.RefImg.RefenceImgAdapter;
+import com.example.cosplan.data.Coplay.RefImg.ReferenceImg;
+import com.example.cosplan.data.Coplay.RefImg.ReferenceImgViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Calendar;
@@ -55,6 +59,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
     private AlertDialog dialog;
     private CosplayAdapter cosplayAdapter;
     private PartViewModel partViewModel;
+    private ReferenceImgViewModel referenceImgViewModel;
 
     TextView mName, mStartDate, mEndDate, mPercentage, mBudget;
     ImageView mImage;
@@ -63,9 +68,9 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
     private EditText mPartName, mPartLink, mPartCost, mPartEndDate,mCosplayNote;
     private Spinner mPartmakeBuy;
     private ImageView mPartImage;
-    private Button mPartChooseImage, mPartCancel, mPartAddPart,mCosplayNotesSave;
+    private Button mPartChooseImage, mPartCancel, mPartAddPart,mCosplayNotesSave,mRefImgAdd;
     private FloatingActionButton mfabAddPart;
-
+    private GridView mRefImgGridView;
     private ImageView mCosplayImage;
     private Button mChoosePicture, mCancel, mUpdateCosplays, mCosplayParts, mCosplayNotes, mCosplayRefPic, mCosplayWIPPic, mCosplayChecklist, mCosplayShoppinglist, mCosplayWebshop, mCosplayEvents, mBtnTest;
 
@@ -117,6 +122,9 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         //Items from the Notes
         mCosplayNote=NotesView.findViewById(R.id.EditTest_CosplayNote);
         mCosplayNotesSave=NotesView.findViewById(R.id.btn_CosplayNote_Save);
+        //Items from the Ref Img
+        mRefImgGridView=RefImgView.findViewById(R.id.GridView_RefImg);
+        mRefImgAdd=RefImgView.findViewById(R.id.btn_addRefImg);
 
         //Header
         //Adding text to the items from the header
@@ -149,6 +157,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             public void onClick(View v) {
                 fl.removeAllViews();
                 fl.addView(RefImgView);
+                mRefImgGridView.setAdapter(new RefenceImgAdapter(requireContext()));
             }
         });
         mCosplayShoppinglist.setOnClickListener(new View.OnClickListener() {
@@ -265,7 +274,16 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                 Toast.makeText(requireContext(),"The note is saved",Toast.LENGTH_SHORT).show();
             }
         });
+        referenceImgViewModel=new ViewModelProvider(this).get(ReferenceImgViewModel.class);
+        mRefImgAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ReferenceImg tempRefImg=new ReferenceImg(tempCosplay.mCosplayId,0,tempCosplay.mCosplayIMG);
+                referenceImgViewModel.insert(tempRefImg);
 
+                mRefImgGridView.setAdapter(new RefenceImgAdapter(requireContext()));
+            }
+        });
         return v;
     }
 
