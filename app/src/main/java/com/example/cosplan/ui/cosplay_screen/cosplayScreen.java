@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,6 +30,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.GridLayout;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -70,7 +72,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
     private ImageView mPartImage;
     private Button mPartChooseImage, mPartCancel, mPartAddPart,mCosplayNotesSave,mRefImgAdd;
     private FloatingActionButton mfabAddPart;
-    private GridView mRefImgGridView;
+    private RecyclerView mRVRefImg;
     private ImageView mCosplayImage;
     private Button mChoosePicture, mCancel, mUpdateCosplays, mCosplayParts, mCosplayNotes, mCosplayRefPic, mCosplayWIPPic, mCosplayChecklist, mCosplayShoppinglist, mCosplayWebshop, mCosplayEvents, mBtnTest;
 
@@ -94,8 +96,10 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         final View EventsView=inflater.inflate(R.layout.cosplay_screen_events,container,false);
         final View WebshopsView=inflater.inflate(R.layout.cosplay_screen_webshops,container,false);
 
+        final RefenceImgAdapter refenceImgAdapter=new RefenceImgAdapter(null,requireContext());
         final PartAdapter partAdapterMake = new PartAdapter(requireContext());
         final PartAdapter partAdapterBuy = new PartAdapter(requireContext());
+
         cosplayViewModel = new ViewModelProvider(this).get(CosplayViewModel.class);
         final Cosplay tempCosplay = cosplayScreenArgs.fromBundle(getArguments()).getCurrentCosplay();
         final ViewGroup fl = v.findViewById(R.id.inlcude3);
@@ -123,7 +127,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mCosplayNote=NotesView.findViewById(R.id.EditTest_CosplayNote);
         mCosplayNotesSave=NotesView.findViewById(R.id.btn_CosplayNote_Save);
         //Items from the Ref Img
-        mRefImgGridView=RefImgView.findViewById(R.id.GridView_RefImg);
+        mRVRefImg=RefImgView.findViewById(R.id.RV_RefImg);
         mRefImgAdd=RefImgView.findViewById(R.id.btn_addRefImg);
 
         //Header
@@ -157,7 +161,6 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             public void onClick(View v) {
                 fl.removeAllViews();
                 fl.addView(RefImgView);
-                mRefImgGridView.setAdapter(new RefenceImgAdapter(requireContext()));
             }
         });
         mCosplayShoppinglist.setOnClickListener(new View.OnClickListener() {
@@ -274,14 +277,24 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                 Toast.makeText(requireContext(),"The note is saved",Toast.LENGTH_SHORT).show();
             }
         });
-        referenceImgViewModel=new ViewModelProvider(this).get(ReferenceImgViewModel.class);
+
+        referenceImgViewModel = new ViewModelProvider(this).get(ReferenceImgViewModel.class);
+        referenceImgViewModel.GetAllRefImg(tempCosplay.mCosplayId).observe(getViewLifecycleOwner(), new Observer<List<ReferenceImg>>() {
+            @Override
+            public void onChanged(List<ReferenceImg> referenceImgs) {
+                refenceImgAdapter.setRefImg(referenceImgs);
+            }
+        });
+        GridLayoutManager gridLayoutManager=new GridLayoutManager(requireContext(),2,GridLayoutManager.VERTICAL,false);
+        mRVRefImg.setLayoutManager(gridLayoutManager);
+        mRVRefImg.setAdapter(refenceImgAdapter);
         mRefImgAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ReferenceImg tempRefImg=new ReferenceImg(tempCosplay.mCosplayId,0,tempCosplay.mCosplayIMG);
-                referenceImgViewModel.insert(tempRefImg);
+                //addcospimg to db
+                ReferenceImg temp=new ReferenceImg(tempCosplay.mCosplayId,0,tempCosplay.mCosplayIMG);
+                referenceImgViewModel.insert(temp);
 
-                mRefImgGridView.setAdapter(new RefenceImgAdapter(requireContext()));
             }
         });
         return v;
