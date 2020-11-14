@@ -1,4 +1,4 @@
-package com.example.cosplan.data.Coplay;
+package com.example.cosplan.data.Coplay.Part;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;

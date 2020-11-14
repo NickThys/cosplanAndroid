@@ -32,14 +32,18 @@ public class Cosplay implements Parcelable {
     @NonNull
     @ColumnInfo(typeAffinity = ColumnInfo.BLOB, name = "CosplayIMG")
     public Bitmap mCosplayIMG;
+    @ColumnInfo(name = "CosplayNote")
+    public String mCosplayNote;
+
     public Cosplay(){}
-    public Cosplay(@NonNull int Id,@NonNull String Name,@NonNull String StartDate,@NonNull String EndDate,@NonNull double Budget,@NonNull Bitmap Img){
+    public Cosplay(@NonNull int Id,@NonNull String Name,@NonNull String StartDate,@NonNull String EndDate,@NonNull double Budget,@NonNull Bitmap Img,String note){
         this.mCosplayId = Id;
         this.mCosplayName =Name;
         this.mCosplayStartDate =StartDate;
         this.mCosplayEndDate = EndDate;
         this.mCosplayBudget = Budget;
         this.mCosplayIMG = Img;
+        this.mCosplayNote=note;
     }
     protected Cosplay(Parcel in) {
         mCosplayId = in.readInt();
@@ -48,6 +52,7 @@ public class Cosplay implements Parcelable {
         mCosplayEndDate = in.readString();
         mCosplayBudget = in.readDouble();
         mCosplayIMG = in.readParcelable(Bitmap.class.getClassLoader());
+        mCosplayNote=in.readString();
     }
 
     public static final Creator<Cosplay> CREATOR = new Creator<Cosplay>() {

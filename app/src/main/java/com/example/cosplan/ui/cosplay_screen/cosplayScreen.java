@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,6 +30,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.GridLayout;
+import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -40,9 +43,12 @@ import com.example.cosplan.R;
 import com.example.cosplan.data.Coplay.Cosplay;
 import com.example.cosplan.data.Coplay.CosplayAdapter;
 import com.example.cosplan.data.Coplay.CosplayViewModel;
-import com.example.cosplan.data.Coplay.Part;
-import com.example.cosplan.data.Coplay.PartAdapter;
-import com.example.cosplan.data.Coplay.PartViewModel;
+import com.example.cosplan.data.Coplay.Part.Part;
+import com.example.cosplan.data.Coplay.Part.PartAdapter;
+import com.example.cosplan.data.Coplay.Part.PartViewModel;
+import com.example.cosplan.data.Coplay.RefImg.RefenceImgAdapter;
+import com.example.cosplan.data.Coplay.RefImg.ReferenceImg;
+import com.example.cosplan.data.Coplay.RefImg.ReferenceImgViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Calendar;
@@ -55,17 +61,18 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
     private AlertDialog dialog;
     private CosplayAdapter cosplayAdapter;
     private PartViewModel partViewModel;
+    private ReferenceImgViewModel referenceImgViewModel;
 
     TextView mName, mStartDate, mEndDate, mPercentage, mBudget;
     ImageView mImage;
     ImageButton mUpdateCosplay;
     private EditText mCosplayName, mCosplayStartDate, mCosplayEndDate, mCosplayBudget;
-    private EditText mPartName, mPartLink, mPartCost, mPartEndDate;
+    private EditText mPartName, mPartLink, mPartCost, mPartEndDate,mCosplayNote;
     private Spinner mPartmakeBuy;
     private ImageView mPartImage;
-    private Button mPartChooseImage, mPartCancel, mPartAddPart;
+    private Button mPartChooseImage, mPartCancel, mPartAddPart,mCosplayNotesSave,mRefImgAdd;
     private FloatingActionButton mfabAddPart;
-
+    private RecyclerView mRVRefImg;
     private ImageView mCosplayImage;
     private Button mChoosePicture, mCancel, mUpdateCosplays, mCosplayParts, mCosplayNotes, mCosplayRefPic, mCosplayWIPPic, mCosplayChecklist, mCosplayShoppinglist, mCosplayWebshop, mCosplayEvents, mBtnTest;
 
@@ -79,11 +86,20 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_cosplay_screen, container, false);
-
+        //Views of all the fragments
         final View PartsView=inflater.inflate(R.layout.cosplay_screen_parts,container,false);
+        final View RefImgView=inflater.inflate(R.layout.cosplay_screen_ref_img,container,false);
+        final View ShoppingListView=inflater.inflate(R.layout.cosplay_screen_shopping_list,container,false);
         final View NotesView = inflater.inflate(R.layout.cosplay_screen_notes, container, false);
+        final View CheckListView=inflater.inflate(R.layout.cosplay_screen_checklist,container,false);
+        final View WipImgView=inflater.inflate(R.layout.cosplay_screen_wip_img,container,false);
+        final View EventsView=inflater.inflate(R.layout.cosplay_screen_events,container,false);
+        final View WebshopsView=inflater.inflate(R.layout.cosplay_screen_webshops,container,false);
+
+        final RefenceImgAdapter refenceImgAdapter=new RefenceImgAdapter(null,requireContext());
         final PartAdapter partAdapterMake = new PartAdapter(requireContext());
         final PartAdapter partAdapterBuy = new PartAdapter(requireContext());
+
         cosplayViewModel = new ViewModelProvider(this).get(CosplayViewModel.class);
         final Cosplay tempCosplay = cosplayScreenArgs.fromBundle(getArguments()).getCurrentCosplay();
         final ViewGroup fl = v.findViewById(R.id.inlcude3);
@@ -108,7 +124,11 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mCosplayWebshop = v.findViewById(R.id.btn_cosplayWebshops);
         mCosplayEvents = v.findViewById(R.id.btn_cosplayEvents);
         //Items from the Notes
-        mBtnTest = NotesView.findViewById(R.id.BtnTest);
+        mCosplayNote=NotesView.findViewById(R.id.EditTest_CosplayNote);
+        mCosplayNotesSave=NotesView.findViewById(R.id.btn_CosplayNote_Save);
+        //Items from the Ref Img
+        mRVRefImg=RefImgView.findViewById(R.id.RV_RefImg);
+        mRefImgAdd=RefImgView.findViewById(R.id.btn_addRefImg);
 
         //Header
         //Adding text to the items from the header
@@ -136,13 +156,54 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                 fl.addView(PartsView);
             }
         });
+        mCosplayRefPic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fl.removeAllViews();
+                fl.addView(RefImgView);
+            }
+        });
+        mCosplayShoppinglist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fl.removeAllViews();
+                fl.addView(ShoppingListView);
+            }
+        });
         mCosplayNotes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 fl.removeAllViews();
                 fl.addView(NotesView);
 
+            }
+        });
+        mCosplayChecklist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fl.removeAllViews();
+                fl.addView(CheckListView);
+            }
+        });
+        mCosplayWIPPic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fl.removeAllViews();
+                fl.addView(WipImgView);
+            }
+        });
+        mCosplayEvents.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fl.removeAllViews();
+                fl.addView(EventsView);
+            }
+        });
+        mCosplayWebshop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fl.removeAllViews();
+                fl.addView(WebshopsView);
             }
         });
 
@@ -204,15 +265,38 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                 createNewPartDialog(tempCosplay);
             }
         });
-
-
-        mBtnTest.setOnClickListener(new View.OnClickListener() {
+        //Notes
+        mCosplayNote.setText(tempCosplay.mCosplayNote);
+        mCosplayNotesSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(requireContext(), "it works!!", Toast.LENGTH_SHORT).show();
+                Cosplay CosUP = new Cosplay(tempCosplay.mCosplayId, tempCosplay.mCosplayName, tempCosplay.mCosplayStartDate, tempCosplay.mCosplayEndDate, tempCosplay.mCosplayBudget, tempCosplay.mCosplayIMG,mCosplayNote.getText().toString());
+
+                cosplayViewModel.update(CosUP);
+                closeKeyboard(v);
+                Toast.makeText(requireContext(),"The note is saved",Toast.LENGTH_SHORT).show();
             }
         });
 
+        referenceImgViewModel = new ViewModelProvider(this).get(ReferenceImgViewModel.class);
+        referenceImgViewModel.GetAllRefImg(tempCosplay.mCosplayId).observe(getViewLifecycleOwner(), new Observer<List<ReferenceImg>>() {
+            @Override
+            public void onChanged(List<ReferenceImg> referenceImgs) {
+                refenceImgAdapter.setRefImg(referenceImgs);
+            }
+        });
+        GridLayoutManager gridLayoutManager=new GridLayoutManager(requireContext(),2,GridLayoutManager.VERTICAL,false);
+        mRVRefImg.setLayoutManager(gridLayoutManager);
+        mRVRefImg.setAdapter(refenceImgAdapter);
+        mRefImgAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //addcospimg to db
+                ReferenceImg temp=new ReferenceImg(tempCosplay.mCosplayId,0,tempCosplay.mCosplayIMG);
+                referenceImgViewModel.insert(temp);
+
+            }
+        });
         return v;
     }
 
@@ -342,7 +426,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mUpdateCosplays.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Cosplay CosUP = new Cosplay(cosplay.mCosplayId, mCosplayName.getText().toString(), mCosplayStartDate.getText().toString(), mCosplayEndDate.getText().toString(), Double.parseDouble(mCosplayBudget.getText().toString()), ((BitmapDrawable) mCosplayImage.getDrawable()).getBitmap());
+                Cosplay CosUP = new Cosplay(cosplay.mCosplayId, mCosplayName.getText().toString(), mCosplayStartDate.getText().toString(), mCosplayEndDate.getText().toString(), Double.parseDouble(mCosplayBudget.getText().toString()), ((BitmapDrawable) mCosplayImage.getDrawable()).getBitmap(),mCosplayNote.getText().toString());
 
                 cosplayViewModel.update(CosUP);
                 dialog.dismiss();
@@ -351,7 +435,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                 mBudget.setText(Double.toString(CosUP.mCosplayBudget));
                 mImage.setImageBitmap(CosUP.mCosplayIMG);
                 mPercentage.setText("% complete");
-
+                mCosplayNote.setText(CosUP.mCosplayNote);
             }
         });
 
@@ -457,7 +541,10 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             }
         });
     }
-
+    private void closeKeyboard(View view) {
+        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == GALLERY_REQUEST_CODE) {

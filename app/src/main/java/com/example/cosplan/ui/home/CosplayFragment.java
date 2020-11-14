@@ -101,6 +101,8 @@ public class CosplayFragment extends Fragment {
 
         return root;
     }
+
+
     public void DeleteCosplayDialog(final Cosplay cosplay){
         dialogBuilder=new AlertDialog.Builder(requireContext());
         final View deleteCosplayView=getLayoutInflater().inflate(R.layout.delete_cosplay,null);
@@ -129,7 +131,6 @@ public class CosplayFragment extends Fragment {
             }
         });
     }
-
     public void createNewCosplayDialog() {
         dialogBuilder = new AlertDialog.Builder(requireContext());
         final View cosplayPopUpView = getLayoutInflater().inflate(R.layout.add_cosplay, null);
