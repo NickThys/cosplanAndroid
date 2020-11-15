@@ -277,7 +277,20 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                 Toast.makeText(requireContext(),"The note is saved",Toast.LENGTH_SHORT).show();
             }
         });
+        setRefImageInGrid(tempCosplay,refenceImgAdapter);
+        mRefImgAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //addcospimg to db
+                ReferenceImg temp=new ReferenceImg(tempCosplay.mCosplayId,0,tempCosplay.mCosplayIMG);
+                referenceImgViewModel.insert(temp);
+                setRefImageInGrid(tempCosplay,refenceImgAdapter);
 
+            }
+        });
+        return v;
+    }
+    public void setRefImageInGrid(Cosplay tempCosplay,final RefenceImgAdapter refenceImgAdapter){
         referenceImgViewModel = new ViewModelProvider(this).get(ReferenceImgViewModel.class);
         referenceImgViewModel.GetAllRefImg(tempCosplay.mCosplayId).observe(getViewLifecycleOwner(), new Observer<List<ReferenceImg>>() {
             @Override
@@ -285,21 +298,10 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                 refenceImgAdapter.setRefImg(referenceImgs);
             }
         });
-        GridLayoutManager gridLayoutManager=new GridLayoutManager(requireContext(),2,GridLayoutManager.VERTICAL,false);
+        GridLayoutManager gridLayoutManager=new GridLayoutManager(requireContext(),3,GridLayoutManager.VERTICAL,false);
         mRVRefImg.setLayoutManager(gridLayoutManager);
         mRVRefImg.setAdapter(refenceImgAdapter);
-        mRefImgAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //addcospimg to db
-                ReferenceImg temp=new ReferenceImg(tempCosplay.mCosplayId,0,tempCosplay.mCosplayIMG);
-                referenceImgViewModel.insert(temp);
-
-            }
-        });
-        return v;
     }
-
     public void UpdateCosplayDialog(final Cosplay cosplay) {
         dialogBuilder = new AlertDialog.Builder(requireContext());
         final View cosplayPopUpView = getLayoutInflater().inflate(R.layout.add_cosplay, null);
