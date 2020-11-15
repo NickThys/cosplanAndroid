@@ -2,10 +2,13 @@ package com.example.cosplan.data.Coplay;
 
 import android.content.Context;
 
+import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
+import androidx.room.migration.Migration;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.cosplan.data.Coplay.Part.Part;
 import com.example.cosplan.data.Coplay.Part.PartDao;
@@ -27,10 +30,16 @@ public abstract class CosplayDatabase extends RoomDatabase {
         if (INSTANCE == null) {
             synchronized (CosplayDatabase.class) {
                 if (INSTANCE == null) {
-                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(), CosplayDatabase.class, "cosplayDatabase").build();
+                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(), CosplayDatabase.class, "cosplayDatabase").addMigrations(MIGRATION_1_2).build();
                 }
             }
         }
         return INSTANCE;
     }
+    static final Migration MIGRATION_1_2=new Migration(1,2) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+
+        }
+    };
 }
