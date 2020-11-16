@@ -49,6 +49,9 @@ import com.example.cosplan.data.Coplay.Part.PartViewModel;
 import com.example.cosplan.data.Coplay.RefImg.RefenceImgAdapter;
 import com.example.cosplan.data.Coplay.RefImg.ReferenceImg;
 import com.example.cosplan.data.Coplay.RefImg.ReferenceImgViewModel;
+import com.example.cosplan.data.Coplay.Webshop.Webshop;
+import com.example.cosplan.data.Coplay.Webshop.WebshopAdapter;
+import com.example.cosplan.data.Coplay.Webshop.WebshopViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Calendar;
@@ -62,10 +65,12 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
     private CosplayAdapter cosplayAdapter;
     private PartViewModel partViewModel;
     private ReferenceImgViewModel referenceImgViewModel;
+    private WebshopAdapter mWebshopAdapter;
+    private WebshopViewModel mWebshopViewModel;
 
-    TextView mName, mStartDate, mEndDate, mPercentage, mBudget;
-    ImageView mImage;
-    ImageButton mUpdateCosplay;
+    private TextView mName, mStartDate, mEndDate, mPercentage, mBudget;
+    private ImageView mImage;
+    private ImageButton mUpdateCosplay;
     private EditText mCosplayName, mCosplayStartDate, mCosplayEndDate, mCosplayBudget;
     private EditText mPartName, mPartLink, mPartCost, mPartEndDate,mCosplayNote;
     private Spinner mPartmakeBuy;
@@ -75,6 +80,8 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
     private RecyclerView mRVRefImg;
     private ImageView mCosplayImage;
     private Button mChoosePicture, mCancel, mUpdateCosplays, mCosplayParts, mCosplayNotes, mCosplayRefPic, mCosplayWIPPic, mCosplayChecklist, mCosplayShoppinglist, mCosplayWebshop, mCosplayEvents, mBtnTest;
+    private RecyclerView mRecViewCosplayWebshop;
+    private FloatingActionButton mFabAddCosplayWebshop;
 
     public static final int GALLERY_REQUEST_CODE_PART = 2;
     private DatePickerDialog.OnDateSetListener mStartDateSetListener;
@@ -129,6 +136,10 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         //Items from the Ref Img
         mRVRefImg=RefImgView.findViewById(R.id.RV_RefImg);
         mRefImgAdd=RefImgView.findViewById(R.id.btn_addRefImg);
+        //items from the webshops
+        mRecViewCosplayWebshop=WebshopsView.findViewById(R.id.RV_CosplayWebshop);
+        mFabAddCosplayWebshop=WebshopsView.findViewById(R.id.Fab_AddCosplayWebshop);
+
 
         //Header
         //Adding text to the items from the header
@@ -277,6 +288,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                 Toast.makeText(requireContext(),"The note is saved",Toast.LENGTH_SHORT).show();
             }
         });
+        //RefImg
         setRefImageInGrid(tempCosplay,refenceImgAdapter);
         mRefImgAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -288,6 +300,44 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
 
             }
         });
+
+        //webshops
+        mWebshopAdapter=new WebshopAdapter(requireContext());
+        mRecViewCosplayWebshop.setAdapter(mWebshopAdapter);
+        mRecViewCosplayWebshop.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL));
+        mRecViewCosplayWebshop.setLayoutManager(new LinearLayoutManager(requireContext()));
+        ItemTouchHelper mHelperWebshop=new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                int position=viewHolder.getAdapterPosition();
+                Webshop myWebshop=mWebshopAdapter.getWebshopAtPosition(position);
+                Toast.makeText(getContext(), "Deleting " + myWebshop.getCosplayWebshopName(), Toast.LENGTH_SHORT).show();
+                mWebshopViewModel.delete(myWebshop);
+            }
+        });
+        mHelperWebshop.attachToRecyclerView(mRecViewCosplayWebshop);
+        mWebshopViewModel=new ViewModelProvider(this).get(WebshopViewModel.class);
+        mWebshopViewModel.getAllWebshops(tempCosplay.mCosplayId).observe(getViewLifecycleOwner(), new Observer<List<Webshop>>() {
+            @Override
+            public void onChanged(List<Webshop> webshops) {
+                mWebshopAdapter.setWebshops(webshops);
+            }
+        });
+        mFabAddCosplayWebshop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            addNewCosplayWebshopDialog(tempCosplay);
+            }
+        });
+
+
+
+
         return v;
     }
     public void setRefImageInGrid(Cosplay tempCosplay,final RefenceImgAdapter refenceImgAdapter){
@@ -442,7 +492,33 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         });
 
     }
-
+    public void addNewCosplayWebshopDialog(final Cosplay cosplay){
+        dialogBuilder=new AlertDialog.Builder(requireContext());
+        final View WebshopPopUpView=getLayoutInflater().inflate(R.layout.cosplay_webshop,null);
+        final EditText mSiteName,mSiteLink;
+        Button mCancel,mAdd;
+        mSiteLink=WebshopPopUpView.findViewById(R.id.EditText_WebsiteLink);
+        mSiteName=WebshopPopUpView.findViewById(R.id.EditText_WebsiteName);
+        mAdd=WebshopPopUpView.findViewById(R.id.btn_CancelCosplayWebshop);
+        mCancel=WebshopPopUpView.findViewById(R.id.btn_addCosplayWebshop);
+        dialogBuilder.setView(WebshopPopUpView);
+        dialog=dialogBuilder.create();
+        dialog.show();
+        mCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        mAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Webshop temp=new Webshop(cosplay.mCosplayId,0,mSiteName.getText().toString(),mSiteName.getText().toString());
+                mWebshopViewModel.insert(temp);
+                dialog.dismiss();
+            }
+        });
+    }
     public void createNewPartDialog(final Cosplay cosplay) {
         dialogBuilder = new AlertDialog.Builder(requireContext());
         final View PartPopUpView = getLayoutInflater().inflate(R.layout.add_cosplay_part, null);
@@ -543,6 +619,9 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             }
         });
     }
+
+
+
     private void closeKeyboard(View view) {
         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
@@ -562,12 +641,8 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
     }
 
     @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-    }
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {}
 
     @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
+    public void onNothingSelected(AdapterView<?> parent) {}
 }

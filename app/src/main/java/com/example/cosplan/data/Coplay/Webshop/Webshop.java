@@ -22,6 +22,10 @@ public class Webshop implements Parcelable {
     @ColumnInfo(name = "CosplayWebshopId")
     public int mCosplayWebshopId;
 
+    public String getCosplayWebshopName() {
+        return mCosplayWebshopName;
+    }
+
     @ColumnInfo(name = "CosplayWebshopName")
     public String mCosplayWebshopName;
 

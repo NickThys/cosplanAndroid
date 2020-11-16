@@ -9,7 +9,7 @@
 
 
     <EditText
-        android:id="@+id/WebsiteName"
+        android:id="@+id/EditText_WebsiteName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
@@ -20,7 +20,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
     <EditText
-        android:id="@+id/WebsiteLink"
+        android:id="@+id/EditText_WebsiteLink"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -29,15 +29,15 @@
         android:hint="@string/WebsiteLink"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/WebsiteName" />
+        app:layout_constraintTop_toBottomOf="@+id/EditText_WebsiteName" />
 
     <Button
-        android:id="@+id/btn_addToDb"
+        android:id="@+id/btn_addCosplayWebshop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="@string/AddWebshopToDb"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/WebsiteLink" />
+        app:layout_constraintTop_toBottomOf="@+id/EditText_WebsiteLink" />
 </androidx.constraintlayout.widget.ConstraintLayout>
