@@ -25,8 +25,8 @@ public class WebshopAdapter extends RecyclerView.Adapter<WebshopAdapter.WebshopV
         private final TextView mCosplayWebsiteName,mCosplayWebshopLink;
         public WebshopViewHolder(@NonNull View itemView) {
             super(itemView);
-            mCosplayWebshopLink=itemView.findViewById(R.id.textviewName);
-            mCosplayWebsiteName=itemView.findViewById(R.id.textviewLink);
+            mCosplayWebsiteName=itemView.findViewById(R.id.textviewName);
+            mCosplayWebshopLink=itemView.findViewById(R.id.textviewLink);
         }
     }
 

@@ -499,8 +499,8 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         Button mCancel,mAdd;
         mSiteLink=WebshopPopUpView.findViewById(R.id.EditText_WebsiteLink);
         mSiteName=WebshopPopUpView.findViewById(R.id.EditText_WebsiteName);
-        mAdd=WebshopPopUpView.findViewById(R.id.btn_CancelCosplayWebshop);
-        mCancel=WebshopPopUpView.findViewById(R.id.btn_addCosplayWebshop);
+        mAdd=WebshopPopUpView.findViewById(R.id.btn_addCosplayWebshop);
+        mCancel=WebshopPopUpView.findViewById(R.id.btn_CancelCosplayWebshop);
         dialogBuilder.setView(WebshopPopUpView);
         dialog=dialogBuilder.create();
         dialog.show();
@@ -513,7 +513,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Webshop temp=new Webshop(cosplay.mCosplayId,0,mSiteName.getText().toString(),mSiteName.getText().toString());
+                Webshop temp=new Webshop(cosplay.mCosplayId,0,mSiteName.getText().toString(),mSiteLink.getText().toString());
                 mWebshopViewModel.insert(temp);
                 dialog.dismiss();
             }
@@ -539,7 +539,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mPartChooseImage = PartPopUpView.findViewById(R.id.btn_Part_ChooseImg);
         mPartCancel = PartPopUpView.findViewById(R.id.btn_partCancel);
         mPartAddPart = PartPopUpView.findViewById(R.id.btn_PartAddPart);
-
+        mPartChooseImage.setEnabled(false);
         dialogBuilder.setView(PartPopUpView);
         dialog = dialogBuilder.create();
         dialog.show();
