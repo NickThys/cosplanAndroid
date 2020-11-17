@@ -355,7 +355,10 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-           
+                int position = viewHolder.getAdapterPosition();
+                ChecklistPart myCheckListPart = mCheckListPartAdapter.getChecklistPartAtPosition(position);
+                Toast.makeText(getContext(), "Deleting" + myCheckListPart.mCosplayCheckListPartName, Toast.LENGTH_SHORT).show();
+                mCheckListPartViewModel.delete(myCheckListPart);
             }
         });
         mHelperCheckListPart.attachToRecyclerView(mRVCheckListPart);
