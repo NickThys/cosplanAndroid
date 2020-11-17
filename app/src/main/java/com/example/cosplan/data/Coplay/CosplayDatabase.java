@@ -14,9 +14,11 @@ import com.example.cosplan.data.Coplay.Part.Part;
 import com.example.cosplan.data.Coplay.Part.PartDao;
 import com.example.cosplan.data.Coplay.RefImg.ReferenceImg;
 import com.example.cosplan.data.Coplay.RefImg.ReferenceImgDao;
+import com.example.cosplan.data.Coplay.Webshop.Webshop;
+import com.example.cosplan.data.Coplay.Webshop.WebshopDao;
 
 @TypeConverters(Converters.class)
-@Database(entities = {Cosplay.class, Part.class, ReferenceImg.class}, version = 1, exportSchema = false)
+@Database(entities = {Cosplay.class, Part.class, ReferenceImg.class, Webshop.class}, version = 2, exportSchema = false)
 public abstract class CosplayDatabase extends RoomDatabase {
     public abstract CosplayDao cosplayDao();
 
@@ -24,6 +26,7 @@ public abstract class CosplayDatabase extends RoomDatabase {
 
     public abstract ReferenceImgDao referenceImgDao();
 
+    public abstract WebshopDao webshopDao();
     private static CosplayDatabase INSTANCE;
 
     public static CosplayDatabase getDatabase(final Context context) {

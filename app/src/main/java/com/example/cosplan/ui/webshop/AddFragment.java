@@ -29,9 +29,9 @@ public class AddFragment extends Fragment {
         // Inflate the layout for this fragment
         final View view =inflater.inflate(R.layout.fragment_add_webshop, container, false);
         mWebshopViewModel= new ViewModelProvider(this).get(WebshopViewModel.class);
-        Button btnAdd=view.findViewById(R.id.btn_addToDb);
-        final EditText mName= view.findViewById(R.id.WebsiteName);
-        final EditText mLink= view.findViewById(R.id.WebsiteLink);
+        Button btnAdd=view.findViewById(R.id.btn_addCosplayWebshop);
+        final EditText mName= view.findViewById(R.id.EditText_WebsiteName);
+        final EditText mLink= view.findViewById(R.id.EditText_WebsiteLink);
         btnAdd.setOnClickListener(new View.OnClickListener() {
 
             @Override
