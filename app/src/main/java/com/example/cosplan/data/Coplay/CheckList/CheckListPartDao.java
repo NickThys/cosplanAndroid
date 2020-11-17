@@ -18,7 +18,7 @@ public interface CheckListPartDao {
     @Delete
     void delete(ChecklistPart checklistPart);
     @Update
-    void Update(ChecklistPart checklistPart);
+    void update(ChecklistPart checklistPart);
     @Query("SELECT*FROM cosplaychecklist_table WHERE CosplayId=:CosplayId")
-    LiveData<List<Webshop>> getAllCheckListParts(final int CosplayId);
+    LiveData<List<ChecklistPart>> getAllCheckListParts(final int CosplayId);
 }
