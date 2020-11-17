@@ -19,12 +19,12 @@ public class ChecklistPart {
     @ColumnInfo(name = "CosplayCheckListPartId")
     public int mCosplayCheckListPartId;
     @ColumnInfo(name = "CosplayCheckListPartName")
-    public int mCosplayCheckListPartName;
+    public String mCosplayCheckListPartName;
     @ColumnInfo(name = "CosplayCheckListPartChecked")
     public boolean mCosplayCheckListPartChecked;
     public ChecklistPart(){}
 
-    public ChecklistPart(int mCosplayId, int mCosplayCheckListPartId, int mCosplayCheckListPartName, boolean mCosplayCheckListPartChecked) {
+    public ChecklistPart(int mCosplayId, int mCosplayCheckListPartId, String mCosplayCheckListPartName, boolean mCosplayCheckListPartChecked) {
         this.mCosplayId = mCosplayId;
         this.mCosplayCheckListPartId = mCosplayCheckListPartId;
         this.mCosplayCheckListPartName = mCosplayCheckListPartName;
