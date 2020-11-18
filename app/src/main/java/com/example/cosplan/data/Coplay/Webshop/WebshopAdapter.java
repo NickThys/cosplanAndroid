@@ -28,7 +28,8 @@ public class WebshopAdapter extends RecyclerView.Adapter<WebshopAdapter.WebshopV
     private final LayoutInflater mInflater;
     private final Context context;
     private WebshopViewModel mWebshopViewModel;
-    public WebshopAdapter(Context context){mInflater=LayoutInflater.from(context);this.context=context;}
+    private Application mApplication;
+    public WebshopAdapter(Context context,Application mApplication){mInflater=LayoutInflater.from(context);this.context=context;this.mApplication=mApplication;}
 
     public class WebshopViewHolder extends RecyclerView.ViewHolder {
         private final TextView mCosplayWebsiteName,mCosplayWebshopLink;
@@ -58,7 +59,7 @@ public class WebshopAdapter extends RecyclerView.Adapter<WebshopAdapter.WebshopV
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-        //        mWebshopViewModel=new ViewModelProvider(context.).get(WebshopViewModel.class);
+               mWebshopViewModel=new WebshopViewModel(mApplication);
 
                 final Dialog dialog;
                 AlertDialog.Builder dialogBuilder=new AlertDialog.Builder(context);
@@ -72,7 +73,6 @@ public class WebshopAdapter extends RecyclerView.Adapter<WebshopAdapter.WebshopV
                 TextView mTitle=WebshopPopUpView.findViewById(R.id.txt_cosplayWebshop);
 
                 mAdd.setText("Update");
-                mAdd.setEnabled(false);
                 mTitle.setText("Update webshop");
                 mSiteLink.setText(current.mCosplayWebshopLink);
                 mSiteName.setText(current.mCosplayWebshopName);
@@ -90,7 +90,6 @@ public class WebshopAdapter extends RecyclerView.Adapter<WebshopAdapter.WebshopV
                     @Override
                     public void onClick(View v) {
                         Webshop temp=new Webshop(current.mCosplayId,current.mCosplayWebshopId,mSiteName.getText().toString(),mSiteLink.getText().toString());
-                        mWebshopViewModel = new ViewModelProvider(this).get(WebshopViewModel.class);
 
 
                         mWebshopViewModel.update(temp);

@@ -302,7 +302,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         });
 
         //webshops
-        mWebshopAdapter=new WebshopAdapter(requireContext());
+        mWebshopAdapter=new WebshopAdapter(requireContext(),getActivity().getApplication());
         mRecViewCosplayWebshop.setAdapter(mWebshopAdapter);
         mRecViewCosplayWebshop.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL));
         mRecViewCosplayWebshop.setLayoutManager(new LinearLayoutManager(requireContext()));
