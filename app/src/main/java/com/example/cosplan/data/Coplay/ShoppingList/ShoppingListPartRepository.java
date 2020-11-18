@@ -12,7 +12,7 @@ import java.util.List;
 public class ShoppingListPartRepository {
     private ShoppingListPartDao mShoppingListPartDao;
     private LiveData<List<ShoppingListPart>> mAllShoppingListParts;
-    private LiveData<List<ShoppingListPart>> mAllShoppingListShops;
+    private LiveData<List<String>> mAllShoppingListShops;
     private int mCosplayId;
     private String mShopName;
 
@@ -28,7 +28,7 @@ public class ShoppingListPartRepository {
         mAllShoppingListParts=mShoppingListPartDao.getAllShoppingListPartsFromShop(mCosplayId, mShopName);
         return mAllShoppingListParts;
     }
-    LiveData<List<ShoppingListPart>> getAllShoppingListShops(int mCosplayId){
+    LiveData<List<String>> getAllShoppingListShops(int mCosplayId){
         this.mCosplayId=mCosplayId;
         mAllShoppingListShops=mShoppingListPartDao.getAllNamesFromStores(mCosplayId);
         return mAllShoppingListShops;

@@ -11,7 +11,7 @@ import java.util.List;
 public class ShoppingListPartViewModel extends AndroidViewModel {
     private ShoppingListPartRepository mRepository;
     private LiveData<List<ShoppingListPart>> mAllShoppingListParts;
-    private LiveData<List<ShoppingListPart>> mAllShoppingListShops;
+    private LiveData<List<String>> mAllShoppingListShops;
     private int mCosplayId;
     private String mShopName;
 
@@ -27,7 +27,7 @@ public class ShoppingListPartViewModel extends AndroidViewModel {
         mAllShoppingListParts=mRepository.getAllShoppingListParts(mCosplayId, mShopName);
         return mAllShoppingListParts;
     }
-    public LiveData<List<ShoppingListPart>>getAllShoppingListShops(int mCosplayId){
+    public LiveData<List<String>>getAllShoppingListShops(int mCosplayId){
         this.mCosplayId=mCosplayId;
         mAllShoppingListShops=mRepository.getAllShoppingListShops(mCosplayId);
         return mAllShoppingListShops;
