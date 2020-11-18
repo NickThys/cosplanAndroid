@@ -373,6 +373,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                 mAllCheckListParts.addAll(checklistParts);
             }
         });
+
         mCheckListPartAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
