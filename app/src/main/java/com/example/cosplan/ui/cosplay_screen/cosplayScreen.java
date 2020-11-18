@@ -313,7 +313,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         });
 
         //webshops
-        mWebshopAdapter=new WebshopAdapter(requireContext(),getActivity().getApplication());
+        mWebshopAdapter = new WebshopAdapter(requireContext(), getActivity().getApplication());
         mRecViewCosplayWebshop.setAdapter(mWebshopAdapter);
         mRecViewCosplayWebshop.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         mRecViewCosplayWebshop.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -347,7 +347,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         });
 
         //CheckList
-        mCheckListPartAdapter = new CheckListPartAdapter(requireContext(),getActivity().getApplication());
+        mCheckListPartAdapter = new CheckListPartAdapter(requireContext(), getActivity().getApplication());
         mRVCheckListPart.setAdapter(mCheckListPartAdapter);
         mRVCheckListPart.setLayoutManager(new LinearLayoutManager(requireContext()));
         ItemTouchHelper mHelperCheckListPart = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
@@ -365,7 +365,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         });
         mHelperCheckListPart.attachToRecyclerView(mRVCheckListPart);
         mCheckListPartViewModel = new ViewModelProvider(this).get(CheckListPartViewModel.class);
-       final List<ChecklistPart> mAllCheckListParts=new LinkedList<ChecklistPart>();
+        final List<ChecklistPart> mAllCheckListParts = new LinkedList<ChecklistPart>();
         mCheckListPartViewModel.getAllCheckListParts(tempCosplay.mCosplayId).observe(getViewLifecycleOwner(), new Observer<List<ChecklistPart>>() {
             @Override
             public void onChanged(List<ChecklistPart> checklistParts) {
@@ -387,38 +387,10 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         });
         return v;
     }
-    public void deleteCheckListPartDialog(final ChecklistPart mCheckListPart){
-        dialogBuilder=new AlertDialog.Builder(requireContext());
-        final View deleteCosplayView=getLayoutInflater().inflate(R.layout.delete_cosplay,null);
-        TextView mDeleteText=deleteCosplayView.findViewById(R.id.text_deleteCosplay);
-        mDeleteText.setText(getString(R.string.ConformationDeleteCheckListPart)+mCheckListPart.mCosplayCheckListPartName);
-        Button yes,no;
-        no=deleteCosplayView.findViewById(R.id.btnCancelDeleteCosplay);
-        yes=deleteCosplayView.findViewById(R.id.btnDeleteCosplay);
-        dialogBuilder.setView(deleteCosplayView);
-        dialog=dialogBuilder.create();
-        dialog.show();
-        yes.setOnClickListener(new View.OnClickListener()        {
-            @Override
-            public void onClick(View v) {
-                mCheckListPartViewModel.delete(mCheckListPart);
-                Toast.makeText(requireContext(), mCheckListPart.mCosplayCheckListPartName+ " deleted",Toast.LENGTH_SHORT).show();
-                dialog.dismiss();
-            }
-        });
-        no.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-                getActivity().recreate();
-            }
-        });
-    }
-    public void checkListClearCheckBoxes(List<ChecklistPart> allParts){
 
-
-        for (ChecklistPart part:allParts) {
-            ChecklistPart temp=new ChecklistPart(part.mCosplayId,part.mCosplayCheckListPartId,part.mCosplayCheckListPartName,false);
+    public void checkListClearCheckBoxes(List<ChecklistPart> allParts) {
+        for (ChecklistPart part : allParts) {
+            ChecklistPart temp = new ChecklistPart(part.mCosplayId, part.mCosplayCheckListPartId, part.mCosplayCheckListPartName, false);
             mCheckListPartViewModel.update(temp);
         }
     }
@@ -434,6 +406,34 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         GridLayoutManager gridLayoutManager = new GridLayoutManager(requireContext(), 3, GridLayoutManager.VERTICAL, false);
         mRVRefImg.setLayoutManager(gridLayoutManager);
         mRVRefImg.setAdapter(refenceImgAdapter);
+    }
+
+    public void deleteCheckListPartDialog(final ChecklistPart mCheckListPart) {
+        dialogBuilder = new AlertDialog.Builder(requireContext());
+        final View deleteCosplayView = getLayoutInflater().inflate(R.layout.delete_cosplay, null);
+        TextView mDeleteText = deleteCosplayView.findViewById(R.id.text_deleteCosplay);
+        mDeleteText.setText(getString(R.string.ConformationDeleteCheckListPart) + mCheckListPart.mCosplayCheckListPartName);
+        Button yes, no;
+        no = deleteCosplayView.findViewById(R.id.btnCancelDeleteCosplay);
+        yes = deleteCosplayView.findViewById(R.id.btnDeleteCosplay);
+        dialogBuilder.setView(deleteCosplayView);
+        dialog = dialogBuilder.create();
+        dialog.show();
+        yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mCheckListPartViewModel.delete(mCheckListPart);
+                Toast.makeText(requireContext(), mCheckListPart.mCosplayCheckListPartName + " deleted", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+            }
+        });
+        no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                getActivity().recreate();
+            }
+        });
     }
 
     public void UpdateCosplayDialog(final Cosplay cosplay) {
@@ -604,17 +604,18 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             }
         });
     }
-    public void addNewCosplayChecklistPartDialog(final Cosplay cosplay){
-        dialogBuilder=new AlertDialog.Builder(requireContext());
-        final View checkListPopUpView=getLayoutInflater().inflate(R.layout.cosplay_checklist_addpart,null);
+
+    public void addNewCosplayChecklistPartDialog(final Cosplay cosplay) {
+        dialogBuilder = new AlertDialog.Builder(requireContext());
+        final View checkListPopUpView = getLayoutInflater().inflate(R.layout.cosplay_checklist_addpart, null);
         final EditText mCheckListPartName;
-        final Button mCheckListCancel,mChecklistAdd;
-        mCheckListPartName=checkListPopUpView.findViewById(R.id.EditText_CosplayChecklist_PartName);
-        mCheckListCancel=checkListPopUpView.findViewById(R.id.btn_CosplayChecklist_Cancel);
-        mChecklistAdd=checkListPopUpView.findViewById(R.id.btn_CosplayChecklist_AddPart);
+        final Button mCheckListCancel, mChecklistAdd;
+        mCheckListPartName = checkListPopUpView.findViewById(R.id.EditText_CosplayChecklist_PartName);
+        mCheckListCancel = checkListPopUpView.findViewById(R.id.btn_CosplayChecklist_Cancel);
+        mChecklistAdd = checkListPopUpView.findViewById(R.id.btn_CosplayChecklist_AddPart);
 
         dialogBuilder.setView(checkListPopUpView);
-        dialog=dialogBuilder.create();
+        dialog = dialogBuilder.create();
         dialog.show();
 
         mCheckListCancel.setOnClickListener(new View.OnClickListener() {
@@ -626,13 +627,14 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mChecklistAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ChecklistPart temp=new ChecklistPart(cosplay.mCosplayId,0,mCheckListPartName.getText().toString(),false);
+                ChecklistPart temp = new ChecklistPart(cosplay.mCosplayId, 0, mCheckListPartName.getText().toString(), false);
                 mCheckListPartViewModel.insert(temp);
 
                 dialog.dismiss();
             }
         });
     }
+
     public void createNewPartDialog(final Cosplay cosplay) {
         dialogBuilder = new AlertDialog.Builder(requireContext());
         final View PartPopUpView = getLayoutInflater().inflate(R.layout.add_cosplay_part, null);
