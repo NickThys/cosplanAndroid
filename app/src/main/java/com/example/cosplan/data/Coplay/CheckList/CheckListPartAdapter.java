@@ -1,10 +1,12 @@
 package com.example.cosplan.data.Coplay.CheckList;
 
+import android.app.Application;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,9 +19,10 @@ import java.util.List;
 public class CheckListPartAdapter extends RecyclerView.Adapter<CheckListPartAdapter.CheckListPartViewHolder> {
     private List<ChecklistPart> mCheckListParts;
     private final LayoutInflater mInflater;
-
-    public CheckListPartAdapter(Context context) {
+    private Application mApplication;
+    public CheckListPartAdapter(Context context, Application application) {
         mInflater = LayoutInflater.from(context);
+        mApplication=application;
     }
 
     public class CheckListPartViewHolder extends RecyclerView.ViewHolder {
@@ -42,12 +45,20 @@ public class CheckListPartAdapter extends RecyclerView.Adapter<CheckListPartAdap
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CheckListPartAdapter.CheckListPartViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final CheckListPartAdapter.CheckListPartViewHolder holder, int position) {
         final ChecklistPart current=mCheckListParts.get(position);
         String tempName=current.mCosplayCheckListPartName;
         boolean tempPacked=current.mCosplayCheckListPartChecked;
         holder.mCheckListPartName.setText(tempName);
-        holder.mCheckListPartPacked.setEnabled(tempPacked);
+        holder.mCheckListPartPacked.setChecked(tempPacked);
+        holder.mCheckListPartPacked.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                CheckListPartViewModel viewModel=new CheckListPartViewModel(mApplication);
+                ChecklistPart tempPart=new ChecklistPart(current.mCosplayId,current.mCosplayCheckListPartId,holder.mCheckListPartName.getText().toString(),holder.mCheckListPartPacked.isChecked());
+                viewModel.update(tempPart);
+            }
+        });
     }
 
     @Override

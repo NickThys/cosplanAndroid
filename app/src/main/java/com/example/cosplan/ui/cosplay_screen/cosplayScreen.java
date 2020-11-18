@@ -344,7 +344,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         });
 
         //CheckList
-        mCheckListPartAdapter = new CheckListPartAdapter(requireContext());
+        mCheckListPartAdapter = new CheckListPartAdapter(requireContext(),getActivity().getApplication());
         mRVCheckListPart.setAdapter(mCheckListPartAdapter);
         mRVCheckListPart.setLayoutManager(new LinearLayoutManager(requireContext()));
         ItemTouchHelper mHelperCheckListPart = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
