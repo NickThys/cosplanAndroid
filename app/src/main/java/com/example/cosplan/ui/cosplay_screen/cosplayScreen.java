@@ -13,6 +13,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -57,7 +58,9 @@ import com.example.cosplan.data.Coplay.Webshop.WebshopAdapter;
 import com.example.cosplan.data.Coplay.Webshop.WebshopViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.lang.reflect.Array;
 import java.util.Calendar;
+import java.util.LinkedList;
 import java.util.List;
 
 public class cosplayScreen extends Fragment implements AdapterView.OnItemSelectedListener {
@@ -363,10 +366,12 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         });
         mHelperCheckListPart.attachToRecyclerView(mRVCheckListPart);
         mCheckListPartViewModel = new ViewModelProvider(this).get(CheckListPartViewModel.class);
+       final List<ChecklistPart> mAllCheckListParts=new LinkedList<ChecklistPart>();
         mCheckListPartViewModel.getAllCheckListParts(tempCosplay.mCosplayId).observe(getViewLifecycleOwner(), new Observer<List<ChecklistPart>>() {
             @Override
             public void onChanged(List<ChecklistPart> checklistParts) {
                 mCheckListPartAdapter.setCheckListParts(checklistParts);
+                mAllCheckListParts.addAll(checklistParts);
             }
         });
         mCheckListPartAdd.setOnClickListener(new View.OnClickListener() {
@@ -375,8 +380,22 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                 addNewCosplayChecklistPartDialog(tempCosplay);
             }
         });
-
+        mCheckListPartClear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkListClearCheckBoxes(mAllCheckListParts);
+            }
+        });
         return v;
+    }
+
+    public void checkListClearCheckBoxes(List<ChecklistPart> allParts){
+
+
+        for (ChecklistPart part:allParts) {
+            ChecklistPart temp=new ChecklistPart(part.mCosplayId,part.mCosplayCheckListPartId,part.mCosplayCheckListPartName,false);
+            mCheckListPartViewModel.update(temp);
+        }
     }
 
     public void setRefImageInGrid(Cosplay tempCosplay, final RefenceImgAdapter refenceImgAdapter) {
