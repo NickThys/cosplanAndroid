@@ -35,7 +35,7 @@ public abstract class CosplayDatabase extends RoomDatabase {
     public abstract CheckListPartDao checkListPartDao();
 
     public abstract ShoppingListPartDao shoppingListPartDao();
-    
+
     private static CosplayDatabase INSTANCE;
 
     public static CosplayDatabase getDatabase(final Context context) {
