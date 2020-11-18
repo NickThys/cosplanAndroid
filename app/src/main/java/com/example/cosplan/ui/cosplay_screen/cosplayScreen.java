@@ -360,8 +360,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 int position = viewHolder.getAdapterPosition();
                 ChecklistPart myCheckListPart = mCheckListPartAdapter.getChecklistPartAtPosition(position);
-                Toast.makeText(getContext(), "Deleting" + myCheckListPart.mCosplayCheckListPartName, Toast.LENGTH_SHORT).show();
-                mCheckListPartViewModel.delete(myCheckListPart);
+                deleteCheckListPartDialog(myCheckListPart);
             }
         });
         mHelperCheckListPart.attachToRecyclerView(mRVCheckListPart);
@@ -388,7 +387,33 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         });
         return v;
     }
-
+    public void deleteCheckListPartDialog(final ChecklistPart mCheckListPart){
+        dialogBuilder=new AlertDialog.Builder(requireContext());
+        final View deleteCosplayView=getLayoutInflater().inflate(R.layout.delete_cosplay,null);
+        TextView mDeleteText=deleteCosplayView.findViewById(R.id.text_deleteCosplay);
+        mDeleteText.setText(getString(R.string.ConformationDeleteCheckListPart)+mCheckListPart.mCosplayCheckListPartName);
+        Button yes,no;
+        no=deleteCosplayView.findViewById(R.id.btnCancelDeleteCosplay);
+        yes=deleteCosplayView.findViewById(R.id.btnDeleteCosplay);
+        dialogBuilder.setView(deleteCosplayView);
+        dialog=dialogBuilder.create();
+        dialog.show();
+        yes.setOnClickListener(new View.OnClickListener()        {
+            @Override
+            public void onClick(View v) {
+                mCheckListPartViewModel.delete(mCheckListPart);
+                Toast.makeText(requireContext(), mCheckListPart.mCosplayCheckListPartName+ " deleted",Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+            }
+        });
+        no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                getActivity().recreate();
+            }
+        });
+    }
     public void checkListClearCheckBoxes(List<ChecklistPart> allParts){
 
 
