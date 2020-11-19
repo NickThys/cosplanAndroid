@@ -20,7 +20,7 @@ import java.util.List;
 
 public class ShoppingListPartAdapter extends RecyclerView.Adapter<ShoppingListPartAdapter.ShoppingListPartViewHolder> {
     private List<ShoppingListPart> mShoppingListParts;
-    private List<String> mShoppingListShops;
+  //  private List<String> mShoppingListShops;
     private final LayoutInflater mInflater;
     private final Application mApplication;
 
@@ -31,12 +31,13 @@ public class ShoppingListPartAdapter extends RecyclerView.Adapter<ShoppingListPa
 
 
     public class ShoppingListPartViewHolder extends RecyclerView.ViewHolder {
-        private final TextView mShoppingListListPartName;
+        private final TextView mShoppingListListPartName,mShoppingListListPartShop;
         private final CheckBox mShoppingListPartPacked;
 
         public ShoppingListPartViewHolder(@NonNull View itemView) {
             super(itemView);
             mShoppingListListPartName = itemView.findViewById(R.id.txtView_ShoppingListPartName);
+            mShoppingListListPartShop=itemView.findViewById(R.id.txtView_ShoppingListShop);
             mShoppingListPartPacked = itemView.findViewById(R.id.CheckBox_ShoppingListPart_Checked);
         }
     }
@@ -49,9 +50,9 @@ public class ShoppingListPartAdapter extends RecyclerView.Adapter<ShoppingListPa
         mShoppingListParts = shoppingListParts;
     }
 
-    public void setShoppingListShops(List<String> shoppingListShops) {
+ /*   public void setShoppingListShops(List<String> shoppingListShops) {
         mShoppingListShops = shoppingListShops;
-    }
+    }*/
 
     @NonNull
     @Override
@@ -64,9 +65,11 @@ public class ShoppingListPartAdapter extends RecyclerView.Adapter<ShoppingListPa
     public void onBindViewHolder(@NonNull final ShoppingListPartAdapter.ShoppingListPartViewHolder holder, int position) {
         final ShoppingListPart current=mShoppingListParts.get(position);
         String tempName=current.mCosplayShoppingListPartName;
+        String tempShop=current.mCosplayShoppingListPartShop;
         boolean tempPacked=current.mCosplayShoppingListPartChecked;
         holder.mShoppingListListPartName.setText(tempName);
         holder.mShoppingListPartPacked.setChecked(tempPacked);
+        holder.mShoppingListListPartShop.setText(tempShop);
         holder.mShoppingListPartPacked.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -79,7 +82,7 @@ public class ShoppingListPartAdapter extends RecyclerView.Adapter<ShoppingListPa
 
     @Override
     public int getItemCount() {
-        if (mShoppingListShops != null) {
+        if (mShoppingListParts != null) {
             return mShoppingListParts.size();
         } else {
             return 0;

@@ -17,8 +17,8 @@ public interface ShoppingListPartDao {
     void delete(ShoppingListPart shoppingListPart);
     @Update
     void update(ShoppingListPart shoppingListPart);
-    @Query("SELECT DISTINCT CosplayShoppingListPartShop from CosplayShoppingList_table where CosplayId=:CosplayId")
-    LiveData<List<String>> getAllNamesFromStores(final int CosplayId);
-    @Query("SELECT * FROM CosplayShoppingList_table WHERE CosplayId=:CosplayId AND CosplayShoppingListPartShop=:PartShop")
-    LiveData<List<ShoppingListPart>> getAllShoppingListPartsFromShop(final int CosplayId,final String PartShop);
+  /*  @Query("SELECT DISTINCT CosplayShoppingListPartShop from CosplayShoppingList_table where CosplayId=:CosplayId")
+    LiveData<List<String>> getAllNamesFromStores(final int CosplayId);*/
+    @Query("SELECT * FROM CosplayShoppingList_table WHERE CosplayId=:CosplayId ")
+    LiveData<List<ShoppingListPart>> getAllShoppingListPartsFromShop(final int CosplayId);
 }
