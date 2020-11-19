@@ -73,8 +73,9 @@ public class ShoppingListPartAdapter extends RecyclerView.Adapter<ShoppingListPa
         holder.mShoppingListPartPacked.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                CheckListPartViewModel viewModel=new CheckListPartViewModel(mApplication);
-                ChecklistPart tempPart=new ChecklistPart(current.mCosplayId,current.mCosplayShoppingLIstPartId,holder.mShoppingListListPartName.getText().toString(),holder.mShoppingListPartPacked.isChecked());
+                ShoppingListPartViewModel viewModel=new ShoppingListPartViewModel(mApplication);
+                ShoppingListPart tempPart=new ShoppingListPart(current.mCosplayId,current.mCosplayShoppingLIstPartId,current.mCosplayShoppingListPartShop,current.mCosplayShoppingListPartName,holder.mShoppingListPartPacked.isChecked());
+
                 viewModel.update(tempPart);
             }
         });
