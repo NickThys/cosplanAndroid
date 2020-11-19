@@ -19,18 +19,18 @@ public class ShoppingListPartViewModel extends AndroidViewModel {
         super(application);
         mRepository=new ShoppingListPartRepository(application);
         mAllShoppingListParts=mRepository.getAllShoppingListParts(mCosplayId);
-        mAllShoppingListShops=mRepository.getAllShoppingListShops(mCosplayId);
+   //     mAllShoppingListShops=mRepository.getAllShoppingListShops(mCosplayId);
     }
-    public LiveData<List<ShoppingListPart>> getAllShoppingListParts(int mCosplayId){
+  public LiveData<List<ShoppingListPart>> getAllShoppingListParts(int mCosplayId){
         this.mCosplayId=mCosplayId;
         mAllShoppingListParts=mRepository.getAllShoppingListParts(mCosplayId);
         return mAllShoppingListParts;
     }
-    public LiveData<List<String>>getAllShoppingListShops(int mCosplayId){
+  /*  public LiveData<List<String>>getAllShoppingListShops(int mCosplayId){
         this.mCosplayId=mCosplayId;
         mAllShoppingListShops=mRepository.getAllShoppingListShops(mCosplayId);
         return mAllShoppingListShops;
-    }
+    }*/
     public void insert(ShoppingListPart shoppingListPart){mRepository.insert(shoppingListPart);}
     public void delete(ShoppingListPart shoppingListPart){mRepository.delete(shoppingListPart);}
     public void update(ShoppingListPart shoppingListPart){mRepository.update(shoppingListPart);}

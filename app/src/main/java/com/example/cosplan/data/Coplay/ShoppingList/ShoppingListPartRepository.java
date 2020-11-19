@@ -20,7 +20,7 @@ public class ShoppingListPartRepository {
         CosplayDatabase db=CosplayDatabase.getDatabase(application);
         mShoppingListPartDao=db.shoppingListPartDao();
         mAllShoppingListParts=mShoppingListPartDao.getAllShoppingListPartsFromShop(mCosplayId);
-        mAllShoppingListShops=mShoppingListPartDao.getAllNamesFromStores(mCosplayId);
+       // mAllShoppingListShops=mShoppingListPartDao.getAllNamesFromStores(mCosplayId);
     }
     LiveData<List<ShoppingListPart>> getAllShoppingListParts(int mCosplayId){
         this.mCosplayId=mCosplayId;
@@ -28,11 +28,11 @@ public class ShoppingListPartRepository {
         mAllShoppingListParts=mShoppingListPartDao.getAllShoppingListPartsFromShop(mCosplayId);
         return mAllShoppingListParts;
     }
-    LiveData<List<String>> getAllShoppingListShops(int mCosplayId){
+  /*  LiveData<List<String>> getAllShoppingListShops(int mCosplayId){
         this.mCosplayId=mCosplayId;
         mAllShoppingListShops=mShoppingListPartDao.getAllNamesFromStores(mCosplayId);
         return mAllShoppingListShops;
-    }
+    }*/
     public void insert(ShoppingListPart shoppingListPart){new ShoppingListPartRepository.insertAsyncTask(mShoppingListPartDao).execute(shoppingListPart);}
     public void delete(ShoppingListPart shoppingListPart){new ShoppingListPartRepository.deleteAsyncTask(mShoppingListPartDao).execute(shoppingListPart);}
     public void update(ShoppingListPart shoppingListPart){new ShoppingListPartRepository.updateAsyncTask(mShoppingListPartDao).execute(shoppingListPart);}

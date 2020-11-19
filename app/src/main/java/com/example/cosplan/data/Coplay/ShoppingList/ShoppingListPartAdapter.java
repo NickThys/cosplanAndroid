@@ -20,7 +20,7 @@ import java.util.List;
 
 public class ShoppingListPartAdapter extends RecyclerView.Adapter<ShoppingListPartAdapter.ShoppingListPartViewHolder> {
     private List<ShoppingListPart> mShoppingListParts;
-    private List<String> mShoppingListShops;
+  //  private List<String> mShoppingListShops;
     private final LayoutInflater mInflater;
     private final Application mApplication;
 
@@ -50,9 +50,9 @@ public class ShoppingListPartAdapter extends RecyclerView.Adapter<ShoppingListPa
         mShoppingListParts = shoppingListParts;
     }
 
-    public void setShoppingListShops(List<String> shoppingListShops) {
+ /*   public void setShoppingListShops(List<String> shoppingListShops) {
         mShoppingListShops = shoppingListShops;
-    }
+    }*/
 
     @NonNull
     @Override
@@ -82,7 +82,7 @@ public class ShoppingListPartAdapter extends RecyclerView.Adapter<ShoppingListPa
 
     @Override
     public int getItemCount() {
-        if (mShoppingListShops != null) {
+        if (mShoppingListParts != null) {
             return mShoppingListParts.size();
         } else {
             return 0;

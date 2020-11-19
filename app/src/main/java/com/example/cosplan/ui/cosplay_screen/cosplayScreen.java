@@ -424,6 +424,12 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             }
         });
 
+        mFabShoppingListAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addNewCosplayShoppingListPartDialog(tempCosplay);
+            }
+        });
 
         return v;
     }
