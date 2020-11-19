@@ -21,4 +21,6 @@ public interface ShoppingListPartDao {
     LiveData<List<String>> getAllNamesFromStores(final int CosplayId);*/
     @Query("SELECT * FROM CosplayShoppingList_table WHERE CosplayId=:CosplayId ")
     LiveData<List<ShoppingListPart>> getAllShoppingListPartsFromShop(final int CosplayId);
+    @Query("DELETE FROM cosplayshoppinglist_table where CosplayId=:cosplayId")
+    void deleteAll(int cosplayId);
 }
