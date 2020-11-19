@@ -18,13 +18,12 @@ public class ShoppingListPartViewModel extends AndroidViewModel {
     public ShoppingListPartViewModel(@NonNull Application application) {
         super(application);
         mRepository=new ShoppingListPartRepository(application);
-        mAllShoppingListParts=mRepository.getAllShoppingListParts(mCosplayId,mShopName);
+        mAllShoppingListParts=mRepository.getAllShoppingListParts(mCosplayId);
         mAllShoppingListShops=mRepository.getAllShoppingListShops(mCosplayId);
     }
-    public LiveData<List<ShoppingListPart>> getAllShoppingListParts(int mCosplayId,String mShopName){
+    public LiveData<List<ShoppingListPart>> getAllShoppingListParts(int mCosplayId){
         this.mCosplayId=mCosplayId;
-        this.mShopName=mShopName;
-        mAllShoppingListParts=mRepository.getAllShoppingListParts(mCosplayId, mShopName);
+        mAllShoppingListParts=mRepository.getAllShoppingListParts(mCosplayId);
         return mAllShoppingListParts;
     }
     public LiveData<List<String>>getAllShoppingListShops(int mCosplayId){

@@ -19,13 +19,13 @@ public class ShoppingListPartRepository {
     public ShoppingListPartRepository(Application application){
         CosplayDatabase db=CosplayDatabase.getDatabase(application);
         mShoppingListPartDao=db.shoppingListPartDao();
-        mAllShoppingListParts=mShoppingListPartDao.getAllShoppingListPartsFromShop(mCosplayId,mShopName);
+        mAllShoppingListParts=mShoppingListPartDao.getAllShoppingListPartsFromShop(mCosplayId);
         mAllShoppingListShops=mShoppingListPartDao.getAllNamesFromStores(mCosplayId);
     }
-    LiveData<List<ShoppingListPart>> getAllShoppingListParts(int mCosplayId,String mShopName){
+    LiveData<List<ShoppingListPart>> getAllShoppingListParts(int mCosplayId){
         this.mCosplayId=mCosplayId;
         this.mShopName=mShopName;
-        mAllShoppingListParts=mShoppingListPartDao.getAllShoppingListPartsFromShop(mCosplayId, mShopName);
+        mAllShoppingListParts=mShoppingListPartDao.getAllShoppingListPartsFromShop(mCosplayId);
         return mAllShoppingListParts;
     }
     LiveData<List<String>> getAllShoppingListShops(int mCosplayId){

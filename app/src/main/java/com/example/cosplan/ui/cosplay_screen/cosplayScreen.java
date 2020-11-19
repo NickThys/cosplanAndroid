@@ -53,6 +53,9 @@ import com.example.cosplan.data.Coplay.Part.PartViewModel;
 import com.example.cosplan.data.Coplay.RefImg.RefenceImgAdapter;
 import com.example.cosplan.data.Coplay.RefImg.ReferenceImg;
 import com.example.cosplan.data.Coplay.RefImg.ReferenceImgViewModel;
+import com.example.cosplan.data.Coplay.ShoppingList.ShoppingListPart;
+import com.example.cosplan.data.Coplay.ShoppingList.ShoppingListPartAdapter;
+import com.example.cosplan.data.Coplay.ShoppingList.ShoppingListPartViewModel;
 import com.example.cosplan.data.Coplay.Webshop.Webshop;
 import com.example.cosplan.data.Coplay.Webshop.WebshopAdapter;
 import com.example.cosplan.data.Coplay.Webshop.WebshopViewModel;
@@ -75,6 +78,8 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
     private WebshopViewModel mWebshopViewModel;
     private CheckListPartViewModel mCheckListPartViewModel;
     private CheckListPartAdapter mCheckListPartAdapter;
+    private ShoppingListPartAdapter mShoppingListPartAdapter;
+    private ShoppingListPartViewModel mShoppingListViewModel;
 
     private TextView mName, mStartDate, mEndDate, mPercentage, mBudget;
     private ImageView mImage;
@@ -87,9 +92,9 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
     private FloatingActionButton mfabAddPart, mCheckListPartAdd;
     private RecyclerView mRVRefImg;
     private ImageView mCosplayImage;
-    private Button mChoosePicture, mCancel, mUpdateCosplays, mCosplayParts, mCosplayNotes, mCosplayRefPic, mCosplayWIPPic, mCosplayChecklist, mCosplayShoppinglist, mCosplayWebshop, mCosplayEvents, mBtnTest;
-    private RecyclerView mRecViewCosplayWebshop, mRVCheckListPart;
-    private FloatingActionButton mFabAddCosplayWebshop;
+    private Button mChoosePicture, mCancel, mUpdateCosplays, mCosplayParts, mCosplayNotes, mCosplayRefPic, mCosplayWIPPic, mCosplayChecklist, mCosplayShoppinglist, mCosplayWebshop, mCosplayEvents, mShoppingListAdd,mShoppingListCancel,mShoppingListClear;
+    private RecyclerView mRecViewCosplayWebshop, mRVCheckListPart,mRVShoppingList;
+    private FloatingActionButton mFabAddCosplayWebshop,mFabShoppingListAdd;
 
     public static final int GALLERY_REQUEST_CODE_PART = 2;
     private DatePickerDialog.OnDateSetListener mStartDateSetListener;
@@ -114,6 +119,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         final RefenceImgAdapter refenceImgAdapter = new RefenceImgAdapter(null, requireContext());
         final PartAdapter partAdapterMake = new PartAdapter(requireContext());
         final PartAdapter partAdapterBuy = new PartAdapter(requireContext());
+        final ShoppingListPartAdapter shoppingListPartAdapter=new ShoppingListPartAdapter(requireContext(),getActivity().getApplication());
 
         cosplayViewModel = new ViewModelProvider(this).get(CosplayViewModel.class);
         final Cosplay tempCosplay = cosplayScreenArgs.fromBundle(getArguments()).getCurrentCosplay();
@@ -151,6 +157,10 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mRVCheckListPart = CheckListView.findViewById(R.id.RV_CheckList_Parts);
         mCheckListPartAdd = CheckListView.findViewById(R.id.FAB_CheckList_AddNewPart);
         mCheckListPartClear = CheckListView.findViewById(R.id.btn_CheckList_ClearAllCheckBoxes);
+        //items from the ShoppingList;
+        mRVShoppingList=ShoppingListView.findViewById(R.id.RV_Shoppinglist);
+        mFabShoppingListAdd =ShoppingListView.findViewById(R.id.fab_Shoppinglist_AddShoppinglistPart);
+        mShoppingListClear=ShoppingListView.findViewById(R.id.btn_ShoppingList_ClearList);
 
         //Header
         //Adding text to the items from the header
@@ -386,6 +396,35 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                 checkListClearCheckBoxes(mAllCheckListParts);
             }
         });
+
+        //Shoppinglist
+        mShoppingListPartAdapter=new ShoppingListPartAdapter(requireContext(),getActivity().getApplication());
+        mRVShoppingList.setAdapter(mShoppingListPartAdapter);
+        mRVShoppingList.setLayoutManager(new LinearLayoutManager(requireContext()));
+
+        ItemTouchHelper mHelperShoppingList=new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT ) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                int position=viewHolder.getAdapterPosition();
+                ShoppingListPart myShoppingList=mShoppingListPartAdapter.getShoppingListPartAtPosition(position);
+                deleteShoppingListPartDialog(myShoppingList);
+            }
+        });
+        mHelperShoppingList.attachToRecyclerView(mRVShoppingList);
+        mShoppingListViewModel=new ViewModelProvider(this).get(ShoppingListPartViewModel.class);
+        mShoppingListViewModel.getAllShoppingListParts(tempCosplay.mCosplayId).observe(getViewLifecycleOwner(), new Observer<List<ShoppingListPart>>() {
+            @Override
+            public void onChanged(List<ShoppingListPart> shoppingListParts) {
+                mShoppingListPartAdapter.setShoppingListParts(shoppingListParts);
+            }
+        });
+
+
         return v;
     }
 
@@ -409,6 +448,33 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mRVRefImg.setAdapter(refenceImgAdapter);
     }
 
+    public void deleteShoppingListPartDialog(final ShoppingListPart mShoppingListPart) {
+        dialogBuilder = new AlertDialog.Builder(requireContext());
+        final View deleteCosplayView = getLayoutInflater().inflate(R.layout.delete_cosplay, null);
+        TextView mDeleteText = deleteCosplayView.findViewById(R.id.text_deleteCosplay);
+        mDeleteText.setText(getString(R.string.ConformationDeleteCheckListPart) + mShoppingListPart.mCosplayShoppingListPartName);
+        Button yes, no;
+        no = deleteCosplayView.findViewById(R.id.btnCancelDeleteCosplay);
+        yes = deleteCosplayView.findViewById(R.id.btnDeleteCosplay);
+        dialogBuilder.setView(deleteCosplayView);
+        dialog = dialogBuilder.create();
+        dialog.show();
+        yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mShoppingListViewModel.delete(mShoppingListPart);
+                Toast.makeText(requireContext(), mShoppingListPart.mCosplayShoppingListPartName + " deleted", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+            }
+        });
+        no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                getActivity().recreate();
+            }
+        });
+    }
     public void deleteCheckListPartDialog(final ChecklistPart mCheckListPart) {
         dialogBuilder = new AlertDialog.Builder(requireContext());
         final View deleteCosplayView = getLayoutInflater().inflate(R.layout.delete_cosplay, null);
@@ -635,7 +701,37 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             }
         });
     }
+    public void addNewCosplayShoppingListPartDialog(final Cosplay cosplay) {
+        dialogBuilder = new AlertDialog.Builder(requireContext());
+        final View shoppingListPopUpView = getLayoutInflater().inflate(R.layout.cosplay_shoppinglist_add, null);
 
+        final EditText mShoppingListPartName,mShoppingListShop;
+        final Button mShoppingListCancel, mShoppinglistAdd;
+        mShoppingListPartName = shoppingListPopUpView.findViewById(R.id.editText_CosplayShoppingList_PartName);
+        mShoppingListCancel = shoppingListPopUpView.findViewById(R.id.btn_CosplayShoppingList_Cancel);
+        mShoppinglistAdd = shoppingListPopUpView.findViewById(R.id.btn_CosplayShoppingList_Add);
+        mShoppingListShop=shoppingListPopUpView.findViewById(R.id.editText_CosplayShoppingList_ShopName);
+
+        dialogBuilder.setView(shoppingListPopUpView);
+        dialog = dialogBuilder.create();
+        dialog.show();
+
+        mShoppingListCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        mShoppinglistAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ShoppingListPart temp = new ShoppingListPart(cosplay.mCosplayId, 0, mShoppingListPartName.getText().toString(), mShoppingListShop.getText().toString(),false);
+                mShoppingListViewModel.insert(temp);
+
+                dialog.dismiss();
+            }
+        });
+    }
     public void createNewPartDialog(final Cosplay cosplay) {
         dialogBuilder = new AlertDialog.Builder(requireContext());
         final View PartPopUpView = getLayoutInflater().inflate(R.layout.add_cosplay_part, null);
