@@ -19,7 +19,7 @@ import java.util.List;
 public class CheckListPartAdapter extends RecyclerView.Adapter<CheckListPartAdapter.CheckListPartViewHolder> {
     private List<ChecklistPart> mCheckListParts;
     private final LayoutInflater mInflater;
-    private Application mApplication;
+    private final Application mApplication;
     public CheckListPartAdapter(Context context, Application application) {
         mInflater = LayoutInflater.from(context);
         mApplication=application;
