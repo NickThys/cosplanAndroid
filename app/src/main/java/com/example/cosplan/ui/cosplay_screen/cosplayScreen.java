@@ -430,6 +430,12 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                 addNewCosplayShoppingListPartDialog(tempCosplay);
             }
         });
+        mShoppingListClear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteWholeShoppingListDialog(mShoppingListPartAdapter.getShoppingListPartAtPosition(0));
+            }
+        });
 
         return v;
     }
@@ -838,7 +844,34 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             }
         });
     }
+    public void deleteWholeShoppingListDialog(final ShoppingListPart part){
+        dialogBuilder = new AlertDialog.Builder(requireContext());
+        final View deleteCosplayView = getLayoutInflater().inflate(R.layout.delete_cosplay, null);
+        TextView mDeleteText = deleteCosplayView.findViewById(R.id.text_deleteCosplay);
+        mDeleteText.setText(getString(R.string.ConformationDeleteCheckListPart) +" the whole list?");
+        final Button yes, no;
+        no = deleteCosplayView.findViewById(R.id.btnCancelDeleteCosplay);
+        yes = deleteCosplayView.findViewById(R.id.btnDeleteCosplay);
+        dialogBuilder.setView(deleteCosplayView);
+        dialog = dialogBuilder.create();
+        dialog.show();
+        yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mShoppingListViewModel.deleteAll(part);
+                Toast.makeText(requireContext(), "Shopping list  deleted", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+                getActivity().recreate();
+            }
+        });
+        no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
 
+            }
+        });
+    }
 
     private void closeKeyboard(View view) {
         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);

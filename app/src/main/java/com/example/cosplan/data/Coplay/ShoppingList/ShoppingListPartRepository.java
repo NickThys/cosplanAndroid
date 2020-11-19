@@ -36,7 +36,7 @@ public class ShoppingListPartRepository {
     public void insert(ShoppingListPart shoppingListPart){new ShoppingListPartRepository.insertAsyncTask(mShoppingListPartDao).execute(shoppingListPart);}
     public void delete(ShoppingListPart shoppingListPart){new ShoppingListPartRepository.deleteAsyncTask(mShoppingListPartDao).execute(shoppingListPart);}
     public void update(ShoppingListPart shoppingListPart){new ShoppingListPartRepository.updateAsyncTask(mShoppingListPartDao).execute(shoppingListPart);}
-
+    public void deleteAll(ShoppingListPart shoppingListPart){new ShoppingListPartRepository.DeleteAllAsyncTask(mShoppingListPartDao).execute(shoppingListPart);}
     public class insertAsyncTask extends AsyncTask<ShoppingListPart,Void,Void> {
         private ShoppingListPartDao dao;
         public insertAsyncTask(ShoppingListPartDao mShoppingListPartDao) {dao=mShoppingListPartDao;}
@@ -72,4 +72,16 @@ public class ShoppingListPartRepository {
             return null;
         }
     }
+    public class DeleteAllAsyncTask extends AsyncTask<ShoppingListPart,Void,Void> {
+        private ShoppingListPartDao dao;
+        public DeleteAllAsyncTask(ShoppingListPartDao mShoppingListPartDao) {dao=mShoppingListPartDao;}
+
+
+        @Override
+        protected Void doInBackground(ShoppingListPart... shoppingListParts) {
+            dao.deleteAll(shoppingListParts[0].mCosplayId);
+            return null;
+        }
+    }
+
 }

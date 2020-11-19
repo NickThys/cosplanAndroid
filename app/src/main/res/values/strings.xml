@@ -49,7 +49,7 @@
     <string name="btnText_webshops">Webshops</string>
     <string name="btnText_events">Events</string>
     <string name="title_newCosplayPart">New Part</string>
-    <string name="ConformationDeleteCheckListPart">\"Do you want to delete \"</string>
+    <string name="ConformationDeleteCheckListPart">Do you want to delete </string>
     <string-array name="BuyMake">
         <item>Buy</item>
         <item>Make</item>
