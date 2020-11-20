@@ -86,7 +86,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnChooseCosplayImg"
-            app:srcCompat="@drawable/ic_cosplan_logo" />
+            app:srcCompat="@drawable/cosplanv2" />
 
         <Button
             android:id="@+id/buttonAddCosplay"
