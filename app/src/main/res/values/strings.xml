@@ -50,6 +50,8 @@
     <string name="btnText_events">Events</string>
     <string name="title_newCosplayPart">New Part</string>
     <string name="ConformationDeleteCheckListPart">Do you want to delete </string>
+    <string name="btnText_WIPShort">WIP img</string>
+    <string name="tnTxt_RefImgShort">Ref. Img.</string>
     <string-array name="BuyMake">
         <item>Buy</item>
         <item>Make</item>
