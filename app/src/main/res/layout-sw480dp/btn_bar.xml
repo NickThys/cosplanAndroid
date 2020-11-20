@@ -38,26 +38,16 @@
      app:layout_constraintStart_toStartOf="parent"
      app:layout_constraintTop_toBottomOf="@+id/btn_cosplayChecklist" />
 
-    <View
-        android:id="@+id/div"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_cosplayReferencePic"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_cosplayWIPImage" />
-
-    <Button
-        android:id="@+id/btn_cosplayparts"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:minHeight="0dp"
-        android:text="@string/btnText_cosplay_parts"
-        app:layout_constraintEnd_toStartOf="@+id/btn_cosplayShoppinnglist"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+ <Button
+     android:id="@+id/btn_cosplayparts"
+     style="?android:attr/borderlessButtonStyle"
+     android:layout_width="0dp"
+     android:layout_height="wrap_content"
+     android:minHeight="0dp"
+     android:text="@string/btnText_cosplay_parts"
+     app:layout_constraintEnd_toStartOf="@+id/btn_cosplayReferencePic"
+     app:layout_constraintStart_toStartOf="parent"
+     app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btn_cosplayWIPImage"
@@ -66,9 +56,10 @@
         android:layout_height="wrap_content"
         android:minHeight="0dp"
         android:text="@string/btnText_wip_pictures"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btn_cosplayReferencePic"
-        app:layout_constraintTop_toBottomOf="@+id/div5" />
+        app:layout_constraintBottom_toBottomOf="@+id/btn_cosplayChecklist"
+        app:layout_constraintEnd_toStartOf="@+id/btn_cosplayEvents"
+        app:layout_constraintStart_toEndOf="@+id/btn_cosplayChecklist"
+        app:layout_constraintTop_toTopOf="@+id/btn_cosplayChecklist" />
 
     <Button
         android:id="@+id/btn_cosplayEvents"
@@ -79,7 +70,7 @@
         android:text="@string/btnText_events"
         app:layout_constraintBottom_toBottomOf="@+id/btn_cosplayChecklist"
         app:layout_constraintEnd_toStartOf="@+id/btn_cosplayWebshops"
-        app:layout_constraintStart_toEndOf="@+id/btn_cosplayChecklist"
+        app:layout_constraintStart_toEndOf="@+id/btn_cosplayWIPImage"
         app:layout_constraintTop_toBottomOf="@+id/btn_cosplayparts" />
 
     <Button
@@ -101,9 +92,10 @@
         android:layout_height="wrap_content"
         android:minHeight="0dp"
         android:text="@string/btnText_reference_pictures"
-        app:layout_constraintEnd_toStartOf="@+id/btn_cosplayWIPImage"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/div5" />
+        app:layout_constraintBottom_toBottomOf="@+id/btn_cosplayparts"
+        app:layout_constraintEnd_toStartOf="@+id/btn_cosplayShoppinnglist"
+        app:layout_constraintStart_toEndOf="@+id/btn_cosplayparts"
+        app:layout_constraintTop_toTopOf="@+id/btn_cosplayparts" />
 
     <Button
         android:id="@+id/btn_cosplayChecklist"
@@ -112,7 +104,7 @@
         android:layout_height="wrap_content"
         android:minHeight="0dp"
         android:text="@string/btnText_checklist"
-        app:layout_constraintEnd_toStartOf="@+id/btn_cosplayEvents"
+        app:layout_constraintEnd_toStartOf="@+id/btn_cosplayWIPImage"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_cosplayparts" />
 
@@ -137,8 +129,10 @@
         android:text="@string/btnText_shopping_list"
         app:layout_constraintBottom_toBottomOf="@+id/btn_cosplayparts"
         app:layout_constraintEnd_toStartOf="@+id/btn_cosplayNotes"
-        app:layout_constraintStart_toEndOf="@+id/btn_cosplayparts"
+        app:layout_constraintStart_toEndOf="@+id/btn_cosplayReferencePic"
         app:layout_constraintTop_toTopOf="@+id/btn_cosplayparts" />
 
+    <!-- guidelines that devide te screen in 4 parts.
+           Those are used to give the buttons the same width-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
