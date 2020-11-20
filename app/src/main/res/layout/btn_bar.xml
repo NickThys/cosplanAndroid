@@ -45,6 +45,7 @@
      android:layout_height="wrap_content"
      android:minHeight="0dp"
      android:text="@string/btnText_cosplay_parts"
+     app:layout_constraintEnd_toStartOf="@+id/btn_cosplayReferencePic"
      app:layout_constraintStart_toStartOf="parent"
      app:layout_constraintTop_toTopOf="parent" />
 
@@ -55,6 +56,7 @@
      android:layout_height="wrap_content"
      android:minHeight="0dp"
      android:text="@string/btnText_wip_pictures"
+     app:layout_constraintEnd_toStartOf="@+id/btn_cosplayEvents"
      app:layout_constraintStart_toEndOf="@+id/btn_cosplayChecklist"
      app:layout_constraintTop_toTopOf="@+id/btn_cosplayChecklist" />
 
@@ -65,6 +67,7 @@
      android:layout_height="wrap_content"
      android:minHeight="0dp"
      android:text="@string/btnText_events"
+     app:layout_constraintEnd_toStartOf="@+id/btn_cosplayWebshops"
      app:layout_constraintStart_toEndOf="@+id/btn_cosplayWIPImage"
      app:layout_constraintTop_toTopOf="@+id/btn_cosplayWIPImage" />
 
@@ -86,6 +89,7 @@
      android:layout_height="wrap_content"
      android:minHeight="0dp"
      android:text="@string/btnText_reference_pictures"
+     app:layout_constraintEnd_toStartOf="@+id/btn_cosplayShoppinnglist"
      app:layout_constraintStart_toEndOf="@+id/btn_cosplayparts"
      app:layout_constraintTop_toTopOf="@+id/btn_cosplayparts" />
 
@@ -96,6 +100,7 @@
      android:layout_height="wrap_content"
      android:minHeight="0dp"
      android:text="@string/btnText_checklist"
+     app:layout_constraintEnd_toStartOf="@+id/btn_cosplayWIPImage"
      app:layout_constraintStart_toStartOf="parent"
      app:layout_constraintTop_toBottomOf="@+id/btn_cosplayparts" />
 
@@ -117,6 +122,7 @@
      android:layout_height="wrap_content"
      android:minHeight="0dp"
      android:text="@string/btnText_shopping_list"
+     app:layout_constraintEnd_toStartOf="@+id/btn_cosplayNotes"
      app:layout_constraintStart_toEndOf="@+id/btn_cosplayReferencePic"
      app:layout_constraintTop_toTopOf="@+id/btn_cosplayReferencePic" />
 
