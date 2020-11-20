@@ -10,7 +10,7 @@
 
  <View
      android:id="@+id/div4"
-     android:layout_width="411dp"
+     android:layout_width="0dp"
      android:layout_height="1dp"
      android:background="@android:color/darker_gray"
      app:layout_constraintBottom_toBottomOf="@+id/btn_cosplayparts"
@@ -20,7 +20,7 @@
 
  <View
      android:id="@+id/div6"
-     android:layout_width="411dp"
+     android:layout_width="0dp"
      android:layout_height="1dp"
      android:background="@android:color/darker_gray"
      app:layout_constraintBottom_toTopOf="@+id/btn_cosplayparts"
@@ -30,10 +30,11 @@
 
  <View
      android:id="@+id/div5"
-     android:layout_width="411dp"
+     android:layout_width="0dp"
      android:layout_height="1dp"
      android:background="@android:color/darker_gray"
      app:layout_constraintBottom_toBottomOf="@+id/btn_cosplayChecklist"
+     app:layout_constraintEnd_toEndOf="parent"
      app:layout_constraintStart_toStartOf="parent"
      app:layout_constraintTop_toBottomOf="@+id/btn_cosplayChecklist" />
 
