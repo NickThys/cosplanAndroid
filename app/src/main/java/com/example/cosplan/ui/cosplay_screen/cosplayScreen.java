@@ -529,7 +529,6 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         dialogBuilder.setView(cosplayPopUpView);
 
         mUpdateCosplays.setText("Update Cosplay");
-       // mChoosePicture.setEnabled(false);
         mCosplayName.setText(cosplay.mCosplayName);
         mCosplayStartDate.setText(cosplay.mCosplayStartDate);
         mCosplayEndDate.setText(cosplay.mCosplayEndDate);
@@ -625,7 +624,6 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
 
         //Choose the picture from the gallery
 
-       // todo: fix this bug cardNr= COS-69
         mChoosePicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -763,7 +761,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mPartChooseImage = PartPopUpView.findViewById(R.id.btn_Part_ChooseImg);
         mPartCancel = PartPopUpView.findViewById(R.id.btn_partCancel);
         mPartAddPart = PartPopUpView.findViewById(R.id.btn_PartAddPart);
-        mPartChooseImage.setEnabled(false);
+        //mPartChooseImage.setEnabled(false);
         dialogBuilder.setView(PartPopUpView);
         dialog = dialogBuilder.create();
         dialog.show();
@@ -836,7 +834,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                 temp.mCosplayPartLink = mPartLink.getText().toString();
                 temp.mCosplayPartCost = Double.parseDouble(mPartCost.getText().toString());
                 temp.mCosplayPartEndDate = mPartEndDate.getText().toString();
-                temp.mCosplayPartImg = cosplay.mCosplayIMG;
+                temp.mCosplayPartImg = ;
                 temp.mCosplayPartStatus = "Planned";
                 partViewModel.insert(temp);
                 dialog.dismiss();
