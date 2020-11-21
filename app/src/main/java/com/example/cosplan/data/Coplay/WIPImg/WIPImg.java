@@ -19,14 +19,14 @@ public class WIPImg {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "CosplayWIPImgId")
-    public int mCosplayWIPImgIg;
+    public int mCosplayWIPImgId;
 
     @ColumnInfo(name = "CosplayWIPImgImage")
     public Bitmap mCosplayWIPImgImage;
 
-    public WIPImg(int mCosplayId, int mCosplayWIPImgIg, Bitmap mCosplayWIPImgImage) {
+    public WIPImg(int mCosplayId, int mCosplayWIPImgId, Bitmap mCosplayWIPImgImage) {
         this.mCosplayId = mCosplayId;
-        this.mCosplayWIPImgIg = mCosplayWIPImgIg;
+        this.mCosplayWIPImgId = mCosplayWIPImgId;
         this.mCosplayWIPImgImage = mCosplayWIPImgImage;
     }
 
