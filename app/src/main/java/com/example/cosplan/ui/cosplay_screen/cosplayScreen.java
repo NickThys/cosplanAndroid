@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
@@ -61,6 +63,8 @@ import com.example.cosplan.data.Coplay.Webshop.WebshopAdapter;
 import com.example.cosplan.data.Coplay.Webshop.WebshopViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.lang.reflect.Array;
 import java.util.Calendar;
 import java.util.LinkedList;
@@ -95,12 +99,13 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
     private Button mChoosePicture, mCancel, mUpdateCosplays, mCosplayParts, mCosplayNotes, mCosplayRefPic, mCosplayWIPPic, mCosplayChecklist, mCosplayShoppinglist, mCosplayWebshop, mCosplayEvents, mShoppingListAdd,mShoppingListCancel,mShoppingListClear;
     private RecyclerView mRecViewCosplayWebshop, mRVCheckListPart,mRVShoppingList;
     private FloatingActionButton mFabAddCosplayWebshop,mFabShoppingListAdd;
-
-    public static final int GALLERY_REQUEST_CODE_PART = 2;
+    private Cosplay tempCosplay=null;
+    private RefenceImgAdapter refenceImgAdapter=null;
     private DatePickerDialog.OnDateSetListener mStartDateSetListener;
     private DatePickerDialog.OnDateSetListener mEndDateSetListener;
     public static final int GALLERY_REQUEST_CODE = 1;
-
+    public static final int GALLERY_REQUEST_CODE_PART = 2;
+    public static final int GALLERY_REQUEST_CODE_REF_IMG = 3;
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -116,13 +121,13 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         final View EventsView = inflater.inflate(R.layout.cosplay_screen_events, container, false);
         final View WebshopsView = inflater.inflate(R.layout.cosplay_screen_webshops, container, false);
 
-        final RefenceImgAdapter refenceImgAdapter = new RefenceImgAdapter(null, requireContext());
+        refenceImgAdapter = new RefenceImgAdapter(null, requireContext());
         final PartAdapter partAdapterMake = new PartAdapter(requireContext());
         final PartAdapter partAdapterBuy = new PartAdapter(requireContext());
         final ShoppingListPartAdapter shoppingListPartAdapter=new ShoppingListPartAdapter(requireContext(),getActivity().getApplication());
 
         cosplayViewModel = new ViewModelProvider(this).get(CosplayViewModel.class);
-        final Cosplay tempCosplay = cosplayScreenArgs.fromBundle(getArguments()).getCurrentCosplay();
+        tempCosplay = cosplayScreenArgs.fromBundle(getArguments()).getCurrentCosplay();
         final ViewGroup fl = v.findViewById(R.id.inlcude3);
         //Initial view for the framelayout
         fl.addView(PartsView);
@@ -315,10 +320,10 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             @Override
             public void onClick(View v) {
                 //addcospimg to db
-                ReferenceImg temp = new ReferenceImg(tempCosplay.mCosplayId, 0, tempCosplay.mCosplayIMG);
-                referenceImgViewModel.insert(temp);
-                setRefImageInGrid(tempCosplay, refenceImgAdapter);
-
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, getString(R.string.txt_chooseImg_intent)), GALLERY_REQUEST_CODE_REF_IMG);
             }
         });
 
@@ -529,7 +534,6 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         dialogBuilder.setView(cosplayPopUpView);
 
         mUpdateCosplays.setText("Update Cosplay");
-       // mChoosePicture.setEnabled(false);
         mCosplayName.setText(cosplay.mCosplayName);
         mCosplayStartDate.setText(cosplay.mCosplayStartDate);
         mCosplayEndDate.setText(cosplay.mCosplayEndDate);
@@ -625,7 +629,6 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
 
         //Choose the picture from the gallery
 
-       // todo: fix this bug cardNr= COS-69
         mChoosePicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -763,7 +766,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mPartChooseImage = PartPopUpView.findViewById(R.id.btn_Part_ChooseImg);
         mPartCancel = PartPopUpView.findViewById(R.id.btn_partCancel);
         mPartAddPart = PartPopUpView.findViewById(R.id.btn_PartAddPart);
-        mPartChooseImage.setEnabled(false);
+        //mPartChooseImage.setEnabled(false);
         dialogBuilder.setView(PartPopUpView);
         dialog = dialogBuilder.create();
         dialog.show();
@@ -814,7 +817,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             }
         });
 
-       /* //Choose the picture from the gallery
+        //Choose the picture from the gallery
         mPartChooseImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -824,7 +827,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                 startActivityForResult(Intent.createChooser(intent, getString(R.string.txt_chooseImg_intent)), GALLERY_REQUEST_CODE_PART);
 
             }
-        });*/
+        });
         mPartAddPart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -836,7 +839,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                 temp.mCosplayPartLink = mPartLink.getText().toString();
                 temp.mCosplayPartCost = Double.parseDouble(mPartCost.getText().toString());
                 temp.mCosplayPartEndDate = mPartEndDate.getText().toString();
-                temp.mCosplayPartImg = cosplay.mCosplayIMG;
+                temp.mCosplayPartImg =((BitmapDrawable) mPartImage.getDrawable()).getBitmap()  ;
                 temp.mCosplayPartStatus = "Planned";
                 partViewModel.insert(temp);
                 dialog.dismiss();
@@ -879,14 +882,30 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (requestCode == GALLERY_REQUEST_CODE) {
-            if (data == null) {
-                return;
-            } else {
-                Uri imageData = data.getData();
+        Uri imageData;
+
+        if (requestCode == GALLERY_REQUEST_CODE&&data!=null) {
+
+                imageData = data.getData();
 
                 mCosplayImage.setImageURI(imageData);
+
+        }
+        if (requestCode==GALLERY_REQUEST_CODE_PART&&data!=null){
+            imageData=data.getData();
+            mPartImage.setImageURI(imageData);
+        }
+        if (requestCode==GALLERY_REQUEST_CODE_REF_IMG&&data!=null){
+            imageData=data.getData();
+            InputStream imagestream=null;
+            try {
+               imagestream =getContext().getContentResolver().openInputStream(imageData);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
             }
+            ReferenceImg temp = new ReferenceImg(tempCosplay.mCosplayId, 0,BitmapFactory.decodeStream(imagestream) );
+            referenceImgViewModel.insert(temp);
+            setRefImageInGrid(tempCosplay, refenceImgAdapter);
         }
 
     }
