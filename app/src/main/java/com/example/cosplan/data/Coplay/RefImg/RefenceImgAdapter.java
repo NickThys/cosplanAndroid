@@ -24,7 +24,7 @@ public class RefenceImgAdapter extends RecyclerView.Adapter<RefenceImgAdapter.Re
         this.mRefImgs = mRefImgs;
         this.inflater=LayoutInflater.from(context);
     }
-    public void setRefImg(List<ReferenceImg> refImgs){mRefImgs=refImgs;}
+    public void setRefImg(List<ReferenceImg> refImgs){mRefImgs=refImgs;notifyDataSetChanged();}
     @NonNull
     @Override
     public ReferenceImgViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
