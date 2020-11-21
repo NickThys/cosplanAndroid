@@ -9,7 +9,7 @@ import androidx.room.PrimaryKey;
 
 import com.example.cosplan.data.Coplay.Cosplay;
 
-@Entity(tableName = "CosplayRefImg_table",
+@Entity(tableName = "CosplayWIPImg_table",
         foreignKeys = @ForeignKey(entity = Cosplay.class,
                 parentColumns = "Id",
                 childColumns = "CosplayId"))
