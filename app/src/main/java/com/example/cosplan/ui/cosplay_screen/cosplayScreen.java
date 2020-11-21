@@ -814,7 +814,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             }
         });
 
-       /* //Choose the picture from the gallery
+        //Choose the picture from the gallery
         mPartChooseImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -824,7 +824,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                 startActivityForResult(Intent.createChooser(intent, getString(R.string.txt_chooseImg_intent)), GALLERY_REQUEST_CODE_PART);
 
             }
-        });*/
+        });
         mPartAddPart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -879,14 +879,18 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (requestCode == GALLERY_REQUEST_CODE) {
-            if (data == null) {
-                return;
-            } else {
-                Uri imageData = data.getData();
+        Uri imageData;
+
+        if (requestCode == GALLERY_REQUEST_CODE&&data!=null) {
+
+                imageData = data.getData();
 
                 mCosplayImage.setImageURI(imageData);
-            }
+
+        }
+        if (requestCode==GALLERY_REQUEST_CODE_PART&&data!=null){
+            imageData=data.getData();
+            mPartImage.setImageURI(imageData);
         }
 
     }
