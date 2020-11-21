@@ -96,7 +96,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
     private EditText mPartName, mPartLink, mPartCost, mPartEndDate, mCosplayNote;
     private Spinner mPartmakeBuy;
     private ImageView mPartImage;
-    private Button mPartChooseImage, mPartCancel, mPartAddPart, mCosplayNotesSave, mRefImgAdd, mCheckListPartClear;
+    private Button mPartChooseImage, mPartCancel, mPartAddPart, mCosplayNotesSave, mRefImgAdd, mCheckListPartClear,mWIPImgAddPicture;
     private FloatingActionButton mfabAddPart, mCheckListPartAdd;
     private RecyclerView mRVRefImg,mRVWIPImg;
     private ImageView mCosplayImage;
@@ -105,6 +105,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
     private FloatingActionButton mFabAddCosplayWebshop,mFabShoppingListAdd;
     private Cosplay tempCosplay=null;
     private RefenceImgAdapter refenceImgAdapter=null;
+    private WIPImgAdapter wipImgAdapter=null;
     private DatePickerDialog.OnDateSetListener mStartDateSetListener;
     private DatePickerDialog.OnDateSetListener mEndDateSetListener;
     public static final int GALLERY_REQUEST_CODE = 1;
@@ -170,6 +171,9 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mRVShoppingList=ShoppingListView.findViewById(R.id.RV_Shoppinglist);
         mFabShoppingListAdd =ShoppingListView.findViewById(R.id.fab_Shoppinglist_AddShoppinglistPart);
         mShoppingListClear=ShoppingListView.findViewById(R.id.btn_ShoppingList_ClearList);
+        //items from the WIP img
+        mRVWIPImg=WipImgView.findViewById(R.id.RV_WIPImages);
+        mWIPImgAddPicture=WipImgView.findViewById(R.id.btn_WIPImg_GetPicture);
 
         //Header
         //Adding text to the items from the header
@@ -446,6 +450,9 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             }
         });
 
+        //WIP Images
+        setWipImagesInGrid(tempCosplay,wipImgAdapter);
+      
 
 
         return v;
