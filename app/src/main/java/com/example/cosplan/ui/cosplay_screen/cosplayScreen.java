@@ -111,6 +111,9 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
     public static final int GALLERY_REQUEST_CODE = 1;
     public static final int GALLERY_REQUEST_CODE_PART = 2;
     public static final int GALLERY_REQUEST_CODE_REF_IMG = 3;
+    private static final int GALLERY_REQUEST_CODE_WIP_IMG = 4;
+
+
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -127,6 +130,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         final View WebshopsView = inflater.inflate(R.layout.cosplay_screen_webshops, container, false);
 
         refenceImgAdapter = new RefenceImgAdapter(null, requireContext());
+        wipImgAdapter=new WIPImgAdapter(null,requireContext());
         final PartAdapter partAdapterMake = new PartAdapter(requireContext());
         final PartAdapter partAdapterBuy = new PartAdapter(requireContext());
         final ShoppingListPartAdapter shoppingListPartAdapter=new ShoppingListPartAdapter(requireContext(),getActivity().getApplication());
@@ -452,8 +456,15 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
 
         //WIP Images
         setWipImagesInGrid(tempCosplay,wipImgAdapter);
-      
-
+        mWIPImgAddPicture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, getString(R.string.txt_chooseImg_intent)), GALLERY_REQUEST_CODE_WIP_IMG);
+            }
+        });
 
         return v;
     }
@@ -928,6 +939,18 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             ReferenceImg temp = new ReferenceImg(tempCosplay.mCosplayId, 0,BitmapFactory.decodeStream(imagestream) );
             referenceImgViewModel.insert(temp);
             setRefImageInGrid(tempCosplay, refenceImgAdapter);
+        }
+        if (requestCode==GALLERY_REQUEST_CODE_WIP_IMG&&data!=null){
+            imageData=data.getData();
+            InputStream imageStream=null;
+            try {
+                imageStream=getContext().getContentResolver().openInputStream(imageData);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            WIPImg temp=new WIPImg(tempCosplay.mCosplayId,0,BitmapFactory.decodeStream(imageStream));
+            wipImgViewModel.insert(temp);
+            setWipImagesInGrid(tempCosplay,wipImgAdapter);
         }
 
     }
