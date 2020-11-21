@@ -130,6 +130,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         final View WebshopsView = inflater.inflate(R.layout.cosplay_screen_webshops, container, false);
 
         refenceImgAdapter = new RefenceImgAdapter(null, requireContext());
+        wipImgAdapter=new WIPImgAdapter(null,requireContext());
         final PartAdapter partAdapterMake = new PartAdapter(requireContext());
         final PartAdapter partAdapterBuy = new PartAdapter(requireContext());
         final ShoppingListPartAdapter shoppingListPartAdapter=new ShoppingListPartAdapter(requireContext(),getActivity().getApplication());
