@@ -58,6 +58,9 @@ import com.example.cosplan.data.Coplay.RefImg.ReferenceImgViewModel;
 import com.example.cosplan.data.Coplay.ShoppingList.ShoppingListPart;
 import com.example.cosplan.data.Coplay.ShoppingList.ShoppingListPartAdapter;
 import com.example.cosplan.data.Coplay.ShoppingList.ShoppingListPartViewModel;
+import com.example.cosplan.data.Coplay.WIPImg.WIPImg;
+import com.example.cosplan.data.Coplay.WIPImg.WIPImgAdapter;
+import com.example.cosplan.data.Coplay.WIPImg.WIPImgViewModel;
 import com.example.cosplan.data.Coplay.Webshop.Webshop;
 import com.example.cosplan.data.Coplay.Webshop.WebshopAdapter;
 import com.example.cosplan.data.Coplay.Webshop.WebshopViewModel;
@@ -84,6 +87,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
     private CheckListPartAdapter mCheckListPartAdapter;
     private ShoppingListPartAdapter mShoppingListPartAdapter;
     private ShoppingListPartViewModel mShoppingListViewModel;
+    private WIPImgViewModel wipImgViewModel;
 
     private TextView mName, mStartDate, mEndDate, mPercentage, mBudget;
     private ImageView mImage;
@@ -92,15 +96,16 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
     private EditText mPartName, mPartLink, mPartCost, mPartEndDate, mCosplayNote;
     private Spinner mPartmakeBuy;
     private ImageView mPartImage;
-    private Button mPartChooseImage, mPartCancel, mPartAddPart, mCosplayNotesSave, mRefImgAdd, mCheckListPartClear;
+    private Button mPartChooseImage, mPartCancel, mPartAddPart, mCosplayNotesSave, mRefImgAdd, mCheckListPartClear,mWIPImgAddPicture;
     private FloatingActionButton mfabAddPart, mCheckListPartAdd;
-    private RecyclerView mRVRefImg;
+    private RecyclerView mRVRefImg,mRVWIPImg;
     private ImageView mCosplayImage;
     private Button mChoosePicture, mCancel, mUpdateCosplays, mCosplayParts, mCosplayNotes, mCosplayRefPic, mCosplayWIPPic, mCosplayChecklist, mCosplayShoppinglist, mCosplayWebshop, mCosplayEvents, mShoppingListAdd,mShoppingListCancel,mShoppingListClear;
     private RecyclerView mRecViewCosplayWebshop, mRVCheckListPart,mRVShoppingList;
     private FloatingActionButton mFabAddCosplayWebshop,mFabShoppingListAdd;
     private Cosplay tempCosplay=null;
     private RefenceImgAdapter refenceImgAdapter=null;
+    private WIPImgAdapter wipImgAdapter=null;
     private DatePickerDialog.OnDateSetListener mStartDateSetListener;
     private DatePickerDialog.OnDateSetListener mEndDateSetListener;
     public static final int GALLERY_REQUEST_CODE = 1;
@@ -166,6 +171,9 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mRVShoppingList=ShoppingListView.findViewById(R.id.RV_Shoppinglist);
         mFabShoppingListAdd =ShoppingListView.findViewById(R.id.fab_Shoppinglist_AddShoppinglistPart);
         mShoppingListClear=ShoppingListView.findViewById(R.id.btn_ShoppingList_ClearList);
+        //items from the WIP img
+        mRVWIPImg=WipImgView.findViewById(R.id.RV_WIPImages);
+        mWIPImgAddPicture=WipImgView.findViewById(R.id.btn_WIPImg_GetPicture);
 
         //Header
         //Adding text to the items from the header
@@ -293,8 +301,6 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                 partAdapterBuy.setParts(parts);
             }
         });
-
-
         //fab to add a new cosplay part
         mfabAddPart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -302,6 +308,8 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                 createNewPartDialog(tempCosplay);
             }
         });
+
+
         //Notes
         mCosplayNote.setText(tempCosplay.mCosplayNote);
         mCosplayNotesSave.setOnClickListener(new View.OnClickListener() {
@@ -442,6 +450,11 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             }
         });
 
+        //WIP Images
+        setWipImagesInGrid(tempCosplay,wipImgAdapter);
+      
+
+
         return v;
     }
 
@@ -464,7 +477,19 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mRVRefImg.setLayoutManager(gridLayoutManager);
         mRVRefImg.setAdapter(refenceImgAdapter);
     }
-
+   public void setWipImagesInGrid(Cosplay tempCosplay, final WIPImgAdapter wipImgAdapter){
+        wipImgViewModel=new ViewModelProvider(this).get(WIPImgViewModel.class);
+        wipImgViewModel.getAllWIPImgs(tempCosplay.mCosplayId).observe(getViewLifecycleOwner(), new Observer<List<WIPImg>>() {
+            @Override
+            public void onChanged(List<WIPImg> wipImgs) {
+                wipImgAdapter.setWIPImgs(wipImgs);
+            }
+        });
+        GridLayoutManager gridLayoutManager=new GridLayoutManager(requireContext(),3,GridLayoutManager.VERTICAL,false);
+        mRVWIPImg.setLayoutManager(gridLayoutManager);
+        mRVWIPImg.setAdapter(wipImgAdapter);
+   }
+   //All dialogs
     public void deleteShoppingListPartDialog(final ShoppingListPart mShoppingListPart) {
         dialogBuilder = new AlertDialog.Builder(requireContext());
         final View deleteCosplayView = getLayoutInflater().inflate(R.layout.delete_cosplay, null);
@@ -519,7 +544,6 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             }
         });
     }
-
     public void UpdateCosplayDialog(final Cosplay cosplay) {
         dialogBuilder = new AlertDialog.Builder(requireContext());
         final View cosplayPopUpView = getLayoutInflater().inflate(R.layout.add_cosplay, null);
@@ -657,7 +681,6 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         });
 
     }
-
     public void addNewCosplayWebshopDialog(final Cosplay cosplay) {
         dialogBuilder = new AlertDialog.Builder(requireContext());
         final View WebshopPopUpView = getLayoutInflater().inflate(R.layout.cosplay_webshop, null);
@@ -685,7 +708,6 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             }
         });
     }
-
     public void addNewCosplayChecklistPartDialog(final Cosplay cosplay) {
         dialogBuilder = new AlertDialog.Builder(requireContext());
         final View checkListPopUpView = getLayoutInflater().inflate(R.layout.cosplay_checklist_addpart, null);

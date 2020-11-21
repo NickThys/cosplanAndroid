@@ -17,7 +17,7 @@ public class WIPImgViewModel extends AndroidViewModel {
         mRepository=new WIPImgRepository(application);
         mAllWIPImgs=mRepository.getAllWIPImgs(mCosplayId);
     }
-    public LiveData<List<WIPImg>> GetAllWIPImgs(int mCosplayId){
+    public LiveData<List<WIPImg>> getAllWIPImgs(int mCosplayId){
         this.mCosplayId=mCosplayId;
         mAllWIPImgs=mRepository.getAllWIPImgs(mCosplayId);
         return mAllWIPImgs;
