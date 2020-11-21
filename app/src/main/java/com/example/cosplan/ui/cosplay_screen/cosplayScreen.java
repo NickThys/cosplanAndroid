@@ -529,7 +529,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         dialogBuilder.setView(cosplayPopUpView);
 
         mUpdateCosplays.setText("Update Cosplay");
-        mChoosePicture.setEnabled(false);
+       // mChoosePicture.setEnabled(false);
         mCosplayName.setText(cosplay.mCosplayName);
         mCosplayStartDate.setText(cosplay.mCosplayStartDate);
         mCosplayEndDate.setText(cosplay.mCosplayEndDate);
@@ -624,8 +624,8 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         });
 
         //Choose the picture from the gallery
-        /*
-        todo: fix this bug cardNr= COS-69
+
+       // todo: fix this bug cardNr= COS-69
         mChoosePicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -636,7 +636,6 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
 
             }
         });
-*/
         //Add Copslay to the database
         mUpdateCosplays.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -890,6 +889,12 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             }
         }
 
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.clear();
     }
 
     @Override
