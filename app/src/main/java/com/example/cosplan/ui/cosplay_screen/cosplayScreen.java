@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -96,7 +97,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
     private EditText mPartName, mPartLink, mPartCost, mPartEndDate, mCosplayNote;
     private Spinner mPartmakeBuy;
     private ImageView mPartImage;
-    private Button mPartChooseImage, mPartCancel, mPartAddPart, mCosplayNotesSave, mRefImgAdd, mCheckListPartClear,mWIPImgAddPicture;
+    private Button mPartChooseImage, mPartCancel, mPartAddPart, mCosplayNotesSave, mRefImgAdd, mCheckListPartClear,mWIPImgAddPicture,mWIPImgTakePicture;
     private FloatingActionButton mfabAddPart, mCheckListPartAdd;
     private RecyclerView mRVRefImg,mRVWIPImg;
     private ImageView mCosplayImage;
@@ -108,10 +109,11 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
     private WIPImgAdapter wipImgAdapter=null;
     private DatePickerDialog.OnDateSetListener mStartDateSetListener;
     private DatePickerDialog.OnDateSetListener mEndDateSetListener;
-    public static final int GALLERY_REQUEST_CODE = 1;
-    public static final int GALLERY_REQUEST_CODE_PART = 2;
-    public static final int GALLERY_REQUEST_CODE_REF_IMG = 3;
+    private static final int GALLERY_REQUEST_CODE = 1;
+    private static final int GALLERY_REQUEST_CODE_PART = 2;
+    private static final int GALLERY_REQUEST_CODE_REF_IMG = 3;
     private static final int GALLERY_REQUEST_CODE_WIP_IMG = 4;
+    private static final int CAMERA_REQUEST_CODE_WIP_IMG = 5;
 
 
     @Override
@@ -178,6 +180,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         //items from the WIP img
         mRVWIPImg=WipImgView.findViewById(R.id.RV_WIPImages);
         mWIPImgAddPicture=WipImgView.findViewById(R.id.btn_WIPImg_GetPicture);
+        mWIPImgTakePicture=WipImgView.findViewById(R.id.btn_WIPImg_TakePicture);
 
         //Header
         //Adding text to the items from the header
@@ -463,6 +466,13 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(Intent.createChooser(intent, getString(R.string.txt_chooseImg_intent)), GALLERY_REQUEST_CODE_WIP_IMG);
+            }
+        });
+        mWIPImgTakePicture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent,CAMERA_REQUEST_CODE_WIP_IMG);
             }
         });
 
@@ -952,7 +962,13 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             wipImgViewModel.insert(temp);
             setWipImagesInGrid(tempCosplay,wipImgAdapter);
         }
+        if (requestCode==CAMERA_REQUEST_CODE_WIP_IMG&&data!=null){
+            Bitmap img=(Bitmap)data.getExtras().get("data");
 
+            WIPImg temp=new WIPImg(tempCosplay.mCosplayId,0,img);
+            wipImgViewModel.insert(temp);
+            setWipImagesInGrid(tempCosplay,wipImgAdapter);
+        }
     }
 
     @Override
