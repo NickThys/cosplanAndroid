@@ -1,4 +1,4 @@
-package com.example.cosplan.data.Coplay.Webshop;
+package com.example.cosplan.data.Coplay.WIPImg;
 
 import android.app.Application;
 import android.os.AsyncTask;
