@@ -259,7 +259,11 @@ public class CosplayFragment extends Fragment {
 
     }
 
-
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.clear();
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

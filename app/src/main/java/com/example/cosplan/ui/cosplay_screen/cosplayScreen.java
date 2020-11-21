@@ -892,6 +892,12 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
     }
 
     @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.clear();
+    }
+
+    @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
     }
 

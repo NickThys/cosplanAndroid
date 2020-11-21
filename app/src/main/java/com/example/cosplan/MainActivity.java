@@ -2,6 +2,7 @@ package com.example.cosplan;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
@@ -61,4 +62,12 @@ public class MainActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.clear();
+    }
+
+
 }
