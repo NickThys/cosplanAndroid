@@ -52,6 +52,7 @@
     <string name="ConformationDeleteCheckListPart">Do you want to delete </string>
     <string name="btnText_WIPShort">WIP img</string>
     <string name="tnTxt_RefImgShort">Ref. Img.</string>
+    <string name="ContentDescription_NewCosplayImgPreview">Preview of the chosen image</string>
     <string-array name="BuyMake">
         <item>Buy</item>
         <item>Make</item>
