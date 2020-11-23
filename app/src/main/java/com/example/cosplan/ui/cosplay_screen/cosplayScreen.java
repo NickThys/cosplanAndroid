@@ -509,12 +509,12 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
    //All dialogs
     public void deleteShoppingListPartDialog(final ShoppingListPart mShoppingListPart) {
         dialogBuilder = new AlertDialog.Builder(requireContext());
-        final View deleteCosplayView = getLayoutInflater().inflate(R.layout.delete_cosplay, null);
-        TextView mDeleteText = deleteCosplayView.findViewById(R.id.text_deleteCosplay);
+        final View deleteCosplayView = getLayoutInflater().inflate(R.layout.delete, null);
+        TextView mDeleteText = deleteCosplayView.findViewById(R.id.TextView_DeleteTitle);
         mDeleteText.setText(getString(R.string.ConformationDeleteCheckListPart) + mShoppingListPart.mCosplayShoppingListPartName);
         Button yes, no;
-        no = deleteCosplayView.findViewById(R.id.btnCancelDeleteCosplay);
-        yes = deleteCosplayView.findViewById(R.id.btnDeleteCosplay);
+        no = deleteCosplayView.findViewById(R.id.Btn_DeleteNo);
+        yes = deleteCosplayView.findViewById(R.id.Btn_DeleteYes);
         dialogBuilder.setView(deleteCosplayView);
         dialog = dialogBuilder.create();
         dialog.show();
@@ -536,12 +536,12 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
     }
     public void deleteCheckListPartDialog(final ChecklistPart mCheckListPart) {
         dialogBuilder = new AlertDialog.Builder(requireContext());
-        final View deleteCosplayView = getLayoutInflater().inflate(R.layout.delete_cosplay, null);
-        TextView mDeleteText = deleteCosplayView.findViewById(R.id.text_deleteCosplay);
+        final View deleteCosplayView = getLayoutInflater().inflate(R.layout.delete, null);
+        TextView mDeleteText = deleteCosplayView.findViewById(R.id.TextView_DeleteTitle);
         mDeleteText.setText(getString(R.string.ConformationDeleteCheckListPart) + mCheckListPart.mCosplayCheckListPartName);
         Button yes, no;
-        no = deleteCosplayView.findViewById(R.id.btnCancelDeleteCosplay);
-        yes = deleteCosplayView.findViewById(R.id.btnDeleteCosplay);
+        no = deleteCosplayView.findViewById(R.id.Btn_DeleteNo);
+        yes = deleteCosplayView.findViewById(R.id.Btn_DeleteYes);
         dialogBuilder.setView(deleteCosplayView);
         dialog = dialogBuilder.create();
         dialog.show();
@@ -887,12 +887,12 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
     }
     public void deleteWholeShoppingListDialog(final ShoppingListPart part){
         dialogBuilder = new AlertDialog.Builder(requireContext());
-        final View deleteCosplayView = getLayoutInflater().inflate(R.layout.delete_cosplay, null);
-        TextView mDeleteText = deleteCosplayView.findViewById(R.id.text_deleteCosplay);
+        final View deleteCosplayView = getLayoutInflater().inflate(R.layout.delete, null);
+        TextView mDeleteText = deleteCosplayView.findViewById(R.id.TextView_DeleteTitle);
         mDeleteText.setText(getString(R.string.ConformationDeleteCheckListPart) +" the whole list?");
         final Button yes, no;
-        no = deleteCosplayView.findViewById(R.id.btnCancelDeleteCosplay);
-        yes = deleteCosplayView.findViewById(R.id.btnDeleteCosplay);
+        no = deleteCosplayView.findViewById(R.id.Btn_DeleteNo);
+        yes = deleteCosplayView.findViewById(R.id.Btn_DeleteYes);
         dialogBuilder.setView(deleteCosplayView);
         dialog = dialogBuilder.create();
         dialog.show();
