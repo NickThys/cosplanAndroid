@@ -25,7 +25,7 @@ public class WIPImgAdapter extends RecyclerView.Adapter<WIPImgAdapter.WIPImgView
     @NonNull
     @Override
     public WIPImgAdapter.WIPImgViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view=mInflater.inflate(R.layout.custum_row_ref_img,parent,false);
+        View view=mInflater.inflate(R.layout.custum_row_image,parent,false);
         return new WIPImgViewHolder(view);
     }
 
@@ -43,7 +43,7 @@ public class WIPImgAdapter extends RecyclerView.Adapter<WIPImgAdapter.WIPImgView
         ImageView mImageViewWIPImg;
         public WIPImgViewHolder(@NonNull View itemView) {
             super(itemView);
-            mImageViewWIPImg=itemView.findViewById(R.id.ImgaeViewRefImg);
+            mImageViewWIPImg=itemView.findViewById(R.id.ImageView_RefImage);
         }
     }
 }
