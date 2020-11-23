@@ -82,6 +82,7 @@
     <string name="NewCosplayWebsiteTitle">Add webshop to the cosplay</string>
     <string name="ConventionPlace">Place</string>
     <string name="ConventionDate">date</string>
+    <string name="PartStatus">status</string>
     <string-array name="BuyMake">
         <item>Buy</item>
         <item>Make</item>
