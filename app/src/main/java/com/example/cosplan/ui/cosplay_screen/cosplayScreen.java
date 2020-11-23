@@ -174,9 +174,9 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mFabShoppingListAdd =ShoppingListView.findViewById(R.id.Fab_ShoppinglistAdd);
         mShoppingListClear=ShoppingListView.findViewById(R.id.Btn_ShoppinglistClear);
         //items from the WIP img
-        mRVWIPImg=WipImgView.findViewById(R.id.RV_WIPImages);
-        mWIPImgAddPicture=WipImgView.findViewById(R.id.btn_WIPImg_GetPicture);
-        mWIPImgTakePicture=WipImgView.findViewById(R.id.btn_WIPImg_TakePicture);
+        mRVWIPImg=WipImgView.findViewById(R.id.RecView_WipImages);
+        mWIPImgAddPicture=WipImgView.findViewById(R.id.Btn_WipImagesGetImage);
+        mWIPImgTakePicture=WipImgView.findViewById(R.id.Btn_WipImagesTakePicture);
 
         //Header
         //Adding text to the items from the header
