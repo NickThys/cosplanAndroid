@@ -61,7 +61,7 @@ public class CosplayFragment extends Fragment {
 
         View root = inflater.inflate(R.layout.fragment_cosplay, container, false);
         final CosplayAdapter cosplayAdapter = new CosplayAdapter(requireContext());
-        RecyclerView recyclerView = root.findViewById(R.id.recyclerViewCosplay);
+        RecyclerView recyclerView = root.findViewById(R.id.RecView_Cosplay);
         recyclerView.setAdapter(cosplayAdapter);
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL));
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -88,7 +88,7 @@ public class CosplayFragment extends Fragment {
             }
         });
         //Add the FAB to go to the add cosplay popup
-        mfabAddCosplay = root.findViewById(R.id.fabAddCosplay);
+        mfabAddCosplay = root.findViewById(R.id.Fab_CosplayAdd);
         mfabAddCosplay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
