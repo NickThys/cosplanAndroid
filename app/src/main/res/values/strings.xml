@@ -80,6 +80,8 @@
     <string name="ShoppingListShop">Shop</string>
     <string name="Shoppinglist_AddTitle">Add part to the shoppinglist</string>
     <string name="NewCosplayWebsiteTitle">Add webshop to the cosplay</string>
+    <string name="ConventionPlace">Place</string>
+    <string name="ConventionDate">date</string>
     <string-array name="BuyMake">
         <item>Buy</item>
         <item>Make</item>
