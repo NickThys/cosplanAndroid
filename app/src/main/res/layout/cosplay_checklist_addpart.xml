@@ -31,12 +31,12 @@
         android:layout_marginRight="16dp"
         android:ems="10"
         android:hint="@string/NewChecklistPartName"
+        android:importantForAutofill="no"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TextView_NewCheckListPartTitle"
-        android:importantForAutofill="no" />
+        app:layout_constraintTop_toBottomOf="@+id/TextView_NewCheckListPartTitle" />
 
     <Button
         android:id="@+id/Btn_NewChecklistPartAdd"
