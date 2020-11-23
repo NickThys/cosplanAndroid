@@ -10,7 +10,7 @@
 
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/HalfScreenGuideline"
+        android:id="@+id/Guideline_HalfScreen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -18,7 +18,7 @@
 
 
     <TextView
-        android:id="@+id/ConventionLabelBelgium"
+        android:id="@+id/TextView_ConventionTitleBelgium"
         style="@style/Titles"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -29,23 +29,9 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewBelgium"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="6dp"
-        app:layout_constrainedHeight="true"
-        app:layout_constraintBottom_toTopOf="@+id/HalfScreenGuideline"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ConventionLabelBelgium"
-        app:layout_constraintVertical_bias="1.0" />
-
     <TextView
 
-        android:id="@+id/ConventoinLabelNetherland"
+        android:id="@+id/TextView_ConventoinTitleNetherland"
 
         style="@style/Titles"
         android:layout_width="match_parent"
@@ -54,11 +40,25 @@
         android:text="@string/Label_Netherland"
         app:fontFamily="sans-serif-black"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/HalfScreenGuideline" />
+        app:layout_constraintTop_toBottomOf="@+id/Guideline_HalfScreen" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/RecView_CalenderBelguim"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="6dp"
+        app:layout_constrainedHeight="true"
+        app:layout_constraintBottom_toTopOf="@+id/Guideline_HalfScreen"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/TextView_ConventionTitleBelgium"
+        app:layout_constraintVertical_bias="1.0" />
 
     <androidx.recyclerview.widget.RecyclerView
 
-        android:id="@+id/recyclerViewNetherland"
+        android:id="@+id/RecView_CalenderNetherland"
         android:layout_width="match_parent"
 
         android:layout_height="0dp"
@@ -66,7 +66,7 @@
         app:layout_constrainedHeight="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ConventoinLabelNetherland"
+        app:layout_constraintTop_toBottomOf="@+id/TextView_ConventoinTitleNetherland"
         app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
