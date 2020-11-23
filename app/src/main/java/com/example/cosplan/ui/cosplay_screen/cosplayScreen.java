@@ -170,9 +170,9 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mCheckListPartAdd = CheckListView.findViewById(R.id.FAB_CheckListAdd);
         mCheckListPartClear = CheckListView.findViewById(R.id.Btn_CheckListClearCheckBox);
         //items from the ShoppingList;
-        mRVShoppingList=ShoppingListView.findViewById(R.id.RV_Shoppinglist);
-        mFabShoppingListAdd =ShoppingListView.findViewById(R.id.fab_Shoppinglist_AddShoppinglistPart);
-        mShoppingListClear=ShoppingListView.findViewById(R.id.btn_ShoppingList_ClearList);
+        mRVShoppingList=ShoppingListView.findViewById(R.id.RecView_Shoppinglist);
+        mFabShoppingListAdd =ShoppingListView.findViewById(R.id.Fab_ShoppinglistAdd);
+        mShoppingListClear=ShoppingListView.findViewById(R.id.Btn_ShoppinglistClear);
         //items from the WIP img
         mRVWIPImg=WipImgView.findViewById(R.id.RV_WIPImages);
         mWIPImgAddPicture=WipImgView.findViewById(R.id.btn_WIPImg_GetPicture);
