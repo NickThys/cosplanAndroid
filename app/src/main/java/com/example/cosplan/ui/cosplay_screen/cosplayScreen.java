@@ -141,12 +141,12 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         cosplayAdapter = new CosplayAdapter(requireContext());
 
         //Items from the header
-        mName = v.findViewById(R.id.CosScreenName);
-        mEndDate = v.findViewById(R.id.CosScreenEndDate);
-        mPercentage = v.findViewById(R.id.CosScreenPercentage);
-        mBudget = v.findViewById(R.id.CosScreenBudget);
-        mImage = v.findViewById(R.id.CosScreenImg);
-        mUpdateCosplay = v.findViewById(R.id.CosScreenUpdate);
+        mName = v.findViewById(R.id.TextView_CosplayHeaderName);
+        mEndDate = v.findViewById(R.id.TextView_CosplayHeaderEndDate);
+        mPercentage = v.findViewById(R.id.TextView_CosplayHeaderPercentage);
+        mBudget = v.findViewById(R.id.TextView_CosplayHeaderBudget);
+        mImage = v.findViewById(R.id.ImageView_CosplayHeaderImage);
+        mUpdateCosplay = v.findViewById(R.id.ImageButton_CosplayHeaderUpdate);
         //Items from the button bar
         mCosplayParts = v.findViewById(R.id.Btn_BtnBar_CosplayParts);
         mCosplayNotes = v.findViewById(R.id.Btn_BtnBar_CosplayNotes);

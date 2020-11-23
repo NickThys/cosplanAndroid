@@ -13,8 +13,6 @@
     <string name="Slogan_Cosplan">Stop procrastinating and go craft!</string>
     <string name="menu_calender">Convention calender</string>
     <string name="menu_webshop">Webshops</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="menu_settings">Settings</string>
     <string name="WebsiteName">Name</string>
     <string name="WebsiteLink">Website</string>
@@ -66,6 +64,9 @@
     <string name="NewChecklistPartName">Part name</string>
     <string name="NewChecklistPartAdd">Add part</string>
     <string name="NewChecklistPartCancel">Cancel</string>
+    <string name="txtPercentage">Percentage</string>
+    <string name="CosplayHeader_ContentDescription">Img of the cosplay</string>
+    <string name="CosplayHeader_ImageButtonContentDescription">Update cosplay</string>
     <string-array name="BuyMake">
         <item>Buy</item>
         <item>Make</item>
