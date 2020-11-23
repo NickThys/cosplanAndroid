@@ -760,10 +760,10 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
 
         final EditText mShoppingListPartName,mShoppingListShop;
         final Button mShoppingListCancel, mShoppinglistAdd;
-        mShoppingListPartName = shoppingListPopUpView.findViewById(R.id.editText_CosplayShoppingList_PartName);
-        mShoppingListCancel = shoppingListPopUpView.findViewById(R.id.btn_CosplayShoppingList_Cancel);
-        mShoppinglistAdd = shoppingListPopUpView.findViewById(R.id.btn_CosplayShoppingList_Add);
-        mShoppingListShop=shoppingListPopUpView.findViewById(R.id.editText_CosplayShoppingList_ShopName);
+        mShoppingListPartName = shoppingListPopUpView.findViewById(R.id.EditText_NewShoppingListName);
+        mShoppingListCancel = shoppingListPopUpView.findViewById(R.id.Btn_NewShoppingListCancel);
+        mShoppinglistAdd = shoppingListPopUpView.findViewById(R.id.Btn_NewShoppingListAdd);
+        mShoppingListShop=shoppingListPopUpView.findViewById(R.id.EditText_NewShoppingListShop);
 
         dialogBuilder.setView(shoppingListPopUpView);
         dialog = dialogBuilder.create();

@@ -77,6 +77,8 @@
     <string name="ShoppingListClear">Clear shoppinglist</string>
     <string name="WipImageGet">Get picture</string>
     <string name="WipImageTake">Take Picture</string>
+    <string name="ShoppingListShop">Shop</string>
+    <string name="Shoppinglist_AddTitle">Add part to the shoppinglist</string>
     <string-array name="BuyMake">
         <item>Buy</item>
         <item>Make</item>
