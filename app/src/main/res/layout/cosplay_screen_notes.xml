@@ -6,25 +6,26 @@
     android:layout_height="match_parent"
     tools:context=".ui.cosplay_screen.cosplayScreen">
 
-    <!-- TODO: Update blank fragment layout -->
     <EditText
-        android:id="@+id/EditTest_CosplayNote"
+        android:id="@+id/EditText_CosplayNoteText"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="1dp"
-        android:hint="Notes"
-        app:layout_constraintBottom_toTopOf="@+id/btn_CosplayNote_Save"
+        android:hint="@string/btnText_notes"
+        android:importantForAutofill="no"
+        android:inputType="textMultiLine"
+        app:layout_constraintBottom_toTopOf="@+id/Btn_CosplayNoteSave"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_height="0dp"
-        android:layout_width="0dp"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/btn_CosplayNote_Save"
+        android:id="@+id/Btn_CosplayNoteSave"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -32,7 +33,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="16dp"
-        android:text="Save Note"
+        android:text="@string/CosplayNotesSave"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

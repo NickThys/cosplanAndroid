@@ -157,8 +157,8 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mCosplayWebshop = v.findViewById(R.id.Btn_BtnBar_CosplayWebshops);
         mCosplayEvents = v.findViewById(R.id.Btn_BtnBar_CosplayEvents);
         //Items from the Notes
-        mCosplayNote = NotesView.findViewById(R.id.EditTest_CosplayNote);
-        mCosplayNotesSave = NotesView.findViewById(R.id.btn_CosplayNote_Save);
+        mCosplayNote = NotesView.findViewById(R.id.EditText_CosplayNoteText);
+        mCosplayNotesSave = NotesView.findViewById(R.id.Btn_CosplayNoteSave);
         //Items from the Ref Img
         mRVRefImg = RefImgView.findViewById(R.id.RV_RefImg);
         mRefImgAdd = RefImgView.findViewById(R.id.btn_addRefImg);
