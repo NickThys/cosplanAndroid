@@ -67,6 +67,7 @@
     <string name="txtPercentage">Percentage</string>
     <string name="CosplayHeader_ContentDescription">Img of the cosplay</string>
     <string name="CosplayHeader_ImageButtonContentDescription">Update cosplay</string>
+    <string name="Cosplay_ImageContentDescription">Cosplay image</string>
     <string-array name="BuyMake">
         <item>Buy</item>
         <item>Make</item>
