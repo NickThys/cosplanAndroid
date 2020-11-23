@@ -62,6 +62,10 @@
     <string name="NewPart_AddPart">Add part</string>
     <string name="NewPart_CancelPart">Cancel</string>
     <string name="Checklist_NameTitle">ChecklistPart name</string>
+    <string name="NewChecklistPartTitle">Add part to the checklist</string>
+    <string name="NewChecklistPartName">Part name</string>
+    <string name="NewChecklistPartAdd">Add part</string>
+    <string name="NewChecklistPartCancel">Cancel</string>
     <string-array name="BuyMake">
         <item>Buy</item>
         <item>Make</item>

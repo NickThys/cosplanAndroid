@@ -730,9 +730,9 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         final View checkListPopUpView = getLayoutInflater().inflate(R.layout.cosplay_checklist_addpart, null);
         final EditText mCheckListPartName;
         final Button mCheckListCancel, mChecklistAdd;
-        mCheckListPartName = checkListPopUpView.findViewById(R.id.EditText_CosplayChecklist_PartName);
-        mCheckListCancel = checkListPopUpView.findViewById(R.id.btn_CosplayChecklist_Cancel);
-        mChecklistAdd = checkListPopUpView.findViewById(R.id.btn_CosplayChecklist_AddPart);
+        mCheckListPartName = checkListPopUpView.findViewById(R.id.EditText_NewChecklistPartName);
+        mCheckListCancel = checkListPopUpView.findViewById(R.id.Btn_NewChecklistPartCancel);
+        mChecklistAdd = checkListPopUpView.findViewById(R.id.Btn_NewChecklistPartAdd);
 
         dialogBuilder.setView(checkListPopUpView);
         dialog = dialogBuilder.create();
