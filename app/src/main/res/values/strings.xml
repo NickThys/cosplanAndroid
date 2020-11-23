@@ -61,6 +61,7 @@
     <string name="NewPart_ChooseImage">Choose a picture</string>
     <string name="NewPart_AddPart">Add part</string>
     <string name="NewPart_CancelPart">Cancel</string>
+    <string name="Checklist_NameTitle">ChecklistPart name</string>
     <string-array name="BuyMake">
         <item>Buy</item>
         <item>Make</item>
