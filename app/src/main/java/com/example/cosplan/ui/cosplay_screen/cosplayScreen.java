@@ -789,22 +789,22 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         dialogBuilder = new AlertDialog.Builder(requireContext());
         final View PartPopUpView = getLayoutInflater().inflate(R.layout.add_cosplay_part, null);
 
-        mPartName = PartPopUpView.findViewById(R.id.EditText_PartName);
+        mPartName = PartPopUpView.findViewById(R.id.EditText_NewPartName);
 
-        mPartmakeBuy = PartPopUpView.findViewById(R.id.Spinner_PartBuyMake);
+        mPartmakeBuy = PartPopUpView.findViewById(R.id.Spinner_NewPartBuyMake);
         if (mPartmakeBuy != null) {
             mPartmakeBuy.setOnItemSelectedListener(this);
         }
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(requireContext(), R.array.BuyMake, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mPartmakeBuy.setAdapter(adapter);
-        mPartLink = PartPopUpView.findViewById(R.id.EditText_partLink);
-        mPartEndDate = PartPopUpView.findViewById(R.id.EditTextEndDate);
-        mPartCost = PartPopUpView.findViewById(R.id.editTextCost);
-        mPartImage = PartPopUpView.findViewById(R.id.imgView_PartImage);
-        mPartChooseImage = PartPopUpView.findViewById(R.id.btn_Part_ChooseImg);
-        mPartCancel = PartPopUpView.findViewById(R.id.btn_partCancel);
-        mPartAddPart = PartPopUpView.findViewById(R.id.btn_PartAddPart);
+        mPartLink = PartPopUpView.findViewById(R.id.EditText_NewPartLink);
+        mPartEndDate = PartPopUpView.findViewById(R.id.EditText_NewPartEndDate);
+        mPartCost = PartPopUpView.findViewById(R.id.EditText_NewPartCost);
+        mPartImage = PartPopUpView.findViewById(R.id.ImageView_NewPartImgPreview);
+        mPartChooseImage = PartPopUpView.findViewById(R.id.Btn_NewPartChoosePartImg);
+        mPartCancel = PartPopUpView.findViewById(R.id.Btn_NewPartCancel);
+        mPartAddPart = PartPopUpView.findViewById(R.id.Btn_NewPartAdd);
         //mPartChooseImage.setEnabled(false);
         dialogBuilder.setView(PartPopUpView);
         dialog = dialogBuilder.create();

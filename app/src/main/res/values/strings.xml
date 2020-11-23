@@ -53,6 +53,14 @@
     <string name="btnText_WIPShort">WIP img</string>
     <string name="tnTxt_RefImgShort">Ref. Img.</string>
     <string name="ContentDescription_NewCosplayImgPreview">Preview of the chosen image</string>
+    <string name="NewPart_NameHint">Name</string>
+    <string name="NewPart_LinkHint">Link</string>
+    <string name="NewPart_CostHint">Cost</string>
+    <string name="NewPart_EndDateHint">End date</string>
+    <string name="NewPart_ImageViewContentDescription">Preview of the chosen image</string>
+    <string name="NewPart_ChooseImage">Choose a picture</string>
+    <string name="NewPart_AddPart">Add part</string>
+    <string name="NewPart_CancelPart">Cancel</string>
     <string-array name="BuyMake">
         <item>Buy</item>
         <item>Make</item>
