@@ -1,71 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.cosplay_screen.cosplayScreen">
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/GuideLine_Half"
+        android:id="@+id/GuideLine_HalfScreen"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.5" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/TextView_PartsToMakeTitle"
         style="@style/Titles"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="To Make"
+        android:text="@string/CosplayParts_MakeTitle"
         app:fontFamily="sans-serif-black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/RecViewMake"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/GuideLine_Half"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
-
-    </androidx.recyclerview.widget.RecyclerView>
-
     <TextView
-        android:id="@+id/txtTitleToBuy"
+        android:id="@+id/TextView_PartsToBuyTitle"
         style="@style/Titles"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:text="To buy"
+        android:text="@string/CosplayParts_BuyTitle"
         app:fontFamily="sans-serif-black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/GuideLine_Half" />
+        app:layout_constraintTop_toTopOf="@+id/GuideLine_HalfScreen" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/RecViewBuy"
+        android:id="@+id/RecView_PartsToMake"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/GuideLine_HalfScreen"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/TextView_PartsToMakeTitle">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/RecView_PartsToBuy"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtTitleToBuy" />
+        app:layout_constraintTop_toBottomOf="@+id/TextView_PartsToBuyTitle" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabAddPart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:clickable="true"
-        app:srcCompat="@drawable/ic_add"
+        android:id="@+id/Fab_PartsAdd"
+        style="@style/FAB"
+        android:contentDescription="@string/NewChecklistPartAdd"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:focusable="true" />
+        app:srcCompat="@drawable/ic_add" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

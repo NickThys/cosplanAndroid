@@ -13,8 +13,6 @@
     <string name="Slogan_Cosplan">Stop procrastinating and go craft!</string>
     <string name="menu_calender">Convention calender</string>
     <string name="menu_webshop">Webshops</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="menu_settings">Settings</string>
     <string name="WebsiteName">Name</string>
     <string name="WebsiteLink">Website</string>
@@ -52,6 +50,39 @@
     <string name="ConformationDeleteCheckListPart">Do you want to delete </string>
     <string name="btnText_WIPShort">WIP img</string>
     <string name="tnTxt_RefImgShort">Ref. Img.</string>
+    <string name="ContentDescription_NewCosplayImgPreview">Preview of the chosen image</string>
+    <string name="NewPart_NameHint">Name</string>
+    <string name="NewPart_LinkHint">Link</string>
+    <string name="NewPart_CostHint">Cost</string>
+    <string name="NewPart_EndDateHint">End date</string>
+    <string name="NewPart_ImageViewContentDescription">Preview of the chosen image</string>
+    <string name="NewPart_ChooseImage">Choose a picture</string>
+    <string name="NewPart_AddPart">Add part</string>
+    <string name="NewPart_CancelPart">Cancel</string>
+    <string name="Checklist_NameTitle">ChecklistPart name</string>
+    <string name="NewChecklistPartTitle">Add part to the checklist</string>
+    <string name="NewChecklistPartName">Part name</string>
+    <string name="NewChecklistPartAdd">Add part</string>
+    <string name="NewChecklistPartCancel">Cancel</string>
+    <string name="txtPercentage">Percentage</string>
+    <string name="CosplayHeader_ContentDescription">Img of the cosplay</string>
+    <string name="CosplayHeader_ImageButtonContentDescription">Update cosplay</string>
+    <string name="Cosplay_ImageContentDescription">Cosplay image</string>
+    <string name="CheckList_ClearCheckBox">Clear all checkboxes</string>
+    <string name="CosplayNotesSave">Save Note</string>
+    <string name="CosplayParts_BuyTitle">To buy</string>
+    <string name="CosplayParts_MakeTitle">To Make</string>
+    <string name="RefImgAdd">Add reference image</string>
+    <string name="ShoppingListAdd">add shoppinglist part</string>
+    <string name="ShoppingListClear">Clear shoppinglist</string>
+    <string name="WipImageGet">Get picture</string>
+    <string name="WipImageTake">Take Picture</string>
+    <string name="ShoppingListShop">Shop</string>
+    <string name="Shoppinglist_AddTitle">Add part to the shoppinglist</string>
+    <string name="NewCosplayWebsiteTitle">Add webshop to the cosplay</string>
+    <string name="ConventionPlace">Place</string>
+    <string name="ConventionDate">date</string>
+    <string name="PartStatus">status</string>
     <string-array name="BuyMake">
         <item>Buy</item>
         <item>Make</item>

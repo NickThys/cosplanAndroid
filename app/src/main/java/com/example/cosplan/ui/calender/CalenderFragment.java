@@ -4,10 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -36,7 +34,7 @@ public class CalenderFragment extends Fragment {
 
 
         //RecyclerView Belgium
-        RecyclerView recyclerViewBelgium=root.findViewById(R.id.recyclerViewBelgium);
+        RecyclerView recyclerViewBelgium=root.findViewById(R.id.RecView_CalenderBelguim);
         recyclerViewBelgium.setAdapter(conventionAdapterBelgium);
         recyclerViewBelgium.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL));
         recyclerViewBelgium.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -60,7 +58,7 @@ public class CalenderFragment extends Fragment {
             }
         });
         //RecyclerView Netherland
-        RecyclerView recyclerViewNetherland=root.findViewById(R.id.recyclerViewNetherland);
+        RecyclerView recyclerViewNetherland=root.findViewById(R.id.RecView_CalenderNetherland);
         recyclerViewNetherland.setAdapter(conventionAdapterNetherland);
         recyclerViewNetherland.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL));
 

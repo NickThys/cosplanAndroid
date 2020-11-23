@@ -1,11 +1,8 @@
 package com.example.cosplan.ui.webshop;
 
 import android.content.Context;
-import android.icu.text.RelativeDateTimeFormatter;
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
@@ -37,15 +34,15 @@ public class UpdateFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        View view=inflater.inflate(R.layout.fragment_update, container, false);
+        View view=inflater.inflate(R.layout.fragment_webshop_update, container, false);
         mWebshopViewModel= new ViewModelProvider(this).get(WebshopViewModel.class);
         final Webshop temp=UpdateFragmentArgs.fromBundle(getArguments()).getCurrentWebshop();
 
-        mName=view.findViewById(R.id.UpdateWebsiteName);
-        mLink=view.findViewById(R.id.UpdateWebsiteLink);
+        mName=view.findViewById(R.id.EditText_WebsiteUpdateName);
+        mLink=view.findViewById(R.id.EditText_WebsiteUpdateLink);
         mName.setText(temp.mSiteName);
         mLink.setText(temp.mSiteLink);
-        Button Update=view.findViewById(R.id.btn_UpdateDb);
+        Button Update=view.findViewById(R.id.Btn_WebsiteUpdateUpdate);
         Update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

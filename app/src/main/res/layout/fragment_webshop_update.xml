@@ -1,46 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.webshop.UpdateFragment"
-    android:padding="24dp">
-
-
+    android:padding="24dp"
+    tools:context=".ui.webshop.UpdateFragment">
 
 
     <EditText
-        android:id="@+id/UpdateWebsiteName"
+        android:id="@+id/EditText_WebsiteUpdateName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:ems="10"
-        android:inputType="textPersonName"
         android:hint="@string/WebsiteName"
+        android:importantForAutofill="no"
+        android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
     <EditText
-        android:id="@+id/UpdateWebsiteLink"
+        android:id="@+id/EditText_WebsiteUpdateLink"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="24dp"
         android:ems="10"
-        android:inputType="text"
         android:hint="@string/WebsiteLink"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/UpdateWebsiteName" />
+        android:importantForAutofill="no"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="@+id/EditText_WebsiteUpdateName"
+        app:layout_constraintStart_toStartOf="@+id/EditText_WebsiteUpdateName"
+        app:layout_constraintTop_toBottomOf="@+id/EditText_WebsiteUpdateName" />
 
     <Button
-        android:id="@+id/btn_UpdateDb"
+        android:id="@+id/Btn_WebsiteUpdateUpdate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="@string/UpdateDb"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/UpdateWebsiteLink" />
+        app:layout_constraintEnd_toEndOf="@+id/EditText_WebsiteUpdateLink"
+        app:layout_constraintStart_toStartOf="@+id/EditText_WebsiteUpdateLink"
+        app:layout_constraintTop_toBottomOf="@+id/EditText_WebsiteUpdateLink" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,7 +12,7 @@
         android:paddingBottom="4dp">
 
         <TextView
-            android:id="@+id/labelAddNewCosplay"
+            android:id="@+id/TextView_NewCosplayTitle"
             style="@style/Titles"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -23,94 +23,93 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/EditTextCosplayName"
+            android:id="@+id/EditText_NewCosplayName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:ems="10"
             android:hint="@string/editTextHintName"
+            android:importantForAutofill="no"
             android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/labelAddNewCosplay" />
+            app:layout_constraintTop_toBottomOf="@+id/TextView_NewCosplayTitle" />
 
         <EditText
-            android:id="@+id/editTextBeginDate"
+            android:id="@+id/EditText_NewCosplayBeginDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:ems="10"
             android:hint="@string/txtStartDate"
+            android:importantForAutofill="no"
             android:inputType="date"
-            app:layout_constraintEnd_toEndOf="@+id/EditTextCosplayName"
-            app:layout_constraintTop_toBottomOf="@+id/EditTextCosplayName" />
+            app:layout_constraintEnd_toEndOf="@+id/EditText_NewCosplayName"
+            app:layout_constraintTop_toBottomOf="@+id/EditText_NewCosplayName" />
 
         <EditText
-            android:id="@+id/editTextEndDate"
+            android:id="@+id/EditText_NewCosplayEndDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:ems="10"
             android:hint="@string/txtEndDate"
+            android:importantForAutofill="no"
             android:inputType="date"
-            app:layout_constraintEnd_toEndOf="@+id/editTextBeginDate"
-            app:layout_constraintTop_toBottomOf="@+id/editTextBeginDate" />
+            app:layout_constraintEnd_toEndOf="@+id/EditText_NewCosplayBeginDate"
+            app:layout_constraintTop_toBottomOf="@+id/EditText_NewCosplayBeginDate" />
 
         <EditText
-            android:id="@+id/editTextBudget"
+            android:id="@+id/EditText_NewCosplayBudget"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:ems="10"
             android:hint="@string/txtBudget"
+            android:importantForAutofill="no"
             android:inputType="numberDecimal"
-            app:layout_constraintEnd_toEndOf="@+id/editTextEndDate"
-            app:layout_constraintTop_toBottomOf="@+id/editTextEndDate" />
+            app:layout_constraintEnd_toEndOf="@+id/EditText_NewCosplayEndDate"
+            app:layout_constraintTop_toBottomOf="@+id/EditText_NewCosplayEndDate" />
+
+        <ImageView
+            android:id="@+id/ImageView_NewCosplayImgPreview"
+            android:layout_width="220dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="12dp"
+            android:background="@android:color/white"
+            android:contentDescription="@string/ContentDescription_NewCosplayImgPreview"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Btn_NewCosplayChooseImg"
+            app:srcCompat="@drawable/cosplanv2" />
 
         <Button
-            android:id="@+id/btnChooseCosplayImg"
+            android:id="@+id/Btn_NewCosplayChooseImg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:text="@string/btnChooseCosplayImg"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextBudget" />
-
-        <ImageView
-            android:id="@+id/imageViewCosplayImgPreview"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_marginTop="12dp"
-            android:background="@android:color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnChooseCosplayImg"
-            app:srcCompat="@drawable/cosplanv2" />
+            app:layout_constraintTop_toBottomOf="@+id/EditText_NewCosplayBudget" />
 
         <Button
-            android:id="@+id/buttonAddCosplay"
+            android:id="@+id/Btn_NewCosplayAdd"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginLeft="24dp"
             android:layout_marginTop="12dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginRight="24dp"
             android:text="@string/btn_add_cosplay"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/buttonCancel"
-            app:layout_constraintTop_toBottomOf="@+id/imageViewCosplayImgPreview" />
+            app:layout_constraintEnd_toEndOf="@+id/ImageView_NewCosplayImgPreview"
+            app:layout_constraintStart_toEndOf="@+id/Btn_NewCosplayCancel"
+            app:layout_constraintTop_toBottomOf="@+id/ImageView_NewCosplayImgPreview" />
 
         <Button
-            android:id="@+id/buttonCancel"
+            android:id="@+id/Btn_NewCosplayCancel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginLeft="24dp"
             android:text="@string/btnCancel"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/buttonAddCosplay" />
+            app:layout_constraintStart_toStartOf="@+id/ImageView_NewCosplayImgPreview"
+            app:layout_constraintTop_toTopOf="@+id/Btn_NewCosplayAdd" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

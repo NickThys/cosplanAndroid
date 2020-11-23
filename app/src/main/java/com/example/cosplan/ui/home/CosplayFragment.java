@@ -4,13 +4,11 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.SpannableStringBuilder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +25,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -64,7 +61,7 @@ public class CosplayFragment extends Fragment {
 
         View root = inflater.inflate(R.layout.fragment_cosplay, container, false);
         final CosplayAdapter cosplayAdapter = new CosplayAdapter(requireContext());
-        RecyclerView recyclerView = root.findViewById(R.id.recyclerViewCosplay);
+        RecyclerView recyclerView = root.findViewById(R.id.RecView_Cosplay);
         recyclerView.setAdapter(cosplayAdapter);
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL));
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -91,7 +88,7 @@ public class CosplayFragment extends Fragment {
             }
         });
         //Add the FAB to go to the add cosplay popup
-        mfabAddCosplay = root.findViewById(R.id.fabAddCosplay);
+        mfabAddCosplay = root.findViewById(R.id.Fab_CosplayAdd);
         mfabAddCosplay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,12 +102,12 @@ public class CosplayFragment extends Fragment {
 
     public void DeleteCosplayDialog(final Cosplay cosplay){
         dialogBuilder=new AlertDialog.Builder(requireContext());
-        final View deleteCosplayView=getLayoutInflater().inflate(R.layout.delete_cosplay,null);
-        TextView mDeleteText=deleteCosplayView.findViewById(R.id.text_deleteCosplay);
+        final View deleteCosplayView=getLayoutInflater().inflate(R.layout.delete,null);
+        TextView mDeleteText=deleteCosplayView.findViewById(R.id.TextView_DeleteTitle);
         mDeleteText.setText(getString(R.string.ConformationDeleteCosplay)+cosplay.mCosplayName);
         Button yes,no;
-        no=deleteCosplayView.findViewById(R.id.btnCancelDeleteCosplay);
-        yes=deleteCosplayView.findViewById(R.id.btnDeleteCosplay);
+        no=deleteCosplayView.findViewById(R.id.Btn_DeleteNo);
+        yes=deleteCosplayView.findViewById(R.id.Btn_DeleteYes);
         dialogBuilder.setView(deleteCosplayView);
         dialog=dialogBuilder.create();
         dialog.show();
@@ -134,14 +131,14 @@ public class CosplayFragment extends Fragment {
     public void createNewCosplayDialog() {
         dialogBuilder = new AlertDialog.Builder(requireContext());
         final View cosplayPopUpView = getLayoutInflater().inflate(R.layout.add_cosplay, null);
-        mCosplayName = cosplayPopUpView.findViewById(R.id.EditTextCosplayName);
-        mCosplayStartDate = cosplayPopUpView.findViewById(R.id.editTextBeginDate);
-        mCosplayEndDate = cosplayPopUpView.findViewById(R.id.editTextEndDate);
-        mCosplayBudget = cosplayPopUpView.findViewById(R.id.editTextBudget);
-        mCosplayImage = cosplayPopUpView.findViewById(R.id.imageViewCosplayImgPreview);
-        mChoosePicture = cosplayPopUpView.findViewById(R.id.btnChooseCosplayImg);
-        mCancel = cosplayPopUpView.findViewById(R.id.buttonCancel);
-        mAddNewCosplay = cosplayPopUpView.findViewById(R.id.buttonAddCosplay);
+        mCosplayName = cosplayPopUpView.findViewById(R.id.EditText_NewCosplayName);
+        mCosplayStartDate = cosplayPopUpView.findViewById(R.id.EditText_NewCosplayBeginDate);
+        mCosplayEndDate = cosplayPopUpView.findViewById(R.id.EditText_NewCosplayEndDate);
+        mCosplayBudget = cosplayPopUpView.findViewById(R.id.EditText_NewCosplayBudget);
+        mCosplayImage = cosplayPopUpView.findViewById(R.id.ImageView_NewCosplayImgPreview);
+        mChoosePicture = cosplayPopUpView.findViewById(R.id.Btn_NewCosplayChooseImg);
+        mCancel = cosplayPopUpView.findViewById(R.id.Btn_NewCosplayCancel);
+        mAddNewCosplay = cosplayPopUpView.findViewById(R.id.Btn_NewCosplayAdd);
         dialogBuilder.setView(cosplayPopUpView);
         dialog = dialogBuilder.create();
         dialog.show();

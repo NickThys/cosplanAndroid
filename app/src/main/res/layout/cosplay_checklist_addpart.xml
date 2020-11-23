@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/txt_CosplayChecklist_AddPart_Title"
+        android:id="@+id/TextView_NewCheckListPartTitle"
         style="@style/Titles"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
@@ -15,35 +14,14 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="12dp"
         android:layout_marginRight="12dp"
-        android:text="Add part to the checklist"
+        android:text="@string/NewChecklistPartTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btn_CosplayChecklist_AddPart"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Add part"
-        app:layout_constraintEnd_toEndOf="@+id/EditText_CosplayChecklist_PartName"
-        app:layout_constraintStart_toEndOf="@+id/btn_CosplayChecklist_Cancel"
-        app:layout_constraintTop_toTopOf="@+id/btn_CosplayChecklist_Cancel" />
-
-    <Button
-        android:id="@+id/btn_CosplayChecklist_Cancel"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="Cancel"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btn_CosplayChecklist_AddPart"
-        app:layout_constraintStart_toStartOf="@+id/EditText_CosplayChecklist_PartName"
-        app:layout_constraintTop_toBottomOf="@+id/EditText_CosplayChecklist_PartName" />
-
     <EditText
-        android:id="@+id/EditText_CosplayChecklist_PartName"
+        android:id="@+id/EditText_NewChecklistPartName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -52,10 +30,33 @@
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:ems="10"
-        android:hint="Part name"
+        android:hint="@string/NewChecklistPartName"
+        android:importantForAutofill="no"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_CosplayChecklist_AddPart_Title" />
+        app:layout_constraintTop_toBottomOf="@+id/TextView_NewCheckListPartTitle" />
+
+    <Button
+        android:id="@+id/Btn_NewChecklistPartAdd"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/NewChecklistPartAdd"
+        app:layout_constraintEnd_toEndOf="@+id/EditText_NewChecklistPartName"
+        app:layout_constraintStart_toEndOf="@+id/Btn_NewChecklistPartCancel"
+        app:layout_constraintTop_toTopOf="@+id/Btn_NewChecklistPartCancel" />
+
+    <Button
+        android:id="@+id/Btn_NewChecklistPartCancel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/NewChecklistPartCancel"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/Btn_NewChecklistPartAdd"
+        app:layout_constraintStart_toStartOf="@+id/EditText_NewChecklistPartName"
+        app:layout_constraintTop_toBottomOf="@+id/EditText_NewChecklistPartName" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
