@@ -12,14 +12,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.Lifecycle;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cosplan.R;
-import com.example.cosplan.data.Coplay.Part.PartViewModel;
-import com.example.cosplan.ui.webshop.WebshopFragmentDirections;
 
 import java.util.List;
 
@@ -66,10 +61,10 @@ public class WebshopAdapter extends RecyclerView.Adapter<WebshopAdapter.WebshopV
                 final View WebshopPopUpView=mInflater.inflate(R.layout.cosplay_webshop,null);
                 final EditText mSiteName,mSiteLink;
                 Button mCancel,mAdd;
-                mSiteLink=WebshopPopUpView.findViewById(R.id.EditText_WebsiteLink);
-                mSiteName=WebshopPopUpView.findViewById(R.id.EditText_WebsiteName);
-                mAdd=WebshopPopUpView.findViewById(R.id.btn_addCosplayWebshop);
-                mCancel=WebshopPopUpView.findViewById(R.id.btn_CancelCosplayWebshop);
+                mSiteLink=WebshopPopUpView.findViewById(R.id.EditText_NewCosplayWebsiteLink);
+                mSiteName=WebshopPopUpView.findViewById(R.id.EditText_NewCosplayWebsiteName);
+                mAdd=WebshopPopUpView.findViewById(R.id.Btn_NewCosplayWebsiteAdd);
+                mCancel=WebshopPopUpView.findViewById(R.id.Btn_NewCosplayWebsiteCancel);
                 TextView mTitle=WebshopPopUpView.findViewById(R.id.txt_cosplayWebshop);
 
                 mAdd.setText("Update");

@@ -703,10 +703,10 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         final View WebshopPopUpView = getLayoutInflater().inflate(R.layout.cosplay_webshop, null);
         final EditText mSiteName, mSiteLink;
         Button mCancel, mAdd;
-        mSiteLink = WebshopPopUpView.findViewById(R.id.EditText_WebsiteLink);
-        mSiteName = WebshopPopUpView.findViewById(R.id.EditText_WebsiteName);
-        mAdd = WebshopPopUpView.findViewById(R.id.btn_addCosplayWebshop);
-        mCancel = WebshopPopUpView.findViewById(R.id.btn_CancelCosplayWebshop);
+        mSiteLink = WebshopPopUpView.findViewById(R.id.EditText_NewCosplayWebsiteLink);
+        mSiteName = WebshopPopUpView.findViewById(R.id.EditText_NewCosplayWebsiteName);
+        mAdd = WebshopPopUpView.findViewById(R.id.Btn_NewCosplayWebsiteAdd);
+        mCancel = WebshopPopUpView.findViewById(R.id.Btn_NewCosplayWebsiteCancel);
         dialogBuilder.setView(WebshopPopUpView);
         dialog = dialogBuilder.create();
         dialog.show();

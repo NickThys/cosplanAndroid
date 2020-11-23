@@ -9,7 +9,7 @@
 
 
     <EditText
-        android:id="@+id/EditText_WebsiteName"
+        android:id="@+id/EditText_NewCosplayWebsiteName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
@@ -20,7 +20,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
     <EditText
-        android:id="@+id/EditText_WebsiteLink"
+        android:id="@+id/EditText_NewCosplayWebsiteLink"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -29,15 +29,15 @@
         android:hint="@string/WebsiteLink"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/EditText_WebsiteName" />
+        app:layout_constraintTop_toBottomOf="@+id/EditText_NewCosplayWebsiteName" />
 
     <Button
-        android:id="@+id/btn_addCosplayWebshop"
+        android:id="@+id/Btn_NewCosplayWebsiteAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="@string/AddWebshopToDb"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/EditText_WebsiteLink" />
+        app:layout_constraintTop_toBottomOf="@+id/EditText_NewCosplayWebsiteLink" />
 </androidx.constraintlayout.widget.ConstraintLayout>
