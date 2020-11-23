@@ -1,44 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.settings.SettingsFragment">
 
     <TextView
+        android:id="@+id/TextView_SettingsDarkMode"
         style="@style/txtViews_Settings"
-        android:id="@+id/text_settings"
         android:text="@string/txt_dark_mode"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/TextView_SettingsCompactMode"
+        style="@style/txtViews_Settings"
+        android:layout_marginStart="-12dp"
+        android:layout_marginLeft="-12dp"
+        android:text="@string/txt_compact_mode"
+        app:layout_constraintStart_toStartOf="@+id/TextView_SettingsDarkMode"
+        app:layout_constraintTop_toBottomOf="@+id/TextView_SettingsDarkMode" />
+
     <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/EnableDarkMode"
+        android:id="@+id/Switch_SettingsDarkMode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
-
-    <TextView
-        android:id="@+id/txt_CompactView"
-        style="@style/txtViews_Settings"
-        android:text="@string/txt_compact_mode"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_settings" />
+        app:layout_constraintBottom_toBottomOf="@+id/TextView_SettingsDarkMode"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/EnableCompactMode"
+        android:id="@+id/Switch_SettingsCompactMode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/EnableDarkMode"
-        android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginRight="24dp"/>
+        android:layout_marginRight="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/TextView_SettingsCompactMode"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
