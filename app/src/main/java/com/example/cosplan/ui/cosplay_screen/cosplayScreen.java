@@ -166,9 +166,9 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mRecViewCosplayWebshop = WebshopsView.findViewById(R.id.RV_CosplayWebshop);
         mFabAddCosplayWebshop = WebshopsView.findViewById(R.id.Fab_AddCosplayWebshop);
         //items from the Checklist,
-        mRVCheckListPart = CheckListView.findViewById(R.id.RV_CheckList_Parts);
-        mCheckListPartAdd = CheckListView.findViewById(R.id.FAB_CheckList_AddNewPart);
-        mCheckListPartClear = CheckListView.findViewById(R.id.btn_CheckList_ClearAllCheckBoxes);
+        mRVCheckListPart = CheckListView.findViewById(R.id.RecView_CheckList);
+        mCheckListPartAdd = CheckListView.findViewById(R.id.FAB_CheckListAdd);
+        mCheckListPartClear = CheckListView.findViewById(R.id.Btn_CheckListClearCheckBox);
         //items from the ShoppingList;
         mRVShoppingList=ShoppingListView.findViewById(R.id.RV_Shoppinglist);
         mFabShoppingListAdd =ShoppingListView.findViewById(R.id.fab_Shoppinglist_AddShoppinglistPart);
