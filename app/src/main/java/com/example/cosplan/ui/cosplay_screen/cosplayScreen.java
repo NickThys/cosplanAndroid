@@ -185,7 +185,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mBudget.setText(Double.toString(tempCosplay.mCosplayBudget));
         mImage.setImageBitmap(tempCosplay.mCosplayIMG);
         mPercentage.setText("% complete");
-        mfabAddPart = v.findViewById(R.id.fabAddPart);
+        mfabAddPart = v.findViewById(R.id.Fab_PartsAdd);
 
         //onclick listener from the header
         mUpdateCosplay.setOnClickListener(new View.OnClickListener() {
@@ -257,7 +257,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
 
         //Part View
         //recyclerview Make
-        RecyclerView recyclerViewMake = v.findViewById(R.id.RecViewMake);
+        RecyclerView recyclerViewMake = v.findViewById(R.id.RecView_PartsToMake);
         recyclerViewMake.setAdapter(partAdapterMake);
         recyclerViewMake.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         recyclerViewMake.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -281,7 +281,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             }
         });
         //recyclerview buy
-        final RecyclerView recyclerViewBuy = v.findViewById(R.id.RecViewBuy);
+        final RecyclerView recyclerViewBuy = v.findViewById(R.id.RecView_PartsToBuy);
         recyclerViewBuy.setAdapter(partAdapterBuy);
         recyclerViewBuy.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         recyclerViewBuy.setLayoutManager(new LinearLayoutManager(requireContext()));
