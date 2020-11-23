@@ -148,14 +148,14 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mImage = v.findViewById(R.id.CosScreenImg);
         mUpdateCosplay = v.findViewById(R.id.CosScreenUpdate);
         //Items from the button bar
-        mCosplayParts = v.findViewById(R.id.btn_cosplayparts);
-        mCosplayNotes = v.findViewById(R.id.btn_cosplayNotes);
-        mCosplayRefPic = v.findViewById(R.id.btn_cosplayReferencePic);
-        mCosplayWIPPic = v.findViewById(R.id.btn_cosplayWIPImage);
-        mCosplayChecklist = v.findViewById(R.id.btn_cosplayChecklist);
-        mCosplayShoppinglist = v.findViewById(R.id.btn_cosplayShoppinnglist);
-        mCosplayWebshop = v.findViewById(R.id.btn_cosplayWebshops);
-        mCosplayEvents = v.findViewById(R.id.btn_cosplayEvents);
+        mCosplayParts = v.findViewById(R.id.Btn_BtnBar_CosplayParts);
+        mCosplayNotes = v.findViewById(R.id.Btn_BtnBar_CosplayNotes);
+        mCosplayRefPic = v.findViewById(R.id.Btn_BtnBar_CosplayRefImage);
+        mCosplayWIPPic = v.findViewById(R.id.Btn_BtnBar_CosplayWIPImage);
+        mCosplayChecklist = v.findViewById(R.id.Btn_BtnBar_CosplayChecklist);
+        mCosplayShoppinglist = v.findViewById(R.id.Btn_BtnBar_CosplayShoppinglist);
+        mCosplayWebshop = v.findViewById(R.id.Btn_BtnBar_CosplayWebshops);
+        mCosplayEvents = v.findViewById(R.id.Btn_BtnBar_CosplayEvents);
         //Items from the Notes
         mCosplayNote = NotesView.findViewById(R.id.EditTest_CosplayNote);
         mCosplayNotesSave = NotesView.findViewById(R.id.btn_CosplayNote_Save);
