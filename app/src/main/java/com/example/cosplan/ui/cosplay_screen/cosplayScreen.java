@@ -135,7 +135,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
 
         cosplayViewModel = new ViewModelProvider(this).get(CosplayViewModel.class);
         tempCosplay = cosplayScreenArgs.fromBundle(getArguments()).getCurrentCosplay();
-        final ViewGroup fl = v.findViewById(R.id.inlcude3);
+        final ViewGroup fl = v.findViewById(R.id.FrameLayout_Content);
         //Initial view for the framelayout
         fl.addView(PartsView);
         cosplayAdapter = new CosplayAdapter(requireContext());
