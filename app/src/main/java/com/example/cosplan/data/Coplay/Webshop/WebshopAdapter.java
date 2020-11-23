@@ -30,8 +30,8 @@ public class WebshopAdapter extends RecyclerView.Adapter<WebshopAdapter.WebshopV
         private final TextView mCosplayWebsiteName,mCosplayWebshopLink;
         public WebshopViewHolder(@NonNull View itemView) {
             super(itemView);
-            mCosplayWebsiteName=itemView.findViewById(R.id.textviewName);
-            mCosplayWebshopLink=itemView.findViewById(R.id.textviewLink);
+            mCosplayWebsiteName=itemView.findViewById(R.id.TextView_WebshopName);
+            mCosplayWebshopLink=itemView.findViewById(R.id.TextView_WebshopLink);
         }
     }
 
@@ -50,7 +50,7 @@ public class WebshopAdapter extends RecyclerView.Adapter<WebshopAdapter.WebshopV
         holder.mCosplayWebshopLink.setText(tempLink);
         holder.mCosplayWebsiteName.setText(tempName);
         View itemView = holder.itemView;
-        itemView.findViewById(R.id.rowLayout);
+        itemView.findViewById(R.id.ConstraintLayout_Webshop);
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
