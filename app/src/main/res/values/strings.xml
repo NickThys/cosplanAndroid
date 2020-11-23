@@ -72,6 +72,7 @@
     <string name="CosplayNotesSave">Save Note</string>
     <string name="CosplayParts_BuyTitle">To buy</string>
     <string name="CosplayParts_MakeTitle">To Make</string>
+    <string name="RefImgAdd">Add reference image</string>
     <string-array name="BuyMake">
         <item>Buy</item>
         <item>Make</item>
