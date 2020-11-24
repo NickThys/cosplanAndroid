@@ -22,20 +22,24 @@ public class Event {
     @ColumnInfo(name = "CosplayEventPlace")
     public String mCosplayEventPlace;
 
-    @ColumnInfo(name = "CosplayEventDate")
-    public String mCosplayEventDate;
+    @ColumnInfo(name = "CosplayEventBeginDate")
+    public String mCosplayEventBeginDate;
+
+    @ColumnInfo(name = "CosplayEventEndDate")
+    public String mCosplayEventEndDate;
 
     @ColumnInfo(name = "CosplayEventType")
     public String mCosplayEventType;
 
     public Event(){}
 
-    public Event(int mCosplayId, int mCosplayEventId, String mCosplayEventName, String mCosplayEventPlace, String mCosplayEventDate, String mCosplayEventType) {
+    public Event(int mCosplayId, int mCosplayEventId, String mCosplayEventName, String mCosplayEventPlace,String mCosplayEventBeginDate, String mCosplayEventDate, String mCosplayEventType) {
         this.mCosplayId = mCosplayId;
         this.mCosplayEventId = mCosplayEventId;
         this.mCosplayEventName = mCosplayEventName;
         this.mCosplayEventPlace = mCosplayEventPlace;
-        this.mCosplayEventDate = mCosplayEventDate;
+        this.mCosplayEventBeginDate=mCosplayEventBeginDate;
+        this.mCosplayEventEndDate = mCosplayEventDate;
         this.mCosplayEventType = mCosplayEventType;
     }
 }

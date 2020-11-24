@@ -1,34 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/ConstraintLayout_Webshop"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/TextView_WebshopName"
+        android:id="@+id/TextView_EventName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
         android:layout_marginTop="6dp"
         android:text="@string/txtName"
-        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/TextView_WebshopLink"
+        android:id="@+id/TextView_EventDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:layout_marginBottom="6dp"
-        android:autoLink="web"
-        android:text="@string/WebsiteLink"
-        android:textSize="18sp"
+        android:text="@string/ConventionDate"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/TextView_WebshopName"
-        app:layout_constraintTop_toBottomOf="@+id/TextView_WebshopName" />
+        app:layout_constraintStart_toStartOf="@+id/TextView_EventName"
+        app:layout_constraintTop_toBottomOf="@+id/TextView_EventName" />
 
-
+    <TextView
+        android:id="@+id/TextView_Event_Place"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="48dp"
+        android:layout_marginRight="48dp"
+        android:text="@string/ConventionPlace"
+        app:layout_constraintBaseline_toBaselineOf="@+id/TextView_EventName"
+        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
