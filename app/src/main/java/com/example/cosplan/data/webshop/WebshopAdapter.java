@@ -2,21 +2,16 @@ package com.example.cosplan.data.webshop;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.app.NotificationCompat;
-import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cosplan.R;
-import com.example.cosplan.ui.webshop.UpdateFragment;
-import com.example.cosplan.ui.webshop.WebshopFragment;
 import com.example.cosplan.ui.webshop.WebshopFragmentDirections;
 
 
@@ -37,8 +32,8 @@ public class WebshopAdapter extends RecyclerView.Adapter<WebshopAdapter.WebshopV
 
         public WebshopViewHolder(@NonNull View itemView) {
             super(itemView);
-            WebsiteName = itemView.findViewById(R.id.textviewName);
-            textviewLink = itemView.findViewById(R.id.textviewLink);
+            WebsiteName = itemView.findViewById(R.id.TextView_WebshopName);
+            textviewLink = itemView.findViewById(R.id.TextView_WebshopLink);
         }
     }
 
@@ -73,7 +68,7 @@ public class WebshopAdapter extends RecyclerView.Adapter<WebshopAdapter.WebshopV
 
         holder.WebsiteName.setText(tempName);
         View itemView = holder.itemView;
-        itemView.findViewById(R.id.rowLayout);
+        itemView.findViewById(R.id.ConstraintLayout_Webshop);
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -1,45 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cosplayrowLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingTop="8dp"
     android:paddingBottom="8dp">
 
+    <TextView
+        android:id="@+id/TextView_CosplayName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/txtName"
+        app:layout_constraintBottom_toTopOf="@+id/TextView_CosplayEndDate"
+        app:layout_constraintEnd_toStartOf="@+id/ImageView_CosplayImage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ImageView_CosplayImage" />
+
+    <TextView
+        android:id="@+id/TextView_CosplayEndDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/txtEndDate"
+        app:layout_constraintBottom_toBottomOf="@+id/ImageView_CosplayImage"
+        app:layout_constraintStart_toStartOf="@+id/TextView_CosplayName"
+        app:layout_constraintTop_toBottomOf="@+id/TextView_CosplayName" />
+
+    <TextView
+        android:id="@+id/TextView_CosplayPercentage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/txtPercentage"
+        app:layout_constraintBottom_toBottomOf="@+id/ImageView_CosplayImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ImageView_CosplayImage"
+        app:layout_constraintTop_toTopOf="@+id/ImageView_CosplayImage" />
+
     <ImageView
-        android:id="@+id/cosplayImgView"
+        android:id="@+id/ImageView_CosplayImage"
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:contentDescription="@string/Cosplay_ImageContentDescription"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_cosplan_logo" />
-
-    <TextView
-        android:id="@+id/txtCosplayName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toStartOf="@+id/cosplayImgView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/cosplayImgView" />
-
-    <TextView
-        android:id="@+id/txtEndDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/cosplayImgView"
-        app:layout_constraintStart_toStartOf="@+id/txtCosplayName"
-        app:layout_constraintTop_toBottomOf="@+id/txtCosplayName" />
-
-    <TextView
-        android:id="@+id/txtPercentage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/cosplayImgView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/cosplayImgView"
-        app:layout_constraintTop_toTopOf="@+id/cosplayImgView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

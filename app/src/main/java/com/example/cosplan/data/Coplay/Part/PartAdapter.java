@@ -29,11 +29,11 @@ public class PartAdapter extends RecyclerView.Adapter<PartAdapter.PartViewHolder
         private final TextView mPartEndDate;
         public PartViewHolder(@NonNull View itemView) {
             super(itemView);
-            mPartImage=itemView.findViewById(R.id.img_PartImage);
-            mPartName=itemView.findViewById(R.id.txt_PartName);
-            mPartCost=itemView.findViewById(R.id.txt_PartCost);
-            mPartStatus=itemView.findViewById(R.id.txt_PartStatus);
-            mPartEndDate=itemView.findViewById(R.id.txt_PartEnddate);
+            mPartImage=itemView.findViewById(R.id.ImageView_PartImage);
+            mPartName=itemView.findViewById(R.id.TextView_PartName);
+            mPartCost=itemView.findViewById(R.id.TextView_PartCost);
+            mPartStatus=itemView.findViewById(R.id.TextView_PartStatus);
+            mPartEndDate=itemView.findViewById(R.id.TextView_PartEnddate);
         }
     }
 

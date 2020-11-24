@@ -4,8 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.GridView;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -28,7 +26,7 @@ public class RefenceImgAdapter extends RecyclerView.Adapter<RefenceImgAdapter.Re
     @NonNull
     @Override
     public ReferenceImgViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view=inflater.inflate(R.layout.custum_row_ref_img,parent,false);
+        View view=inflater.inflate(R.layout.custum_row_image,parent,false);
         return new ReferenceImgViewHolder(view);
     }
 
@@ -46,7 +44,7 @@ public class RefenceImgAdapter extends RecyclerView.Adapter<RefenceImgAdapter.Re
         ImageView IVrefimg;
         public ReferenceImgViewHolder(@NonNull View itemView) {
             super(itemView);
-            IVrefimg=itemView.findViewById(R.id.ImgaeViewRefImg);
+            IVrefimg=itemView.findViewById(R.id.ImageView_RefImage);
         }
     }
 }

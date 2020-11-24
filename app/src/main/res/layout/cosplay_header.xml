@@ -3,64 +3,65 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".CosplayMain">
 
-    <ImageView
-        android:id="@+id/CosScreenImg"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="16dp"
-        android:contentDescription="Img of the cosplay"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_cosplan_logo" />
-
     <TextView
-        android:id="@+id/CosScreenName"
+        android:id="@+id/TextView_CosplayHeaderName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="8dp"
+        android:text="@string/NewPart_NameHint"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/CosScreenImg" />
+        app:layout_constraintTop_toTopOf="@+id/ImageView_CosplayHeaderImage" />
 
     <TextView
-        android:id="@+id/CosScreenEndDate"
+        android:id="@+id/TextView_CosplayHeaderEndDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="@+id/CosScreenName"
-        app:layout_constraintTop_toBottomOf="@+id/CosScreenName" />
+        android:text="@string/NewPart_EndDateHint"
+        app:layout_constraintStart_toStartOf="@+id/TextView_CosplayHeaderName"
+        app:layout_constraintTop_toBottomOf="@+id/TextView_CosplayHeaderName" />
 
     <TextView
-        android:id="@+id/CosScreenPercentage"
+        android:id="@+id/TextView_CosplayHeaderPercentage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="@+id/CosScreenEndDate"
-        app:layout_constraintTop_toBottomOf="@+id/CosScreenEndDate" />
+        android:text="@string/txtPercentage"
+        app:layout_constraintStart_toStartOf="@+id/TextView_CosplayHeaderEndDate"
+        app:layout_constraintTop_toBottomOf="@+id/TextView_CosplayHeaderEndDate" />
 
     <TextView
-        android:id="@+id/CosScreenBudget"
+        android:id="@+id/TextView_CosplayHeaderBudget"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/CosScreenImg"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:text="@string/txtBudget"
+        app:layout_constraintBaseline_toBaselineOf="@+id/TextView_CosplayHeaderPercentage"
+        app:layout_constraintEnd_toEndOf="@+id/ImageButton_CosplayHeaderUpdate" />
+
+    <ImageView
+        android:id="@+id/ImageView_CosplayHeaderImage"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="@string/CosplayHeader_ContentDescription"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_cosplan_logo" />
 
     <ImageButton
-        android:id="@+id/CosScreenUpdate"
+        android:id="@+id/ImageButton_CosplayHeaderUpdate"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
+        android:contentDescription="@string/CosplayHeader_ImageButtonContentDescription"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/CosScreenImg"
+        app:layout_constraintTop_toTopOf="@+id/ImageView_CosplayHeaderImage"
         app:srcCompat="@android:drawable/ic_menu_edit" />
 </androidx.constraintlayout.widget.ConstraintLayout>

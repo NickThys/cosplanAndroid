@@ -26,9 +26,9 @@ public class ConventionAdapter extends RecyclerView.Adapter<ConventionAdapter.Co
         private final TextView ConventionDate;
         public ConventionViewHolder(@NonNull View itemView) {
             super(itemView);
-            ConventionName=itemView.findViewById(R.id.convention_name);
-            ConventionPlace=itemView.findViewById(R.id.Convention_place);
-            ConventionDate=itemView.findViewById(R.id.convention_date);
+            ConventionName=itemView.findViewById(R.id.TextView_ConventionName);
+            ConventionPlace=itemView.findViewById(R.id.TextView_ConventionPlace);
+            ConventionDate=itemView.findViewById(R.id.TextView_ConventionDate);
         }
     }
 

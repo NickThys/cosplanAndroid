@@ -31,7 +31,7 @@ public class CheckListPartAdapter extends RecyclerView.Adapter<CheckListPartAdap
 
         public CheckListPartViewHolder(@NonNull View itemView) {
             super(itemView);
-            mCheckListPartName = itemView.findViewById(R.id.txtView_CheckListPartName);
+            mCheckListPartName = itemView.findViewById(R.id.TextView_CheckListPartName);
             mCheckListPartPacked = itemView.findViewById(R.id.CheckBox_CheckListPartPacked);
         }
     }

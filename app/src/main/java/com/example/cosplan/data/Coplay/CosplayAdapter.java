@@ -2,8 +2,6 @@ package com.example.cosplan.data.Coplay;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.media.Image;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +13,6 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cosplan.R;
-import com.example.cosplan.ui.home.CosplayFragment;
 import com.example.cosplan.ui.home.CosplayFragmentDirections;
 
 import java.util.List;
@@ -81,10 +78,10 @@ public class CosplayAdapter extends RecyclerView.Adapter<CosplayAdapter.CosplayV
 
         public CosplayViewHolder(@NonNull View itemView) {
             super(itemView);
-            CosplayName = itemView.findViewById(R.id.txtCosplayName);
-            CosplayEndDate = itemView.findViewById(R.id.txtEndDate);
-            CosplayPercentage = itemView.findViewById(R.id.txtPercentage);
-            CosplayImg = itemView.findViewById(R.id.cosplayImgView);
+            CosplayName = itemView.findViewById(R.id.TextView_CosplayName);
+            CosplayEndDate = itemView.findViewById(R.id.TextView_CosplayEndDate);
+            CosplayPercentage = itemView.findViewById(R.id.TextView_CosplayPercentage);
+            CosplayImg = itemView.findViewById(R.id.ImageView_CosplayImage);
         }
     }
     public Cosplay getCosplayAtPosition(int position){

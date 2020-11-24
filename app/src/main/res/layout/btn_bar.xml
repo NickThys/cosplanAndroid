@@ -1,136 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ContentCosplay"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
- <!--Grey deviders between the buttons -->
+    <!--Grey deviders between the buttons -->
 
- <View
-     android:id="@+id/div4"
-     android:layout_width="0dp"
-     android:layout_height="1dp"
-     android:background="@android:color/darker_gray"
-     app:layout_constraintBottom_toBottomOf="@+id/btn_cosplayparts"
-     app:layout_constraintEnd_toEndOf="parent"
-     app:layout_constraintStart_toStartOf="parent"
-     app:layout_constraintTop_toTopOf="@+id/btn_cosplayChecklist" />
+    <View
+        android:id="@+id/Divider_Top"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintBottom_toTopOf="@+id/Btn_BtnBar_CosplayParts"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/Btn_BtnBar_CosplayParts" />
 
- <View
-     android:id="@+id/div6"
-     android:layout_width="0dp"
-     android:layout_height="1dp"
-     android:background="@android:color/darker_gray"
-     app:layout_constraintBottom_toTopOf="@+id/btn_cosplayparts"
-     app:layout_constraintEnd_toEndOf="parent"
-     app:layout_constraintStart_toStartOf="parent"
-     app:layout_constraintTop_toTopOf="@+id/btn_cosplayparts" />
+    <View
+        android:id="@+id/Divider_Middle"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintBottom_toBottomOf="@+id/Btn_BtnBar_CosplayParts"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/Btn_BtnBar_CosplayChecklist" />
 
- <View
-     android:id="@+id/div5"
-     android:layout_width="0dp"
-     android:layout_height="1dp"
-     android:background="@android:color/darker_gray"
-     app:layout_constraintBottom_toBottomOf="@+id/btn_cosplayChecklist"
-     app:layout_constraintEnd_toEndOf="parent"
-     app:layout_constraintStart_toStartOf="parent"
-     app:layout_constraintTop_toBottomOf="@+id/btn_cosplayChecklist" />
+    <View
+        android:id="@+id/Divider_Bottom"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintBottom_toBottomOf="@+id/Btn_BtnBar_CosplayChecklist"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Btn_BtnBar_CosplayChecklist" />
 
     <Button
-        android:id="@+id/btn_cosplayparts"
+        android:id="@+id/Btn_BtnBar_CosplayParts"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:minHeight="0dp"
         android:text="@string/btnText_cosplay_parts"
-        app:layout_constraintEnd_toStartOf="@+id/btn_cosplayReferencePic"
+        app:layout_constraintEnd_toStartOf="@+id/Btn_BtnBar_CosplayRefImage"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/btn_cosplayWIPImage"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:minHeight="0dp"
-        android:text="@string/btnText_WIPShort"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_cosplayChecklist"
-        app:layout_constraintEnd_toStartOf="@+id/btn_cosplayEvents"
-        app:layout_constraintStart_toEndOf="@+id/btn_cosplayChecklist"
-        app:layout_constraintTop_toBottomOf="@+id/btn_cosplayparts" />
-
-    <Button
-        android:id="@+id/btn_cosplayEvents"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:minHeight="0dp"
-        android:text="@string/btnText_events"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_cosplayChecklist"
-        app:layout_constraintEnd_toStartOf="@+id/btn_cosplayWebshops"
-        app:layout_constraintStart_toEndOf="@+id/btn_cosplayWIPImage"
-        app:layout_constraintTop_toBottomOf="@+id/btn_cosplayparts" />
-
-    <Button
-        android:id="@+id/btn_cosplayWebshops"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:minHeight="0dp"
-        android:text="@string/btnText_webshops"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_cosplayChecklist"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btn_cosplayEvents"
-        app:layout_constraintTop_toTopOf="@+id/btn_cosplayEvents" />
-
-    <Button
-        android:id="@+id/btn_cosplayReferencePic"
+        android:id="@+id/Btn_BtnBar_CosplayRefImage"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:minHeight="0dp"
         android:text="@string/tnTxt_RefImgShort"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_cosplayparts"
-        app:layout_constraintEnd_toStartOf="@+id/btn_cosplayShoppinnglist"
-        app:layout_constraintStart_toEndOf="@+id/btn_cosplayparts"
-        app:layout_constraintTop_toTopOf="@+id/btn_cosplayparts" />
+        app:layout_constraintBottom_toBottomOf="@+id/Btn_BtnBar_CosplayParts"
+        app:layout_constraintEnd_toStartOf="@+id/Btn_BtnBar_CosplayShoppinglist"
+        app:layout_constraintStart_toEndOf="@+id/Btn_BtnBar_CosplayParts"
+        app:layout_constraintTop_toTopOf="@+id/Btn_BtnBar_CosplayParts" />
 
     <Button
-        android:id="@+id/btn_cosplayChecklist"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:minHeight="0dp"
-        android:text="@string/btnText_checklist"
-        app:layout_constraintEnd_toStartOf="@+id/btn_cosplayWIPImage"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_cosplayparts" />
-
-    <Button
-        android:id="@+id/btn_cosplayNotes"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:minHeight="0dp"
-        android:text="@string/btnText_notes"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_cosplayparts"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btn_cosplayShoppinnglist"
-        app:layout_constraintTop_toTopOf="@+id/btn_cosplayparts" />
-
-    <Button
-        android:id="@+id/btn_cosplayShoppinnglist"
+        android:id="@+id/Btn_BtnBar_CosplayShoppinglist"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:minHeight="0dp"
         android:text="@string/btnText_shopping_list"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_cosplayparts"
-        app:layout_constraintEnd_toStartOf="@+id/btn_cosplayNotes"
-        app:layout_constraintStart_toEndOf="@+id/btn_cosplayReferencePic"
-        app:layout_constraintTop_toTopOf="@+id/btn_cosplayparts" />
+        app:layout_constraintBottom_toBottomOf="@+id/Btn_BtnBar_CosplayParts"
+        app:layout_constraintEnd_toStartOf="@+id/Btn_BtnBar_CosplayNotes"
+        app:layout_constraintStart_toEndOf="@+id/Btn_BtnBar_CosplayRefImage"
+        app:layout_constraintTop_toTopOf="@+id/Btn_BtnBar_CosplayParts" />
+
+    <Button
+        android:id="@+id/Btn_BtnBar_CosplayNotes"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:minHeight="0dp"
+        android:text="@string/btnText_notes"
+        app:layout_constraintBottom_toBottomOf="@+id/Btn_BtnBar_CosplayParts"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/Btn_BtnBar_CosplayShoppinglist"
+        app:layout_constraintTop_toTopOf="@+id/Btn_BtnBar_CosplayParts" />
+
+    <Button
+        android:id="@+id/Btn_BtnBar_CosplayChecklist"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="0dp"
+        android:text="@string/btnText_checklist"
+        app:layout_constraintEnd_toStartOf="@+id/Btn_BtnBar_CosplayWIPImage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Btn_BtnBar_CosplayParts" />
+
+    <Button
+        android:id="@+id/Btn_BtnBar_CosplayWIPImage"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="0dp"
+        android:text="@string/btnText_WIPShort"
+        app:layout_constraintBottom_toBottomOf="@+id/Btn_BtnBar_CosplayChecklist"
+        app:layout_constraintEnd_toStartOf="@+id/Btn_BtnBar_CosplayEvents"
+        app:layout_constraintStart_toEndOf="@+id/Btn_BtnBar_CosplayChecklist"
+        app:layout_constraintTop_toBottomOf="@+id/Btn_BtnBar_CosplayParts" />
+
+    <Button
+        android:id="@+id/Btn_BtnBar_CosplayEvents"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:minHeight="0dp"
+        android:text="@string/btnText_events"
+        app:layout_constraintBottom_toBottomOf="@+id/Btn_BtnBar_CosplayChecklist"
+        app:layout_constraintEnd_toStartOf="@+id/Btn_BtnBar_CosplayWebshops"
+        app:layout_constraintStart_toEndOf="@+id/Btn_BtnBar_CosplayWIPImage"
+        app:layout_constraintTop_toBottomOf="@+id/Btn_BtnBar_CosplayParts" />
+
+    <Button
+        android:id="@+id/Btn_BtnBar_CosplayWebshops"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:minHeight="0dp"
+        android:text="@string/btnText_webshops"
+        app:layout_constraintBottom_toBottomOf="@+id/Btn_BtnBar_CosplayChecklist"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/Btn_BtnBar_CosplayEvents"
+        app:layout_constraintTop_toTopOf="@+id/Btn_BtnBar_CosplayEvents" />
 
     <!-- guidelines that devide te screen in 4 parts.
            Those are used to give the buttons the same width-->

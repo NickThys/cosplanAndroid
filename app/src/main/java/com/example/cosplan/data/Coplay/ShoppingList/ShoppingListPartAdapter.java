@@ -13,8 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cosplan.R;
-import com.example.cosplan.data.Coplay.CheckList.CheckListPartViewModel;
-import com.example.cosplan.data.Coplay.CheckList.ChecklistPart;
 
 import java.util.List;
 
@@ -36,9 +34,9 @@ public class ShoppingListPartAdapter extends RecyclerView.Adapter<ShoppingListPa
 
         public ShoppingListPartViewHolder(@NonNull View itemView) {
             super(itemView);
-            mShoppingListListPartName = itemView.findViewById(R.id.txtView_ShoppingListPartName);
-            mShoppingListListPartShop=itemView.findViewById(R.id.txtView_ShoppingListShop);
-            mShoppingListPartPacked = itemView.findViewById(R.id.CheckBox_ShoppingListPart_Checked);
+            mShoppingListListPartName = itemView.findViewById(R.id.TextView_ShoppingListPartName);
+            mShoppingListListPartShop=itemView.findViewById(R.id.TextView_ShoppingListPartShop);
+            mShoppingListPartPacked = itemView.findViewById(R.id.CheckBox_ShoppingListPartChecked);
         }
     }
 
