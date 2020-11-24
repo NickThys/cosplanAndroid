@@ -555,9 +555,18 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                 mEventAdapter.setEvents(events);
             }
         });
+        mFabEventsAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addEventDialog(tempCosplay);
+            }
+        });
 
         //endregion
         return v;
+    }
+
+    private void addEventDialog(Cosplay tempCosplay) {
     }
 
     public void checkListClearCheckBoxes(List<ChecklistPart> allParts) {
