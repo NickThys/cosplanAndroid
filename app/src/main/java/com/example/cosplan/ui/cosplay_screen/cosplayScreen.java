@@ -41,12 +41,16 @@ import android.widget.Toast;
 
 import com.example.cosplan.R;
 
+import com.example.cosplan.data.Convention.Convention;
 import com.example.cosplan.data.Coplay.CheckList.CheckListPartAdapter;
 import com.example.cosplan.data.Coplay.CheckList.CheckListPartViewModel;
 import com.example.cosplan.data.Coplay.CheckList.ChecklistPart;
 import com.example.cosplan.data.Coplay.Cosplay;
 import com.example.cosplan.data.Coplay.CosplayAdapter;
 import com.example.cosplan.data.Coplay.CosplayViewModel;
+import com.example.cosplan.data.Coplay.Events.Event;
+import com.example.cosplan.data.Coplay.Events.EventAdapter;
+import com.example.cosplan.data.Coplay.Events.EventViewModel;
 import com.example.cosplan.data.Coplay.Part.Part;
 import com.example.cosplan.data.Coplay.Part.PartAdapter;
 import com.example.cosplan.data.Coplay.Part.PartViewModel;
@@ -87,7 +91,8 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
     private WIPImgViewModel wipImgViewModel;
     private RefenceImgAdapter refenceImgAdapter=null;
     private WIPImgAdapter wipImgAdapter=null;
-    
+    private EventAdapter mEventAdapter;
+    private EventViewModel mEventViewModel;
 
     private TextView mName, mStartDate, mEndDate, mPercentage, mBudget;
     private ImageView mImage;
@@ -95,8 +100,8 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
     private EditText mCosplayName, mCosplayStartDate, mCosplayEndDate, mCosplayBudget,mPartName, mPartLink, mPartCost, mPartEndDate, mCosplayNote;
     private Spinner mPartmakeBuy;
     private Button mPartChooseImage, mPartCancel, mPartAddPart, mCosplayNotesSave, mRefImgAdd, mCheckListPartClear,mWIPImgAddPicture,mWIPImgTakePicture,mChoosePicture, mCancel, mUpdateCosplays, mCosplayParts, mCosplayNotes, mCosplayRefPic, mCosplayWIPPic, mCosplayChecklist, mCosplayShoppinglist, mCosplayWebshop, mCosplayEvents, mShoppingListAdd,mShoppingListCancel,mShoppingListClear;
-    private FloatingActionButton mfabAddPart, mCheckListPartAdd,mFabAddCosplayWebshop,mFabShoppingListAdd;
-    private RecyclerView mRVRefImg,mRVWIPImg,mRecViewCosplayWebshop, mRVCheckListPart,mRVShoppingList;
+    private FloatingActionButton mfabAddPart, mCheckListPartAdd,mFabAddCosplayWebshop,mFabShoppingListAdd,mFabEventsAdd;
+    private RecyclerView mRVRefImg,mRVWIPImg,mRecViewCosplayWebshop, mRVCheckListPart,mRVShoppingList,mRecViewEventsConvention,mRecViewEventsShoots,mRecViewEventsCharity;
     private ImageView mCosplayImage;
 
     private Cosplay tempCosplay=null;
@@ -126,6 +131,8 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         final PartAdapter partAdapterMake = new PartAdapter(requireContext());
         final PartAdapter partAdapterBuy = new PartAdapter(requireContext());
         final ShoppingListPartAdapter shoppingListPartAdapter=new ShoppingListPartAdapter(requireContext(),getActivity().getApplication());
+
+        mEventAdapter=new EventAdapter(requireContext(),getActivity().getApplication());
 
         cosplayViewModel = new ViewModelProvider(this).get(CosplayViewModel.class);
         tempCosplay = cosplayScreenArgs.fromBundle(getArguments()).getCurrentCosplay();
@@ -171,6 +178,11 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mRVWIPImg=WipImgView.findViewById(R.id.RecView_WipImages);
         mWIPImgAddPicture=WipImgView.findViewById(R.id.Btn_WipImagesGetImage);
         mWIPImgTakePicture=WipImgView.findViewById(R.id.Btn_WipImagesTakePicture);
+        //items from the events
+        mRecViewEventsConvention=EventsView.findViewById(R.id.RecView_EventConvention);
+        mRecViewEventsShoots=EventsView.findViewById(R.id.RecView_EventShoot);
+        mRecViewEventsCharity=EventsView.findViewById(R.id.RecView_EventCharity);
+        mFabEventsAdd=EventsView.findViewById(R.id.Fab_EventAdd);
 
         //region Header
         //Adding text to the items from the header
@@ -472,7 +484,79 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         });
         //endregion
 
+        //region Events
+        //Region Convention
+        mRecViewEventsConvention.setAdapter(mEventAdapter);
+        mRecViewEventsConvention.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL));
+        mRecViewEventsConvention.setLayoutManager(new LinearLayoutManager(requireContext()));
+        ItemTouchHelper mHelperEventConvention=new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
 
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+
+            }
+        });
+        mHelperEventConvention.attachToRecyclerView(mRecViewEventsConvention);
+        mEventViewModel=new ViewModelProvider(this).get(EventViewModel.class);
+        mEventViewModel.getAllEvents(tempCosplay.mCosplayId,getResources().getString(R.string.Convention)).observe(getViewLifecycleOwner(), new Observer<List<Event>>() {
+            @Override
+            public void onChanged(List<Event> events) {
+                mEventAdapter.setEvents(events);
+            }
+        });
+
+        //Region Convention
+        mRecViewEventsShoots.setAdapter(mEventAdapter);
+        mRecViewEventsShoots.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL));
+        mRecViewEventsShoots.setLayoutManager(new LinearLayoutManager(requireContext()));
+        ItemTouchHelper mHelperEventShoot=new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+
+            }
+        });
+        mHelperEventShoot.attachToRecyclerView(mRecViewEventsShoots);
+        mEventViewModel=new ViewModelProvider(this).get(EventViewModel.class);
+        mEventViewModel.getAllEvents(tempCosplay.mCosplayId,getResources().getString(R.string.Shoot)).observe(getViewLifecycleOwner(), new Observer<List<Event>>() {
+            @Override
+            public void onChanged(List<Event> events) {
+                mEventAdapter.setEvents(events);
+            }
+        });
+        //Region Convention
+        mRecViewEventsCharity.setAdapter(mEventAdapter);
+        mRecViewEventsCharity.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL));
+        mRecViewEventsCharity.setLayoutManager(new LinearLayoutManager(requireContext()));
+        ItemTouchHelper mHelperEventCharity=new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+
+            }
+        });
+        mHelperEventCharity.attachToRecyclerView(mRecViewEventsCharity);
+        mEventViewModel=new ViewModelProvider(this).get(EventViewModel.class);
+        mEventViewModel.getAllEvents(tempCosplay.mCosplayId,getResources().getString(R.string.Charity)).observe(getViewLifecycleOwner(), new Observer<List<Event>>() {
+            @Override
+            public void onChanged(List<Event> events) {
+                mEventAdapter.setEvents(events);
+            }
+        });
+
+        //endregion
         return v;
     }
 
