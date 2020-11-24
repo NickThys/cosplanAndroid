@@ -85,31 +85,25 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
     private ShoppingListPartAdapter mShoppingListPartAdapter;
     private ShoppingListPartViewModel mShoppingListViewModel;
     private WIPImgViewModel wipImgViewModel;
+    private RefenceImgAdapter refenceImgAdapter=null;
+    private WIPImgAdapter wipImgAdapter=null;
+    
 
     private TextView mName, mStartDate, mEndDate, mPercentage, mBudget;
     private ImageView mImage;
-    private ImageButton mUpdateCosplay;
-    private EditText mCosplayName, mCosplayStartDate, mCosplayEndDate, mCosplayBudget;
-    private EditText mPartName, mPartLink, mPartCost, mPartEndDate, mCosplayNote;
+    private ImageButton mUpdateCosplay,mPartImage;
+    private EditText mCosplayName, mCosplayStartDate, mCosplayEndDate, mCosplayBudget,mPartName, mPartLink, mPartCost, mPartEndDate, mCosplayNote;
     private Spinner mPartmakeBuy;
-    private ImageView mPartImage;
-    private Button mPartChooseImage, mPartCancel, mPartAddPart, mCosplayNotesSave, mRefImgAdd, mCheckListPartClear,mWIPImgAddPicture,mWIPImgTakePicture;
-    private FloatingActionButton mfabAddPart, mCheckListPartAdd;
-    private RecyclerView mRVRefImg,mRVWIPImg;
+    private Button mPartChooseImage, mPartCancel, mPartAddPart, mCosplayNotesSave, mRefImgAdd, mCheckListPartClear,mWIPImgAddPicture,mWIPImgTakePicture,mChoosePicture, mCancel, mUpdateCosplays, mCosplayParts, mCosplayNotes, mCosplayRefPic, mCosplayWIPPic, mCosplayChecklist, mCosplayShoppinglist, mCosplayWebshop, mCosplayEvents, mShoppingListAdd,mShoppingListCancel,mShoppingListClear;
+    private FloatingActionButton mfabAddPart, mCheckListPartAdd,mFabAddCosplayWebshop,mFabShoppingListAdd;
+    private RecyclerView mRVRefImg,mRVWIPImg,mRecViewCosplayWebshop, mRVCheckListPart,mRVShoppingList;
     private ImageView mCosplayImage;
-    private Button mChoosePicture, mCancel, mUpdateCosplays, mCosplayParts, mCosplayNotes, mCosplayRefPic, mCosplayWIPPic, mCosplayChecklist, mCosplayShoppinglist, mCosplayWebshop, mCosplayEvents, mShoppingListAdd,mShoppingListCancel,mShoppingListClear;
-    private RecyclerView mRecViewCosplayWebshop, mRVCheckListPart,mRVShoppingList;
-    private FloatingActionButton mFabAddCosplayWebshop,mFabShoppingListAdd;
+
     private Cosplay tempCosplay=null;
-    private RefenceImgAdapter refenceImgAdapter=null;
-    private WIPImgAdapter wipImgAdapter=null;
-    private DatePickerDialog.OnDateSetListener mStartDateSetListener;
-    private DatePickerDialog.OnDateSetListener mEndDateSetListener;
-    private static final int GALLERY_REQUEST_CODE = 1;
-    private static final int GALLERY_REQUEST_CODE_PART = 2;
-    private static final int GALLERY_REQUEST_CODE_REF_IMG = 3;
-    private static final int GALLERY_REQUEST_CODE_WIP_IMG = 4;
-    private static final int CAMERA_REQUEST_CODE_WIP_IMG = 5;
+
+    private DatePickerDialog.OnDateSetListener mStartDateSetListener,mEndDateSetListener;
+    private static final int GALLERY_REQUEST_CODE = 1,GALLERY_REQUEST_CODE_PART = 2,GALLERY_REQUEST_CODE_REF_IMG = 3,GALLERY_REQUEST_CODE_WIP_IMG = 4,CAMERA_REQUEST_CODE_WIP_IMG = 5;
+
 
 
     @Override
@@ -178,7 +172,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mWIPImgAddPicture=WipImgView.findViewById(R.id.Btn_WipImagesGetImage);
         mWIPImgTakePicture=WipImgView.findViewById(R.id.Btn_WipImagesTakePicture);
 
-        //Header
+        //region Header
         //Adding text to the items from the header
         mName.setText(tempCosplay.mCosplayName);
         mEndDate.setText(tempCosplay.mCosplayEndDate);
@@ -194,8 +188,9 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                 UpdateCosplayDialog(tempCosplay);
             }
         });
+        //endregion
 
-        //Button Bar
+        //region Button Bar
         //onclick listener from the buttons
         mCosplayParts.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -223,7 +218,6 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             public void onClick(View v) {
                 fl.removeAllViews();
                 fl.addView(NotesView);
-
             }
         });
         mCosplayChecklist.setOnClickListener(new View.OnClickListener() {
@@ -254,8 +248,9 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                 fl.addView(WebshopsView);
             }
         });
+        //endregion
 
-        //Part View
+        //region Part View
         //recyclerview Make
         RecyclerView recyclerViewMake = v.findViewById(R.id.RecView_PartsToMake);
         recyclerViewMake.setAdapter(partAdapterMake);
@@ -311,9 +306,9 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                 createNewPartDialog(tempCosplay);
             }
         });
+        //endregion
 
-
-        //Notes
+        //region Notes
         mCosplayNote.setText(tempCosplay.mCosplayNote);
         mCosplayNotesSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -337,8 +332,9 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                 startActivityForResult(Intent.createChooser(intent, getString(R.string.txt_chooseImg_intent)), GALLERY_REQUEST_CODE_REF_IMG);
             }
         });
+        //endregion
 
-        //webshops
+        //region webshops
         mWebshopAdapter = new WebshopAdapter(requireContext(), getActivity().getApplication());
         mRecViewCosplayWebshop.setAdapter(mWebshopAdapter);
         mRecViewCosplayWebshop.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
@@ -371,8 +367,9 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                 addNewCosplayWebshopDialog(tempCosplay);
             }
         });
+        //endregion
 
-        //CheckList
+        //region CheckList
         mCheckListPartAdapter = new CheckListPartAdapter(requireContext(), getActivity().getApplication());
         mRVCheckListPart.setAdapter(mCheckListPartAdapter);
         mRVCheckListPart.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -412,8 +409,9 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                 checkListClearCheckBoxes(mAllCheckListParts);
             }
         });
+        //endregion
 
-        //Shoppinglist
+        //region Shoppinglist
         mShoppingListPartAdapter=new ShoppingListPartAdapter(requireContext(),getActivity().getApplication());
         mRVShoppingList.setAdapter(mShoppingListPartAdapter);
         mRVShoppingList.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -452,8 +450,9 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                 deleteWholeShoppingListDialog(mShoppingListPartAdapter.getShoppingListPartAtPosition(0));
             }
         });
+        //endregion
 
-        //WIP Images
+        // region WIP Images
         setWipImagesInGrid(tempCosplay,wipImgAdapter);
         mWIPImgAddPicture.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -471,6 +470,8 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                 startActivityForResult(intent,CAMERA_REQUEST_CODE_WIP_IMG);
             }
         });
+        //endregion
+
 
         return v;
     }
