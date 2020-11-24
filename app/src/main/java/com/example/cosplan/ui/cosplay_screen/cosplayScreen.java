@@ -85,31 +85,25 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
     private ShoppingListPartAdapter mShoppingListPartAdapter;
     private ShoppingListPartViewModel mShoppingListViewModel;
     private WIPImgViewModel wipImgViewModel;
+    private RefenceImgAdapter refenceImgAdapter=null;
+    private WIPImgAdapter wipImgAdapter=null;
+    
 
     private TextView mName, mStartDate, mEndDate, mPercentage, mBudget;
     private ImageView mImage;
-    private ImageButton mUpdateCosplay;
-    private EditText mCosplayName, mCosplayStartDate, mCosplayEndDate, mCosplayBudget;
-    private EditText mPartName, mPartLink, mPartCost, mPartEndDate, mCosplayNote;
+    private ImageButton mUpdateCosplay,mPartImage;
+    private EditText mCosplayName, mCosplayStartDate, mCosplayEndDate, mCosplayBudget,mPartName, mPartLink, mPartCost, mPartEndDate, mCosplayNote;
     private Spinner mPartmakeBuy;
-    private ImageView mPartImage;
-    private Button mPartChooseImage, mPartCancel, mPartAddPart, mCosplayNotesSave, mRefImgAdd, mCheckListPartClear,mWIPImgAddPicture,mWIPImgTakePicture;
-    private FloatingActionButton mfabAddPart, mCheckListPartAdd;
-    private RecyclerView mRVRefImg,mRVWIPImg;
+    private Button mPartChooseImage, mPartCancel, mPartAddPart, mCosplayNotesSave, mRefImgAdd, mCheckListPartClear,mWIPImgAddPicture,mWIPImgTakePicture,mChoosePicture, mCancel, mUpdateCosplays, mCosplayParts, mCosplayNotes, mCosplayRefPic, mCosplayWIPPic, mCosplayChecklist, mCosplayShoppinglist, mCosplayWebshop, mCosplayEvents, mShoppingListAdd,mShoppingListCancel,mShoppingListClear;
+    private FloatingActionButton mfabAddPart, mCheckListPartAdd,mFabAddCosplayWebshop,mFabShoppingListAdd;
+    private RecyclerView mRVRefImg,mRVWIPImg,mRecViewCosplayWebshop, mRVCheckListPart,mRVShoppingList;
     private ImageView mCosplayImage;
-    private Button mChoosePicture, mCancel, mUpdateCosplays, mCosplayParts, mCosplayNotes, mCosplayRefPic, mCosplayWIPPic, mCosplayChecklist, mCosplayShoppinglist, mCosplayWebshop, mCosplayEvents, mShoppingListAdd,mShoppingListCancel,mShoppingListClear;
-    private RecyclerView mRecViewCosplayWebshop, mRVCheckListPart,mRVShoppingList;
-    private FloatingActionButton mFabAddCosplayWebshop,mFabShoppingListAdd;
+
     private Cosplay tempCosplay=null;
-    private RefenceImgAdapter refenceImgAdapter=null;
-    private WIPImgAdapter wipImgAdapter=null;
-    private DatePickerDialog.OnDateSetListener mStartDateSetListener;
-    private DatePickerDialog.OnDateSetListener mEndDateSetListener;
-    private static final int GALLERY_REQUEST_CODE = 1;
-    private static final int GALLERY_REQUEST_CODE_PART = 2;
-    private static final int GALLERY_REQUEST_CODE_REF_IMG = 3;
-    private static final int GALLERY_REQUEST_CODE_WIP_IMG = 4;
-    private static final int CAMERA_REQUEST_CODE_WIP_IMG = 5;
+
+    private DatePickerDialog.OnDateSetListener mStartDateSetListener,mEndDateSetListener;
+    private static final int GALLERY_REQUEST_CODE = 1,GALLERY_REQUEST_CODE_PART = 2,GALLERY_REQUEST_CODE_REF_IMG = 3,GALLERY_REQUEST_CODE_WIP_IMG = 4,CAMERA_REQUEST_CODE_WIP_IMG = 5;
+
 
 
     @Override
