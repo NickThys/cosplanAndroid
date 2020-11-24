@@ -34,7 +34,7 @@ public class Webshop implements Parcelable {
 
     public Webshop(){}
 
-    public Webshop(@NonNull int mCosplayId,@NonNull int mCosplayWebshopId, @NonNull String mCosplayWebshopName,@NonNull String mCosplayWebshopLink) {
+    public Webshop(int mCosplayId,int mCosplayWebshopId, @NonNull String mCosplayWebshopName,@NonNull String mCosplayWebshopLink) {
         this.mCosplayId = mCosplayId;
         this.mCosplayWebshopId = mCosplayWebshopId;
         this.mCosplayWebshopName = mCosplayWebshopName;

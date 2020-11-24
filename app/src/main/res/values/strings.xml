@@ -81,8 +81,11 @@
     <string name="Shoppinglist_AddTitle">Add part to the shoppinglist</string>
     <string name="NewCosplayWebsiteTitle">Add webshop to the cosplay</string>
     <string name="ConventionPlace">Place</string>
-    <string name="ConventionDate">date</string>
+    <string name="ConventionDate">Date</string>
     <string name="PartStatus">status</string>
+    <string name="Convention">Convention</string>
+    <string name="Shoot">Photoshoot</string>
+    <string name="Charity">Charity</string>
     <string-array name="BuyMake">
         <item>Buy</item>
         <item>Make</item>
@@ -97,5 +100,10 @@
         <item>Painted</item>
         <item>Test Fit</item>
         <item>Finished</item>
+    </string-array>
+    <string-array name="EventType">
+        <item>Convention</item>
+        <item>Photoshoot</item>
+        <item>Charity</item>
     </string-array>
 </resources>
