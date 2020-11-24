@@ -12,18 +12,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cosplan.R;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
 
-public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewHolder> {
+public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHolder> {
     List<Event> mEvents;
     private final LayoutInflater mInflater;
     private final Context mContext;
     private EventViewModel mEventViewModel;
     private Application mApplication;
 
-    public EventsAdapter(Context mContext, Application mApplication) {
+    public EventAdapter(Context mContext, Application mApplication) {
         mInflater=LayoutInflater.from(mContext);
         this.mContext = mContext;
         this.mApplication = mApplication;
@@ -41,13 +39,13 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
 
     @NonNull
     @Override
-    public EventsAdapter.EventViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public EventAdapter.EventViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView=mInflater.inflate(R.layout.event_row,parent,false  );
         return new EventViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull EventsAdapter.EventViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull EventAdapter.EventViewHolder holder, int position) {
         final Event mCurrentEvent=mEvents.get(position);
         holder.mEventName.setText(mCurrentEvent.mCosplayEventName);
         holder.mEventPlace.setText(mCurrentEvent.mCosplayEventPlace);
