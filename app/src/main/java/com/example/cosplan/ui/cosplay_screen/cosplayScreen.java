@@ -566,9 +566,6 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         return v;
     }
 
-    private void addEventDialog(Cosplay tempCosplay) {
-    }
-
     public void checkListClearCheckBoxes(List<ChecklistPart> allParts) {
         for (ChecklistPart part : allParts) {
             ChecklistPart temp = new ChecklistPart(part.mCosplayId, part.mCosplayCheckListPartId, part.mCosplayCheckListPartName, false);
@@ -882,9 +879,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
     public void createNewPartDialog(final Cosplay cosplay) {
         dialogBuilder = new AlertDialog.Builder(requireContext());
         final View PartPopUpView = getLayoutInflater().inflate(R.layout.add_cosplay_part, null);
-
         mPartName = PartPopUpView.findViewById(R.id.EditText_NewPartName);
-
         mPartmakeBuy = PartPopUpView.findViewById(R.id.Spinner_NewPartBuyMake);
         if (mPartmakeBuy != null) {
             mPartmakeBuy.setOnItemSelectedListener(this);
@@ -1004,6 +999,119 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             public void onClick(View v) {
                 dialog.dismiss();
 
+            }
+        });
+    }
+    public void addEventDialog(final Cosplay tempCosplay) {
+        dialogBuilder=new AlertDialog.Builder(requireContext());
+        final View mEventDialog=getLayoutInflater().inflate(R.layout.events_dialog,null );
+        final Spinner mEventType;
+        final EditText mEventName,mEventPlace,mEventStartDate,mEventEndDate;
+        final Button mEventAdd,mEventCancel;
+        mEventType=mEventDialog.findViewById(R.id.Spinner_NewEventType);
+        if (mEventType!=null){
+            mEventType.setOnItemSelectedListener(this);
+        }
+        ArrayAdapter<CharSequence> mEventArrayAdapter=ArrayAdapter.createFromResource(requireContext(),R.array.EventType, android.R.layout.simple_spinner_item);
+        mEventArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mEventType.setAdapter(mEventArrayAdapter);
+        mEventName=mEventDialog.findViewById(R.id.EditText_NewEventName);
+        mEventPlace=mEventDialog.findViewById(R.id.EditText_NewEventPlace);
+        mEventStartDate=mEventDialog.findViewById(R.id.EditText_NewEventBeginDate);
+        mEventEndDate=mEventDialog.findViewById(R.id.EditText_NewEventEndDate);
+        mEventAdd=mEventDialog.findViewById(R.id.Btn_NewEventAdd);
+        mEventCancel=mEventDialog.findViewById(R.id.Btn_NewEventCancel);
+        dialogBuilder.setView(mEventDialog);
+        dialog=dialogBuilder.create();
+        dialog.show();
+
+        //region DateListener
+        //create dateSelector and add the selected date to the Edit text
+        mEventStartDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    int year;
+                    int month;
+                    int day;
+                    String mtemp = mEventStartDate.getText().toString().trim();
+                    if (mtemp.matches("")) {
+                        Calendar calendar = Calendar.getInstance();
+                        year = calendar.get(Calendar.YEAR);
+                        month = calendar.get(Calendar.MONTH);
+                        day = calendar.get(Calendar.DAY_OF_MONTH);
+                    } else {
+                        String mDateComlete = mEventStartDate.getText().toString();
+                        String[] mDate = mDateComlete.split("/");
+                        day = Integer.parseInt(mDate[0].trim());
+                        month = Integer.parseInt(mDate[1].trim());
+                        year = Integer.parseInt(mDate[2].trim());
+                        month = month - 1;
+                    }
+
+                    DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), R.style.Theme_MaterialComponents_Light_Dialog_MinWidth, mStartDateSetListener, year, month, day);
+                    datePickerDialog.getDatePicker().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    datePickerDialog.show();
+                }
+            }
+        });
+        mStartDateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                month = month + 1;
+                mEventStartDate.setText(dayOfMonth + "/" + month + "/" + year);
+            }
+        };
+        //create dateSelector and add the selected date to the Edit text
+        mEventEndDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    int year;
+                    int month;
+                    int day;
+                    String mtemp = mEventEndDate.getText().toString().trim();
+                    if (mtemp.matches("")) {
+                        Calendar calendar = Calendar.getInstance();
+                        year = calendar.get(Calendar.YEAR);
+                        month = calendar.get(Calendar.MONTH);
+                        day = calendar.get(Calendar.DAY_OF_MONTH);
+                    } else {
+                        String mDateComlete = mEventEndDate.getText().toString();
+                        String[] mDate = mDateComlete.split("/");
+                        day = Integer.parseInt(mDate[0].trim());
+                        month = Integer.parseInt(mDate[1].trim());
+                        year = Integer.parseInt(mDate[2].trim());
+                        month = month - 1;
+                    }
+
+                    DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), R.style.Theme_MaterialComponents_Light_Dialog_MinWidth, mEndDateSetListener, year, month, day);
+                    datePickerDialog.getDatePicker().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    datePickerDialog.show();
+                }
+            }
+        });
+        mEndDateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                month = month + 1;
+                mEventEndDate.setText(dayOfMonth + "/" + month + "/" + year);
+            }
+        };
+        //endregion
+
+        mEventCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        mEventAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Event mTempEvent=new Event(tempCosplay.mCosplayId,0,mEventName.getText().toString(),mEventPlace.getText().toString(),mEventStartDate.getText().toString(),mEventEndDate.getText().toString(),mEventType.getSelectedItem().toString());
+                mEventViewModel.insert(mTempEvent);
+                dialog.dismiss();
             }
         });
     }
