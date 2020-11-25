@@ -364,7 +364,6 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 int position = viewHolder.getAdapterPosition();
                 Webshop myWebshop = mWebshopAdapter.getWebshopAtPosition(position);
-                Toast.makeText(getContext(), "Deleting " + myWebshop.getCosplayWebshopName(), Toast.LENGTH_SHORT).show();
                 mWebshopViewModel.delete(myWebshop);
             }
         });
@@ -500,7 +499,9 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-
+                int mPosition=viewHolder.getAdapterPosition();
+                Event mCurrentEvent=mEventConventionAdapter.getEventAtPosition(mPosition);
+                deleteDialog(mCurrentEvent);
             }
         });
         mHelperEventConvention.attachToRecyclerView(mRecViewEventsConvention);
@@ -569,6 +570,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         return v;
     }
 
+
     public void checkListClearCheckBoxes(List<ChecklistPart> allParts) {
         for (ChecklistPart part : allParts) {
             ChecklistPart temp = new ChecklistPart(part.mCosplayId, part.mCosplayCheckListPartId, part.mCosplayCheckListPartName, false);
@@ -601,6 +603,41 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mRVWIPImg.setAdapter(wipImgAdapter);
    }
    //All dialogs
+   public void deleteDialog(final Event mEvent) {
+       dialogBuilder = new AlertDialog.Builder(requireContext());
+       final View deleteCosplayView = getLayoutInflater().inflate(R.layout.delete, null);
+       TextView mDeleteText = deleteCosplayView.findViewById(R.id.TextView_DeleteTitle);
+       mDeleteText.setText(getString(R.string.ConformationDeleteCheckListPart) +mEvent.mCosplayEventName);
+       final Button yes, no;
+       no = deleteCosplayView.findViewById(R.id.Btn_DeleteNo);
+       yes = deleteCosplayView.findViewById(R.id.Btn_DeleteYes);
+       dialogBuilder.setView(deleteCosplayView);
+       dialog = dialogBuilder.create();
+       dialog.show();
+
+       yes.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               mEventViewModel.delete(mEvent);
+               Toast.makeText(requireContext(), mEvent.mCosplayEventName+" deleted", Toast.LENGTH_SHORT).show();
+               dialog.dismiss();
+               mEventConventionAdapter.notifyDataSetChanged();
+               //getActivity().recreate();
+           }
+
+       });
+
+       no.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               dialog.dismiss();
+               mEventConventionAdapter.notifyDataSetChanged();
+
+           }
+       });
+
+   }
+
     public void deleteShoppingListPartDialog(final ShoppingListPart mShoppingListPart) {
         dialogBuilder = new AlertDialog.Builder(requireContext());
         final View deleteCosplayView = getLayoutInflater().inflate(R.layout.delete, null);
@@ -624,7 +661,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
-                getActivity().recreate();
+                mShoppingListPartAdapter.notifyDataSetChanged();
             }
         });
     }
