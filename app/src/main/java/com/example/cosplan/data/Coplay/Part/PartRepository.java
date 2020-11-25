@@ -24,6 +24,9 @@ public class PartRepository {
         mAllPartsToBuy=mPartDao.getPartsToBuy(mCosplayIdBuy);
     }
     public void insert(Part part){new insertAsyncTask(mPartDao).execute(part);}
+    public void delete(Part part){new deleteAsyncTask(mPartDao).execute(part);}
+    public void update(Part part){new updateAsyncTask(mPartDao).execute(part);}
+
     LiveData<List<Part>>getAllPartsToMake(int mCosplayIdMake){
         this.mCosplayIdMake = mCosplayIdMake;
 
@@ -33,6 +36,7 @@ public class PartRepository {
         this.mCosplayIdBuy = mCosplayIdBuy;
         mAllPartsToBuy=mPartDao.getPartsToBuy(mCosplayIdBuy);
         return mAllPartsToBuy;}
+
     private class insertAsyncTask extends AsyncTask<Part,Void,Void> {
         private PartDao dao;
         insertAsyncTask(PartDao mPartDao) { dao=mPartDao;}
@@ -40,6 +44,27 @@ public class PartRepository {
         @Override
         protected Void doInBackground(Part... parts) {
             dao.insert(parts[0]);
+            return null;
+        }
+    }
+    private class deleteAsyncTask extends AsyncTask<Part,Void,Void> {
+        private PartDao dao;
+        public deleteAsyncTask(PartDao mPartDao) {dao=mPartDao;}
+
+        @Override
+        protected Void doInBackground(Part... parts) {
+            dao.delete(parts[0]);
+            return null;
+        }
+    }
+
+    private class updateAsyncTask extends AsyncTask<Part,Void,Void> {
+        private PartDao dao;
+        public updateAsyncTask(PartDao mPartDao) {dao=mPartDao;}
+
+        @Override
+        protected Void doInBackground(Part... parts) {
+            dao.update(parts[0]);
             return null;
         }
     }

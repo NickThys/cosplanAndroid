@@ -2,6 +2,7 @@ package com.example.cosplan.data.Coplay;
 
 import android.content.Context;
 
+import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
@@ -25,7 +26,7 @@ import com.example.cosplan.data.Coplay.Webshop.Webshop;
 import com.example.cosplan.data.Coplay.Webshop.WebshopDao;
 
 @TypeConverters(Converters.class)
-@Database(entities = {Cosplay.class, Part.class, ReferenceImg.class, Webshop.class, ChecklistPart.class, ShoppingListPart.class, WIPImg.class,Event.class}, version =2, exportSchema = true)
+@Database(entities = {Cosplay.class, Part.class, ReferenceImg.class, Webshop.class, ChecklistPart.class, ShoppingListPart.class, WIPImg.class,Event.class}, version =3, exportSchema = true)
 public abstract class CosplayDatabase extends RoomDatabase {
     public abstract CosplayDao cosplayDao();
 
@@ -49,11 +50,16 @@ public abstract class CosplayDatabase extends RoomDatabase {
         if (INSTANCE == null) {
             synchronized (CosplayDatabase.class) {
                 if (INSTANCE == null) {
-                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(), CosplayDatabase.class, "cosplayDatabase").build();
+                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(), CosplayDatabase.class, "cosplayDatabase").addMigrations(MIGRATION_2_3).build();
                 }
             }
         }
         return INSTANCE;
     }
-
+    static final Migration MIGRATION_2_3=new Migration(2,3) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            database.execSQL("ALTER TABLE CosplayPart_table ADD COLUMN CosplayPartNote TEXT");
+        }
+    };
 }

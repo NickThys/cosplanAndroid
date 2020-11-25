@@ -95,7 +95,8 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
 
     private TextView mName, mStartDate, mEndDate, mPercentage, mBudget;
     private ImageView mImage;
-    private ImageButton mUpdateCosplay, mPartImage;
+    private ImageButton mUpdateCosplay;
+    private ImageView mPartImage;
     private EditText mCosplayName, mCosplayStartDate, mCosplayEndDate, mCosplayBudget, mPartName, mPartLink, mPartCost, mPartEndDate, mCosplayNote;
     private Spinner mPartmakeBuy;
     private Button mPartChooseImage, mPartCancel, mPartAddPart, mCosplayNotesSave, mRefImgAdd, mCheckListPartClear, mWIPImgAddPicture, mWIPImgTakePicture, mChoosePicture, mCancel, mUpdateCosplays, mCosplayParts, mCosplayNotes, mCosplayRefPic, mCosplayWIPPic, mCosplayChecklist, mCosplayShoppinglist, mCosplayWebshop, mCosplayEvents, mShoppingListAdd, mShoppingListCancel, mShoppingListClear;
@@ -128,8 +129,8 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
 
         refenceImgAdapter = new RefenceImgAdapter(null, requireContext());
         wipImgAdapter = new WIPImgAdapter(null, requireContext());
-        final PartAdapter partAdapterMake = new PartAdapter(requireContext());
-        final PartAdapter partAdapterBuy = new PartAdapter(requireContext());
+        final PartAdapter partAdapterMake = new PartAdapter(requireContext(),getActivity().getApplication());
+        final PartAdapter partAdapterBuy = new PartAdapter(requireContext(),getActivity().getApplication());
         final ShoppingListPartAdapter shoppingListPartAdapter = new ShoppingListPartAdapter(requireContext(), getActivity().getApplication());
 
         mEventConventionAdapter = new EventAdapter(requireContext(), getActivity().getApplication());

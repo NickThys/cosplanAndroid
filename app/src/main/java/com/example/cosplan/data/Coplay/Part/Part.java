@@ -38,8 +38,11 @@ public class Part {
     public String mCosplayPartEndDate;
     @ColumnInfo(typeAffinity = ColumnInfo.BLOB,name = "CosplayPartImage")
     public Bitmap mCosplayPartImg;
+    @ColumnInfo(name = "CosplayPartNote")
+    public String mCosplaypartNote;
 
     public Part(){}
+    //Basic input for a new part
     public Part(@NonNull int cosplayId, @NonNull int partId, @NonNull String partName, String partMakeBuy, String partLink, double partCost, String partStatus, String partEndDate, Bitmap partImage){
         mCosplayId=cosplayId;
         mCosplayPartId=partId;
@@ -52,4 +55,16 @@ public class Part {
         mCosplayPartImg=partImage;
     }
 
+    public Part(int mCosplayId, int mCosplayPartId, @NonNull String mCosplayPartName, @NonNull String mCosplayPartBuyMake, String mCosplayPartLink, double mCosplayPartCost, String mCosplayPartStatus, String mCosplayPartEndDate, Bitmap mCosplayPartImg, String mCosplaypartNote) {
+        this.mCosplayId = mCosplayId;
+        this.mCosplayPartId = mCosplayPartId;
+        this.mCosplayPartName = mCosplayPartName;
+        this.mCosplayPartBuyMake = mCosplayPartBuyMake;
+        this.mCosplayPartLink = mCosplayPartLink;
+        this.mCosplayPartCost = mCosplayPartCost;
+        this.mCosplayPartStatus = mCosplayPartStatus;
+        this.mCosplayPartEndDate = mCosplayPartEndDate;
+        this.mCosplayPartImg = mCosplayPartImg;
+        this.mCosplaypartNote = mCosplaypartNote;
+    }
 }

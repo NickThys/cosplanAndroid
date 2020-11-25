@@ -88,6 +88,7 @@
     <string name="Charity">Charity</string>
     <string name="AddEvent">Add event</string>
     <string name="EventTitle">New event</string>
+    <string name="TitleUpdatePart">Update part</string>
     <string-array name="BuyMake">
         <item>Buy</item>
         <item>Make</item>
