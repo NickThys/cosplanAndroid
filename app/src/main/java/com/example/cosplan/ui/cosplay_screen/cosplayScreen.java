@@ -590,53 +590,60 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mRVRefImg.setLayoutManager(gridLayoutManager);
         mRVRefImg.setAdapter(refenceImgAdapter);
     }
-   public void setWipImagesInGrid(Cosplay tempCosplay, final WIPImgAdapter wipImgAdapter){
-        wipImgViewModel=new ViewModelProvider(this).get(WIPImgViewModel.class);
+
+    public void setWipImagesInGrid(Cosplay tempCosplay, final WIPImgAdapter wipImgAdapter) {
+        wipImgViewModel = new ViewModelProvider(this).get(WIPImgViewModel.class);
         wipImgViewModel.getAllWIPImgs(tempCosplay.mCosplayId).observe(getViewLifecycleOwner(), new Observer<List<WIPImg>>() {
             @Override
             public void onChanged(List<WIPImg> wipImgs) {
                 wipImgAdapter.setWIPImgs(wipImgs);
             }
         });
-        GridLayoutManager gridLayoutManager=new GridLayoutManager(requireContext(),3,GridLayoutManager.VERTICAL,false);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(requireContext(), 3, GridLayoutManager.VERTICAL, false);
         mRVWIPImg.setLayoutManager(gridLayoutManager);
         mRVWIPImg.setAdapter(wipImgAdapter);
-   }
-   //All dialogs
-   public void deleteDialog(final Event mEvent) {
-       dialogBuilder = new AlertDialog.Builder(requireContext());
-       final View deleteCosplayView = getLayoutInflater().inflate(R.layout.delete, null);
-       TextView mDeleteText = deleteCosplayView.findViewById(R.id.TextView_DeleteTitle);
-       mDeleteText.setText(getString(R.string.ConformationDeleteCheckListPart) +mEvent.mCosplayEventName);
-       final Button yes, no;
-       no = deleteCosplayView.findViewById(R.id.Btn_DeleteNo);
-       yes = deleteCosplayView.findViewById(R.id.Btn_DeleteYes);
-       dialogBuilder.setView(deleteCosplayView);
-       dialog = dialogBuilder.create();
-       dialog.show();
+    }
+    public void reloadEventsAdapter() {
+        mEventConventionAdapter.notifyDataSetChanged();
+        mEventShootAdapter.notifyDataSetChanged();
+        mEventCharityAdapter.notifyDataSetChanged();
+    }
+    //All dialogs
+    public void deleteDialog(final Event mEvent) {
+        dialogBuilder = new AlertDialog.Builder(requireContext());
+        final View deleteCosplayView = getLayoutInflater().inflate(R.layout.delete, null);
+        TextView mDeleteText = deleteCosplayView.findViewById(R.id.TextView_DeleteTitle);
+        mDeleteText.setText(getString(R.string.ConformationDeleteCheckListPart) + mEvent.mCosplayEventName);
+        final Button yes, no;
+        no = deleteCosplayView.findViewById(R.id.Btn_DeleteNo);
+        yes = deleteCosplayView.findViewById(R.id.Btn_DeleteYes);
+        dialogBuilder.setView(deleteCosplayView);
+        dialog = dialogBuilder.create();
+        dialog.show();
 
-       yes.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               mEventViewModel.delete(mEvent);
-               Toast.makeText(requireContext(), mEvent.mCosplayEventName+" deleted", Toast.LENGTH_SHORT).show();
-               dialog.dismiss();
-               mEventConventionAdapter.notifyDataSetChanged();
-               //getActivity().recreate();
-           }
+        yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mEventViewModel.delete(mEvent);
+                Toast.makeText(requireContext(), mEvent.mCosplayEventName + " deleted", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+                reloadEventsAdapter();
+            }
 
-       });
+        });
 
-       no.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               dialog.dismiss();
-               mEventConventionAdapter.notifyDataSetChanged();
+        no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                reloadEventsAdapter();
 
-           }
-       });
+            }
+        });
 
-   }
+    }
+
+
 
     public void deleteShoppingListPartDialog(final ShoppingListPart mShoppingListPart) {
         dialogBuilder = new AlertDialog.Builder(requireContext());
