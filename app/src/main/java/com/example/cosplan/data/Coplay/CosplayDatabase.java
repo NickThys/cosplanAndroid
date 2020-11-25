@@ -2,7 +2,6 @@ package com.example.cosplan.data.Coplay;
 
 import android.content.Context;
 
-import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
@@ -12,6 +11,8 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.cosplan.data.Coplay.CheckList.CheckListPartDao;
 import com.example.cosplan.data.Coplay.CheckList.ChecklistPart;
+import com.example.cosplan.data.Coplay.Events.Event;
+import com.example.cosplan.data.Coplay.Events.EventDao;
 import com.example.cosplan.data.Coplay.Part.Part;
 import com.example.cosplan.data.Coplay.Part.PartDao;
 import com.example.cosplan.data.Coplay.RefImg.ReferenceImg;
@@ -24,7 +25,7 @@ import com.example.cosplan.data.Coplay.Webshop.Webshop;
 import com.example.cosplan.data.Coplay.Webshop.WebshopDao;
 
 @TypeConverters(Converters.class)
-@Database(entities = {Cosplay.class, Part.class, ReferenceImg.class, Webshop.class, ChecklistPart.class, ShoppingListPart.class, WIPImg.class}, version = 2, exportSchema = false)
+@Database(entities = {Cosplay.class, Part.class, ReferenceImg.class, Webshop.class, ChecklistPart.class, ShoppingListPart.class, WIPImg.class,Event.class}, version =2, exportSchema = true)
 public abstract class CosplayDatabase extends RoomDatabase {
     public abstract CosplayDao cosplayDao();
 
@@ -39,6 +40,8 @@ public abstract class CosplayDatabase extends RoomDatabase {
     public abstract ShoppingListPartDao shoppingListPartDao();
 
     public abstract WIPImgDao wipImgDao();
+
+    public abstract EventDao eventDao();
 
     private static CosplayDatabase INSTANCE;
 

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/TextView_NewEventTitle"
+        style="@style/Titles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/EventTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/Spinner_NewEventType"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        app:layout_constraintEnd_toEndOf="@+id/EditText_NewEventName"
+        app:layout_constraintStart_toStartOf="@+id/EditText_NewEventName"
+        app:layout_constraintTop_toBottomOf="@+id/TextView_NewEventTitle" />
+
+    <EditText
+        android:id="@+id/EditText_NewEventName"
+        android:layout_width="208dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:ems="10"
+        android:hint="@string/txtName"
+        android:importantForAutofill="no"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Spinner_NewEventType" />
+
+    <EditText
+        android:id="@+id/EditText_NewEventPlace"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:ems="10"
+        android:hint="@string/ConventionPlace"
+        android:importantForAutofill="no"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/EditText_NewEventName"
+        app:layout_constraintStart_toStartOf="@+id/EditText_NewEventName"
+        app:layout_constraintTop_toBottomOf="@+id/EditText_NewEventName" />
+
+    <EditText
+        android:id="@+id/EditText_NewEventBeginDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:ems="10"
+        android:hint="@string/txtStartDate"
+        android:importantForAutofill="no"
+        android:inputType="date"
+        app:layout_constraintEnd_toEndOf="@+id/EditText_NewEventName"
+        app:layout_constraintStart_toStartOf="@+id/EditText_NewEventName"
+        app:layout_constraintTop_toBottomOf="@+id/EditText_NewEventPlace" />
+
+    <EditText
+        android:id="@+id/EditText_NewEventEndDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:ems="10"
+        android:hint="@string/txtEndDate"
+        android:importantForAutofill="no"
+        android:inputType="date"
+        app:layout_constraintEnd_toEndOf="@+id/EditText_NewEventName"
+        app:layout_constraintStart_toStartOf="@+id/EditText_NewEventName"
+        app:layout_constraintTop_toBottomOf="@+id/EditText_NewEventBeginDate" />
+
+    <Button
+        android:id="@+id/Btn_NewEventCancel"
+        style="@style/DialogButtonLeft"
+        android:text="@string/btnCancel"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/Btn_NewEventAdd"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/EditText_NewEventEndDate" />
+
+    <Button
+        android:id="@+id/Btn_NewEventAdd"
+        style="@style/DialogButtonRight"
+        android:text="@string/AddEvent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/Btn_NewEventCancel"
+        app:layout_constraintTop_toTopOf="@+id/Btn_NewEventCancel" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
