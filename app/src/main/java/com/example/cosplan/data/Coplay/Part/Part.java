@@ -40,6 +40,7 @@ public class Part {
     public Bitmap mCosplayPartImg;
 
     public Part(){}
+    //Basic input for a new part
     public Part(@NonNull int cosplayId, @NonNull int partId, @NonNull String partName, String partMakeBuy, String partLink, double partCost, String partStatus, String partEndDate, Bitmap partImage){
         mCosplayId=cosplayId;
         mCosplayPartId=partId;
