@@ -646,8 +646,6 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
 
     }
 
-
-
     public void deleteShoppingListPartDialog(final ShoppingListPart mShoppingListPart) {
         dialogBuilder = new AlertDialog.Builder(requireContext());
         final View deleteCosplayView = getLayoutInflater().inflate(R.layout.delete, null);
