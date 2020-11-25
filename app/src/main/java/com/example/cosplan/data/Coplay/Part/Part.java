@@ -38,6 +38,8 @@ public class Part {
     public String mCosplayPartEndDate;
     @ColumnInfo(typeAffinity = ColumnInfo.BLOB,name = "CosplayPartImage")
     public Bitmap mCosplayPartImg;
+    @ColumnInfo(name = "CosplayPartNote")
+    public String mCosplaypartNote;
 
     public Part(){}
     //Basic input for a new part
