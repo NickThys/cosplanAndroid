@@ -91,7 +91,6 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
     private WIPImgViewModel wipImgViewModel;
     private RefenceImgAdapter refenceImgAdapter=null;
     private WIPImgAdapter wipImgAdapter=null;
-    private EventAdapter mEventAdapter;
     private EventViewModel mEventViewModel;
 
     private TextView mName, mStartDate, mEndDate, mPercentage, mBudget;
@@ -103,6 +102,8 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
     private FloatingActionButton mfabAddPart, mCheckListPartAdd,mFabAddCosplayWebshop,mFabShoppingListAdd,mFabEventsAdd;
     private RecyclerView mRVRefImg,mRVWIPImg,mRecViewCosplayWebshop, mRVCheckListPart,mRVShoppingList,mRecViewEventsConvention,mRecViewEventsShoots,mRecViewEventsCharity;
     private ImageView mCosplayImage;
+
+    private EventAdapter mEventConventionAdapter,mEventShootAdapter,mEventCharityAdapter;
 
     private Cosplay tempCosplay=null;
 
@@ -131,8 +132,10 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         final PartAdapter partAdapterMake = new PartAdapter(requireContext());
         final PartAdapter partAdapterBuy = new PartAdapter(requireContext());
         final ShoppingListPartAdapter shoppingListPartAdapter=new ShoppingListPartAdapter(requireContext(),getActivity().getApplication());
-
-        mEventAdapter=new EventAdapter(requireContext(),getActivity().getApplication());
+    
+        mEventConventionAdapter=new EventAdapter(requireContext(),getActivity().getApplication());
+        mEventShootAdapter=new EventAdapter(requireContext(),getActivity().getApplication());
+        mEventCharityAdapter=new EventAdapter(requireContext(),getActivity().getApplication());
 
         cosplayViewModel = new ViewModelProvider(this).get(CosplayViewModel.class);
         tempCosplay = cosplayScreenArgs.fromBundle(getArguments()).getCurrentCosplay();
@@ -486,7 +489,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
 
         //region Events
         //Region Convention
-        mRecViewEventsConvention.setAdapter(mEventAdapter);
+        mRecViewEventsConvention.setAdapter(mEventConventionAdapter);
         mRecViewEventsConvention.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL));
         mRecViewEventsConvention.setLayoutManager(new LinearLayoutManager(requireContext()));
         ItemTouchHelper mHelperEventConvention=new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
@@ -502,15 +505,15 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         });
         mHelperEventConvention.attachToRecyclerView(mRecViewEventsConvention);
         mEventViewModel=new ViewModelProvider(this).get(EventViewModel.class);
-        mEventViewModel.getAllEvents(tempCosplay.mCosplayId,getResources().getString(R.string.Convention)).observe(getViewLifecycleOwner(), new Observer<List<Event>>() {
+        mEventViewModel.getAllEvents(tempCosplay.mCosplayId,"Convention").observe(getViewLifecycleOwner(), new Observer<List<Event>>() {
             @Override
             public void onChanged(List<Event> events) {
-                mEventAdapter.setEvents(events);
+                mEventConventionAdapter.setEvents(events);
             }
         });
 
         //Region Convention
-        mRecViewEventsShoots.setAdapter(mEventAdapter);
+        mRecViewEventsShoots.setAdapter(mEventShootAdapter);
         mRecViewEventsShoots.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL));
         mRecViewEventsShoots.setLayoutManager(new LinearLayoutManager(requireContext()));
         ItemTouchHelper mHelperEventShoot=new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
@@ -526,14 +529,14 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         });
         mHelperEventShoot.attachToRecyclerView(mRecViewEventsShoots);
         mEventViewModel=new ViewModelProvider(this).get(EventViewModel.class);
-        mEventViewModel.getAllEvents(tempCosplay.mCosplayId,getResources().getString(R.string.Shoot)).observe(getViewLifecycleOwner(), new Observer<List<Event>>() {
+        mEventViewModel.getAllEvents(tempCosplay.mCosplayId,"Photoshoot").observe(getViewLifecycleOwner(), new Observer<List<Event>>() {
             @Override
             public void onChanged(List<Event> events) {
-                mEventAdapter.setEvents(events);
+                mEventShootAdapter.setEvents(events);
             }
         });
         //Region Convention
-        mRecViewEventsCharity.setAdapter(mEventAdapter);
+        mRecViewEventsCharity.setAdapter(mEventCharityAdapter);
         mRecViewEventsCharity.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL));
         mRecViewEventsCharity.setLayoutManager(new LinearLayoutManager(requireContext()));
         ItemTouchHelper mHelperEventCharity=new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
@@ -549,10 +552,10 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         });
         mHelperEventCharity.attachToRecyclerView(mRecViewEventsCharity);
         mEventViewModel=new ViewModelProvider(this).get(EventViewModel.class);
-        mEventViewModel.getAllEvents(tempCosplay.mCosplayId,getResources().getString(R.string.Charity)).observe(getViewLifecycleOwner(), new Observer<List<Event>>() {
+        mEventViewModel.getAllEvents(tempCosplay.mCosplayId,"Charity").observe(getViewLifecycleOwner(), new Observer<List<Event>>() {
             @Override
             public void onChanged(List<Event> events) {
-                mEventAdapter.setEvents(events);
+                mEventCharityAdapter.setEvents(events);
             }
         });
         mFabEventsAdd.setOnClickListener(new View.OnClickListener() {
@@ -564,9 +567,6 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
 
         //endregion
         return v;
-    }
-
-    private void addEventDialog(Cosplay tempCosplay) {
     }
 
     public void checkListClearCheckBoxes(List<ChecklistPart> allParts) {
@@ -882,9 +882,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
     public void createNewPartDialog(final Cosplay cosplay) {
         dialogBuilder = new AlertDialog.Builder(requireContext());
         final View PartPopUpView = getLayoutInflater().inflate(R.layout.add_cosplay_part, null);
-
         mPartName = PartPopUpView.findViewById(R.id.EditText_NewPartName);
-
         mPartmakeBuy = PartPopUpView.findViewById(R.id.Spinner_NewPartBuyMake);
         if (mPartmakeBuy != null) {
             mPartmakeBuy.setOnItemSelectedListener(this);
@@ -1004,6 +1002,119 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             public void onClick(View v) {
                 dialog.dismiss();
 
+            }
+        });
+    }
+    public void addEventDialog(final Cosplay tempCosplay) {
+        dialogBuilder=new AlertDialog.Builder(requireContext());
+        final View mEventDialog=getLayoutInflater().inflate(R.layout.events_dialog,null );
+        final Spinner mEventType;
+        final EditText mEventName,mEventPlace,mEventStartDate,mEventEndDate;
+        final Button mEventAdd,mEventCancel;
+        mEventType=mEventDialog.findViewById(R.id.Spinner_NewEventType);
+        if (mEventType!=null){
+            mEventType.setOnItemSelectedListener(this);
+        }
+        ArrayAdapter<CharSequence> mEventArrayAdapter=ArrayAdapter.createFromResource(requireContext(),R.array.EventType, android.R.layout.simple_spinner_item);
+        mEventArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mEventType.setAdapter(mEventArrayAdapter);
+        mEventName=mEventDialog.findViewById(R.id.EditText_NewEventName);
+        mEventPlace=mEventDialog.findViewById(R.id.EditText_NewEventPlace);
+        mEventStartDate=mEventDialog.findViewById(R.id.EditText_NewEventBeginDate);
+        mEventEndDate=mEventDialog.findViewById(R.id.EditText_NewEventEndDate);
+        mEventAdd=mEventDialog.findViewById(R.id.Btn_NewEventAdd);
+        mEventCancel=mEventDialog.findViewById(R.id.Btn_NewEventCancel);
+        dialogBuilder.setView(mEventDialog);
+        dialog=dialogBuilder.create();
+        dialog.show();
+
+        //region DateListener
+        //create dateSelector and add the selected date to the Edit text
+        mEventStartDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    int year;
+                    int month;
+                    int day;
+                    String mtemp = mEventStartDate.getText().toString().trim();
+                    if (mtemp.matches("")) {
+                        Calendar calendar = Calendar.getInstance();
+                        year = calendar.get(Calendar.YEAR);
+                        month = calendar.get(Calendar.MONTH);
+                        day = calendar.get(Calendar.DAY_OF_MONTH);
+                    } else {
+                        String mDateComlete = mEventStartDate.getText().toString();
+                        String[] mDate = mDateComlete.split("/");
+                        day = Integer.parseInt(mDate[0].trim());
+                        month = Integer.parseInt(mDate[1].trim());
+                        year = Integer.parseInt(mDate[2].trim());
+                        month = month - 1;
+                    }
+
+                    DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), R.style.Theme_MaterialComponents_Light_Dialog_MinWidth, mStartDateSetListener, year, month, day);
+                    datePickerDialog.getDatePicker().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    datePickerDialog.show();
+                }
+            }
+        });
+        mStartDateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                month = month + 1;
+                mEventStartDate.setText(dayOfMonth + "/" + month + "/" + year);
+            }
+        };
+        //create dateSelector and add the selected date to the Edit text
+        mEventEndDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    int year;
+                    int month;
+                    int day;
+                    String mtemp = mEventEndDate.getText().toString().trim();
+                    if (mtemp.matches("")) {
+                        Calendar calendar = Calendar.getInstance();
+                        year = calendar.get(Calendar.YEAR);
+                        month = calendar.get(Calendar.MONTH);
+                        day = calendar.get(Calendar.DAY_OF_MONTH);
+                    } else {
+                        String mDateComlete = mEventEndDate.getText().toString();
+                        String[] mDate = mDateComlete.split("/");
+                        day = Integer.parseInt(mDate[0].trim());
+                        month = Integer.parseInt(mDate[1].trim());
+                        year = Integer.parseInt(mDate[2].trim());
+                        month = month - 1;
+                    }
+
+                    DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), R.style.Theme_MaterialComponents_Light_Dialog_MinWidth, mEndDateSetListener, year, month, day);
+                    datePickerDialog.getDatePicker().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    datePickerDialog.show();
+                }
+            }
+        });
+        mEndDateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                month = month + 1;
+                mEventEndDate.setText(dayOfMonth + "/" + month + "/" + year);
+            }
+        };
+        //endregion
+
+        mEventCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        mEventAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Event mTempEvent=new Event(tempCosplay.mCosplayId,0,mEventName.getText().toString(),mEventPlace.getText().toString(),mEventStartDate.getText().toString(),mEventEndDate.getText().toString(),mEventType.getSelectedItem().toString());
+                mEventViewModel.insert(mTempEvent);
+                dialog.dismiss();
             }
         });
     }
