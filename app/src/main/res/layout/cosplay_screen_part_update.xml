@@ -1,158 +1,163 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
 
     <TextView
-        android:id="@+id/TitleUpdatePart"
+        android:id="@+id/TextView_PartUpdateTitle"
+        style="@style/Titles"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Update part"
+        android:layout_marginTop="12dp"
+        android:text="@string/TitleUpdatePart"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btn_PartUpdate_update"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:text="Update"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btn_PartUpdate_cancel" />
-
-    <Button
-        android:id="@+id/btn_PartUpdate_cancel"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:text="Cancel"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btn_PartUpdate_update"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <ImageView
-        android:id="@+id/imageView_PartUpdate_Img"
-        android:layout_width="125dp"
-        android:layout_height="125dp"
+        android:id="@+id/ImageView_PartUpdateImage"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/Spinner_PartUpdateMakeBuy"
+        app:layout_constraintEnd_toStartOf="@+id/Btn_PartUpdateChooseImage"
+        app:layout_constraintStart_toStartOf="@+id/Spinner_PartUpdateMakeBuy"
+        app:layout_constraintTop_toBottomOf="@+id/TextView_PartUpdateTitle"
         app:srcCompat="@drawable/ic_cosplan_logo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TitleUpdatePart" />
+        android:contentDescription="@string/NewPart_ImageViewContentDescription" />
 
     <Button
-        android:id="@+id/btn_PartUpdate_ChooseImg"
+        android:id="@+id/Btn_PartUpdateChooseImage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:layout_marginLeft="6dp"
+        android:text="@string/NewPart_ChooseImage"
+        app:layout_constraintBottom_toBottomOf="@+id/ImageView_PartUpdateImage"
+        app:layout_constraintEnd_toEndOf="@+id/Spinner_PartUpdateMakeBuy"
+        app:layout_constraintStart_toEndOf="@+id/ImageView_PartUpdateImage"
+        app:layout_constraintTop_toTopOf="@+id/ImageView_PartUpdateImage" />
+
+    <Spinner
+        android:id="@+id/Spinner_PartUpdateMakeBuy"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        app:layout_constraintBottom_toTopOf="@+id/Spinner_PartUpdateStatus"
+        app:layout_constraintEnd_toEndOf="@+id/EditText_PartUpdateName"
+        app:layout_constraintStart_toStartOf="@+id/Spinner_PartUpdateStatus"
+        app:layout_constraintTop_toBottomOf="@+id/ImageView_PartUpdateImage" />
+
+    <Spinner
+        android:id="@+id/Spinner_PartUpdateStatus"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        app:layout_constraintBottom_toTopOf="@+id/EditText_PartUpdateName"
+        app:layout_constraintEnd_toEndOf="@+id/EditText_PartUpdateName"
+        app:layout_constraintStart_toStartOf="@+id/EditText_PartUpdateName"
+        app:layout_constraintTop_toBottomOf="@+id/Spinner_PartUpdateMakeBuy" />
+
+    <EditText
+        android:id="@+id/EditText_PartUpdateName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="9dp"
-        android:layout_marginLeft="9dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:text="Choose image"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView_PartUpdate_Img"
+        android:layout_marginStart="36dp"
+        android:layout_marginLeft="36dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginRight="36dp"
+        android:ems="10"
+        android:hint="@string/txtName"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/EditText_PartUpdateLink"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView_PartUpdate_Img"
-        app:layout_constraintTop_toTopOf="@+id/imageView_PartUpdate_Img" />
-
-    <EditText
-        android:id="@+id/EditText_PartUpdate_Name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:hint="Part name"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="@+id/imageView_PartUpdate_Img"
-        app:layout_constraintStart_toStartOf="@+id/imageView_PartUpdate_Img"
-        app:layout_constraintTop_toBottomOf="@+id/imageView_PartUpdate_Img" />
-
-    <EditText
-        android:id="@+id/EditText_PartUpdate_Link"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:hint="Link"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="@+id/EditText_PartUpdate_Name"
-        app:layout_constraintStart_toStartOf="@+id/EditText_PartUpdate_Name"
-        app:layout_constraintTop_toBottomOf="@+id/EditText_PartUpdate_Name" />
-
-    <EditText
-        android:id="@+id/EditText_PartUpdate_Cost"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:hint="Cost"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="@+id/EditText_PartUpdate_Link"
-        app:layout_constraintStart_toStartOf="@+id/EditText_PartUpdate_Link"
-        app:layout_constraintTop_toBottomOf="@+id/EditText_PartUpdate_Link" />
-
-    <Spinner
-        android:id="@+id/spinner_PartUpdate_MakeBuy"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        app:layout_constraintEnd_toStartOf="@+id/imageView_PartUpdate_Img"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView_PartUpdate_Img" />
-
-    <Spinner
-        android:id="@+id/spinner_PartUpdate_Status"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        app:layout_constraintEnd_toStartOf="@+id/imageView_PartUpdate_Img"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner_PartUpdate_MakeBuy" />
+        app:layout_constraintTop_toBottomOf="@+id/Spinner_PartUpdateStatus"
+        android:importantForAutofill="no" />
 
     <EditText
-        android:id="@+id/EditText_PartUpdate_Enddate"
+        android:id="@+id/EditText_PartUpdateLink"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="6dp"
         android:ems="10"
-        android:hint="Enddate"
+        android:hint="@string/NewPart_LinkHint"
         android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="@+id/EditText_PartUpdate_Cost"
-        app:layout_constraintStart_toStartOf="@+id/EditText_PartUpdate_Cost"
-        app:layout_constraintTop_toBottomOf="@+id/EditText_PartUpdate_Cost" />
+        app:layout_constraintBottom_toTopOf="@+id/EditText_PartUpdateCost"
+        app:layout_constraintEnd_toEndOf="@+id/EditText_PartUpdateName"
+        app:layout_constraintStart_toStartOf="@+id/EditText_PartUpdateName"
+        app:layout_constraintTop_toBottomOf="@+id/EditText_PartUpdateName"
+        android:importantForAutofill="no" />
 
     <EditText
-        android:id="@+id/EditText_PartUpdate_Notes"
+        android:id="@+id/EditText_PartUpdateCost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:ems="10"
+        android:hint="@string/NewPart_CostHint"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/EditText_PartUpdateEnddate"
+        app:layout_constraintEnd_toEndOf="@+id/EditText_PartUpdateLink"
+        app:layout_constraintStart_toStartOf="@+id/EditText_PartUpdateLink"
+        app:layout_constraintTop_toBottomOf="@+id/EditText_PartUpdateLink"
+        android:importantForAutofill="no" />
+
+    <EditText
+        android:id="@+id/EditText_PartUpdateEnddate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:ems="10"
+        android:hint="@string/txtEndDate"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/EditText_PartUpdateNotes"
+        app:layout_constraintEnd_toEndOf="@+id/EditText_PartUpdateCost"
+        app:layout_constraintStart_toStartOf="@+id/EditText_PartUpdateCost"
+        app:layout_constraintTop_toBottomOf="@+id/EditText_PartUpdateCost"
+        android:importantForAutofill="no" />
+
+    <EditText
+        android:id="@+id/EditText_PartUpdateNotes"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="12dp"
         android:ems="10"
         android:gravity="start|top"
-        android:hint="Notes"
+        android:hint="@string/btnText_notes"
         android:inputType="textMultiLine"
-        app:layout_constraintBottom_toTopOf="@+id/btn_PartUpdate_update"
+        app:layout_constraintBottom_toTopOf="@+id/Btn_PartUpdateUpdate"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_min="100dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/EditText_PartUpdate_Enddate" />
+        app:layout_constraintTop_toBottomOf="@+id/EditText_PartUpdateEnddate"
+        android:importantForAutofill="no" />
+
+    <Button
+        android:id="@+id/Btn_PartUpdateCancel"
+        style="@style/DialogButtonLeft"
+
+        android:layout_marginTop="6dp"
+        android:text="@string/btnCancel"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/Btn_PartUpdateUpdate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/EditText_PartUpdateNotes" />
+
+    <Button
+        android:id="@+id/Btn_PartUpdateUpdate"
+        style="@style/DialogButtonRight"
+        android:layout_marginTop="6dp"
+        android:text="@string/UpdateDb"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/Btn_PartUpdateCancel"
+        app:layout_constraintTop_toBottomOf="@+id/EditText_PartUpdateNotes" />
 </androidx.constraintlayout.widget.ConstraintLayout>
