@@ -129,8 +129,8 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
 
         refenceImgAdapter = new RefenceImgAdapter(null, requireContext());
         wipImgAdapter = new WIPImgAdapter(null, requireContext());
-        final PartAdapter partAdapterMake = new PartAdapter(requireContext());
-        final PartAdapter partAdapterBuy = new PartAdapter(requireContext());
+        final PartAdapter partAdapterMake = new PartAdapter(requireContext(),getActivity().getApplication());
+        final PartAdapter partAdapterBuy = new PartAdapter(requireContext(),getActivity().getApplication());
         final ShoppingListPartAdapter shoppingListPartAdapter = new ShoppingListPartAdapter(requireContext(), getActivity().getApplication());
 
         mEventConventionAdapter = new EventAdapter(requireContext(), getActivity().getApplication());

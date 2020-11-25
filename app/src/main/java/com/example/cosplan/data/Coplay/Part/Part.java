@@ -55,4 +55,16 @@ public class Part {
         mCosplayPartImg=partImage;
     }
 
+    public Part(int mCosplayId, int mCosplayPartId, @NonNull String mCosplayPartName, @NonNull String mCosplayPartBuyMake, String mCosplayPartLink, double mCosplayPartCost, String mCosplayPartStatus, String mCosplayPartEndDate, Bitmap mCosplayPartImg, String mCosplaypartNote) {
+        this.mCosplayId = mCosplayId;
+        this.mCosplayPartId = mCosplayPartId;
+        this.mCosplayPartName = mCosplayPartName;
+        this.mCosplayPartBuyMake = mCosplayPartBuyMake;
+        this.mCosplayPartLink = mCosplayPartLink;
+        this.mCosplayPartCost = mCosplayPartCost;
+        this.mCosplayPartStatus = mCosplayPartStatus;
+        this.mCosplayPartEndDate = mCosplayPartEndDate;
+        this.mCosplayPartImg = mCosplayPartImg;
+        this.mCosplaypartNote = mCosplaypartNote;
+    }
 }
