@@ -21,24 +21,12 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginTop="8dp"
+        android:contentDescription="@string/NewPart_ImageViewContentDescription"
         app:layout_constraintBottom_toTopOf="@+id/Spinner_PartUpdateMakeBuy"
-        app:layout_constraintEnd_toStartOf="@+id/Btn_PartUpdateChooseImage"
+        app:layout_constraintEnd_toEndOf="@+id/Spinner_PartUpdateMakeBuy"
         app:layout_constraintStart_toStartOf="@+id/Spinner_PartUpdateMakeBuy"
         app:layout_constraintTop_toBottomOf="@+id/TextView_PartUpdateTitle"
-        app:srcCompat="@drawable/ic_cosplan_logo"
-        android:contentDescription="@string/NewPart_ImageViewContentDescription" />
-
-    <Button
-        android:id="@+id/Btn_PartUpdateChooseImage"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="6dp"
-        android:layout_marginLeft="6dp"
-        android:text="@string/NewPart_ChooseImage"
-        app:layout_constraintBottom_toBottomOf="@+id/ImageView_PartUpdateImage"
-        app:layout_constraintEnd_toEndOf="@+id/Spinner_PartUpdateMakeBuy"
-        app:layout_constraintStart_toEndOf="@+id/ImageView_PartUpdateImage"
-        app:layout_constraintTop_toTopOf="@+id/ImageView_PartUpdateImage" />
+        app:srcCompat="@drawable/ic_cosplan_logo" />
 
     <Spinner
         android:id="@+id/Spinner_PartUpdateMakeBuy"

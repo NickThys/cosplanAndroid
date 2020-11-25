@@ -127,7 +127,7 @@ public class PartAdapter extends RecyclerView.Adapter<PartAdapter.PartViewHolder
         final Spinner mPartBuyMake, mPartStatus;
         final ImageView mPartImage;
         final EditText mPartName, mPartLink, mPartCost, mPartDate, mPartNotes;
-        final Button mPartChooseImage, mPartCancel, mPartUpdate;
+        final Button mPartCancel, mPartUpdate;
 
         mPartBuyMake = mPartDialog.findViewById(R.id.Spinner_PartUpdateMakeBuy);
         ArrayAdapter<CharSequence> mPartArrayAdapterMakeBuy = ArrayAdapter.createFromResource(mContext, R.array.BuyMake, android.R.layout.simple_spinner_item);
@@ -145,7 +145,6 @@ public class PartAdapter extends RecyclerView.Adapter<PartAdapter.PartViewHolder
         mPartCost = mPartDialog.findViewById(R.id.EditText_PartUpdateCost);
         mPartDate = mPartDialog.findViewById(R.id.EditText_PartUpdateEnddate);
         mPartNotes = mPartDialog.findViewById(R.id.EditText_PartUpdateNotes);
-        mPartChooseImage = mPartDialog.findViewById(R.id.Btn_PartUpdateChooseImage);
         mPartCancel = mPartDialog.findViewById(R.id.Btn_PartUpdateCancel);
         mPartUpdate = mPartDialog.findViewById(R.id.Btn_PartUpdateUpdate);
 
