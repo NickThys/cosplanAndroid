@@ -95,7 +95,8 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
 
     private TextView mName, mStartDate, mEndDate, mPercentage, mBudget;
     private ImageView mImage;
-    private ImageButton mUpdateCosplay, mPartImage;
+    private ImageButton mUpdateCosplay;
+    private ImageView mPartImage;
     private EditText mCosplayName, mCosplayStartDate, mCosplayEndDate, mCosplayBudget, mPartName, mPartLink, mPartCost, mPartEndDate, mCosplayNote;
     private Spinner mPartmakeBuy;
     private Button mPartChooseImage, mPartCancel, mPartAddPart, mCosplayNotesSave, mRefImgAdd, mCheckListPartClear, mWIPImgAddPicture, mWIPImgTakePicture, mChoosePicture, mCancel, mUpdateCosplays, mCosplayParts, mCosplayNotes, mCosplayRefPic, mCosplayWIPPic, mCosplayChecklist, mCosplayShoppinglist, mCosplayWebshop, mCosplayEvents, mShoppingListAdd, mShoppingListCancel, mShoppingListClear;
