@@ -44,7 +44,7 @@ public class WebshopAdapter extends RecyclerView.Adapter<WebshopAdapter.WebshopV
 
     @Override
     public void onBindViewHolder(@NonNull WebshopAdapter.WebshopViewHolder holder, int position) {
-        final Webshop current=mWebshops.get(position);
+        final Webshop  current=mWebshops.get(position);
         String tempName = current.mCosplayWebshopName;
         String tempLink = current.mCosplayWebshopLink;
         holder.mCosplayWebshopLink.setText(tempLink);
@@ -71,7 +71,6 @@ public class WebshopAdapter extends RecyclerView.Adapter<WebshopAdapter.WebshopV
                 mTitle.setText("Update webshop");
                 mSiteLink.setText(current.mCosplayWebshopLink);
                 mSiteName.setText(current.mCosplayWebshopName);
-
                 dialogBuilder.setView(WebshopPopUpView);
                 dialog=dialogBuilder.create();
                 dialog.show();
