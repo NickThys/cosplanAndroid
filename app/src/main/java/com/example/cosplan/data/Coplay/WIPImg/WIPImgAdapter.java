@@ -10,11 +10,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cosplan.R;
+import com.example.cosplan.data.Coplay.Events.Event;
 
 import java.util.List;
 
@@ -66,7 +69,7 @@ public class WIPImgAdapter extends RecyclerView.Adapter<WIPImgAdapter.WIPImgView
                 mDelete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mWipImgViewModel.delete(mCurrent);
+                        deleteDialog(mCurrent);
                         dialog.dismiss();
                     }
                 });
@@ -87,5 +90,35 @@ public class WIPImgAdapter extends RecyclerView.Adapter<WIPImgAdapter.WIPImgView
             mImageViewWIPImg=itemView.findViewById(R.id.ImageView_RefImage);
 
         }
+    }
+    public void deleteDialog(final WIPImg mCurrent) {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(mContext);
+        final View deleteCosplayView = mInflater.inflate(R.layout.delete, null);
+        TextView mDeleteText = deleteCosplayView.findViewById(R.id.TextView_DeleteTitle);
+        mDeleteText.setText( "Do you want to delete this image");
+        final Button yes, no;
+        no = deleteCosplayView.findViewById(R.id.Btn_DeleteNo);
+        yes = deleteCosplayView.findViewById(R.id.Btn_DeleteYes);
+        dialogBuilder.setView(deleteCosplayView);
+        final Dialog dialog = dialogBuilder.create();
+        dialog.show();
+
+        yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mWipImgViewModel.delete(mCurrent);
+                Toast.makeText(mContext, "Image deleted", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+            }
+
+        });
+
+        no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
     }
 }
