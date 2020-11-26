@@ -1020,7 +1020,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                 temp.mCosplayPartName = mPartName.getText().toString();
                 temp.mCosplayPartBuyMake = mPartmakeBuy.getSelectedItem().toString();
                 temp.mCosplayPartLink = mPartLink.getText().toString();
-                if(mPartCost.getText().toString()!=null){
+                if(!mPartCost.getText().toString().equals("")){
                     temp.mCosplayPartCost = Double.parseDouble(mPartCost.getText().toString());
                 }
                 temp.mCosplayPartEndDate = mPartEndDate.getText().toString();
