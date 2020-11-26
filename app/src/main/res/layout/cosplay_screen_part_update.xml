@@ -26,7 +26,7 @@
         app:layout_constraintEnd_toEndOf="@+id/Spinner_PartUpdateMakeBuy"
         app:layout_constraintStart_toStartOf="@+id/Spinner_PartUpdateMakeBuy"
         app:layout_constraintTop_toBottomOf="@+id/TextView_PartUpdateTitle"
-        app:srcCompat="@drawable/ic_cosplan_logo" />
+        app:srcCompat="@drawable/cosplanv2" />
 
     <Spinner
         android:id="@+id/Spinner_PartUpdateMakeBuy"
