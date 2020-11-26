@@ -32,6 +32,8 @@ public class WIPImgRepository {
         new insertAsyncTask(mWIPImgDao).execute(wipImg);
     }
 
+    public void delete(WIPImg wipImg) {new deleteAsyncTask(mWIPImgDao).execute(wipImg);}
+
     private class insertAsyncTask extends AsyncTask<WIPImg, Void, Void> {
         private WIPImgDao dao;
 
@@ -42,6 +44,17 @@ public class WIPImgRepository {
         @Override
         protected Void doInBackground(WIPImg... wipImgs) {
             dao.insert(wipImgs[0]);
+            return null;
+        }
+    }
+
+    private class deleteAsyncTask extends AsyncTask<WIPImg,Void,Void> {
+        private WIPImgDao dao;
+        public deleteAsyncTask(WIPImgDao mWIPImgDao) {dao=mWIPImgDao;}
+
+        @Override
+        protected Void doInBackground(WIPImg... wipImgs) {
+            dao.delete(wipImgs[0]);
             return null;
         }
     }
