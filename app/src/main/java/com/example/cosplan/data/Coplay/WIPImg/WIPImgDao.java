@@ -2,6 +2,7 @@ package com.example.cosplan.data.Coplay.WIPImg;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
@@ -14,4 +15,6 @@ public interface WIPImgDao {
 
     @Query("SELECT * FROM CosplayWIPImg_table WHERE CosplayId=:CosplayId")
     LiveData<List<WIPImg>> getWIPImg(final int CosplayId);
+    @Delete
+    void delete(WIPImg wipImg);
 }

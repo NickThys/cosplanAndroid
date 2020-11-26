@@ -23,4 +23,6 @@ public class WIPImgViewModel extends AndroidViewModel {
         return mAllWIPImgs;
     }
     public void insert(WIPImg wipImg){mRepository.insert(wipImg);}
+
+    public void delete(WIPImg wipImg) {mRepository.delete(wipImg);}
 }
