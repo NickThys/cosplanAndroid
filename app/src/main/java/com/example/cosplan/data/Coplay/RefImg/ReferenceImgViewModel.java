@@ -25,4 +25,5 @@ public class ReferenceImgViewModel extends AndroidViewModel {
     }
     public void insert(ReferenceImg referenceImg){mRepository.insert(referenceImg);}
 
+    public void delete(ReferenceImg referenceImg) {mRepository.delete(referenceImg);}
 }
