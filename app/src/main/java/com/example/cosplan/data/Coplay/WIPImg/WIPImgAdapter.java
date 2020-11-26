@@ -119,6 +119,5 @@ public class WIPImgAdapter extends RecyclerView.Adapter<WIPImgAdapter.WIPImgView
                 dialog.dismiss();
             }
         });
-
     }
 }

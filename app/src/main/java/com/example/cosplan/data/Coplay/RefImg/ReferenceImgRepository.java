@@ -26,6 +26,8 @@ public class ReferenceImgRepository {
     }
     public void insert(ReferenceImg referenceImg){new insertAsyncTask(mReferenceImgDao).execute(referenceImg);}
 
+    public void delete(ReferenceImg referenceImg) {new deleteAsyncTask(mReferenceImgDao).execute(referenceImg);}
+
     private class insertAsyncTask extends AsyncTask<ReferenceImg,Void,Void> {
         private ReferenceImgDao dao;
         public insertAsyncTask(ReferenceImgDao mReferenceImgDao) {dao=mReferenceImgDao;}
@@ -33,6 +35,17 @@ public class ReferenceImgRepository {
         @Override
         protected Void doInBackground(ReferenceImg... referenceImgs) {
             dao.insert(referenceImgs[0]);
+            return null;
+        }
+    }
+
+    private class deleteAsyncTask extends AsyncTask<ReferenceImg,Void,Void>{
+        ReferenceImgDao dao;
+        public deleteAsyncTask(ReferenceImgDao mReferenceImgDao) {dao=mReferenceImgDao;}
+
+        @Override
+        protected Void doInBackground(ReferenceImg... referenceImgs) {
+            dao.delete(referenceImgs[0]);
             return null;
         }
     }
