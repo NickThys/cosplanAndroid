@@ -91,8 +91,7 @@
         app:layout_constraintEnd_toEndOf="@+id/Btn_NewPartChoosePartImg"
         app:layout_constraintStart_toStartOf="@+id/Btn_NewPartChoosePartImg"
         app:layout_constraintTop_toBottomOf="@+id/Btn_NewPartChoosePartImg"
-        app:srcCompat="@drawable/ic_cosplan_logo"
-        tools:srcCompat="@tools:sample/backgrounds/scenic[5]"
+        app:srcCompat="@drawable/cosplanv2"
         android:contentDescription="@string/NewPart_ImageViewContentDescription" />
 
     <Button
