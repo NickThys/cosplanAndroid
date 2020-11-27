@@ -126,10 +126,10 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         final View EventsView = inflater.inflate(R.layout.cosplay_screen_events, container, false);
         final View WebshopsView = inflater.inflate(R.layout.cosplay_screen_webshops, container, false);
 
-        refenceImgAdapter = new RefenceImgAdapter(null, requireContext(),getActivity().getApplication());
-        wipImgAdapter = new WIPImgAdapter(null, requireContext(),getActivity().getApplication());
-        final PartAdapter partAdapterMake = new PartAdapter(requireContext(),getActivity().getApplication());
-        final PartAdapter partAdapterBuy = new PartAdapter(requireContext(),getActivity().getApplication());
+        refenceImgAdapter = new RefenceImgAdapter(null, requireContext(), getActivity().getApplication());
+        wipImgAdapter = new WIPImgAdapter(null, requireContext(), getActivity().getApplication());
+        final PartAdapter partAdapterMake = new PartAdapter(requireContext(), getActivity().getApplication());
+        final PartAdapter partAdapterBuy = new PartAdapter(requireContext(), getActivity().getApplication());
         final ShoppingListPartAdapter shoppingListPartAdapter = new ShoppingListPartAdapter(requireContext(), getActivity().getApplication());
 
         mEventConventionAdapter = new EventAdapter(requireContext(), getActivity().getApplication());
@@ -606,11 +606,13 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mRVWIPImg.setLayoutManager(gridLayoutManager);
         mRVWIPImg.setAdapter(wipImgAdapter);
     }
+
     public void reloadEventsAdapter() {
         mEventConventionAdapter.notifyDataSetChanged();
         mEventShootAdapter.notifyDataSetChanged();
         mEventCharityAdapter.notifyDataSetChanged();
     }
+
     //All dialogs
     public void deleteDialog(final Event mEvent) {
         dialogBuilder = new AlertDialog.Builder(requireContext());
@@ -1014,16 +1016,20 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mPartAddPart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Double mCost;
-                if(!mPartCost.getText().toString().equals("")){
-                    mCost= Double.parseDouble(mPartCost.getText().toString());
+                if (!mPartName.getText().toString().equals("")) {
+                    double mCost;
+                    if (!mPartCost.getText().toString().equals("")) {
+                        mCost = Double.parseDouble(mPartCost.getText().toString());
+                    } else {
+                        mCost = 0.0;
+                    }
+                    Part temp = new Part(cosplay.mCosplayId, 0, mPartName.getText().toString(), mPartmakeBuy.getSelectedItem().toString(), mPartLink.getText().toString(), mCost, "Planned", mPartEndDate.getText().toString(), ((BitmapDrawable) mPartImage.getDrawable()).getBitmap());
+                    partViewModel.insert(temp);
+                    dialog.dismiss();
+                } else {
+                    String tempString= getResources().getString(R.string.FillOutFields)+" "+getResources().getString(R.string.txtName);
+                    Toast.makeText(requireContext(), tempString, Toast.LENGTH_LONG).show();
                 }
-                else{
-                    mCost=0.0;
-                }
-                Part temp = new Part(cosplay.mCosplayId,0, mPartName.getText().toString(),mPartmakeBuy.getSelectedItem().toString(),mPartLink.getText().toString(),mCost,"Planned",mPartEndDate.getText().toString(),((BitmapDrawable) mPartImage.getDrawable()).getBitmap());
-                partViewModel.insert(temp);
-                dialog.dismiss();
             }
         });
     }
