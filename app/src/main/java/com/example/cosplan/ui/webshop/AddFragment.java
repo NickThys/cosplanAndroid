@@ -27,7 +27,7 @@ public class AddFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        final View view =inflater.inflate(R.layout.fragment_add_webshop, container, false);
+        final View view =inflater.inflate(R.layout.cosplay_webshop, container, false);
         mWebshopViewModel= new ViewModelProvider(this).get(WebshopViewModel.class);
         Button btnAdd=view.findViewById(R.id.Btn_NewCosplayWebsiteAdd);
         final EditText mName= view.findViewById(R.id.EditText_NewCosplayWebsiteName);
@@ -37,27 +37,22 @@ public class AddFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                inserDataToDatabase(mName,mLink,view);
+                String name=mName.getText().toString();
+                String link= mLink.getText().toString();
+                if (inputCheck(name,link)){
+                    Webshop webshop=new Webshop(0,name,link);
+                    mWebshopViewModel.insert(webshop);
+                    Toast.makeText(requireContext(), R.string.ToastSuccessNewWebshop,Toast.LENGTH_SHORT).show();
+                    Navigation.findNavController(view).navigate(R.id.action_addFragment_to_nav_webshop);
+                }
+                else{
+                    Toast.makeText(requireContext(), R.string.ToastFailedNewWebshop,Toast.LENGTH_SHORT).show();
+                }
+                closeKeyboard(view);
             }
         });
 
         return view;
-    }
-
-    public void inserDataToDatabase(EditText mName,EditText mLink,View view) {
-
-        String name=mName.getText().toString();
-        String link= mLink.getText().toString();
-        if (inputCheck(name,link)){
-            Webshop webshop=new Webshop(0,name,link);
-            mWebshopViewModel.insert(webshop);
-            Toast.makeText(requireContext(), R.string.ToastSuccessNewWebshop,Toast.LENGTH_SHORT).show();
-            Navigation.findNavController(view).navigate(R.id.action_addFragment_to_nav_webshop);
-        }
-        else{
-            Toast.makeText(requireContext(), R.string.ToastFailedNewWebshop,Toast.LENGTH_SHORT).show();
-        }
-        closeKeyboard(view);
     }
 
     private void closeKeyboard(View view) {
