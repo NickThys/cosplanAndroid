@@ -41,7 +41,6 @@ import android.widget.Toast;
 
 import com.example.cosplan.R;
 
-import com.example.cosplan.data.Convention.Convention;
 import com.example.cosplan.data.Coplay.CheckList.CheckListPartAdapter;
 import com.example.cosplan.data.Coplay.CheckList.CheckListPartViewModel;
 import com.example.cosplan.data.Coplay.CheckList.ChecklistPart;
@@ -318,7 +317,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mfabAddPart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createNewPartDialog(tempCosplay);
+                AddNewCosplayPartDialog(tempCosplay);
             }
         });
         //endregion
@@ -566,7 +565,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mFabEventsAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addEventDialog(tempCosplay);
+                addNewCosplayEventDialog(tempCosplay);
             }
         });
 
@@ -931,7 +930,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         });
     }
 
-    public void createNewPartDialog(final Cosplay cosplay) {
+    public void AddNewCosplayPartDialog(final Cosplay cosplay) {
         dialogBuilder = new AlertDialog.Builder(requireContext());
         final View PartPopUpView = getLayoutInflater().inflate(R.layout.add_cosplay_part, null);
         mPartName = PartPopUpView.findViewById(R.id.EditText_NewPartName);
@@ -954,7 +953,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         dialog = dialogBuilder.create();
         dialog.show();
 
-
+        //region DateListener
         //create dateSelector and add the selected date to the Edit text
         mPartEndDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -991,6 +990,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                 mPartEndDate.setText(dayOfMonth + "/" + month + "/" + year);
             }
         };
+        //endregion
 
         //Cancel. dismiss the popup
         mPartCancel.setOnClickListener(new View.OnClickListener() {
@@ -1014,18 +1014,14 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mPartAddPart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Part temp = new Part();
-                temp.mCosplayId = cosplay.mCosplayId;
-                temp.mCosplayPartId = 0;
-                temp.mCosplayPartName = mPartName.getText().toString();
-                temp.mCosplayPartBuyMake = mPartmakeBuy.getSelectedItem().toString();
-                temp.mCosplayPartLink = mPartLink.getText().toString();
+                Double mCost;
                 if(!mPartCost.getText().toString().equals("")){
-                    temp.mCosplayPartCost = Double.parseDouble(mPartCost.getText().toString());
+                    mCost= Double.parseDouble(mPartCost.getText().toString());
                 }
-                temp.mCosplayPartEndDate = mPartEndDate.getText().toString();
-                temp.mCosplayPartImg = ((BitmapDrawable) mPartImage.getDrawable()).getBitmap();
-                temp.mCosplayPartStatus = "Planned";
+                else{
+                    mCost=0.0;
+                }
+                Part temp = new Part(cosplay.mCosplayId,0, mPartName.getText().toString(),mPartmakeBuy.getSelectedItem().toString(),mPartLink.getText().toString(),mCost,"Planned",mPartEndDate.getText().toString(),((BitmapDrawable) mPartImage.getDrawable()).getBitmap());
                 partViewModel.insert(temp);
                 dialog.dismiss();
             }
@@ -1061,7 +1057,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         });
     }
 
-    public void addEventDialog(final Cosplay tempCosplay) {
+    public void addNewCosplayEventDialog(final Cosplay tempCosplay) {
         dialogBuilder = new AlertDialog.Builder(requireContext());
         final View mEventDialog = getLayoutInflater().inflate(R.layout.events_dialog, null);
         final Spinner mEventType;
