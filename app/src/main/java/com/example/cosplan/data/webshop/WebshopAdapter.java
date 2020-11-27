@@ -72,8 +72,8 @@ public class WebshopAdapter extends RecyclerView.Adapter<WebshopAdapter.WebshopV
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WebshopFragmentDirections.ActionNavWebshopToUpdateFragment action=WebshopFragmentDirections.actionNavWebshopToUpdateFragment(current);
-                Navigation.findNavController(v).navigate(action);
+           //    WebshopFragmentDirections.ActionNavWebshopToUpdateFragment action=WebshopFragmentDirections.actionNavWebshopToUpdateFragment(current);
+             //   Navigation.findNavController(v).navigate(action);
             }
         });
 
