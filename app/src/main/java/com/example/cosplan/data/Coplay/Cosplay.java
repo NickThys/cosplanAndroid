@@ -39,7 +39,18 @@ public class Cosplay implements Parcelable {
     public String mCosplayNote;
 
     public Cosplay(){}
-    public Cosplay(@NonNull int Id,@NonNull String Name,@NonNull String StartDate,@NonNull String EndDate,@NonNull double Budget,@NonNull Bitmap Img){
+
+    public Cosplay(int mCosplayId, @NonNull String mCosplayName, @NonNull String mCosplayStartDate, @NonNull String mCosplayEndDate, double mCosplayBudget, double mCosplayCurrentBudget, @NonNull Bitmap mCosplayIMG) {
+        this.mCosplayId = mCosplayId;
+        this.mCosplayName = mCosplayName;
+        this.mCosplayStartDate = mCosplayStartDate;
+        this.mCosplayEndDate = mCosplayEndDate;
+        this.mCosplayBudget = mCosplayBudget;
+        this.mCosplayCurrentBudget = mCosplayCurrentBudget;
+        this.mCosplayIMG = mCosplayIMG;
+    }
+
+    public Cosplay(@NonNull int Id, @NonNull String Name, @NonNull String StartDate, @NonNull String EndDate, @NonNull double Budget, @NonNull Bitmap Img){
         this.mCosplayId = Id;
         this.mCosplayName =Name;
         this.mCosplayStartDate =StartDate;

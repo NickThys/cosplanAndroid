@@ -250,7 +250,8 @@ public class CosplayFragment extends Fragment {
                     } else {
                         mCost = 0.0;
                     }
-                    Cosplay temp = new Cosplay(0,mCosplayName.getText().toString(),mCosplayStartDate.getText().toString(),mCosplayEndDate.getText().toString(),mCost,((BitmapDrawable)mCosplayImage.getDrawable()).getBitmap());
+                    Cosplay temp = new Cosplay(0,mCosplayName.getText().toString(),mCosplayStartDate.getText().toString(),mCosplayEndDate.getText().toString(),mCost,mCost,((BitmapDrawable)mCosplayImage.getDrawable()).getBitmap());
+
                     cosplayViewModel.insert(temp);
                     dialog.dismiss();
                 }
