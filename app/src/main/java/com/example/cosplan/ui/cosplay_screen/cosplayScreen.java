@@ -584,21 +584,11 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
 
         //endregion
 
-        updateBudget(tempCosplay,mPartsList);
+
         return v;
     }
 
-    public void updateBudget(Cosplay mCosplay,List<Part>mPartsList){
-        double mRemainingBudget=mCosplay.mCosplayBudget;
-        double Test=0.0;
-        for (Part mPart:mPartsList) {
-            Test+=mPart.mCosplayPartCost;
-        }
-
-
-    }
-
-    private void deletePartDialog(final Part myPart) {
+  private void deletePartDialog(final Part myPart) {
         dialogBuilder = new AlertDialog.Builder(requireContext());
         final View deleteCosplayView = getLayoutInflater().inflate(R.layout.delete, null);
         TextView mDeleteText = deleteCosplayView.findViewById(R.id.TextView_DeleteTitle);
@@ -1093,6 +1083,9 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                     }
                     Part temp = new Part(cosplay.mCosplayId, 0, mPartName.getText().toString(), mPartmakeBuy.getSelectedItem().toString(), mPartLink.getText().toString(), mCost, "Planned", mPartEndDate.getText().toString(), ((BitmapDrawable) mPartImage.getDrawable()).getBitmap());
                     mPartViewModel.insert(temp);
+                    Cosplay tempCosplay=cosplay;
+                    tempCosplay.mCosplayCurrentBudget-=temp.mCosplayPartCost;
+                    cosplayViewModel.update(tempCosplay);
                     dialog.dismiss();
                 } else {
                     String tempString= getResources().getString(R.string.FillOutFields)+" "+getResources().getString(R.string.txtName);
