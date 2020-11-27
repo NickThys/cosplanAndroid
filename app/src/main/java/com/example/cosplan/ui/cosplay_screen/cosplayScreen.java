@@ -79,7 +79,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
     private CosplayAdapter cosplayAdapter;
-    private PartViewModel partViewModel;
+    private PartViewModel mPartViewModel;
     private ReferenceImgViewModel referenceImgViewModel;
     private WebshopAdapter mWebshopAdapter;
     private WebshopViewModel mWebshopViewModel;
@@ -91,7 +91,8 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
     private RefenceImgAdapter refenceImgAdapter = null;
     private WIPImgAdapter wipImgAdapter = null;
     private EventViewModel mEventViewModel;
-
+    private PartAdapter mPartAdapterBuy;
+    private PartAdapter mPartAdapterMake;
     private TextView mName, mStartDate, mEndDate, mPercentage, mBudget;
     private ImageView mImage;
     private ImageButton mUpdateCosplay;
@@ -128,8 +129,8 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
 
         refenceImgAdapter = new RefenceImgAdapter(null, requireContext(), getActivity().getApplication());
         wipImgAdapter = new WIPImgAdapter(null, requireContext(), getActivity().getApplication());
-        final PartAdapter partAdapterMake = new PartAdapter(requireContext(), getActivity().getApplication());
-        final PartAdapter partAdapterBuy = new PartAdapter(requireContext(), getActivity().getApplication());
+        mPartAdapterMake = new PartAdapter(requireContext(), getActivity().getApplication());
+         mPartAdapterBuy = new PartAdapter(requireContext(), getActivity().getApplication());
         final ShoppingListPartAdapter shoppingListPartAdapter = new ShoppingListPartAdapter(requireContext(), getActivity().getApplication());
 
         mEventConventionAdapter = new EventAdapter(requireContext(), getActivity().getApplication());
@@ -267,10 +268,10 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         //region Part View
         //recyclerview Make
         RecyclerView recyclerViewMake = v.findViewById(R.id.RecView_PartsToMake);
-        recyclerViewMake.setAdapter(partAdapterMake);
+        recyclerViewMake.setAdapter(mPartAdapterMake);
         recyclerViewMake.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         recyclerViewMake.setLayoutManager(new LinearLayoutManager(requireContext()));
-        ItemTouchHelper helperMake = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, 0) {
+        ItemTouchHelper helperMake = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
                 return false;
@@ -279,22 +280,25 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 // TODO: 11/11/2020 Add delete on swipe
+                int position = viewHolder.getAdapterPosition();
+                Part myPart = mPartAdapterMake.getPartAtPosition(position);
+                deletePartDialog(myPart);
             }
         });
         helperMake.attachToRecyclerView(recyclerViewMake);
-        partViewModel = new ViewModelProvider(this).get(PartViewModel.class);
-        partViewModel.getAllPartsToMake(tempCosplay.mCosplayId).observe(getViewLifecycleOwner(), new Observer<List<Part>>() {
+        mPartViewModel = new ViewModelProvider(this).get(PartViewModel.class);
+        mPartViewModel.getAllPartsToMake(tempCosplay.mCosplayId).observe(getViewLifecycleOwner(), new Observer<List<Part>>() {
             @Override
             public void onChanged(List<Part> parts) {
-                partAdapterMake.setParts(parts);
+                mPartAdapterMake.setParts(parts);
             }
         });
         //recyclerview buy
         final RecyclerView recyclerViewBuy = v.findViewById(R.id.RecView_PartsToBuy);
-        recyclerViewBuy.setAdapter(partAdapterBuy);
+        recyclerViewBuy.setAdapter(mPartAdapterBuy);
         recyclerViewBuy.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         recyclerViewBuy.setLayoutManager(new LinearLayoutManager(requireContext()));
-        ItemTouchHelper helperBuy = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, 0) {
+        ItemTouchHelper helperBuy = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
                 return false;
@@ -302,15 +306,17 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                // TODO: 11/11/2020 Add delete on swipe
+                int position = viewHolder.getAdapterPosition();
+                Part myPart = mPartAdapterBuy.getPartAtPosition(position);
+                deletePartDialog(myPart);
             }
         });
         helperBuy.attachToRecyclerView(recyclerViewBuy);
-        partViewModel = new ViewModelProvider(this).get(PartViewModel.class);
-        partViewModel.getAllPartsToBuy(tempCosplay.mCosplayId).observe(getViewLifecycleOwner(), new Observer<List<Part>>() {
+        mPartViewModel = new ViewModelProvider(this).get(PartViewModel.class);
+        mPartViewModel.getAllPartsToBuy(tempCosplay.mCosplayId).observe(getViewLifecycleOwner(), new Observer<List<Part>>() {
             @Override
             public void onChanged(List<Part> parts) {
-                partAdapterBuy.setParts(parts);
+                mPartAdapterBuy.setParts(parts);
             }
         });
         //fab to add a new cosplay part
@@ -571,6 +577,37 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
 
         //endregion
         return v;
+    }
+
+    private void deletePartDialog(final Part myPart) {
+        dialogBuilder = new AlertDialog.Builder(requireContext());
+        final View deleteCosplayView = getLayoutInflater().inflate(R.layout.delete, null);
+        TextView mDeleteText = deleteCosplayView.findViewById(R.id.TextView_DeleteTitle);
+        mDeleteText.setText(getString(R.string.ConformationDeleteCheckListPart) + myPart.mCosplayPartName);
+        Button yes, no;
+        no = deleteCosplayView.findViewById(R.id.Btn_DeleteNo);
+        yes = deleteCosplayView.findViewById(R.id.Btn_DeleteYes);
+        dialogBuilder.setView(deleteCosplayView);
+        dialog = dialogBuilder.create();
+        dialog.show();
+        yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPartViewModel.delete(myPart);
+                Toast.makeText(requireContext(), myPart.mCosplayPartName + " deleted", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+                mPartAdapterBuy.notifyDataSetChanged();
+                mPartAdapterMake.notifyDataSetChanged();
+            }
+        });
+        no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                mPartAdapterBuy.notifyDataSetChanged();
+                mPartAdapterMake.notifyDataSetChanged();
+            }
+        });
     }
 
 
@@ -1024,7 +1061,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                         mCost = 0.0;
                     }
                     Part temp = new Part(cosplay.mCosplayId, 0, mPartName.getText().toString(), mPartmakeBuy.getSelectedItem().toString(), mPartLink.getText().toString(), mCost, "Planned", mPartEndDate.getText().toString(), ((BitmapDrawable) mPartImage.getDrawable()).getBitmap());
-                    partViewModel.insert(temp);
+                    mPartViewModel.insert(temp);
                     dialog.dismiss();
                 } else {
                     String tempString= getResources().getString(R.string.FillOutFields)+" "+getResources().getString(R.string.txtName);
