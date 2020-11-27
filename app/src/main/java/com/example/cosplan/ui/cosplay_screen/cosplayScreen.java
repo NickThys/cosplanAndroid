@@ -702,6 +702,8 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                 mShoppingListViewModel.delete(mShoppingListPart);
                 Toast.makeText(requireContext(), mShoppingListPart.mCosplayShoppingListPartName + " deleted", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
+                mShoppingListPartAdapter.notifyDataSetChanged();
+
             }
         });
         no.setOnClickListener(new View.OnClickListener() {
