@@ -935,10 +935,15 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mChecklistAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ChecklistPart temp = new ChecklistPart(cosplay.mCosplayId, 0, mCheckListPartName.getText().toString(), false);
-                mCheckListPartViewModel.insert(temp);
+                if (!mCheckListPartName.getText().toString().equals("")){
+                    ChecklistPart temp = new ChecklistPart(cosplay.mCosplayId, 0, mCheckListPartName.getText().toString(), false);
+                    mCheckListPartViewModel.insert(temp);
+                    dialog.dismiss();
+                }
+                else {
 
-                dialog.dismiss();
+                    Toast.makeText(requireContext(), getResources().getString(R.string.FillOutAllFields), Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
