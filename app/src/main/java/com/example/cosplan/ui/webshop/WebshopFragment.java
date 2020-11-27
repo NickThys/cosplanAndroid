@@ -44,7 +44,7 @@ public class WebshopFragment extends Fragment {
 
         final View root = inflater.inflate(R.layout.fragment_webshop, container, false);
 
-        mWebshopAdapter = new WebshopAdapter(requireContext());
+        mWebshopAdapter = new WebshopAdapter(requireContext(),getActivity().getApplication());
 
 
         RecyclerView recyclerView = root.findViewById(R.id.recyclerView);
