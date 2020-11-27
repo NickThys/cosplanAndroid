@@ -69,6 +69,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
@@ -115,9 +116,10 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        final List<Part> mPartsList = new ArrayList<>();
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_cosplay_screen, container, false);
-        //Views of all the fragments
+        //region Views of all the fragments
         final View PartsView = inflater.inflate(R.layout.cosplay_screen_parts, container, false);
         final View RefImgView = inflater.inflate(R.layout.cosplay_screen_ref_img, container, false);
         final View ShoppingListView = inflater.inflate(R.layout.cosplay_screen_shopping_list, container, false);
@@ -126,6 +128,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         final View WipImgView = inflater.inflate(R.layout.cosplay_screen_wip_img, container, false);
         final View EventsView = inflater.inflate(R.layout.cosplay_screen_events, container, false);
         final View WebshopsView = inflater.inflate(R.layout.cosplay_screen_webshops, container, false);
+        //endregion
 
         refenceImgAdapter = new RefenceImgAdapter(null, requireContext(), getActivity().getApplication());
         wipImgAdapter = new WIPImgAdapter(null, requireContext(), getActivity().getApplication());
@@ -144,6 +147,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         fl.addView(PartsView);
         cosplayAdapter = new CosplayAdapter(requireContext());
 
+        //region initiate parts
         //Items from the header
         mName = v.findViewById(R.id.TextView_CosplayHeaderName);
         mEndDate = v.findViewById(R.id.TextView_CosplayHeaderEndDate);
@@ -186,6 +190,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mRecViewEventsShoots = EventsView.findViewById(R.id.RecView_EventShoot);
         mRecViewEventsCharity = EventsView.findViewById(R.id.RecView_EventCharity);
         mFabEventsAdd = EventsView.findViewById(R.id.Fab_EventAdd);
+        //endregion
 
         //region Header
         //Adding text to the items from the header
@@ -291,6 +296,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             @Override
             public void onChanged(List<Part> parts) {
                 mPartAdapterMake.setParts(parts);
+                mPartsList.addAll(parts);
             }
         });
         //recyclerview buy
@@ -317,6 +323,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             @Override
             public void onChanged(List<Part> parts) {
                 mPartAdapterBuy.setParts(parts);
+                mPartsList.addAll(parts);
             }
         });
         //fab to add a new cosplay part
@@ -576,7 +583,19 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         });
 
         //endregion
+
+        updateBudget(tempCosplay,mPartsList);
         return v;
+    }
+
+    public void updateBudget(Cosplay mCosplay,List<Part>mPartsList){
+        double mRemainingBudget=mCosplay.mCosplayBudget;
+        double Test=0.0;
+        for (Part mPart:mPartsList) {
+            Test+=mPart.mCosplayPartCost;
+        }
+
+
     }
 
     private void deletePartDialog(final Part myPart) {
@@ -609,7 +628,6 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             }
         });
     }
-
 
     public void checkListClearCheckBoxes(List<ChecklistPart> allParts) {
         for (ChecklistPart part : allParts) {
