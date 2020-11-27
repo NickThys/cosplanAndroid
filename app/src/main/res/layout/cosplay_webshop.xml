@@ -22,29 +22,25 @@
 
     <EditText
         android:id="@+id/EditText_NewCosplayWebsiteName"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:ems="10"
         android:hint="@string/WebsiteName"
-        android:importantForAutofill="no"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="@+id/txt_cosplayWebshop"
         app:layout_constraintStart_toStartOf="@+id/txt_cosplayWebshop"
-        app:layout_constraintTop_toBottomOf="@+id/txt_cosplayWebshop" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_cosplayWebshop"
+        app:layout_constraintWidth_min="300dp"
+        style="@style/EditText"
+        android:importantForAutofill="no" />
 
     <EditText
         android:id="@+id/EditText_NewCosplayWebsiteLink"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:ems="10"
         android:hint="@string/WebsiteLink"
-        android:importantForAutofill="no"
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="@+id/EditText_NewCosplayWebsiteName"
         app:layout_constraintStart_toStartOf="@+id/EditText_NewCosplayWebsiteName"
-        app:layout_constraintTop_toBottomOf="@+id/EditText_NewCosplayWebsiteName" />
+        app:layout_constraintTop_toBottomOf="@+id/EditText_NewCosplayWebsiteName"
+        app:layout_constraintWidth_min="200dp"
+        style="@style/EditText"
+        android:importantForAutofill="no" />
 
     <Button
         android:id="@+id/Btn_NewCosplayWebsiteAdd"
@@ -67,4 +63,6 @@
         app:layout_constraintEnd_toStartOf="@+id/Btn_NewCosplayWebsiteAdd"
         app:layout_constraintStart_toStartOf="@+id/EditText_NewCosplayWebsiteLink"
         app:layout_constraintTop_toTopOf="@+id/Btn_NewCosplayWebsiteAdd" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
