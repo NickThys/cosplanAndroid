@@ -1207,9 +1207,15 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mEventAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!mEventName.getText().toString().equals("") && !mEventStartDate.getText().toString().equals("")&&!mEventEndDate.getText().toString().equals("")){
                 Event mTempEvent = new Event(tempCosplay.mCosplayId, 0, mEventName.getText().toString(), mEventPlace.getText().toString(), mEventStartDate.getText().toString(), mEventEndDate.getText().toString(), mEventType.getSelectedItem().toString());
                 mEventViewModel.insert(mTempEvent);
                 dialog.dismiss();
+                }
+                else{
+                    String tempString= getResources().getString(R.string.FillOutFields)+" "+getResources().getString(R.string.txtName)+", "+getResources().getString(R.string.txtStartDate)+", "+getResources().getString(R.string.txtEndDate);
+                    Toast.makeText(requireContext(), tempString, Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
