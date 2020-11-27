@@ -243,14 +243,21 @@ public class CosplayFragment extends Fragment {
         mAddNewCosplay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Cosplay temp = new Cosplay();
-                temp.mCosplayName=mCosplayName.getText().toString();
-                temp.mCosplayStartDate=mCosplayStartDate.getText().toString();
-                temp.mCosplayEndDate=mCosplayEndDate.getText().toString();
-                temp.mCosplayBudget= Double.parseDouble(mCosplayBudget.getText().toString());
-                temp.mCosplayIMG=((BitmapDrawable)mCosplayImage.getDrawable()).getBitmap();
-                cosplayViewModel.insert(temp);
-                dialog.dismiss();
+                if (!mCosplayName.getText().toString().equals("")){
+                    double mCost;
+                    if (!mCosplayBudget.getText().toString().equals("")) {
+                        mCost = Double.parseDouble(mCosplayBudget.getText().toString());
+                    } else {
+                        mCost = 0.0;
+                    }
+                    Cosplay temp = new Cosplay(0,mCosplayName.getText().toString(),mCosplayStartDate.getText().toString(),mCosplayEndDate.getText().toString(),mCost,((BitmapDrawable)mCosplayImage.getDrawable()).getBitmap());
+                    cosplayViewModel.insert(temp);
+                    dialog.dismiss();
+                }
+                else{
+                    Toast.makeText(requireContext(), getResources().getString(R.string.FillOutAllFields), Toast.LENGTH_LONG).show();
+                }
+
             }
         });
 
