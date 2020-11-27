@@ -18,14 +18,12 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cosplan.R;
-import com.example.cosplan.data.Coplay.Events.Event;
 import com.example.cosplan.data.webshop.WebshopAdapter;
 import com.example.cosplan.data.webshop.Webshop;
 import com.example.cosplan.data.webshop.WebshopViewModel;
@@ -148,7 +146,7 @@ public class WebshopFragment extends Fragment {
                     dialog.dismiss();
                 }
                 else{
-                    Toast.makeText(requireContext(), R.string.ToastFailedNewWebshop,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireContext(), R.string.FillOutAllFields,Toast.LENGTH_SHORT).show();
                 }
             }
         });
