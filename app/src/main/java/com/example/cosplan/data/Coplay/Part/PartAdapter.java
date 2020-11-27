@@ -60,7 +60,9 @@ public class PartAdapter extends RecyclerView.Adapter<PartAdapter.PartViewHolder
             mPartEndDate = itemView.findViewById(R.id.TextView_PartEnddate);
         }
     }
-
+    public Part getPartAtPosition(int mPosition){
+        return mParts.get(mPosition);
+    }
     public void setParts(List<Part> parts) {
         mParts = parts;
         notifyDataSetChanged();
