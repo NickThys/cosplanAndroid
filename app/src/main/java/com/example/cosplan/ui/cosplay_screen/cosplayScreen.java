@@ -205,7 +205,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mUpdateCosplay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UpdateCosplayDialog(tempCosplay);
+               tempCosplay=UpdateCosplayDialog(tempCosplay);
             }
         });
         //endregion
@@ -751,18 +751,19 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         });
     }
 
-    public void UpdateCosplayDialog(final Cosplay cosplay) {
+    public Cosplay UpdateCosplayDialog(final Cosplay cosplay) {
+        final Cosplay[] mTempCosplay = {cosplay};
         dialogBuilder = new AlertDialog.Builder(requireContext());
-        final View cosplayPopUpView = getLayoutInflater().inflate(R.layout.add_cosplay, null);
-        mCosplayName = cosplayPopUpView.findViewById(R.id.EditText_NewCosplayName);
-        mCosplayStartDate = cosplayPopUpView.findViewById(R.id.EditText_NewCosplayBeginDate);
-        mCosplayEndDate = cosplayPopUpView.findViewById(R.id.EditText_NewCosplayEndDate);
-        mCosplayBudget = cosplayPopUpView.findViewById(R.id.EditText_NewCosplayBudget);
-        mCosplayImage = cosplayPopUpView.findViewById(R.id.ImageView_NewCosplayImgPreview);
-        mChoosePicture = cosplayPopUpView.findViewById(R.id.Btn_NewCosplayChooseImg);
-        mCancel = cosplayPopUpView.findViewById(R.id.Btn_NewCosplayCancel);
-        mUpdateCosplays = cosplayPopUpView.findViewById(R.id.Btn_NewCosplayAdd);
-        dialogBuilder.setView(cosplayPopUpView);
+        final View[] cosplayPopUpView = {getLayoutInflater().inflate(R.layout.add_cosplay, null)};
+        mCosplayName = cosplayPopUpView[0].findViewById(R.id.EditText_NewCosplayName);
+        mCosplayStartDate = cosplayPopUpView[0].findViewById(R.id.EditText_NewCosplayBeginDate);
+        mCosplayEndDate = cosplayPopUpView[0].findViewById(R.id.EditText_NewCosplayEndDate);
+        mCosplayBudget = cosplayPopUpView[0].findViewById(R.id.EditText_NewCosplayBudget);
+        mCosplayImage = cosplayPopUpView[0].findViewById(R.id.ImageView_NewCosplayImgPreview);
+        mChoosePicture = cosplayPopUpView[0].findViewById(R.id.Btn_NewCosplayChooseImg);
+        mCancel = cosplayPopUpView[0].findViewById(R.id.Btn_NewCosplayCancel);
+        mUpdateCosplays = cosplayPopUpView[0].findViewById(R.id.Btn_NewCosplayAdd);
+        dialogBuilder.setView(cosplayPopUpView[0]);
 
         mUpdateCosplays.setText("Update Cosplay");
         mCosplayName.setText(cosplay.mCosplayName);
@@ -886,15 +887,17 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
 
                 cosplayViewModel.update(CosUP);
                 dialog.dismiss();
+                mTempCosplay[0] =CosUP;
                 mName.setText(CosUP.mCosplayName);
                 mEndDate.setText(CosUP.mCosplayEndDate);
-                mBudget.setText(Double.toString(CosUP.mCosplayBudget));
+                mBudget.setText(Double.toString(CosUP.mCosplayCurrentBudget));
                 mImage.setImageBitmap(CosUP.mCosplayIMG);
                 mPercentage.setText("% complete");
                 mCosplayNote.setText(CosUP.mCosplayNote);
+
             }
         });
-
+return mTempCosplay[0];
     }
 
     public void addNewCosplayWebshopDialog(final Cosplay cosplay) {
