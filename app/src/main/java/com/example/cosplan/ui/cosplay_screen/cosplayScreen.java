@@ -773,7 +773,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
 
         dialog = dialogBuilder.create();
         dialog.show();
-
+        //region Dateselector
         //create dateSelector and add the selected date to the Edit text
         mCosplayStartDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -849,6 +849,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                 mCosplayEndDate.setText(dayOfMonth + "/" + month + "/" + year);
             }
         };
+        //endregion
 
         //Cancel. dismiss the popup
         mCancel.setOnClickListener(new View.OnClickListener() {
@@ -874,7 +875,14 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mUpdateCosplays.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Cosplay CosUP = new Cosplay(cosplay.mCosplayId, mCosplayName.getText().toString(), mCosplayStartDate.getText().toString(), mCosplayEndDate.getText().toString(), Double.parseDouble(mCosplayBudget.getText().toString()), ((BitmapDrawable) mCosplayImage.getDrawable()).getBitmap(), mCosplayNote.getText().toString());
+                double mTempExpences=cosplay.mCosplayBudget-cosplay.mCosplayCurrentBudget;
+                double mCost;
+                if (!mCosplayBudget.getText().toString().equals("")) {
+                    mCost = Double.parseDouble(mCosplayBudget.getText().toString());
+                } else {
+                    mCost = 0.0;
+                }
+                Cosplay CosUP = new Cosplay(cosplay.mCosplayId, mCosplayName.getText().toString(), mCosplayStartDate.getText().toString(), mCosplayEndDate.getText().toString(), mCost,mCost-mTempExpences, ((BitmapDrawable) mCosplayImage.getDrawable()).getBitmap(), mCosplayNote.getText().toString());
 
                 cosplayViewModel.update(CosUP);
                 dialog.dismiss();
