@@ -863,9 +863,15 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!mSiteName.getText().toString().equals("")&&!mSiteLink.getText().toString().equals("")){
                 Webshop temp = new Webshop(cosplay.mCosplayId, 0, mSiteName.getText().toString(), mSiteLink.getText().toString());
                 mWebshopViewModel.insert(temp);
                 dialog.dismiss();
+                }
+                else{
+                    String tempString= getResources().getString(R.string.FillOutFields)+" "+getResources().getString(R.string.txtName)+", "+getResources().getString(R.string.NewPart_LinkHint);
+                    Toast.makeText(requireContext(), tempString, Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
@@ -892,10 +898,15 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mChecklistAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ChecklistPart temp = new ChecklistPart(cosplay.mCosplayId, 0, mCheckListPartName.getText().toString(), false);
-                mCheckListPartViewModel.insert(temp);
+                if (!mCheckListPartName.getText().toString().equals("")){
+                    ChecklistPart temp = new ChecklistPart(cosplay.mCosplayId, 0, mCheckListPartName.getText().toString(), false);
+                    mCheckListPartViewModel.insert(temp);
+                    dialog.dismiss();
+                }
+                else {
 
-                dialog.dismiss();
+                    Toast.makeText(requireContext(), getResources().getString(R.string.FillOutAllFields), Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
