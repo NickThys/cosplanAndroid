@@ -133,7 +133,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         refenceImgAdapter = new RefenceImgAdapter(null, requireContext(), getActivity().getApplication());
         wipImgAdapter = new WIPImgAdapter(null, requireContext(), getActivity().getApplication());
         mPartAdapterMake = new PartAdapter(requireContext(), getActivity().getApplication());
-         mPartAdapterBuy = new PartAdapter(requireContext(), getActivity().getApplication());
+        mPartAdapterBuy = new PartAdapter(requireContext(), getActivity().getApplication());
         final ShoppingListPartAdapter shoppingListPartAdapter = new ShoppingListPartAdapter(requireContext(), getActivity().getApplication());
 
         mEventConventionAdapter = new EventAdapter(requireContext(), getActivity().getApplication());
@@ -205,7 +205,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mUpdateCosplay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               tempCosplay=UpdateCosplayDialog(tempCosplay);
+                tempCosplay = UpdateCosplayDialog(tempCosplay);
             }
         });
         //endregion
@@ -276,7 +276,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         recyclerViewMake.setAdapter(mPartAdapterMake);
         recyclerViewMake.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         recyclerViewMake.setLayoutManager(new LinearLayoutManager(requireContext()));
-        ItemTouchHelper helperMake = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT) {
+        ItemTouchHelper helperMake = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
                 return false;
@@ -287,7 +287,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                 // TODO: 11/11/2020 Add delete on swipe
                 int position = viewHolder.getAdapterPosition();
                 Part myPart = mPartAdapterMake.getPartAtPosition(position);
-                deletePartDialog(myPart);
+                deletePartDialog(myPart, tempCosplay);
             }
         });
         helperMake.attachToRecyclerView(recyclerViewMake);
@@ -304,7 +304,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         recyclerViewBuy.setAdapter(mPartAdapterBuy);
         recyclerViewBuy.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         recyclerViewBuy.setLayoutManager(new LinearLayoutManager(requireContext()));
-        ItemTouchHelper helperBuy = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT) {
+        ItemTouchHelper helperBuy = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
                 return false;
@@ -314,7 +314,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 int position = viewHolder.getAdapterPosition();
                 Part myPart = mPartAdapterBuy.getPartAtPosition(position);
-                deletePartDialog(myPart);
+                deletePartDialog(myPart, tempCosplay);
             }
         });
         helperBuy.attachToRecyclerView(recyclerViewBuy);
@@ -588,7 +588,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         return v;
     }
 
-  private void deletePartDialog(final Part myPart) {
+    private void deletePartDialog(final Part myPart, final Cosplay cosplay) {
         dialogBuilder = new AlertDialog.Builder(requireContext());
         final View deleteCosplayView = getLayoutInflater().inflate(R.layout.delete, null);
         TextView mDeleteText = deleteCosplayView.findViewById(R.id.TextView_DeleteTitle);
@@ -604,6 +604,9 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             public void onClick(View v) {
                 mPartViewModel.delete(myPart);
                 Toast.makeText(requireContext(), myPart.mCosplayPartName + " deleted", Toast.LENGTH_SHORT).show();
+                Cosplay tempCosplay = cosplay;
+                tempCosplay.mCosplayRemainingBudget += myPart.mCosplayPartCost;
+                cosplayViewModel.update(tempCosplay);
                 dialog.dismiss();
                 mPartAdapterBuy.notifyDataSetChanged();
                 mPartAdapterMake.notifyDataSetChanged();
@@ -876,28 +879,28 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mUpdateCosplays.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                double mTempExpences=cosplay.mCosplayBudget-cosplay.mCosplayCurrentBudget;
+                double mTempExpences = cosplay.mCosplayBudget - cosplay.mCosplayRemainingBudget;
                 double mCost;
                 if (!mCosplayBudget.getText().toString().equals("")) {
                     mCost = Double.parseDouble(mCosplayBudget.getText().toString());
                 } else {
                     mCost = 0.0;
                 }
-                Cosplay CosUP = new Cosplay(cosplay.mCosplayId, mCosplayName.getText().toString(), mCosplayStartDate.getText().toString(), mCosplayEndDate.getText().toString(), mCost,mCost-mTempExpences, ((BitmapDrawable) mCosplayImage.getDrawable()).getBitmap(), mCosplayNote.getText().toString());
+                Cosplay CosUP = new Cosplay(cosplay.mCosplayId, mCosplayName.getText().toString(), mCosplayStartDate.getText().toString(), mCosplayEndDate.getText().toString(), mCost, mCost - mTempExpences, ((BitmapDrawable) mCosplayImage.getDrawable()).getBitmap(), mCosplayNote.getText().toString());
 
                 cosplayViewModel.update(CosUP);
                 dialog.dismiss();
-                mTempCosplay[0] =CosUP;
+                mTempCosplay[0] = CosUP;
                 mName.setText(CosUP.mCosplayName);
                 mEndDate.setText(CosUP.mCosplayEndDate);
-                mBudget.setText(Double.toString(CosUP.mCosplayCurrentBudget));
+                mBudget.setText(Double.toString(CosUP.mCosplayRemainingBudget));
                 mImage.setImageBitmap(CosUP.mCosplayIMG);
                 mPercentage.setText("% complete");
                 mCosplayNote.setText(CosUP.mCosplayNote);
 
             }
         });
-return mTempCosplay[0];
+        return mTempCosplay[0];
     }
 
     public void addNewCosplayWebshopDialog(final Cosplay cosplay) {
@@ -921,13 +924,12 @@ return mTempCosplay[0];
         mAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!mSiteName.getText().toString().equals("")&&!mSiteLink.getText().toString().equals("")){
-                Webshop temp = new Webshop(cosplay.mCosplayId, 0, mSiteName.getText().toString(), mSiteLink.getText().toString());
-                mWebshopViewModel.insert(temp);
-                dialog.dismiss();
-                }
-                else{
-                    String tempString= getResources().getString(R.string.FillOutFields)+" "+getResources().getString(R.string.txtName)+", "+getResources().getString(R.string.NewPart_LinkHint);
+                if (!mSiteName.getText().toString().equals("") && !mSiteLink.getText().toString().equals("")) {
+                    Webshop temp = new Webshop(cosplay.mCosplayId, 0, mSiteName.getText().toString(), mSiteLink.getText().toString());
+                    mWebshopViewModel.insert(temp);
+                    dialog.dismiss();
+                } else {
+                    String tempString = getResources().getString(R.string.FillOutFields) + " " + getResources().getString(R.string.txtName) + ", " + getResources().getString(R.string.NewPart_LinkHint);
                     Toast.makeText(requireContext(), tempString, Toast.LENGTH_LONG).show();
                 }
             }
@@ -956,12 +958,11 @@ return mTempCosplay[0];
         mChecklistAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!mCheckListPartName.getText().toString().equals("")){
+                if (!mCheckListPartName.getText().toString().equals("")) {
                     ChecklistPart temp = new ChecklistPart(cosplay.mCosplayId, 0, mCheckListPartName.getText().toString(), false);
                     mCheckListPartViewModel.insert(temp);
                     dialog.dismiss();
-                }
-                else {
+                } else {
 
                     Toast.makeText(requireContext(), getResources().getString(R.string.FillOutAllFields), Toast.LENGTH_LONG).show();
                 }
@@ -1094,12 +1095,12 @@ return mTempCosplay[0];
                     }
                     Part temp = new Part(cosplay.mCosplayId, 0, mPartName.getText().toString(), mPartmakeBuy.getSelectedItem().toString(), mPartLink.getText().toString(), mCost, "Planned", mPartEndDate.getText().toString(), ((BitmapDrawable) mPartImage.getDrawable()).getBitmap());
                     mPartViewModel.insert(temp);
-                    Cosplay tempCosplay=cosplay;
-                    tempCosplay.mCosplayCurrentBudget-=temp.mCosplayPartCost;
+                    Cosplay tempCosplay = cosplay;
+                    tempCosplay.mCosplayRemainingBudget -= temp.mCosplayPartCost;
                     cosplayViewModel.update(tempCosplay);
                     dialog.dismiss();
                 } else {
-                    String tempString= getResources().getString(R.string.FillOutFields)+" "+getResources().getString(R.string.txtName);
+                    String tempString = getResources().getString(R.string.FillOutFields) + " " + getResources().getString(R.string.txtName);
                     Toast.makeText(requireContext(), tempString, Toast.LENGTH_LONG).show();
                 }
             }
@@ -1242,13 +1243,12 @@ return mTempCosplay[0];
         mEventAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!mEventName.getText().toString().equals("") && !mEventStartDate.getText().toString().equals("")&&!mEventEndDate.getText().toString().equals("")){
-                Event mTempEvent = new Event(tempCosplay.mCosplayId, 0, mEventName.getText().toString(), mEventPlace.getText().toString(), mEventStartDate.getText().toString(), mEventEndDate.getText().toString(), mEventType.getSelectedItem().toString());
-                mEventViewModel.insert(mTempEvent);
-                dialog.dismiss();
-                }
-                else{
-                    String tempString= getResources().getString(R.string.FillOutFields)+" "+getResources().getString(R.string.txtName)+", "+getResources().getString(R.string.txtStartDate)+", "+getResources().getString(R.string.txtEndDate);
+                if (!mEventName.getText().toString().equals("") && !mEventStartDate.getText().toString().equals("") && !mEventEndDate.getText().toString().equals("")) {
+                    Event mTempEvent = new Event(tempCosplay.mCosplayId, 0, mEventName.getText().toString(), mEventPlace.getText().toString(), mEventStartDate.getText().toString(), mEventEndDate.getText().toString(), mEventType.getSelectedItem().toString());
+                    mEventViewModel.insert(mTempEvent);
+                    dialog.dismiss();
+                } else {
+                    String tempString = getResources().getString(R.string.FillOutFields) + " " + getResources().getString(R.string.txtName) + ", " + getResources().getString(R.string.txtStartDate) + ", " + getResources().getString(R.string.txtEndDate);
                     Toast.makeText(requireContext(), tempString, Toast.LENGTH_LONG).show();
                 }
             }

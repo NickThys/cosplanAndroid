@@ -31,7 +31,7 @@ public class Cosplay implements Parcelable {
     public double mCosplayBudget;
     @NonNull
     @ColumnInfo(name= "CosplayCurrentBudget")
-    public double mCosplayCurrentBudget;
+    public double mCosplayRemainingBudget;
     @NonNull
     @ColumnInfo(typeAffinity = ColumnInfo.BLOB, name = "CosplayIMG")
     public Bitmap mCosplayIMG;
@@ -46,7 +46,7 @@ public class Cosplay implements Parcelable {
         this.mCosplayStartDate = mCosplayStartDate;
         this.mCosplayEndDate = mCosplayEndDate;
         this.mCosplayBudget = mCosplayBudget;
-        this.mCosplayCurrentBudget = mCosplayCurrentBudget;
+        this.mCosplayRemainingBudget = mCosplayCurrentBudget;
         this.mCosplayIMG = mCosplayIMG;
     }
 
@@ -74,7 +74,7 @@ public class Cosplay implements Parcelable {
         this.mCosplayStartDate = mCosplayStartDate;
         this.mCosplayEndDate = mCosplayEndDate;
         this.mCosplayBudget = mCosplayBudget;
-        this.mCosplayCurrentBudget = mCosplayCurrentBudget;
+        this.mCosplayRemainingBudget = mCosplayCurrentBudget;
         this.mCosplayIMG = mCosplayIMG;
         this.mCosplayNote = mCosplayNote;
     }
