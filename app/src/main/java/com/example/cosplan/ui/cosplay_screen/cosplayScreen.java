@@ -196,7 +196,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         //Adding text to the items from the header
         mName.setText(tempCosplay.mCosplayName);
         mEndDate.setText(tempCosplay.mCosplayEndDate);
-        mBudget.setText(Double.toString(tempCosplay.mCosplayBudget));
+        updateCosplayHeaderBudget();
         mImage.setImageBitmap(tempCosplay.mCosplayIMG);
         mPercentage.setText("% complete");
         mfabAddPart = v.findViewById(R.id.Fab_PartsAdd);
@@ -608,6 +608,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                 Cosplay tempCosplay = cosplay;
                 tempCosplay.mCosplayRemainingBudget += myPart.mCosplayPartCost;
                 cosplayViewModel.update(tempCosplay);
+                updateCosplayHeaderBudget();
                 dialog.dismiss();
                 mPartAdapterBuy.notifyDataSetChanged();
                 mPartAdapterMake.notifyDataSetChanged();
@@ -662,6 +663,9 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mEventCharityAdapter.notifyDataSetChanged();
     }
 
+    public void updateCosplayHeaderBudget(){
+        mBudget.setText(Double.toString(tempCosplay.mCosplayRemainingBudget));
+    }
     //All dialogs
     public void deleteDialog(final Event mEvent) {
         dialogBuilder = new AlertDialog.Builder(requireContext());
@@ -756,7 +760,6 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
     }
 
     public void UpdateCosplayDialog(final Cosplay cosplay) {
-       // final Cosplay[] mTempCosplay = {cosplay};
         dialogBuilder = new AlertDialog.Builder(requireContext());
         final View[] cosplayPopUpView = {getLayoutInflater().inflate(R.layout.add_cosplay, null)};
         mCosplayName = cosplayPopUpView[0].findViewById(R.id.EditText_NewCosplayName);
@@ -891,18 +894,17 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
 
                 cosplayViewModel.update(CosUP);
                 dialog.dismiss();
-                //mTempCosplay[0] = CosUP;
                 tempCosplay=CosUP;
                 mName.setText(CosUP.mCosplayName);
                 mEndDate.setText(CosUP.mCosplayEndDate);
-                mBudget.setText(Double.toString(CosUP.mCosplayRemainingBudget));
+                updateCosplayHeaderBudget();
                 mImage.setImageBitmap(CosUP.mCosplayIMG);
                 mPercentage.setText("% complete");
                 mCosplayNote.setText(CosUP.mCosplayNote);
 
             }
         });
-        //return mTempCosplay[0];
+
     }
 
     public void addNewCosplayWebshopDialog(final Cosplay cosplay) {
@@ -1100,6 +1102,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                     Cosplay tempCosplay = cosplay;
                     tempCosplay.mCosplayRemainingBudget -= temp.mCosplayPartCost;
                     cosplayViewModel.update(tempCosplay);
+                    updateCosplayHeaderBudget();
                     dialog.dismiss();
                 } else {
                     String tempString = getResources().getString(R.string.FillOutFields) + " " + getResources().getString(R.string.txtName);

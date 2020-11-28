@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey;
 
 import com.example.cosplan.data.Coplay.Cosplay;
 
-@Entity(tableName = "CosplayChecklist_table",foreignKeys = @ForeignKey(entity = Cosplay.class,
+@Entity(tableName = "CosplayChecklist_table",foreignKeys = @ForeignKey(onDelete = ForeignKey.CASCADE,entity = Cosplay.class,
         parentColumns = "Id",
         childColumns = "CosplayId"))
 public class ChecklistPart {
