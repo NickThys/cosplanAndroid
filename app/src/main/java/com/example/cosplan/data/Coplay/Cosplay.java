@@ -37,6 +37,10 @@ public class Cosplay implements Parcelable {
     public Bitmap mCosplayIMG;
     @ColumnInfo(name = "CosplayNote")
     public String mCosplayNote;
+    @ColumnInfo(name = "NumberOfParts")
+    public int mNumberOfParts;
+    @ColumnInfo(name = "CosplayPercentage")
+    public double mCosplayPercentage;
 
     public Cosplay(){}
 
