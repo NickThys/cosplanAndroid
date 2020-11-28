@@ -156,6 +156,7 @@ public class PartAdapter extends RecyclerView.Adapter<PartAdapter.PartViewHolder
         mPartName.setText(tempPart.mCosplayPartName);
         mPartLink.setText(tempPart.mCosplayPartLink);
         mPartCost.setText(Double.toString(tempPart.mCosplayPartCost));
+        mPartCost.setEnabled(false);
         mPartDate.setText(tempPart.mCosplayPartEndDate);
         mPartNotes.setText(tempPart.mCosplaypartNote);
         mDialogBuilder.setView(mPartDialog);

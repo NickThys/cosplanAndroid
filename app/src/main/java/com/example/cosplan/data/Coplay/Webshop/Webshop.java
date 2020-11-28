@@ -11,7 +11,7 @@ import androidx.room.PrimaryKey;
 
 import com.example.cosplan.data.Coplay.Cosplay;
 
-@Entity(tableName = "CosplayWebshop_table",foreignKeys = @ForeignKey(entity = Cosplay.class,
+@Entity(tableName = "CosplayWebshop_table",foreignKeys = @ForeignKey(onDelete = ForeignKey.CASCADE,entity = Cosplay.class,
         parentColumns = "Id",
         childColumns = "CosplayId"))
 public class Webshop implements Parcelable {

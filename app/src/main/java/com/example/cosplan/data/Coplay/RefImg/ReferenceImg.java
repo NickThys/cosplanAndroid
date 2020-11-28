@@ -12,7 +12,7 @@ import androidx.room.PrimaryKey;
 import com.example.cosplan.data.Coplay.Cosplay;
 
 @Entity(tableName = "CosplayRefImg_table",
-        foreignKeys = @ForeignKey(entity = Cosplay.class,
+        foreignKeys = @ForeignKey(onDelete = ForeignKey.CASCADE,entity = Cosplay.class,
                 parentColumns = "Id",
                 childColumns = "CosplayId"))
 public class ReferenceImg {
