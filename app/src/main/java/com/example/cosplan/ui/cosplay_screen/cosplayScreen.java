@@ -205,7 +205,8 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mUpdateCosplay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tempCosplay = UpdateCosplayDialog(tempCosplay);
+                UpdateCosplayDialog(tempCosplay);
+               // tempCosplay=temp;
             }
         });
         //endregion
@@ -754,8 +755,8 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         });
     }
 
-    public Cosplay UpdateCosplayDialog(final Cosplay cosplay) {
-        final Cosplay[] mTempCosplay = {cosplay};
+    public void UpdateCosplayDialog(final Cosplay cosplay) {
+       // final Cosplay[] mTempCosplay = {cosplay};
         dialogBuilder = new AlertDialog.Builder(requireContext());
         final View[] cosplayPopUpView = {getLayoutInflater().inflate(R.layout.add_cosplay, null)};
         mCosplayName = cosplayPopUpView[0].findViewById(R.id.EditText_NewCosplayName);
@@ -890,7 +891,8 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
 
                 cosplayViewModel.update(CosUP);
                 dialog.dismiss();
-                mTempCosplay[0] = CosUP;
+                //mTempCosplay[0] = CosUP;
+                tempCosplay=CosUP;
                 mName.setText(CosUP.mCosplayName);
                 mEndDate.setText(CosUP.mCosplayEndDate);
                 mBudget.setText(Double.toString(CosUP.mCosplayRemainingBudget));
@@ -900,7 +902,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
 
             }
         });
-        return mTempCosplay[0];
+        //return mTempCosplay[0];
     }
 
     public void addNewCosplayWebshopDialog(final Cosplay cosplay) {
@@ -1321,4 +1323,5 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
     }
+
 }
