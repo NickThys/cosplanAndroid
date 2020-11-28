@@ -149,6 +149,8 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         fl.addView(PartsView);
         cosplayAdapter = new CosplayAdapter(requireContext());
 
+        mPartAdapterBuy.setCosplay(tempCosplay,cosplayViewModel,v);
+
         //region initiate parts
         //Items from the header
         mName = v.findViewById(R.id.TextView_CosplayHeaderName);

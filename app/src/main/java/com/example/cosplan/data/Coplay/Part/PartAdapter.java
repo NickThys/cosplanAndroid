@@ -24,6 +24,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cosplan.R;
+import com.example.cosplan.data.Coplay.Cosplay;
+import com.example.cosplan.data.Coplay.CosplayViewModel;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -37,6 +39,17 @@ public class PartAdapter extends RecyclerView.Adapter<PartAdapter.PartViewHolder
     private DatePickerDialog.OnDateSetListener mEndDateSetListener;
     private PartViewModel mPartViewModel;
     private final Application mApplication;
+    private Cosplay mCosplay;
+    private CosplayViewModel mCosplayViewModel;
+    private TextView mBudget;
+    private View v;
+
+    public void setCosplay(Cosplay tempCosplay, CosplayViewModel cosplayViewModel, View v){
+        mCosplay=tempCosplay;
+        mCosplayViewModel=cosplayViewModel;
+        this.v=v;
+    }
+
 
     public PartAdapter(Context context, Application mApplication) {
         this.mApplication = mApplication;
@@ -156,7 +169,7 @@ public class PartAdapter extends RecyclerView.Adapter<PartAdapter.PartViewHolder
         mPartName.setText(tempPart.mCosplayPartName);
         mPartLink.setText(tempPart.mCosplayPartLink);
         mPartCost.setText(Double.toString(tempPart.mCosplayPartCost));
-        mPartCost.setEnabled(false);
+    //    mPartCost.setEnabled(false);
         mPartDate.setText(tempPart.mCosplayPartEndDate);
         mPartNotes.setText(tempPart.mCosplaypartNote);
         mDialogBuilder.setView(mPartDialog);
@@ -211,11 +224,31 @@ public class PartAdapter extends RecyclerView.Adapter<PartAdapter.PartViewHolder
         mPartUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                double OldCost=tempPart.mCosplayPartCost;
                 Part mTempPart =new Part(tempPart.mCosplayId,tempPart.mCosplayPartId,mPartName.getText().toString(),mPartBuyMake.getSelectedItem().toString(),mPartLink.getText().toString(),Double.parseDouble(mPartCost.getText().toString()),mPartStatus.getSelectedItem().toString(),mPartDate.getText().toString(),((BitmapDrawable)mPartImage.getDrawable()).getBitmap(),mPartNotes.getText().toString());
                 mPartViewModel.update(mTempPart);
+                Cosplay tempCosplay=mCosplay;
+                tempCosplay.mCosplayRemainingBudget=tempCosplay.mCosplayRemainingBudget-Double.parseDouble(mPartCost.getText().toString())+OldCost;
+                mCosplayViewModel.update(tempCosplay);
                 dialog.dismiss();
+                updateCosplayHeaderBudget();
             }
         });
+    }
+    public void updateCosplayHeaderBudget(){
+        mBudget=v.findViewById(R.id.TextView_CosplayHeaderBudget);
+        double percentage=mCosplay.mCosplayRemainingBudget/mCosplay.mCosplayBudget*100;
+        if(percentage<25&&percentage>0){
+            mBudget.setTextColor(Color.YELLOW);
+        }
+        else if(percentage<=0){
+            mBudget.setTextColor(Color.RED);
+        }
+        else{
+            mBudget.setTextColor(Color.GREEN);
+
+        }
+        mBudget.setText(Double.toString(mCosplay.mCosplayRemainingBudget));
     }
 }
 
