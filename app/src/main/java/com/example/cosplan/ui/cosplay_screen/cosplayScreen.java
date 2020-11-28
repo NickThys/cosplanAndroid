@@ -113,12 +113,14 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
 
     private DatePickerDialog.OnDateSetListener mStartDateSetListener, mEndDateSetListener;
     private static final int GALLERY_REQUEST_CODE = 1, GALLERY_REQUEST_CODE_PART = 2, GALLERY_REQUEST_CODE_REF_IMG = 3, GALLERY_REQUEST_CODE_WIP_IMG = 4, CAMERA_REQUEST_CODE_WIP_IMG = 5;
-
+    private List<Part> mPartsList,mListMake,mListBuy;
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        final List<Part> mPartsList = new ArrayList<>();
+         mPartsList = new ArrayList<>();
+         mListMake=new ArrayList<>();
+         mListBuy=new ArrayList<>();
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_cosplay_screen, container, false);
         //region Views of all the fragments
@@ -274,7 +276,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             }
         });
         //endregion
-
+        mPartsList.clear();
         //region Part View
         //recyclerview Make
         RecyclerView recyclerViewMake = v.findViewById(R.id.RecView_PartsToMake);
@@ -301,7 +303,9 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             @Override
             public void onChanged(List<Part> parts) {
                 mPartAdapterMake.setParts(parts);
-                mPartsList.addAll(parts);
+                mListMake.clear();
+                mListMake.addAll(parts);
+                updateCosplayPercentage();
             }
         });
         //recyclerview buy
@@ -328,7 +332,9 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             @Override
             public void onChanged(List<Part> parts) {
                 mPartAdapterBuy.setParts(parts);
-                mPartsList.addAll(parts);
+                mListBuy.clear();
+                mListBuy.addAll(parts);
+                updateCosplayPercentage();
             }
         });
         //fab to add a new cosplay part
@@ -681,6 +687,31 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         }
         mBudget.setText(Double.toString(tempCosplay.mCosplayRemainingBudget));
     }
+
+    public void updateCosplayPercentage(){
+        tempCosplay.mNumberOfParts=mListBuy.size()+mListMake.size();
+        int PartFinished=0;
+        for (Part mPart:mListMake
+             ) {
+            if (mPart.mCosplayPartStatus.equals("Finished")){
+                PartFinished++;
+            }
+        }
+        for (Part mPart:mListBuy
+        ) {
+            if (mPart.mCosplayPartStatus.equals("Finished")){
+                PartFinished++;
+            }
+        }
+        int per=100;
+        if (!(PartFinished ==0) &&!(tempCosplay.mNumberOfParts==0)) {
+
+
+            tempCosplay.mCosplayPercentage = PartFinished / tempCosplay.mNumberOfParts * per;
+        }
+        cosplayViewModel.update(tempCosplay);
+    }
+
     //All dialogs
     public void deleteDialog(final Event mEvent) {
         dialogBuilder = new AlertDialog.Builder(requireContext());
