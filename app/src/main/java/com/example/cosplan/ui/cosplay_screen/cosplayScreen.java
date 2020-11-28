@@ -67,6 +67,8 @@ import com.example.cosplan.data.Coplay.Webshop.WebshopAdapter;
 import com.example.cosplan.data.Coplay.Webshop.WebshopViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import org.w3c.dom.Text;
+
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -664,6 +666,17 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
     }
 
     public void updateCosplayHeaderBudget(){
+        double percentage=tempCosplay.mCosplayRemainingBudget/tempCosplay.mCosplayBudget*100;
+        if(percentage<25&&percentage>0){
+            mBudget.setTextColor(Color.YELLOW);
+        }
+        else if(percentage<=0){
+            mBudget.setTextColor(Color.RED);
+        }
+        else{
+            mBudget.setTextColor(Color.GREEN);
+
+        }
         mBudget.setText(Double.toString(tempCosplay.mCosplayRemainingBudget));
     }
     //All dialogs
