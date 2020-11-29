@@ -4,21 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/Btn_CheckListClearCheckBox"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:text="@string/CheckList_ClearCheckBox"
-        app:layout_constraintBottom_toBottomOf="@+id/FAB_CheckListAdd"
-        app:layout_constraintEnd_toStartOf="@+id/FAB_CheckListAdd"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/FAB_CheckListAdd" />
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/FAB_CheckListAdd"
         style="@style/FAB"
@@ -36,4 +21,31 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/Btn_CheckListClearCheckBox"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:text="@string/CheckList_ClearCheckBox"
+        app:layout_constraintBottom_toBottomOf="@+id/FAB_CheckListAdd"
+        app:layout_constraintEnd_toStartOf="@+id/FAB_CheckListAdd"
+        app:layout_constraintStart_toEndOf="@+id/Btn_CheckListExportToPDF"
+        app:layout_constraintTop_toTopOf="@+id/FAB_CheckListAdd" />
+
+    <Button
+        android:id="@+id/Btn_CheckListExportToPDF"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:text="@string/CheckListExportToPdf"
+        android:textColor="@android:color/darker_gray"
+        app:layout_constraintBottom_toBottomOf="@+id/Btn_CheckListClearCheckBox"
+        app:layout_constraintEnd_toStartOf="@+id/Btn_CheckListClearCheckBox"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/Btn_CheckListClearCheckBox" />
 </androidx.constraintlayout.widget.ConstraintLayout>
