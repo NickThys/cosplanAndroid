@@ -153,6 +153,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         cosplayAdapter = new CosplayAdapter(requireContext());
 
         mPartAdapterBuy.setCosplay(tempCosplay,cosplayViewModel,v);
+        mPartAdapterMake.setCosplay(tempCosplay,cosplayViewModel,v);
 
         //region initiate parts
         //Items from the header
