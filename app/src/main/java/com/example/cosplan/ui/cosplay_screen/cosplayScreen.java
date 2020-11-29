@@ -204,7 +204,8 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mEndDate.setText(tempCosplay.mCosplayEndDate);
         updateCosplayHeaderBudget();
         mImage.setImageBitmap(tempCosplay.mCosplayIMG);
-        mPercentage.setText("% complete");
+        updateCosplayPercentage();
+        mPercentage.setText(String.format("%s%%", tempCosplay.mCosplayPercentage));
         mfabAddPart = v.findViewById(R.id.Fab_PartsAdd);
 
         //onclick listener from the header
@@ -295,6 +296,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                 int position = viewHolder.getAdapterPosition();
                 Part myPart = mPartAdapterMake.getPartAtPosition(position);
                 deletePartDialog(myPart, tempCosplay);
+
             }
         });
         helperMake.attachToRecyclerView(recyclerViewMake);
@@ -595,7 +597,6 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
 
         //endregion
 
-
         return v;
     }
 
@@ -619,6 +620,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                 tempCosplay.mCosplayRemainingBudget += myPart.mCosplayPartCost;
                 cosplayViewModel.update(tempCosplay);
                 updateCosplayHeaderBudget();
+                updateCosplayPercentage();
                 dialog.dismiss();
                 mPartAdapterBuy.notifyDataSetChanged();
                 mPartAdapterMake.notifyDataSetChanged();
@@ -690,7 +692,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
 
     public void updateCosplayPercentage(){
         tempCosplay.mNumberOfParts=mListBuy.size()+mListMake.size();
-        int PartFinished=0;
+        double PartFinished=0;
         for (Part mPart:mListMake
              ) {
             if (mPart.mCosplayPartStatus.equals("Finished")){
@@ -703,13 +705,14 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                 PartFinished++;
             }
         }
-        int per=100;
         if (!(PartFinished ==0) &&!(tempCosplay.mNumberOfParts==0)) {
-
-
-            tempCosplay.mCosplayPercentage = PartFinished / tempCosplay.mNumberOfParts * per;
+            tempCosplay.mCosplayPercentage = PartFinished/tempCosplay.mNumberOfParts*100;
+        }
+        else{
+            tempCosplay.mCosplayPercentage=0.0;
         }
         cosplayViewModel.update(tempCosplay);
+        mPercentage.setText(Double.toString(tempCosplay.mCosplayPercentage)+"%");
     }
 
     //All dialogs
@@ -1149,6 +1152,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                     tempCosplay.mCosplayRemainingBudget -= temp.mCosplayPartCost;
                     cosplayViewModel.update(tempCosplay);
                     updateCosplayHeaderBudget();
+                    updateCosplayPercentage();
                     dialog.dismiss();
                 } else {
                     String tempString = getResources().getString(R.string.FillOutFields) + " " + getResources().getString(R.string.txtName);
