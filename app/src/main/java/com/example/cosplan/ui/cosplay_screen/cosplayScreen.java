@@ -71,6 +71,7 @@ import org.w3c.dom.Text;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.LinkedList;
@@ -113,12 +114,14 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
 
     private DatePickerDialog.OnDateSetListener mStartDateSetListener, mEndDateSetListener;
     private static final int GALLERY_REQUEST_CODE = 1, GALLERY_REQUEST_CODE_PART = 2, GALLERY_REQUEST_CODE_REF_IMG = 3, GALLERY_REQUEST_CODE_WIP_IMG = 4, CAMERA_REQUEST_CODE_WIP_IMG = 5;
-
+    private List<Part> mPartsList,mListMake,mListBuy;
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        final List<Part> mPartsList = new ArrayList<>();
+         mPartsList = new ArrayList<>();
+         mListMake=new ArrayList<>();
+         mListBuy=new ArrayList<>();
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_cosplay_screen, container, false);
         //region Views of all the fragments
@@ -150,6 +153,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         cosplayAdapter = new CosplayAdapter(requireContext());
 
         mPartAdapterBuy.setCosplay(tempCosplay,cosplayViewModel,v);
+        mPartAdapterMake.setCosplay(tempCosplay,cosplayViewModel,v);
 
         //region initiate parts
         //Items from the header
@@ -202,7 +206,8 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mEndDate.setText(tempCosplay.mCosplayEndDate);
         updateCosplayHeaderBudget();
         mImage.setImageBitmap(tempCosplay.mCosplayIMG);
-        mPercentage.setText("% complete");
+        updateCosplayPercentage();
+        mPercentage.setText(String.format("%s%%", tempCosplay.mCosplayPercentage));
         mfabAddPart = v.findViewById(R.id.Fab_PartsAdd);
 
         //onclick listener from the header
@@ -274,7 +279,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             }
         });
         //endregion
-
+        mPartsList.clear();
         //region Part View
         //recyclerview Make
         RecyclerView recyclerViewMake = v.findViewById(R.id.RecView_PartsToMake);
@@ -293,6 +298,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                 int position = viewHolder.getAdapterPosition();
                 Part myPart = mPartAdapterMake.getPartAtPosition(position);
                 deletePartDialog(myPart, tempCosplay);
+
             }
         });
         helperMake.attachToRecyclerView(recyclerViewMake);
@@ -301,7 +307,9 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             @Override
             public void onChanged(List<Part> parts) {
                 mPartAdapterMake.setParts(parts);
-                mPartsList.addAll(parts);
+                mListMake.clear();
+                mListMake.addAll(parts);
+                updateCosplayPercentage();
             }
         });
         //recyclerview buy
@@ -328,7 +336,9 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             @Override
             public void onChanged(List<Part> parts) {
                 mPartAdapterBuy.setParts(parts);
-                mPartsList.addAll(parts);
+                mListBuy.clear();
+                mListBuy.addAll(parts);
+                updateCosplayPercentage();
             }
         });
         //fab to add a new cosplay part
@@ -589,7 +599,6 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
 
         //endregion
 
-
         return v;
     }
 
@@ -613,6 +622,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                 tempCosplay.mCosplayRemainingBudget += myPart.mCosplayPartCost;
                 cosplayViewModel.update(tempCosplay);
                 updateCosplayHeaderBudget();
+                updateCosplayPercentage();
                 dialog.dismiss();
                 mPartAdapterBuy.notifyDataSetChanged();
                 mPartAdapterMake.notifyDataSetChanged();
@@ -681,6 +691,34 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         }
         mBudget.setText(Double.toString(tempCosplay.mCosplayRemainingBudget));
     }
+
+    public void updateCosplayPercentage(){
+        tempCosplay.mNumberOfParts=mListBuy.size()+mListMake.size();
+        double PartFinished=0;
+        for (Part mPart:mListMake
+             ) {
+            if (mPart.mCosplayPartStatus.equals("Finished")){
+                PartFinished++;
+            }
+        }
+        for (Part mPart:mListBuy
+        ) {
+            if (mPart.mCosplayPartStatus.equals("Finished")){
+                PartFinished++;
+            }
+        }
+        if (!(PartFinished ==0) &&!(tempCosplay.mNumberOfParts==0)) {
+            tempCosplay.mCosplayPercentage = PartFinished/tempCosplay.mNumberOfParts*100;
+        }
+        else{
+            tempCosplay.mCosplayPercentage=0.0;
+        }
+        cosplayViewModel.update(tempCosplay);
+        DecimalFormat form=new DecimalFormat("0.00");
+        mPercentage.setText(form.format(tempCosplay.mCosplayPercentage)+" %");
+
+    }
+
     //All dialogs
     public void deleteDialog(final Event mEvent) {
         dialogBuilder = new AlertDialog.Builder(requireContext());
@@ -1118,6 +1156,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                     tempCosplay.mCosplayRemainingBudget -= temp.mCosplayPartCost;
                     cosplayViewModel.update(tempCosplay);
                     updateCosplayHeaderBudget();
+                    updateCosplayPercentage();
                     dialog.dismiss();
                 } else {
                     String tempString = getResources().getString(R.string.FillOutFields) + " " + getResources().getString(R.string.txtName);

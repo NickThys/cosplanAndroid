@@ -89,7 +89,7 @@
         android:layout_marginTop="6dp"
         android:ems="10"
         android:hint="@string/NewPart_CostHint"
-        android:inputType="textPersonName"
+        android:inputType="numberDecimal"
         app:layout_constraintBottom_toTopOf="@+id/EditText_PartUpdateEnddate"
         app:layout_constraintEnd_toEndOf="@+id/EditText_PartUpdateLink"
         app:layout_constraintStart_toStartOf="@+id/EditText_PartUpdateLink"
