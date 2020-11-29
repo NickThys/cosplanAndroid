@@ -107,8 +107,10 @@
         <Button
             android:id="@+id/Btn_NewCosplayCancel"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:text="@string/btnCancel"
+            app:layout_constraintBottom_toBottomOf="@+id/Btn_NewCosplayAdd"
+            app:layout_constraintEnd_toStartOf="@+id/Btn_NewCosplayAdd"
             app:layout_constraintStart_toStartOf="@+id/ImageView_NewCosplayImgPreview"
             app:layout_constraintTop_toTopOf="@+id/Btn_NewCosplayAdd" />
     </androidx.constraintlayout.widget.ConstraintLayout>

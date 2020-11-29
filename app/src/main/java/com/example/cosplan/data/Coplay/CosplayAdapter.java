@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.cosplan.R;
 import com.example.cosplan.ui.home.CosplayFragmentDirections;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class CosplayAdapter extends RecyclerView.Adapter<CosplayAdapter.CosplayViewHolder> {
@@ -40,15 +41,12 @@ public class CosplayAdapter extends RecyclerView.Adapter<CosplayAdapter.CosplayV
     @Override
     public void onBindViewHolder(@NonNull CosplayViewHolder holder, int position) {
         final Cosplay current = mCosplays.get(position);
-        String tempName = current.mCosplayName;
-        String tempEndDate = current.mCosplayEndDate;
-        String tempPercentage = "% Complete";
-        Bitmap bitmap = current.mCosplayIMG;
 
-        holder.CosplayName.setText(tempName);
-        holder.CosplayEndDate.setText(tempEndDate);
-        holder.CosplayPercentage.setText(tempPercentage);
-        holder.CosplayImg.setImageBitmap(bitmap);
+        DecimalFormat form=new DecimalFormat("0.00");
+        holder.CosplayName.setText(current.mCosplayName);
+        holder.CosplayEndDate.setText(current.mCosplayEndDate);
+        holder.CosplayPercentage.setText(form.format(current.mCosplayPercentage)+" %");
+        holder.CosplayImg.setImageBitmap(current.mCosplayIMG);
 
         View itemView=holder.itemView;
         itemView.findViewById(R.id.cosplayrowLayout);
