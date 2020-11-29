@@ -26,7 +26,7 @@ import com.example.cosplan.data.Coplay.Webshop.Webshop;
 import com.example.cosplan.data.Coplay.Webshop.WebshopDao;
 
 @TypeConverters(Converters.class)
-@Database(entities = {Cosplay.class, Part.class, ReferenceImg.class, Webshop.class, ChecklistPart.class, ShoppingListPart.class, WIPImg.class,Event.class}, version =4,exportSchema = true)
+@Database(entities = {Cosplay.class, Part.class, ReferenceImg.class, Webshop.class, ChecklistPart.class, ShoppingListPart.class, WIPImg.class,Event.class}, version =1,exportSchema = true)
 public abstract class CosplayDatabase extends RoomDatabase {
     public abstract CosplayDao cosplayDao();
 
@@ -50,22 +50,11 @@ public abstract class CosplayDatabase extends RoomDatabase {
         if (INSTANCE == null) {
             synchronized (CosplayDatabase.class) {
                 if (INSTANCE == null) {
-                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(), CosplayDatabase.class, "cosplayDatabase").addMigrations(MIGRATION_2_3,MIGRATION_3_4).build();
+                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(), CosplayDatabase.class, "cosplayDatabase").build();
                 }
             }
         }
         return INSTANCE;
     }
-    static final Migration MIGRATION_2_3=new Migration(2,3) {
-        @Override
-        public void migrate(@NonNull SupportSQLiteDatabase database) {
-            database.execSQL("ALTER TABLE CosplayPart_table ADD COLUMN CosplayPartNote TEXT");
-        }
-    };
-    static final Migration MIGRATION_3_4=new Migration(3,4) {
-        @Override
-        public void migrate(@NonNull SupportSQLiteDatabase database) {
-            database.execSQL("ALTER TABLE cosplay_table ADD COLUMN CosplayCurrentBudget REAL");
-        }
-    };
+
 }
