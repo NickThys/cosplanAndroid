@@ -27,7 +27,7 @@ public class ShoppingListPart {
 
 
     public ShoppingListPart() {}
-    public ShoppingListPart(int mCosplayId, int mCosplayShoppingLIstPartId, String mCosplayShoppingListPartShop, String mCosplayShoppingListPartName, boolean mCosplayShoppingListPartChecked) {
+    public ShoppingListPart(int mCosplayId, int mCosplayShoppingLIstPartId, String mCosplayShoppingListPartName , String  mCosplayShoppingListPartShop, boolean mCosplayShoppingListPartChecked) {
         this.mCosplayId = mCosplayId;
         this.mCosplayShoppingLIstPartId = mCosplayShoppingLIstPartId;
         this.mCosplayShoppingListPartShop = mCosplayShoppingListPartShop;
