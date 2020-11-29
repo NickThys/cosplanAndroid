@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -69,8 +70,12 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.w3c.dom.Text;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -107,7 +112,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
     private FloatingActionButton mfabAddPart, mCheckListPartAdd, mFabAddCosplayWebshop, mFabShoppingListAdd, mFabEventsAdd;
     private RecyclerView mRVRefImg, mRVWIPImg, mRecViewCosplayWebshop, mRVCheckListPart, mRVShoppingList, mRecViewEventsConvention, mRecViewEventsShoots, mRecViewEventsCharity;
     private ImageView mCosplayImage;
-
+    private OutputStream mOutPutStream;
     private EventAdapter mEventConventionAdapter, mEventShootAdapter, mEventCharityAdapter;
 
     private Cosplay tempCosplay = null;
@@ -1363,6 +1368,27 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
 
             WIPImg temp = new WIPImg(tempCosplay.mCosplayId, 0, img);
             wipImgViewModel.insert(temp);
+
+            File mFilePath= Environment.getExternalStorageDirectory();
+            File mDir=new File(mFilePath.getAbsolutePath()+"/Cosplan/"+tempCosplay.mCosplayName);
+            mDir.mkdir();
+            File mFile=new File(mDir,System.currentTimeMillis()+".jpg");
+            try {
+                mOutPutStream=new FileOutputStream(mFile);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            img.compress(Bitmap.CompressFormat.JPEG,100,mOutPutStream);
+            try {
+                mOutPutStream.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                mOutPutStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             setWipImagesInGrid(tempCosplay, wipImgAdapter);
         }
     }
