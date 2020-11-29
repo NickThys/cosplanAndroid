@@ -103,7 +103,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
     private ImageView mPartImage;
     private EditText mCosplayName, mCosplayStartDate, mCosplayEndDate, mCosplayBudget, mPartName, mPartLink, mPartCost, mPartEndDate, mCosplayNote;
     private Spinner mPartmakeBuy;
-    private Button mPartChooseImage, mPartCancel, mPartAddPart, mCosplayNotesSave, mRefImgAdd, mCheckListPartClear, mWIPImgAddPicture, mWIPImgTakePicture, mChoosePicture, mCancel, mUpdateCosplays, mCosplayParts, mCosplayNotes, mCosplayRefPic, mCosplayWIPPic, mCosplayChecklist, mCosplayShoppinglist, mCosplayWebshop, mCosplayEvents, mShoppingListAdd, mShoppingListCancel, mShoppingListClear;
+    private Button mPartChooseImage, mPartCancel, mPartAddPart, mCosplayNotesSave, mRefImgAdd, mCheckListPartClear,mCheckListExportToPDF, mWIPImgAddPicture, mWIPImgTakePicture, mChoosePicture, mCancel, mUpdateCosplays, mCosplayParts, mCosplayNotes, mCosplayRefPic, mCosplayWIPPic, mCosplayChecklist, mCosplayShoppinglist, mCosplayWebshop, mCosplayEvents, mShoppingListAdd, mShoppingListCancel, mShoppingListClear;
     private FloatingActionButton mfabAddPart, mCheckListPartAdd, mFabAddCosplayWebshop, mFabShoppingListAdd, mFabEventsAdd;
     private RecyclerView mRVRefImg, mRVWIPImg, mRecViewCosplayWebshop, mRVCheckListPart, mRVShoppingList, mRecViewEventsConvention, mRecViewEventsShoots, mRecViewEventsCharity;
     private ImageView mCosplayImage;
@@ -185,6 +185,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mRVCheckListPart = CheckListView.findViewById(R.id.RecView_CheckList);
         mCheckListPartAdd = CheckListView.findViewById(R.id.FAB_CheckListAdd);
         mCheckListPartClear = CheckListView.findViewById(R.id.Btn_CheckListClearCheckBox);
+        mCheckListExportToPDF=CheckListView.findViewById(R.id.Btn_CheckListExportToPDF);
         //items from the ShoppingList;
         mRVShoppingList = ShoppingListView.findViewById(R.id.RecView_Shoppinglist);
         mFabShoppingListAdd = ShoppingListView.findViewById(R.id.Fab_ShoppinglistAdd);
@@ -448,6 +449,12 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             @Override
             public void onClick(View v) {
                 checkListClearCheckBoxes(mAllCheckListParts);
+            }
+        });
+        mCheckListExportToPDF.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "Coming soon", Toast.LENGTH_SHORT).show();
             }
         });
         //endregion

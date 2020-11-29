@@ -92,6 +92,7 @@
     <string name="TitleUpdatePart">Update part</string>
     <string name="ImageFullScreenClose">close</string>
     <string name="imageDelete">Delete</string>
+    <string name="CheckListExportToPdf">Export To PDF</string>
     <string-array name="BuyMake">
         <item>Buy</item>
         <item>Make</item>
