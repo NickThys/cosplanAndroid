@@ -93,6 +93,7 @@
     <string name="ImageFullScreenClose">close</string>
     <string name="imageDelete">Delete</string>
     <string name="CheckListExportToPdf">Export To PDF</string>
+    <string name="EventUpdate">Update Event</string>
     <string-array name="BuyMake">
         <item>Buy</item>
         <item>Make</item>
