@@ -807,6 +807,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             public void onClick(View v) {
                 mCheckListPartViewModel.delete(mCheckListPart);
                 Toast.makeText(requireContext(), mCheckListPart.mCosplayCheckListPartName + " deleted", Toast.LENGTH_SHORT).show();
+                mCheckListPartAdapter.notifyDataSetChanged();
                 dialog.dismiss();
             }
         });
@@ -814,7 +815,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
-                getActivity().recreate();
+                mCheckListPartAdapter.notifyDataSetChanged();
             }
         });
     }
@@ -1190,7 +1191,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                 mShoppingListViewModel.deleteAll(part);
                 Toast.makeText(requireContext(), "Shopping list  deleted", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
-                getActivity().recreate();
+                mShoppingListPartAdapter.notifyDataSetChanged();
             }
         });
         no.setOnClickListener(new View.OnClickListener() {
