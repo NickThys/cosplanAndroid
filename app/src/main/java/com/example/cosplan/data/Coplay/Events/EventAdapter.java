@@ -109,6 +109,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
     public void updateEventDialog(final Event TempEvent) {
         final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(mContext);
         final View mEventDialog = mInflater.inflate(R.layout.events_dialog, null);
+        final TextView mEventTitle;
         final Spinner mEventType;
         final EditText mEventName, mEventPlace, mEventStartDate, mEventEndDate;
         final Button mEventAdd, mEventCancel;
@@ -123,11 +124,13 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         mEventEndDate = mEventDialog.findViewById(R.id.EditText_NewEventEndDate);
         mEventAdd = mEventDialog.findViewById(R.id.Btn_NewEventAdd);
         mEventCancel = mEventDialog.findViewById(R.id.Btn_NewEventCancel);
+        mEventTitle=mEventDialog.findViewById(R.id.TextView_NewEventTitle);
         mEventName.setText(TempEvent.mCosplayEventName);
         mEventPlace.setText(TempEvent.mCosplayEventPlace);
         mEventStartDate.setText(TempEvent.mCosplayEventBeginDate);
         mEventEndDate.setText(TempEvent.mCosplayEventEndDate);
         mEventType.setSelection(mEventArrayAdapter.getPosition(TempEvent.mCosplayEventType));
+        mEventTitle.setText(R.string.EventUpdate);
         dialogBuilder.setView(mEventDialog);
         final Dialog dialog = dialogBuilder.create();
         dialog.show();
