@@ -71,6 +71,7 @@ import org.w3c.dom.Text;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.LinkedList;
@@ -712,7 +713,9 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             tempCosplay.mCosplayPercentage=0.0;
         }
         cosplayViewModel.update(tempCosplay);
-        mPercentage.setText(Double.toString(tempCosplay.mCosplayPercentage)+"%");
+        DecimalFormat form=new DecimalFormat("0.00");
+        mPercentage.setText(form.format(tempCosplay.mCosplayPercentage)+" %");
+
     }
 
     //All dialogs
