@@ -23,6 +23,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.cosplan.R;
 import com.example.cosplan.data.Coplay.Cosplay;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
@@ -145,7 +147,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
                     int month;
                     int day;
                     String mtemp = mEventStartDate.getText().toString().trim();
-                    if (mtemp.matches("")) {
+                    if (!checkDateFormat(mtemp)) {
                         Calendar calendar = Calendar.getInstance();
                         year = calendar.get(Calendar.YEAR);
                         month = calendar.get(Calendar.MONTH);
@@ -181,7 +183,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
                     int month;
                     int day;
                     String mtemp = mEventEndDate.getText().toString().trim();
-                    if (mtemp.matches("")) {
+                    if (!checkDateFormat(mtemp)) {
                         Calendar calendar = Calendar.getInstance();
                         year = calendar.get(Calendar.YEAR);
                         month = calendar.get(Calendar.MONTH);
@@ -225,5 +227,15 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
             }
         });
     }
-
+    public Boolean checkDateFormat(String date){
+        if (date == null || !date.matches("^(1[0-9]|0[1-9]|3[0-1]|2[1-9])/(0[1-9]|1[0-2])/[0-9]{4}$"))
+            return false;
+        SimpleDateFormat format=new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            format.parse(date);
+            return true;
+        }catch (ParseException e){
+            return false;
+        }
+    }
 }
