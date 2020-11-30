@@ -72,6 +72,8 @@ import org.w3c.dom.Text;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.LinkedList;
@@ -854,7 +856,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                     int month;
                     int day;
                     String mtemp = mCosplayStartDate.getText().toString().trim();
-                    if (mtemp.matches("")) {
+                    if (!checkDateFormat(mtemp)) {
                         Calendar calendar = Calendar.getInstance();
                         year = calendar.get(Calendar.YEAR);
                         month = calendar.get(Calendar.MONTH);
@@ -891,7 +893,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                     int month;
                     int day;
                     String mtemp = mCosplayEndDate.getText().toString().trim();
-                    if (mtemp.matches("")) {
+                    if (!checkDateFormat(mtemp)) {
                         Calendar calendar = Calendar.getInstance();
                         year = calendar.get(Calendar.YEAR);
                         month = calendar.get(Calendar.MONTH);
@@ -1100,7 +1102,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                     int month;
                     int day;
                     String mtemp = mPartEndDate.getText().toString().trim();
-                    if (mtemp.matches("")) {
+                    if (!checkDateFormat(mtemp)) {
                         Calendar calendar = Calendar.getInstance();
                         year = calendar.get(Calendar.YEAR);
                         month = calendar.get(Calendar.MONTH);
@@ -1236,7 +1238,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                     int month;
                     int day;
                     String mtemp = mEventStartDate.getText().toString().trim();
-                    if (mtemp.matches("")) {
+                    if (!checkDateFormat(mtemp)) {
                         Calendar calendar = Calendar.getInstance();
                         year = calendar.get(Calendar.YEAR);
                         month = calendar.get(Calendar.MONTH);
@@ -1272,7 +1274,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                     int month;
                     int day;
                     String mtemp = mEventEndDate.getText().toString().trim();
-                    if (mtemp.matches("")) {
+                    if (!checkDateFormat(mtemp)) {
                         Calendar calendar = Calendar.getInstance();
                         year = calendar.get(Calendar.YEAR);
                         month = calendar.get(Calendar.MONTH);
@@ -1374,7 +1376,17 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             setWipImagesInGrid(tempCosplay, wipImgAdapter);
         }
     }
-
+    public Boolean checkDateFormat(String date){
+        if (date == null || !date.matches("^(1[0-9]|0[1-9]|3[0-1]|2[1-9])/(0[1-9]|1[0-2])/[0-9]{4}$"))
+            return false;
+        SimpleDateFormat format=new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            format.parse(date);
+            return true;
+        }catch (ParseException e){
+            return false;
+        }
+    }
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);

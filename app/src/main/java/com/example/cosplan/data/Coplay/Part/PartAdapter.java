@@ -29,6 +29,8 @@ import com.example.cosplan.data.Coplay.CosplayViewModel;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
@@ -185,7 +187,7 @@ public class PartAdapter extends RecyclerView.Adapter<PartAdapter.PartViewHolder
                     int month;
                     int day;
                     String mtemp = mPartDate.getText().toString().trim();
-                    if (mtemp.matches("")) {
+                    if (!checkDateFormat(mtemp)) {
                         Calendar calendar = Calendar.getInstance();
                         year = calendar.get(Calendar.YEAR);
                         month = calendar.get(Calendar.MONTH);
@@ -234,6 +236,17 @@ public class PartAdapter extends RecyclerView.Adapter<PartAdapter.PartViewHolder
                 updateCosplayHeaderBudget();
             }
         });
+    }
+    public Boolean checkDateFormat(String date){
+        if (date == null || !date.matches("^(1[0-9]|0[1-9]|3[0-1]|2[1-9])/(0[1-9]|1[0-2])/[0-9]{4}$"))
+            return false;
+        SimpleDateFormat format=new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            format.parse(date);
+            return true;
+        }catch (ParseException e){
+            return false;
+        }
     }
     public void updateCosplayHeaderBudget(){
         mBudget=v.findViewById(R.id.TextView_CosplayHeaderBudget);

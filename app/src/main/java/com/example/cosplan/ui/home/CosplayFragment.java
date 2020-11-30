@@ -36,6 +36,8 @@ import com.example.cosplan.data.Coplay.CosplayAdapter;
 import com.example.cosplan.data.Coplay.CosplayViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
@@ -154,7 +156,7 @@ public class CosplayFragment extends Fragment {
                     int month;
                     int day;
                     String mtemp = mCosplayStartDate.getText().toString().trim();
-                    if (mtemp.matches("")) {
+                   if (!checkDateFormat(mtemp)) {
                         Calendar calendar = Calendar.getInstance();
                         year = calendar.get(Calendar.YEAR);
                         month = calendar.get(Calendar.MONTH);
@@ -191,12 +193,13 @@ public class CosplayFragment extends Fragment {
                     int month;
                     int day;
                     String mtemp = mCosplayEndDate.getText().toString().trim();
-                    if (mtemp.matches("")) {
+                    if (!checkDateFormat(mtemp)) {
                         Calendar calendar = Calendar.getInstance();
                         year = calendar.get(Calendar.YEAR);
                         month = calendar.get(Calendar.MONTH);
                         day = calendar.get(Calendar.DAY_OF_MONTH);
                     } else {
+
                         String mDateComlete = mCosplayEndDate.getText().toString();
                         String[] mDate = mDateComlete.split("/");
                         day = Integer.parseInt(mDate[0].trim());
@@ -211,6 +214,7 @@ public class CosplayFragment extends Fragment {
                 }
             }
         });
+
         mEndDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -264,6 +268,17 @@ public class CosplayFragment extends Fragment {
 
     }
 
+    public Boolean checkDateFormat(String date){
+        if (date == null || !date.matches("^(1[0-9]|0[1-9]|3[0-1]|2[1-9])/(0[1-9]|1[0-2])/[0-9]{4}$"))
+            return false;
+        SimpleDateFormat format=new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            format.parse(date);
+            return true;
+        }catch (ParseException e){
+            return false;
+        }
+    }
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
