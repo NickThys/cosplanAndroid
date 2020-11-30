@@ -7,11 +7,11 @@ android {
     buildToolsVersion "30.0.2"
 
     defaultConfig {
-        applicationId "com.example.cosplan"
+        applicationId 'com.cosplan'
         minSdkVersion 16
         targetSdkVersion 30
-        versionCode 4
-        versionName "4"
+        versionCode 5
+        versionName "4.1"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
