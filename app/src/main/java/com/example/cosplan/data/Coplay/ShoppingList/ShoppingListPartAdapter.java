@@ -22,6 +22,10 @@ public class ShoppingListPartAdapter extends RecyclerView.Adapter<ShoppingListPa
     private final LayoutInflater mInflater;
     private final Application mApplication;
 
+    public List<ShoppingListPart> getmShoppingListParts() {
+        return mShoppingListParts;
+    }
+
     public ShoppingListPartAdapter(Context context, Application application) {
         mInflater = LayoutInflater.from(context);
         mApplication = application;
