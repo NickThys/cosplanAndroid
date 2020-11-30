@@ -497,7 +497,9 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mShoppingListClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(mShoppingListPartAdapter.getmShoppingListParts().size()!=0){
                 deleteWholeShoppingListDialog(mShoppingListPartAdapter.getShoppingListPartAtPosition(0));
+                }
             }
         });
         //endregion
@@ -1190,6 +1192,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 mShoppingListViewModel.deleteAll(part);
                 Toast.makeText(requireContext(), "Shopping list  deleted", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
