@@ -20,7 +20,11 @@
         android:name="com.example.cosplan.ui.calender.CalenderFragment"
         android:label="@string/menu_calender"
         tools:layout="@layout/fragment_calender" />
-
+    <fragment
+        android:id="@+id/nav_settings"
+        android:name="com.example.cosplan.ui.settings.SettingsFragment"
+        android:label="@string/menu_settings"
+        tools:layout="@layout/fragment_settings" />
     <fragment
         android:id="@+id/nav_webshop"
         android:name="com.example.cosplan.ui.webshop.WebshopFragment"
