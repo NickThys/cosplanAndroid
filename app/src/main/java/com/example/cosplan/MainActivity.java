@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setNavigationViewListener();
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.Toolbar);
         setSupportActionBar(toolbar);
@@ -57,6 +56,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+        navigationView.findViewById(R.id.nav_settings).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(),"Comming soon.",Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 
     @Override
@@ -72,22 +78,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         outState.clear();
     }
 
-    private void setNavigationViewListener() {
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-    }
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
 
-            case R.id.nav_settings: {
-                //do somthing
-                Toast.makeText(this,"Comming soon.",Toast.LENGTH_SHORT).show();
-                break;
-            }
-        }
-        //close navigation drawer
-        //mDrawerLayout.closeDrawer(GravityCompat.START);
-        return true;
-    }
+
 }
