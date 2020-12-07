@@ -17,8 +17,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cosplan.R;
-import com.example.cosplan.data.Coplay.WIPImg.WIPImg;
-import com.example.cosplan.data.Coplay.WIPImg.WIPImgViewModel;
 
 import java.util.List;
 
@@ -98,8 +96,8 @@ public class RefenceImgAdapter extends RecyclerView.Adapter<RefenceImgAdapter.Re
         TextView mDeleteText = deleteCosplayView.findViewById(R.id.TextView_DeleteTitle);
         mDeleteText.setText( "Do you want to delete this image");
         final Button yes, no;
-        no = deleteCosplayView.findViewById(R.id.Btn_DeleteNo);
-        yes = deleteCosplayView.findViewById(R.id.Btn_DeleteYes);
+        no = deleteCosplayView.findViewById(R.id.Btn_DeleteCancel);
+        yes = deleteCosplayView.findViewById(R.id.Btn_DeleteDelete);
         dialogBuilder.setView(deleteCosplayView);
         final Dialog dialog = dialogBuilder.create();
         dialog.show();

@@ -108,8 +108,8 @@ public class CosplayFragment extends Fragment {
         TextView mDeleteText=deleteCosplayView.findViewById(R.id.TextView_DeleteTitle);
         mDeleteText.setText(getString(R.string.ConformationDeleteCosplay)+cosplay.mCosplayName);
         Button yes,no;
-        no=deleteCosplayView.findViewById(R.id.Btn_DeleteNo);
-        yes=deleteCosplayView.findViewById(R.id.Btn_DeleteYes);
+        no=deleteCosplayView.findViewById(R.id.Btn_DeleteCancel);
+        yes=deleteCosplayView.findViewById(R.id.Btn_DeleteDelete);
         dialogBuilder.setView(deleteCosplayView);
         dialog=dialogBuilder.create();
         dialog.show();
