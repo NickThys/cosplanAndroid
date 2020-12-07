@@ -94,6 +94,7 @@
     <string name="imageDelete">Delete</string>
     <string name="CheckListExportToPdf">Export To PDF</string>
     <string name="EventUpdate">Update Event</string>
+    <string name="UpdateWebshop">Update webshop</string>
     <string-array name="BuyMake">
         <item>Buy</item>
         <item>Make</item>

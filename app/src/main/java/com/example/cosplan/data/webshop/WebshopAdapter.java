@@ -13,42 +13,41 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cosplan.R;
-import com.example.cosplan.data.Coplay.Webshop.WebshopViewModel;
-import com.example.cosplan.ui.webshop.WebshopFragmentDirections;
 
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 public class WebshopAdapter extends RecyclerView.Adapter<WebshopAdapter.WebshopViewHolder> {
     private List<Webshop> mWebshops;
-    private final LayoutInflater mInflater;
+    private final LayoutInflater mLayoutInflater;
     final com.example.cosplan.data.webshop.WebshopViewModel mWebshopViewModel;
     AlertDialog.Builder dialogBuilder;
-    public WebshopAdapter(Context context, Application mAppcation) {
-        mInflater = LayoutInflater.from(context);
-        mWebshopViewModel=new com.example.cosplan.data.webshop.WebshopViewModel(mAppcation);
-        dialogBuilder=new AlertDialog.Builder(context);
+
+    public WebshopAdapter(Context context, Application mApplication) {
+        mLayoutInflater = LayoutInflater.from(context);
+        mWebshopViewModel = new com.example.cosplan.data.webshop.WebshopViewModel(mApplication);
+        dialogBuilder = new AlertDialog.Builder(context);
     }
 
-
-    class WebshopViewHolder extends RecyclerView.ViewHolder {
-        private final TextView WebsiteName;
-        private final TextView textviewLink;
+    static class WebshopViewHolder extends RecyclerView.ViewHolder {
+        private final TextView mWebshopName, mWebshopLink;
 
         public WebshopViewHolder(@NonNull View itemView) {
             super(itemView);
-            WebsiteName = itemView.findViewById(R.id.TextView_WebshopName);
-            textviewLink = itemView.findViewById(R.id.TextView_WebshopLink);
+            mWebshopName = itemView.findViewById(R.id.TextView_WebshopName);
+            mWebshopLink = itemView.findViewById(R.id.TextView_WebshopLink);
         }
     }
 
+    @NotNull
     @Override
-    public WebshopViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = mInflater.inflate(R.layout.custum_webshop_row, parent, false);
+    public WebshopViewHolder onCreateViewHolder(@NotNull ViewGroup parent, int viewType) {
+        View itemView = mLayoutInflater.inflate(R.layout.custum_webshop_row, parent, false);
         return new WebshopViewHolder(itemView);
     }
 
@@ -68,59 +67,59 @@ public class WebshopAdapter extends RecyclerView.Adapter<WebshopAdapter.WebshopV
 
     @Override
     public void onBindViewHolder(@NonNull final WebshopViewHolder holder, int position) {
+        final Webshop mCurrentWebshop = mWebshops.get(position);
+        String mWebshopName = mCurrentWebshop.mWebshopName;
+        String mWebshopLink = mCurrentWebshop.mWebshopLink;
 
+        holder.mWebshopLink.setText(mWebshopLink);
+        holder.mWebshopName.setText(mWebshopName);
 
-        final Webshop current = mWebshops.get(position);
-        String tempName = current.mSiteName;
-        String tempLink = current.mSiteLink;
-        holder.textviewLink.setText(tempLink);
-
-        holder.WebsiteName.setText(tempName);
         View itemView = holder.itemView;
         itemView.findViewById(R.id.ConstraintLayout_Webshop);
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                final Dialog dialog;
+                final Dialog mDialog;
+                final View WebshopPopUpView = mLayoutInflater.inflate(R.layout.cosplay_webshop, null);
+                final EditText mWebshopName, mWebshopLink;
+                final Button mCancel, mAdd;
 
-                final View WebshopPopUpView=mInflater.inflate(R.layout.cosplay_webshop,null);
-                final EditText mSiteName,mSiteLink;
-                Button mCancel,mAdd;
-                mSiteLink=WebshopPopUpView.findViewById(R.id.EditText_NewCosplayWebsiteLink);
-                mSiteName=WebshopPopUpView.findViewById(R.id.EditText_NewCosplayWebsiteName);
-                mAdd=WebshopPopUpView.findViewById(R.id.Btn_NewCosplayWebsiteAdd);
-                mCancel=WebshopPopUpView.findViewById(R.id.Btn_NewCosplayWebsiteCancel);
-                TextView mTitle=WebshopPopUpView.findViewById(R.id.txt_cosplayWebshop);
+                mWebshopLink = WebshopPopUpView.findViewById(R.id.EditText_NewCosplayWebsiteLink);
+                mWebshopName = WebshopPopUpView.findViewById(R.id.EditText_NewCosplayWebsiteName);
+                mAdd = WebshopPopUpView.findViewById(R.id.Btn_NewCosplayWebsiteAdd);
+                mCancel = WebshopPopUpView.findViewById(R.id.Btn_NewCosplayWebsiteCancel);
+                TextView mTitle = WebshopPopUpView.findViewById(R.id.txt_cosplayWebshop);
 
-                mAdd.setText("Update");
-                mTitle.setText("Update webshop");
-                mSiteLink.setText(current.mSiteLink);
-                mSiteName.setText(current.mSiteName);
+                mAdd.setText(R.string.UpdateDb);
+                mTitle.setText(R.string.UpdateWebshop);
+                mWebshopLink.setText(mCurrentWebshop.mWebshopLink);
+                mWebshopName.setText(mCurrentWebshop.mWebshopName);
+
                 dialogBuilder.setView(WebshopPopUpView);
-                dialog=dialogBuilder.create();
-                dialog.show();
+                mDialog = dialogBuilder.create();
+                mDialog.show();
+
                 mCancel.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        dialog.dismiss();
+                        mDialog.dismiss();
                     }
                 });
                 mAdd.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Webshop temp=new Webshop(current.mId,mSiteName.getText().toString(),mSiteLink.getText().toString());
-
-
+                        Webshop temp = new Webshop(mCurrentWebshop.mWebshopId, mWebshopName.getText().toString(), mWebshopLink.getText().toString());
                         mWebshopViewModel.update(temp);
-                        dialog.dismiss();
+                        mDialog.dismiss();
                     }
                 });
             }
         });
 
     }
-    public Webshop getWebshopAtPosition(int position){
+
+    public Webshop getWebshopAtPosition(int position) {
         return mWebshops.get(position);
     }
 
