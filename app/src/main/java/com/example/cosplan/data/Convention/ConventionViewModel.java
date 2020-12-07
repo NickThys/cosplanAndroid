@@ -9,15 +9,14 @@ import androidx.lifecycle.LiveData;
 import java.util.List;
 
 public class ConventionViewModel extends AndroidViewModel {
-    private ConventionRepository mRepository;
     LiveData<List<Convention>>mAllConventionsBelgium;
     LiveData<List<Convention>>mAllConventionsNetherland;
 
     public ConventionViewModel(@NonNull Application application) {
         super(application);
-        mRepository=new ConventionRepository(application);
-        mAllConventionsBelgium=mRepository.getAllConventionsBelgium();
-        mAllConventionsNetherland=mRepository.getAllConventionsNetherland();
+        ConventionRepository mConventionRepository = new ConventionRepository(application);
+        mAllConventionsBelgium= mConventionRepository.getAllConventionsBelgium();
+        mAllConventionsNetherland= mConventionRepository.getAllConventionsNetherland();
     }
     public LiveData<List<Convention>>getAllConventionsBelgium(){return mAllConventionsBelgium;}
     public LiveData<List<Convention>>getAllConventionsNetherland(){return mAllConventionsNetherland;}
