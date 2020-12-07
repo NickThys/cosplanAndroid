@@ -1,4 +1,4 @@
-package com.example.cosplan.data.Coplay.Webshop;
+package com.example.cosplan.data.cosplay.Webshop;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -9,7 +9,7 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-import com.example.cosplan.data.Coplay.Cosplay;
+import com.example.cosplan.data.cosplay.Cosplay;
 
 @Entity(tableName = "CosplayWebshop_table",foreignKeys = @ForeignKey(onDelete = ForeignKey.CASCADE,entity = Cosplay.class,
         parentColumns = "Id",

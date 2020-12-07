@@ -1,4 +1,4 @@
-package com.example.cosplan.data.Coplay.CheckList;
+package com.example.cosplan.data.cosplay.CheckList;
 
 
 import androidx.room.ColumnInfo;
@@ -6,7 +6,7 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-import com.example.cosplan.data.Coplay.Cosplay;
+import com.example.cosplan.data.cosplay.Cosplay;
 
 @Entity(tableName = "CosplayChecklist_table",foreignKeys = @ForeignKey(onDelete = ForeignKey.CASCADE,entity = Cosplay.class,
         parentColumns = "Id",

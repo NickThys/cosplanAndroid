@@ -1,4 +1,4 @@
-package com.example.cosplan.data.Coplay.Webshop;
+package com.example.cosplan.data.cosplay.Webshop;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;

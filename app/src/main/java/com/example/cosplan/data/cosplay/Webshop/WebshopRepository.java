@@ -1,11 +1,11 @@
-package com.example.cosplan.data.Coplay.Webshop;
+package com.example.cosplan.data.cosplay.Webshop;
 
 import android.app.Application;
 import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 
-import com.example.cosplan.data.Coplay.CosplayDatabase;
+import com.example.cosplan.data.cosplay.CosplayDatabase;
 
 import java.util.List;
 

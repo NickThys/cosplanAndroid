@@ -26,11 +26,9 @@ public class Cosplay implements Parcelable {
     @NonNull
     @ColumnInfo(name = "CosplayEndDate")
     public String mCosplayEndDate;
-    @NonNull
     @ColumnInfo(name = "CosplayBudget")
     public double mCosplayBudget;
-    @NonNull
-    @ColumnInfo(name= "CosplayCurrentBudget")
+    @ColumnInfo(name = "CosplayCurrentBudget")
     public double mCosplayRemainingBudget;
     @NonNull
     @ColumnInfo(typeAffinity = ColumnInfo.BLOB, name = "CosplayIMG")
@@ -42,7 +40,8 @@ public class Cosplay implements Parcelable {
     @ColumnInfo(name = "CosplayPercentage")
     public double mCosplayPercentage;
 
-    public Cosplay(){}
+    public Cosplay() {
+    }
 
     public Cosplay(int mCosplayId, @NonNull String mCosplayName, @NonNull String mCosplayStartDate, @NonNull String mCosplayEndDate, double mCosplayBudget, double mCosplayCurrentBudget, @NonNull Bitmap mCosplayIMG) {
         this.mCosplayId = mCosplayId;
@@ -54,22 +53,25 @@ public class Cosplay implements Parcelable {
         this.mCosplayIMG = mCosplayIMG;
     }
 
-    public Cosplay(@NonNull int Id, @NonNull String Name, @NonNull String StartDate, @NonNull String EndDate, @NonNull double Budget, @NonNull Bitmap Img){
+// --Commented out by Inspection START (7/12/2020 22:41):
+//    public Cosplay(int Id, @NonNull String Name, @NonNull String StartDate, @NonNull String EndDate, double Budget, @NonNull Bitmap Img) {
+//        this.mCosplayId = Id;
+//        this.mCosplayName = Name;
+//        this.mCosplayStartDate = StartDate;
+//        this.mCosplayEndDate = EndDate;
+//        this.mCosplayBudget = Budget;
+//        this.mCosplayIMG = Img;
+//    }
+// --Commented out by Inspection STOP (7/12/2020 22:41)
+
+    public Cosplay(int Id, @NonNull String Name, @NonNull String StartDate, @NonNull String EndDate, double Budget, @NonNull Bitmap Img, String note) {
         this.mCosplayId = Id;
-        this.mCosplayName =Name;
-        this.mCosplayStartDate =StartDate;
+        this.mCosplayName = Name;
+        this.mCosplayStartDate = StartDate;
         this.mCosplayEndDate = EndDate;
         this.mCosplayBudget = Budget;
         this.mCosplayIMG = Img;
-    }
-    public Cosplay(@NonNull int Id,@NonNull String Name,@NonNull String StartDate,@NonNull String EndDate,@NonNull double Budget,@NonNull Bitmap Img,String note){
-        this.mCosplayId = Id;
-        this.mCosplayName =Name;
-        this.mCosplayStartDate =StartDate;
-        this.mCosplayEndDate = EndDate;
-        this.mCosplayBudget = Budget;
-        this.mCosplayIMG = Img;
-        this.mCosplayNote=note;
+        this.mCosplayNote = note;
     }
 
     public Cosplay(int mCosplayId, @NonNull String mCosplayName, @NonNull String mCosplayStartDate, @NonNull String mCosplayEndDate, double mCosplayBudget, double mCosplayCurrentBudget, @NonNull Bitmap mCosplayIMG, String mCosplayNote) {
@@ -90,7 +92,7 @@ public class Cosplay implements Parcelable {
         mCosplayEndDate = in.readString();
         mCosplayBudget = in.readDouble();
         mCosplayIMG = in.readParcelable(Bitmap.class.getClassLoader());
-        mCosplayNote=in.readString();
+        mCosplayNote = in.readString();
     }
 
     public static final Creator<Cosplay> CREATOR = new Creator<Cosplay>() {
@@ -105,25 +107,6 @@ public class Cosplay implements Parcelable {
         }
     };
 
-    public String getCosplayName() {
-        return this.mCosplayName;
-    }
-
-    public String getCosplayStartDate() {
-        return this.mCosplayStartDate;
-    }
-
-    public String getCosplayEndDate() {
-        return this.mCosplayEndDate;
-    }
-
-    public double getCosplayBudget() {
-        return this.mCosplayBudget;
-    }
-
-    public Bitmap getCosplayIMG() {
-        return this.mCosplayIMG;
-    }
 
     @Override
     public int describeContents() {
