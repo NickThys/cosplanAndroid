@@ -1,4 +1,4 @@
-package com.example.cosplan.data.Convention;
+package com.example.cosplan.data.convention;
 
 import android.app.Application;
 import android.os.AsyncTask;
@@ -34,7 +34,7 @@ public class ConventionRepository {
     private static class insertAsyncTaks extends AsyncTask<Convention, Void, Void> {
         private final ConventionDao mConventionDao;
 
-        insertAsyncTaks(ConventionDao dao) {
+        public insertAsyncTaks(ConventionDao dao) {
             mConventionDao = dao;
         }
 

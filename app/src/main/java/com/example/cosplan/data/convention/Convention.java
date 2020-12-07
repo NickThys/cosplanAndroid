@@ -1,4 +1,4 @@
-package com.example.cosplan.data.Convention;
+package com.example.cosplan.data.convention;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
