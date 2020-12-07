@@ -31,9 +31,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cosplan.R;
-import com.example.cosplan.data.Coplay.Cosplay;
-import com.example.cosplan.data.Coplay.CosplayAdapter;
-import com.example.cosplan.data.Coplay.CosplayViewModel;
+import com.example.cosplan.data.cosplay.Cosplay;
+import com.example.cosplan.data.cosplay.CosplayAdapter;
+import com.example.cosplan.data.cosplay.CosplayViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.ParseException;
