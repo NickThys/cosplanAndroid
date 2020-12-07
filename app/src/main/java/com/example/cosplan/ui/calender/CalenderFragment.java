@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -24,21 +23,20 @@ import java.util.List;
 
 public class CalenderFragment extends Fragment {
 
-    private ConventionViewModel conventionViewModel;
-
     public View onCreateView(@NonNull LayoutInflater inflater,ViewGroup container, Bundle savedInstanceState) {
-        conventionViewModel =ViewModelProviders.of(this).get(ConventionViewModel.class);
+        ConventionViewModel mConventionViewModel ;
+
         final View root = inflater.inflate(R.layout.fragment_calender, container, false);
-        final ConventionAdapter conventionAdapterBelgium=new ConventionAdapter(requireContext());
-        final ConventionAdapter conventionAdapterNetherland=new ConventionAdapter(requireContext());
+        final ConventionAdapter mConventionAdapterBelgium=new ConventionAdapter(requireContext());
+        final ConventionAdapter mConventionAdapterNetherland=new ConventionAdapter(requireContext());
 
+        //region RecyclerView Belgium
+        RecyclerView mRecyclerViewBelgium=root.findViewById(R.id.RecView_CalenderBelguim);
+        mRecyclerViewBelgium.setAdapter(mConventionAdapterBelgium);
+        mRecyclerViewBelgium.addItemDecoration(new DividerItemDecoration(requireContext(),DividerItemDecoration.VERTICAL));
+        mRecyclerViewBelgium.setLayoutManager(new LinearLayoutManager(requireContext()));
 
-        //RecyclerView Belgium
-        RecyclerView recyclerViewBelgium=root.findViewById(R.id.RecView_CalenderBelguim);
-        recyclerViewBelgium.setAdapter(conventionAdapterBelgium);
-        recyclerViewBelgium.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL));
-        recyclerViewBelgium.setLayoutManager(new LinearLayoutManager(requireContext()));
-        ItemTouchHelper helperBelgium=new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,0) {
+        ItemTouchHelper mItemTouchHelperBelgium=new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,0) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
                 return false;
@@ -49,21 +47,24 @@ public class CalenderFragment extends Fragment {
 
             }
         });
-        helperBelgium.attachToRecyclerView(recyclerViewBelgium);
-        conventionViewModel=new ViewModelProvider(this).get(ConventionViewModel.class);
-        conventionViewModel.getAllConventionsBelgium().observe(getViewLifecycleOwner(), new Observer<List<Convention>>() {
+        mItemTouchHelperBelgium.attachToRecyclerView(mRecyclerViewBelgium);
+
+        mConventionViewModel =new ViewModelProvider(this).get(ConventionViewModel.class);
+        mConventionViewModel.getAllConventionsBelgium().observe(getViewLifecycleOwner(), new Observer<List<Convention>>() {
             @Override
             public void onChanged(List<Convention> conventions) {
-                conventionAdapterBelgium.setConventions(conventions);
+                mConventionAdapterBelgium.setConventions(conventions);
             }
         });
-        //RecyclerView Netherland
-        RecyclerView recyclerViewNetherland=root.findViewById(R.id.RecView_CalenderNetherland);
-        recyclerViewNetherland.setAdapter(conventionAdapterNetherland);
-        recyclerViewNetherland.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL));
+        //endregion
 
-        recyclerViewNetherland.setLayoutManager(new LinearLayoutManager(requireContext()));
-        ItemTouchHelper helperNetherland=new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,0) {
+        //region RecyclerView Netherland
+        RecyclerView mRecyclerViewNetherland=root.findViewById(R.id.RecView_CalenderNetherland);
+        mRecyclerViewNetherland.setAdapter(mConventionAdapterNetherland);
+        mRecyclerViewNetherland.addItemDecoration(new DividerItemDecoration(requireContext(),DividerItemDecoration.VERTICAL));
+        mRecyclerViewNetherland.setLayoutManager(new LinearLayoutManager(requireContext()));
+
+        ItemTouchHelper mItemTouchHelperNetherland=new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,0) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
                 return false;
@@ -74,15 +75,14 @@ public class CalenderFragment extends Fragment {
 
             }
         });
-        helperNetherland.attachToRecyclerView(recyclerViewNetherland);
-        conventionViewModel.getAllConventionsNetherland().observe(getViewLifecycleOwner(), new Observer<List<Convention>>() {
+        mItemTouchHelperNetherland.attachToRecyclerView(mRecyclerViewNetherland);
+        mConventionViewModel.getAllConventionsNetherland().observe(getViewLifecycleOwner(), new Observer<List<Convention>>() {
             @Override
             public void onChanged(List<Convention> conventions) {
-                conventionAdapterNetherland.setConventions(conventions);
+                mConventionAdapterNetherland.setConventions(conventions);
             }
         });
-
-
+        //endregion
 
         return root;
     }

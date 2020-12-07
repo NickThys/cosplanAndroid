@@ -11,56 +11,59 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cosplan.R;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 public class ConventionAdapter extends RecyclerView.Adapter<ConventionAdapter.ConventionViewHolder> {
     private List<Convention> mConventions;
-    private final LayoutInflater mInflater;
-    public ConventionAdapter(Context context){
-        mInflater=LayoutInflater.from(context);
+    private final LayoutInflater mLayoutInflater;
+
+    public ConventionAdapter(Context context) {
+        mLayoutInflater = LayoutInflater.from(context);
     }
 
-    class ConventionViewHolder extends RecyclerView.ViewHolder{
-        private final TextView ConventionName;
-        private final TextView ConventionPlace;
-        private final TextView ConventionDate;
+    static class ConventionViewHolder extends RecyclerView.ViewHolder {
+        private final TextView mConventionName, mConventionPlace, mConventionDate;
+
         public ConventionViewHolder(@NonNull View itemView) {
             super(itemView);
-            ConventionName=itemView.findViewById(R.id.TextView_ConventionName);
-            ConventionPlace=itemView.findViewById(R.id.TextView_ConventionPlace);
-            ConventionDate=itemView.findViewById(R.id.TextView_ConventionDate);
+            mConventionName = itemView.findViewById(R.id.TextView_ConventionName);
+            mConventionPlace = itemView.findViewById(R.id.TextView_ConventionPlace);
+            mConventionDate = itemView.findViewById(R.id.TextView_ConventionDate);
         }
     }
 
-    public void setConventions(List<Convention> conventions){
-        mConventions=conventions;
+    public void setConventions(List<Convention> conventions) {
+        mConventions = conventions;
         notifyDataSetChanged();
-}
+    }
 
+    @NotNull
     @Override
     public ConventionAdapter.ConventionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView=mInflater.inflate(R.layout.custom_calender_row,parent,false);
+        View itemView = mLayoutInflater.inflate(R.layout.custom_calender_row, parent, false);
         return new ConventionViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ConventionAdapter.ConventionViewHolder holder, int position) {
-        final Convention current=mConventions.get(position);
-        String tempConName=current.mConName;
-        String tempConPlace=current.mConPlace;
-        String tempConBeginDate= current.mConBeginDate;
-        String tempConEndDate= current.mConEndDate;
-        holder.ConventionName.setText(tempConName);
-        holder.ConventionPlace.setText(tempConPlace);
-        holder.ConventionDate.setText("from " + tempConBeginDate +" to "+tempConEndDate);
+        final Convention mCurrentConvention = mConventions.get(position);
+        String mConventionName = mCurrentConvention.mConventionName;
+        String mConventionPlace = mCurrentConvention.mConventionPlace;
+        String mConventionBeginDate = mCurrentConvention.mConventionBeginDate;
+        String mConventionEndDate = mCurrentConvention.mConventionEndDate;
+        holder.mConventionName.setText(mConventionName);
+        holder.mConventionPlace.setText(mConventionPlace);
+        holder.mConventionDate.setText(String.format("from %s to %s", mConventionBeginDate, mConventionEndDate));
     }
 
     @Override
     public int getItemCount() {
-        if (mConventions!=null){
+        if (mConventions != null) {
             return mConventions.size();
+        } else {
+            return 0;
         }
-        else {
-        return 0;}
     }
 }

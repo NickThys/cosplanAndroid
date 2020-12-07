@@ -8,29 +8,42 @@ import androidx.lifecycle.LiveData;
 import java.util.List;
 
 public class ConventionRepository {
-    private ConventionDao mConventionDao;
-    private LiveData<List<Convention>>mAllConventionsBelgium;
-    private LiveData<List<Convention>>mAllConventionsNetherland;
-    ConventionRepository(Application application){
-        ConventionDatabase db=ConventionDatabase.getDatabase(application);
-        mConventionDao=db.conventionDao();
-        mAllConventionsBelgium=mConventionDao.getAllConventionsBelgium();
-        mAllConventionsNetherland=mConventionDao.getAllConventionsNetherland();
+    private final ConventionDao mConventionDao;
+    private final LiveData<List<Convention>> mAllConventionsBelgium;
+    private final LiveData<List<Convention>> mAllConventionsNetherland;
+
+    ConventionRepository(Application application) {
+        ConventionDatabase mConventionDatabase = ConventionDatabase.getDatabase(application);
+        mConventionDao = mConventionDatabase.mConventionDao();
+        mAllConventionsBelgium = mConventionDao.getAllConventionsBelgium();
+        mAllConventionsNetherland = mConventionDao.getAllConventionsNetherland();
     }
-    public void insert(Convention convention){new insertAsyncTaks(mConventionDao).execute(convention);}
-    LiveData<List<Convention>>getAllConventionsBelgium(){return mAllConventionsBelgium;}
-    LiveData<List<Convention>>getAllConventionsNetherland(){return mAllConventionsNetherland;}
-    private class insertAsyncTaks extends AsyncTask<Convention,Void,Void>{
-        private ConventionDao mConDao;
-        insertAsyncTaks(ConventionDao dao){mConDao=dao;}
+
+    public void insert(Convention mConvention) {
+        new insertAsyncTaks(mConventionDao).execute(mConvention);
+    }
+
+    LiveData<List<Convention>> getAllConventionsBelgium() {
+        return mAllConventionsBelgium;
+    }
+
+    LiveData<List<Convention>> getAllConventionsNetherland() {
+        return mAllConventionsNetherland;
+    }
+
+    private static class insertAsyncTaks extends AsyncTask<Convention, Void, Void> {
+        private final ConventionDao mConventionDao;
+
+        insertAsyncTaks(ConventionDao dao) {
+            mConventionDao = dao;
+        }
 
         @Override
         protected Void doInBackground(Convention... conventions) {
-            mConDao.insert(conventions[0]);
+            mConventionDao.insert(conventions[0]);
             return null;
         }
     }
-
 
 
 }
