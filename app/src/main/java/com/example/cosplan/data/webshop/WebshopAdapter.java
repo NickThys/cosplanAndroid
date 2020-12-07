@@ -26,7 +26,7 @@ public class WebshopAdapter extends RecyclerView.Adapter<WebshopAdapter.WebshopV
     private List<Webshop> mWebshops;
     private final LayoutInflater mLayoutInflater;
     final com.example.cosplan.data.webshop.WebshopViewModel mWebshopViewModel;
-    AlertDialog.Builder dialogBuilder;
+    final AlertDialog.Builder dialogBuilder;
 
     public WebshopAdapter(Context context, Application mApplication) {
         mLayoutInflater = LayoutInflater.from(context);

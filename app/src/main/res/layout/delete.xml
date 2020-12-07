@@ -23,7 +23,7 @@
         android:layout_marginLeft="6dp"
         android:layout_marginEnd="6dp"
         android:layout_marginRight="6dp"
-        android:text="@string/txt_cancelDeleteCOsplay"
+        android:text="@string/txt_cancelDeleteCosplay"
         app:layout_constraintBottom_toBottomOf="@+id/Btn_DeleteDelete"
         app:layout_constraintEnd_toStartOf="@+id/Btn_DeleteDelete"
         app:layout_constraintStart_toStartOf="parent"

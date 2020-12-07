@@ -11,7 +11,7 @@ import java.util.List;
 public class WebshopViewModel extends AndroidViewModel {
 
     private final WebshopRepository mWebshopRepository;
-    LiveData<List<Webshop>> mAllWebshops;
+    final LiveData<List<Webshop>> mAllWebshops;
 
     public WebshopViewModel(@NonNull Application application) {
         super(application);

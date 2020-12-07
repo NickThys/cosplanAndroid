@@ -19,6 +19,4 @@ public interface WebshopDao {
     void updateWebshop(Webshop webshop);
     @Query("SELECT * FROM webshop_table ORDER BY Name ASC")
     LiveData<List<Webshop>> getAllWebshops();
-    @Query("SELECT * FROM webshop_table LIMIT 1")
-    Webshop[]getAnyWebshop();
 }
