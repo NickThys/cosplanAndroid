@@ -1,4 +1,4 @@
-package com.example.cosplan.data.Convention;
+package com.example.cosplan.data.convention;
 
 import android.app.Application;
 
@@ -9,8 +9,8 @@ import androidx.lifecycle.LiveData;
 import java.util.List;
 
 public class ConventionViewModel extends AndroidViewModel {
-    LiveData<List<Convention>>mAllConventionsBelgium;
-    LiveData<List<Convention>>mAllConventionsNetherland;
+    final LiveData<List<Convention>>mAllConventionsBelgium;
+    final LiveData<List<Convention>>mAllConventionsNetherland;
 
     public ConventionViewModel(@NonNull Application application) {
         super(application);

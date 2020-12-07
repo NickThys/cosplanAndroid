@@ -15,9 +15,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cosplan.R;
-import com.example.cosplan.data.Convention.Convention;
-import com.example.cosplan.data.Convention.ConventionAdapter;
-import com.example.cosplan.data.Convention.ConventionViewModel;
+import com.example.cosplan.data.convention.Convention;
+import com.example.cosplan.data.convention.ConventionAdapter;
+import com.example.cosplan.data.convention.ConventionViewModel;
 
 import java.util.List;
 
