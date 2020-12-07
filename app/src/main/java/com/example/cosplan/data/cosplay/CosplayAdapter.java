@@ -19,16 +19,16 @@ import java.util.List;
 
 public class CosplayAdapter extends RecyclerView.Adapter<CosplayAdapter.CosplayViewHolder> {
     private List<Cosplay> mCosplays;
-    private final LayoutInflater mInflater;
+    private final LayoutInflater mLayoutInflater;
 
     public CosplayAdapter(Context context) {
-        mInflater = LayoutInflater.from(context);
+        mLayoutInflater = LayoutInflater.from(context);
     }
 
     @NonNull
     @Override
     public CosplayViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = mInflater.inflate(R.layout.cosplay_normalview, parent, false);
+        View itemView = mLayoutInflater.inflate(R.layout.cosplay_normalview, parent, false);
         return new CosplayViewHolder(itemView);
     }
 
@@ -39,20 +39,20 @@ public class CosplayAdapter extends RecyclerView.Adapter<CosplayAdapter.CosplayV
 
     @Override
     public void onBindViewHolder(@NonNull CosplayViewHolder holder, int position) {
-        final Cosplay current = mCosplays.get(position);
+        final Cosplay mCurrentCosplay = mCosplays.get(position);
 
         DecimalFormat form=new DecimalFormat("0.00");
-        holder.CosplayName.setText(current.mCosplayName);
-        holder.CosplayEndDate.setText(current.mCosplayEndDate);
-        holder.CosplayPercentage.setText(form.format(current.mCosplayPercentage)+" %");
-        holder.CosplayImg.setImageBitmap(current.mCosplayIMG);
+        holder.mCosplayName.setText(mCurrentCosplay.mCosplayName);
+        holder.mCosplayEndDate.setText(mCurrentCosplay.mCosplayEndDate);
+        holder.mCosplayPercentage.setText(String.format("%s %%", form.format(mCurrentCosplay.mCosplayPercentage)));
+        holder.mCosplayImg.setImageBitmap(mCurrentCosplay.mCosplayIMG);
 
         View itemView=holder.itemView;
         itemView.findViewById(R.id.cosplayrowLayout);
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CosplayFragmentDirections.ActionNavHomeToCosplayScreen action=CosplayFragmentDirections.actionNavHomeToCosplayScreen(current);
+                CosplayFragmentDirections.ActionNavHomeToCosplayScreen action=CosplayFragmentDirections.actionNavHomeToCosplayScreen(mCurrentCosplay);
                 Navigation.findNavController(v).navigate(action);
             }
         });
@@ -67,18 +67,16 @@ public class CosplayAdapter extends RecyclerView.Adapter<CosplayAdapter.CosplayV
         }
     }
 
-    public class CosplayViewHolder extends RecyclerView.ViewHolder {
-        private final TextView CosplayName;
-        private final TextView CosplayEndDate;
-        private final TextView CosplayPercentage;
-        private final ImageView CosplayImg;
+    public static class CosplayViewHolder extends RecyclerView.ViewHolder {
+        private final TextView mCosplayName,mCosplayEndDate,mCosplayPercentage;
+        private final ImageView mCosplayImg;
 
         public CosplayViewHolder(@NonNull View itemView) {
             super(itemView);
-            CosplayName = itemView.findViewById(R.id.TextView_CosplayName);
-            CosplayEndDate = itemView.findViewById(R.id.TextView_CosplayEndDate);
-            CosplayPercentage = itemView.findViewById(R.id.TextView_CosplayPercentage);
-            CosplayImg = itemView.findViewById(R.id.ImageView_CosplayImage);
+            mCosplayName = itemView.findViewById(R.id.TextView_CosplayName);
+            mCosplayEndDate = itemView.findViewById(R.id.TextView_CosplayEndDate);
+            mCosplayPercentage = itemView.findViewById(R.id.TextView_CosplayPercentage);
+            mCosplayImg = itemView.findViewById(R.id.ImageView_CosplayImage);
         }
     }
     public Cosplay getCosplayAtPosition(int position){
