@@ -49,6 +49,6 @@
             app:destination="@id/nav_home" />
         <argument
             android:name="current_cosplay"
-            app:argType="com.example.cosplan.data.Coplay.Cosplay" />
+            app:argType="com.example.cosplan.data.cosplay.Cosplay" />
     </fragment>
 </navigation>
