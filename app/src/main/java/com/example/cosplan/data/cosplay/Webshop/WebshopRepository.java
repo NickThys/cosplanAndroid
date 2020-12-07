@@ -15,7 +15,7 @@ public class WebshopRepository {
     private int mCosplayId;
     public WebshopRepository(Application application) {
         CosplayDatabase db=CosplayDatabase.getDatabase(application);
-        mWebshopDao=db.webshopDao();
+        mWebshopDao=db.mWebshopDao();
         mAllWebshops=mWebshopDao.getAllWebshops(mCosplayId);
     }
     LiveData<List<Webshop>>getAllWebshops(int mCosplayId){

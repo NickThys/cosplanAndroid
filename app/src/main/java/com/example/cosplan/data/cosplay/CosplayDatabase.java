@@ -23,23 +23,23 @@ import com.example.cosplan.data.cosplay.Webshop.Webshop;
 import com.example.cosplan.data.cosplay.Webshop.WebshopDao;
 
 @TypeConverters(Converters.class)
-@Database(entities = {Cosplay.class, Part.class, ReferenceImg.class, Webshop.class, ChecklistPart.class, ShoppingListPart.class, WIPImg.class,Event.class}, version =1,exportSchema = true)
+@Database(entities = {Cosplay.class, Part.class, ReferenceImg.class, Webshop.class, ChecklistPart.class, ShoppingListPart.class, WIPImg.class, Event.class}, version = 1)
 public abstract class CosplayDatabase extends RoomDatabase {
-    public abstract CosplayDao cosplayDao();
+    public abstract CosplayDao mCosplayDao();
 
-    public abstract PartDao partDao();
+    public abstract PartDao mPartDao();
 
-    public abstract ReferenceImgDao referenceImgDao();
+    public abstract ReferenceImgDao mReferenceImgDao();
 
-    public abstract WebshopDao webshopDao();
+    public abstract WebshopDao mWebshopDao();
 
-    public abstract CheckListPartDao checkListPartDao();
+    public abstract CheckListPartDao mCheckListPartDao();
 
-    public abstract ShoppingListPartDao shoppingListPartDao();
+    public abstract ShoppingListPartDao mShoppingListPartDao();
 
-    public abstract WIPImgDao wipImgDao();
+    public abstract WIPImgDao mWipImgDao();
 
-    public abstract EventDao eventDao();
+    public abstract EventDao mEventDao();
 
     private static CosplayDatabase INSTANCE;
 

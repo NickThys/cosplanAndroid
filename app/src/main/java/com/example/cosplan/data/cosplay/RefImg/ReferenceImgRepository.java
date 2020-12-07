@@ -16,7 +16,7 @@ public class ReferenceImgRepository {
 
     ReferenceImgRepository(Application application){
         CosplayDatabase db=CosplayDatabase.getDatabase(application);
-        mReferenceImgDao=db.referenceImgDao();
+        mReferenceImgDao=db.mReferenceImgDao();
         mAllRefImg=mReferenceImgDao.getReferenceImg(mCosplayId);
     }
     LiveData<List<ReferenceImg>> getAllRefImg(int mCosplayId){

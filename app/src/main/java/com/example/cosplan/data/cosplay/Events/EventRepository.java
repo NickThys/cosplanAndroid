@@ -16,7 +16,7 @@ public class EventRepository {
     private String mEventType;
     public EventRepository(Application application){
         CosplayDatabase mDatabase=CosplayDatabase.getDatabase(application);
-        mEventDao=mDatabase.eventDao();
+        mEventDao=mDatabase.mEventDao();
         mAllEvents=mEventDao.getEventsByType(mCosplayId,mEventType);
     }
     LiveData<List<Event>> getAllEvents(int mCosplayId,String mEventType){

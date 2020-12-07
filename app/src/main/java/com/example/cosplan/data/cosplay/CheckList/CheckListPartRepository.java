@@ -16,7 +16,7 @@ public class CheckListPartRepository {
 
     public CheckListPartRepository(Application application){
         CosplayDatabase db=CosplayDatabase.getDatabase(application);
-        mCheckListPartDao=db.checkListPartDao();
+        mCheckListPartDao=db.mCheckListPartDao();
         mAllCheckListParts=mCheckListPartDao.getAllCheckListParts(mCosplayId);
     }
 

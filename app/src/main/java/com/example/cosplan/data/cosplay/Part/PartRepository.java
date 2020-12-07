@@ -18,7 +18,7 @@ public class PartRepository {
 
     PartRepository(Application application){
         CosplayDatabase db= CosplayDatabase.getDatabase(application);
-        mPartDao=db.partDao();
+        mPartDao=db.mPartDao();
 
         mAllPartsToMake=mPartDao.getPartsToMake(mCosplayIdMake);
         mAllPartsToBuy=mPartDao.getPartsToBuy(mCosplayIdBuy);

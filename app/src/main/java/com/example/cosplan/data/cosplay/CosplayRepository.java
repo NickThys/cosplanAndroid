@@ -13,7 +13,7 @@ public class CosplayRepository {
 
     CosplayRepository(Application application) {
         CosplayDatabase db = CosplayDatabase.getDatabase(application);
-        mCosplayDao = db.cosplayDao();
+        mCosplayDao = db.mCosplayDao();
         mAllCosplays = mCosplayDao.getAllCosplays();
     }
 

@@ -16,7 +16,7 @@ public class WIPImgRepository {
 
     WIPImgRepository(Application application) {
         CosplayDatabase db = CosplayDatabase.getDatabase(application);
-        mWIPImgDao = db.wipImgDao();
+        mWIPImgDao = db.mWipImgDao();
         mAllWIPImgs = mWIPImgDao.getWIPImg(mCosplayId);
     }
 

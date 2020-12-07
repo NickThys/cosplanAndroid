@@ -18,7 +18,7 @@ public class ShoppingListPartRepository {
 
     public ShoppingListPartRepository(Application application){
         CosplayDatabase db=CosplayDatabase.getDatabase(application);
-        mShoppingListPartDao=db.shoppingListPartDao();
+        mShoppingListPartDao=db.mShoppingListPartDao();
         mAllShoppingListParts=mShoppingListPartDao.getAllShoppingListPartsFromShop(mCosplayId);
        // mAllShoppingListShops=mShoppingListPartDao.getAllNamesFromStores(mCosplayId);
     }
