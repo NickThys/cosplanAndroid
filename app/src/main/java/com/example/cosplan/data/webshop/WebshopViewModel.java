@@ -10,13 +10,13 @@ import java.util.List;
 
 public class WebshopViewModel extends AndroidViewModel {
 
-    private WebshopRepository mRepository;
+    private final WebshopRepository mWebshopRepository;
     LiveData<List<Webshop>> mAllWebshops;
 
     public WebshopViewModel(@NonNull Application application) {
         super(application);
-        mRepository = new WebshopRepository(application);
-        mAllWebshops = mRepository.getAllWebshops();
+        mWebshopRepository = new WebshopRepository(application);
+        mAllWebshops = mWebshopRepository.getAllWebshops();
     }
 
     public LiveData<List<Webshop>> getAllWebshops() {
@@ -24,8 +24,14 @@ public class WebshopViewModel extends AndroidViewModel {
     }
 
     public void insert(Webshop webshop) {
-        mRepository.insert(webshop);
+        mWebshopRepository.insert(webshop);
     }
-    public void delete(Webshop webshop){mRepository.delete(webshop);}
-    public void update(Webshop webshop){mRepository.update(webshop);}
+
+    public void delete(Webshop webshop) {
+        mWebshopRepository.delete(webshop);
+    }
+
+    public void update(Webshop webshop) {
+        mWebshopRepository.update(webshop);
+    }
 }
