@@ -8,12 +8,12 @@ import androidx.lifecycle.LiveData;
 import java.util.List;
 
 public class CosplayRepository {
-    private CosplayDao mCosplayDao;
-    private LiveData<List<Cosplay>> mAllCosplays;
+    private final CosplayDao mCosplayDao;
+    private final LiveData<List<Cosplay>> mAllCosplays;
 
     CosplayRepository(Application application) {
-        CosplayDatabase db = CosplayDatabase.getDatabase(application);
-        mCosplayDao = db.mCosplayDao();
+        CosplayDatabase mCosplayDatabase = CosplayDatabase.getDatabase(application);
+        mCosplayDao = mCosplayDatabase.mCosplayDao();
         mAllCosplays = mCosplayDao.getAllCosplays();
     }
 
@@ -33,8 +33,8 @@ public class CosplayRepository {
         new updateAsyncTask(mCosplayDao).execute(cosplay);
     }
 
-    private class insertAsyncTask extends AsyncTask<Cosplay, Void, Void> {
-        private CosplayDao mAsyncTaskDao;
+    private static class insertAsyncTask extends AsyncTask<Cosplay, Void, Void> {
+        private final CosplayDao mAsyncTaskDao;
 
         public insertAsyncTask(CosplayDao mCosplayDao) {
             mAsyncTaskDao = mCosplayDao;
@@ -48,8 +48,8 @@ public class CosplayRepository {
     }
 
 
-    private class deleteAsyncTask extends AsyncTask<Cosplay, Void, Void> {
-        private CosplayDao mAsyncTaskDao;
+    private static class deleteAsyncTask extends AsyncTask<Cosplay, Void, Void> {
+        private final CosplayDao mAsyncTaskDao;
 
         public deleteAsyncTask(CosplayDao mCosplayDao) {
             mAsyncTaskDao = mCosplayDao;
@@ -62,8 +62,8 @@ public class CosplayRepository {
         }
     }
 
-    private class updateAsyncTask extends AsyncTask<Cosplay, Void, Void> {
-        private CosplayDao mAsyncDao;
+    private static class updateAsyncTask extends AsyncTask<Cosplay, Void, Void> {
+        private final CosplayDao mAsyncDao;
 
         public updateAsyncTask(CosplayDao dao) {
             mAsyncDao = dao;
