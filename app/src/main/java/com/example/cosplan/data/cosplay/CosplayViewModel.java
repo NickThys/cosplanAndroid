@@ -9,16 +9,19 @@ import androidx.lifecycle.LiveData;
 import java.util.List;
 
 public class CosplayViewModel extends AndroidViewModel {
-    private CosplayRepository mRepository;
-    LiveData<List<Cosplay>>mAllConventions;
+    private final CosplayRepository mCosplayRepository;
+    final LiveData<List<Cosplay>>mAllConventions;
 
     public CosplayViewModel(@NonNull Application application) {
         super(application);
-        mRepository=new CosplayRepository(application);
-        mAllConventions=mRepository.getAllCosplays();
+        mCosplayRepository =new CosplayRepository(application);
+        mAllConventions= mCosplayRepository.getAllCosplays();
     }
     public LiveData<List<Cosplay>>getAllConventions(){return mAllConventions;}
-    public void insert(Cosplay cosplay){mRepository.insert(cosplay);}
-    public void delete(Cosplay cosplay){mRepository.delete(cosplay);}
-    public void update(Cosplay cosplay){mRepository.update(cosplay);}
+    public void insert(Cosplay cosplay){
+        mCosplayRepository.insert(cosplay);}
+    public void delete(Cosplay cosplay){
+        mCosplayRepository.delete(cosplay);}
+    public void update(Cosplay cosplay){
+        mCosplayRepository.update(cosplay);}
 }

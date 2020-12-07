@@ -150,7 +150,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         final ViewGroup fl = v.findViewById(R.id.FrameLayout_Content);
         //Initial view for the framelayout
         fl.addView(PartsView);
-        cosplayAdapter = new CosplayAdapter(requireContext());
+        cosplayAdapter = new CosplayAdapter(getContext());
 
         mPartAdapterBuy.setCosplay(tempCosplay,cosplayViewModel,v);
         mPartAdapterMake.setCosplay(tempCosplay,cosplayViewModel,v);
