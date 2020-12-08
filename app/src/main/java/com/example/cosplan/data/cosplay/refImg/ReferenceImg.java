@@ -28,7 +28,7 @@ public class ReferenceImg {
     @ColumnInfo(typeAffinity = ColumnInfo.BLOB, name = "CosplayRefImgImage")
     public Bitmap mCosplayRefImgImage;
 
-    @Ignore
+
     public ReferenceImg() {
     }
 
