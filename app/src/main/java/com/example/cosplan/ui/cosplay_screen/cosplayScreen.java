@@ -56,9 +56,9 @@ import com.example.cosplan.data.cosplay.part.PartViewModel;
 import com.example.cosplan.data.cosplay.refImg.ReferenceImgAdapter;
 import com.example.cosplan.data.cosplay.refImg.ReferenceImg;
 import com.example.cosplan.data.cosplay.refImg.ReferenceImgViewModel;
-import com.example.cosplan.data.cosplay.ShoppingList.ShoppingListPart;
-import com.example.cosplan.data.cosplay.ShoppingList.ShoppingListPartAdapter;
-import com.example.cosplan.data.cosplay.ShoppingList.ShoppingListPartViewModel;
+import com.example.cosplan.data.cosplay.shoppingList.ShoppingListPart;
+import com.example.cosplan.data.cosplay.shoppingList.ShoppingListPartAdapter;
+import com.example.cosplan.data.cosplay.shoppingList.ShoppingListPartViewModel;
 import com.example.cosplan.data.cosplay.WIPImg.WIPImg;
 import com.example.cosplan.data.cosplay.WIPImg.WIPImgAdapter;
 import com.example.cosplan.data.cosplay.WIPImg.WIPImgViewModel;
@@ -495,7 +495,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mShoppingListClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mShoppingListPartAdapter.getmShoppingListParts().size()!=0){
+                if(mShoppingListPartAdapter.getShoppingListParts().size()!=0){
                 deleteWholeShoppingListDialog(mShoppingListPartAdapter.getShoppingListPartAtPosition(0));
                 }
             }
