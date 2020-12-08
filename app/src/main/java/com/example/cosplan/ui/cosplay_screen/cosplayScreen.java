@@ -53,7 +53,7 @@ import com.example.cosplan.data.cosplay.events.EventViewModel;
 import com.example.cosplan.data.cosplay.part.Part;
 import com.example.cosplan.data.cosplay.part.PartAdapter;
 import com.example.cosplan.data.cosplay.part.PartViewModel;
-import com.example.cosplan.data.cosplay.refImg.RefenceImgAdapter;
+import com.example.cosplan.data.cosplay.refImg.ReferenceImgAdapter;
 import com.example.cosplan.data.cosplay.refImg.ReferenceImg;
 import com.example.cosplan.data.cosplay.refImg.ReferenceImgViewModel;
 import com.example.cosplan.data.cosplay.ShoppingList.ShoppingListPart;
@@ -92,7 +92,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
     private ShoppingListPartAdapter mShoppingListPartAdapter;
     private ShoppingListPartViewModel mShoppingListViewModel;
     private WIPImgViewModel wipImgViewModel;
-    private RefenceImgAdapter refenceImgAdapter = null;
+    private ReferenceImgAdapter referenceImgAdapter = null;
     private WIPImgAdapter wipImgAdapter = null;
     private EventViewModel mEventViewModel;
     private PartAdapter mPartAdapterBuy;
@@ -135,7 +135,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         final View WebshopsView = inflater.inflate(R.layout.cosplay_screen_webshops, container, false);
         //endregion
 
-        refenceImgAdapter = new RefenceImgAdapter(null, requireContext(), getActivity().getApplication());
+        referenceImgAdapter = new ReferenceImgAdapter(null, requireContext(), getActivity().getApplication());
         wipImgAdapter = new WIPImgAdapter(null, requireContext(), getActivity().getApplication());
         mPartAdapterMake = new PartAdapter(requireContext(), getActivity().getApplication());
         mPartAdapterBuy = new PartAdapter(requireContext(), getActivity().getApplication());
@@ -364,7 +364,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             }
         });
         //RefImg
-        setRefImageInGrid(tempCosplay, refenceImgAdapter);
+        setRefImageInGrid(tempCosplay, referenceImgAdapter);
         mRefImgAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -654,17 +654,17 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         }
     }
 
-    public void setRefImageInGrid(Cosplay tempCosplay, final RefenceImgAdapter refenceImgAdapter) {
+    public void setRefImageInGrid(Cosplay tempCosplay, final ReferenceImgAdapter referenceImgAdapter) {
         referenceImgViewModel = new ViewModelProvider(this).get(ReferenceImgViewModel.class);
         referenceImgViewModel.GetAllRefImg(tempCosplay.mCosplayId).observe(getViewLifecycleOwner(), new Observer<List<ReferenceImg>>() {
             @Override
             public void onChanged(List<ReferenceImg> referenceImgs) {
-                refenceImgAdapter.setRefImg(referenceImgs);
+                referenceImgAdapter.setRefImg(referenceImgs);
             }
         });
         GridLayoutManager gridLayoutManager = new GridLayoutManager(requireContext(), 3, GridLayoutManager.VERTICAL, false);
         mRVRefImg.setLayoutManager(gridLayoutManager);
-        mRVRefImg.setAdapter(refenceImgAdapter);
+        mRVRefImg.setAdapter(referenceImgAdapter);
     }
 
     public void setWipImagesInGrid(Cosplay tempCosplay, final WIPImgAdapter wipImgAdapter) {
@@ -1355,7 +1355,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             }
             ReferenceImg temp = new ReferenceImg(tempCosplay.mCosplayId, 0, BitmapFactory.decodeStream(imagestream));
             referenceImgViewModel.insert(temp);
-            setRefImageInGrid(tempCosplay, refenceImgAdapter);
+            setRefImageInGrid(tempCosplay, referenceImgAdapter);
         }
         if (requestCode == GALLERY_REQUEST_CODE_WIP_IMG && data != null) {
             imageData = data.getData();
