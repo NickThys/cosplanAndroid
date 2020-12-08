@@ -1,4 +1,4 @@
-package com.example.cosplan.data.cosplay.Webshop;
+package com.example.cosplan.data.cosplay.webshop;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import com.example.cosplan.data.cosplay.Cosplay;
@@ -15,16 +16,12 @@ import com.example.cosplan.data.cosplay.Cosplay;
         parentColumns = "Id",
         childColumns = "CosplayId"))
 public class Webshop implements Parcelable {
-    @ColumnInfo(name = "CosplayId")
+    @ColumnInfo(name = "CosplayId",index = true)
     public int mCosplayId;
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "CosplayWebshopId")
     public int mCosplayWebshopId;
-
-    public String getCosplayWebshopName() {
-        return mCosplayWebshopName;
-    }
 
     @ColumnInfo(name = "CosplayWebshopName")
     public String mCosplayWebshopName;
@@ -32,6 +29,7 @@ public class Webshop implements Parcelable {
     @ColumnInfo(name = "CosplayWebshopLink")
     public String mCosplayWebshopLink;
 
+    @Ignore
     public Webshop(){}
 
     public Webshop(int mCosplayId,int mCosplayWebshopId, @NonNull String mCosplayWebshopName,@NonNull String mCosplayWebshopLink) {

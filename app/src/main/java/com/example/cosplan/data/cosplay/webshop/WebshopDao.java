@@ -1,4 +1,4 @@
-package com.example.cosplan.data.cosplay.Webshop;
+package com.example.cosplan.data.cosplay.webshop;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
@@ -13,10 +13,13 @@ import java.util.List;
 public interface WebshopDao {
     @Insert
     void insert(Webshop webshop);
+
     @Delete
     void delete(Webshop webshop);
+
     @Update
     void update(Webshop webshop);
+
     @Query("SELECT * FROM cosplaywebshop_table WHERE CosplayId=:CosplayId")
     LiveData<List<Webshop>> getAllWebshops(final int CosplayId);
 }

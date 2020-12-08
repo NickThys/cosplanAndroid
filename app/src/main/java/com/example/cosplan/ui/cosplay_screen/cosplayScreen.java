@@ -62,9 +62,9 @@ import com.example.cosplan.data.cosplay.shoppingList.ShoppingListPartViewModel;
 import com.example.cosplan.data.cosplay.WIPImg.WIPImg;
 import com.example.cosplan.data.cosplay.WIPImg.WIPImgAdapter;
 import com.example.cosplan.data.cosplay.WIPImg.WIPImgViewModel;
-import com.example.cosplan.data.cosplay.Webshop.Webshop;
-import com.example.cosplan.data.cosplay.Webshop.WebshopAdapter;
-import com.example.cosplan.data.cosplay.Webshop.WebshopViewModel;
+import com.example.cosplan.data.cosplay.webshop.Webshop;
+import com.example.cosplan.data.cosplay.webshop.WebshopAdapter;
+import com.example.cosplan.data.cosplay.webshop.WebshopViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.FileNotFoundException;
