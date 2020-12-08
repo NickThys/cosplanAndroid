@@ -11,36 +11,43 @@ import java.util.List;
 public class PartViewModel extends AndroidViewModel {
 
 
-    private PartRepository mRepository;
+    private final PartRepository mPartRepository;
     LiveData<List<Part>> mAllPartsToMake;
     LiveData<List<Part>> mAllPartsToBuy;
     private int mCosplayIdMake;
     private int mCosplayIdBuy;
+
     public PartViewModel(@NonNull Application application) {
         super(application);
-        mRepository = new PartRepository(application);
+        mPartRepository = new PartRepository(application);
 
-        mAllPartsToMake = mRepository.getAllPartsToMake(mCosplayIdMake);
-        mAllPartsToBuy = mRepository.getAllPartsToBuy(mCosplayIdBuy);
+        mAllPartsToMake = mPartRepository.getAllPartsToMake(mCosplayIdMake);
+        mAllPartsToBuy = mPartRepository.getAllPartsToBuy(mCosplayIdBuy);
     }
+
     public LiveData<List<Part>> getAllPartsToMake(int mCosplayId) {
         this.mCosplayIdMake = mCosplayId;
-        mAllPartsToMake = mRepository.getAllPartsToMake(mCosplayIdMake);
+        mAllPartsToMake = mPartRepository.getAllPartsToMake(mCosplayIdMake);
         return mAllPartsToMake;
     }
 
     public LiveData<List<Part>> getAllPartsToBuy(int mCosplayId) {
         mCosplayIdBuy = mCosplayId;
-
-        mAllPartsToBuy = mRepository.getAllPartsToBuy(mCosplayIdBuy);
+        mAllPartsToBuy = mPartRepository.getAllPartsToBuy(mCosplayIdBuy);
         return mAllPartsToBuy;
     }
 
     public void insert(Part part) {
-        mRepository.insert(part);
+        mPartRepository.insert(part);
     }
-    public void delete(Part part){mRepository.delete(part);}
-    public void update(Part part){mRepository.update(part);}
+
+    public void delete(Part part) {
+        mPartRepository.delete(part);
+    }
+
+    public void update(Part part) {
+        mPartRepository.update(part);
+    }
 
 
 }
