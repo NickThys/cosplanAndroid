@@ -9,34 +9,38 @@ import androidx.lifecycle.LiveData;
 import java.util.List;
 
 public class ShoppingListPartViewModel extends AndroidViewModel {
-    private ShoppingListPartRepository mRepository;
+    private final ShoppingListPartRepository mShoppingListPartRepository;
     private LiveData<List<ShoppingListPart>> mAllShoppingListParts;
-    private LiveData<List<String>> mAllShoppingListShops;
     private int mCosplayId;
-    private String mShopName;
+
 
     public ShoppingListPartViewModel(@NonNull Application application) {
         super(application);
-        mRepository=new ShoppingListPartRepository(application);
-        mAllShoppingListParts=mRepository.getAllShoppingListParts(mCosplayId);
-   //     mAllShoppingListShops=mRepository.getAllShoppingListShops(mCosplayId);
+        mShoppingListPartRepository = new ShoppingListPartRepository(application);
+        mAllShoppingListParts = mShoppingListPartRepository.getAllShoppingListParts(mCosplayId);
     }
-  public LiveData<List<ShoppingListPart>> getAllShoppingListParts(int mCosplayId){
-        this.mCosplayId=mCosplayId;
-        mAllShoppingListParts=mRepository.getAllShoppingListParts(mCosplayId);
+
+    public LiveData<List<ShoppingListPart>> getAllShoppingListParts(int mCosplayId) {
+        this.mCosplayId = mCosplayId;
+        mAllShoppingListParts = mShoppingListPartRepository.getAllShoppingListParts(mCosplayId);
         return mAllShoppingListParts;
     }
-  /*  public LiveData<List<String>>getAllShoppingListShops(int mCosplayId){
-        this.mCosplayId=mCosplayId;
-        mAllShoppingListShops=mRepository.getAllShoppingListShops(mCosplayId);
-        return mAllShoppingListShops;
-    }*/
-    public void insert(ShoppingListPart shoppingListPart){mRepository.insert(shoppingListPart);}
-    public void delete(ShoppingListPart shoppingListPart){mRepository.delete(shoppingListPart);}
-    public void update(ShoppingListPart shoppingListPart){mRepository.update(shoppingListPart);}
-    public void deleteAll(ShoppingListPart shoppingListPart){mRepository.deleteAll(shoppingListPart);}
 
+    public void insert(ShoppingListPart shoppingListPart) {
+        mShoppingListPartRepository.insert(shoppingListPart);
+    }
 
+    public void delete(ShoppingListPart shoppingListPart) {
+        mShoppingListPartRepository.delete(shoppingListPart);
+    }
+
+    public void update(ShoppingListPart shoppingListPart) {
+        mShoppingListPartRepository.update(shoppingListPart);
+    }
+
+    public void deleteAll(ShoppingListPart shoppingListPart) {
+        mShoppingListPartRepository.deleteAll(shoppingListPart);
+    }
 
 
 }
