@@ -1,4 +1,4 @@
-package com.example.cosplan.data.cosplay.RefImg;
+package com.example.cosplan.data.cosplay.refImg;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
@@ -15,6 +15,7 @@ public interface ReferenceImgDao {
 
     @Query("SELECT * FROM CosplayRefImg_table WHERE CosplayId=:CosplayId")
     LiveData<List<ReferenceImg>> getReferenceImg(final int CosplayId);
+
     @Delete
     void delete(ReferenceImg referenceImg);
 }
