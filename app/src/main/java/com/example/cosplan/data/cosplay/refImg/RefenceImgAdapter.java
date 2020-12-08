@@ -1,4 +1,4 @@
-package com.example.cosplan.data.cosplay.RefImg;
+package com.example.cosplan.data.cosplay.refImg;
 
 import android.app.AlertDialog;
 import android.app.Application;

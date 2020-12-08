@@ -1,4 +1,4 @@
-package com.example.cosplan.data.cosplay.RefImg;
+package com.example.cosplan.data.cosplay.refImg;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
