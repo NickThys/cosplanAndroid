@@ -1,4 +1,4 @@
-package com.example.cosplan.data.cosplay.Part;
+package com.example.cosplan.data.cosplay.part;
 
 import android.app.Application;
 import android.os.AsyncTask;

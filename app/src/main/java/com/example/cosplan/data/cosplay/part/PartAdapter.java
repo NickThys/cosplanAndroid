@@ -1,4 +1,4 @@
-package com.example.cosplan.data.cosplay.Part;
+package com.example.cosplan.data.cosplay.part;
 
 import android.app.AlertDialog;
 import android.app.Application;
@@ -173,7 +173,7 @@ public class PartAdapter extends RecyclerView.Adapter<PartAdapter.PartViewHolder
         mPartCost.setText(Double.toString(tempPart.mCosplayPartCost));
     //    mPartCost.setEnabled(false);
         mPartDate.setText(tempPart.mCosplayPartEndDate);
-        mPartNotes.setText(tempPart.mCosplaypartNote);
+        mPartNotes.setText(tempPart.mCosplayPartNote);
         mDialogBuilder.setView(mPartDialog);
         final Dialog dialog = mDialogBuilder.create();
         dialog.show();
