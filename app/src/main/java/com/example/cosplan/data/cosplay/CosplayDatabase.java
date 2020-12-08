@@ -17,8 +17,8 @@ import com.example.cosplan.data.cosplay.refImg.ReferenceImg;
 import com.example.cosplan.data.cosplay.refImg.ReferenceImgDao;
 import com.example.cosplan.data.cosplay.shoppingList.ShoppingListPart;
 import com.example.cosplan.data.cosplay.shoppingList.ShoppingListPartDao;
-import com.example.cosplan.data.cosplay.WIPImg.WIPImg;
-import com.example.cosplan.data.cosplay.WIPImg.WIPImgDao;
+import com.example.cosplan.data.cosplay.wIPImg.WIPImg;
+import com.example.cosplan.data.cosplay.wIPImg.WIPImgDao;
 import com.example.cosplan.data.cosplay.webshop.Webshop;
 import com.example.cosplan.data.cosplay.webshop.WebshopDao;
 

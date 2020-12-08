@@ -1,4 +1,4 @@
-package com.example.cosplan.data.cosplay.WIPImg;
+package com.example.cosplan.data.cosplay.wIPImg;
 
 import android.app.Application;
 
