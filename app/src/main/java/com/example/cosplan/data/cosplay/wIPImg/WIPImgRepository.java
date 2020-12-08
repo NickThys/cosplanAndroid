@@ -10,7 +10,7 @@ import com.example.cosplan.data.cosplay.CosplayDatabase;
 import java.util.List;
 
 public class WIPImgRepository {
-    private WIPImgDao mWIPImgDao;
+    private final WIPImgDao mWIPImgDao;
     private LiveData<List<WIPImg>> mAllWIPImgs;
     private int mCosplayId;
 
@@ -30,29 +30,31 @@ public class WIPImgRepository {
         new insertAsyncTask(mWIPImgDao).execute(wipImg);
     }
 
-    public void delete(WIPImg wipImg) {new deleteAsyncTask(mWIPImgDao).execute(wipImg);}
+    public void delete(WIPImg wipImg) {
+        new deleteAsyncTask(mWIPImgDao).execute(wipImg);}
 
-    private class insertAsyncTask extends AsyncTask<WIPImg, Void, Void> {
-        private WIPImgDao dao;
+    private static class insertAsyncTask extends AsyncTask<WIPImg, Void, Void> {
+        private final WIPImgDao mWipImgDao;
 
         public insertAsyncTask(WIPImgDao mWIPImgDao) {
-            dao = mWIPImgDao;
+            mWipImgDao = mWIPImgDao;
         }
 
         @Override
         protected Void doInBackground(WIPImg... wipImgs) {
-            dao.insert(wipImgs[0]);
+            mWipImgDao.insert(wipImgs[0]);
             return null;
         }
     }
 
-    private class deleteAsyncTask extends AsyncTask<WIPImg,Void,Void> {
-        private WIPImgDao dao;
-        public deleteAsyncTask(WIPImgDao mWIPImgDao) {dao=mWIPImgDao;}
+    private static class deleteAsyncTask extends AsyncTask<WIPImg,Void,Void> {
+        private final WIPImgDao mWipImgDao;
+        public deleteAsyncTask(WIPImgDao mWIPImgDao) {
+            mWipImgDao =mWIPImgDao;}
 
         @Override
         protected Void doInBackground(WIPImg... wipImgs) {
-            dao.delete(wipImgs[0]);
+            mWipImgDao.delete(wipImgs[0]);
             return null;
         }
     }
