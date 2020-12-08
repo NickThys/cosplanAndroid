@@ -15,6 +15,7 @@ public interface WIPImgDao {
 
     @Query("SELECT * FROM CosplayWIPImg_table WHERE CosplayId=:CosplayId")
     LiveData<List<WIPImg>> getWIPImg(final int CosplayId);
+
     @Delete
     void delete(WIPImg wipImg);
 }
