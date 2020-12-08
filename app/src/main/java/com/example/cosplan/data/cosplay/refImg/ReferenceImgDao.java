@@ -15,6 +15,7 @@ public interface ReferenceImgDao {
 
     @Query("SELECT * FROM CosplayRefImg_table WHERE CosplayId=:CosplayId")
     LiveData<List<ReferenceImg>> getReferenceImg(final int CosplayId);
+
     @Delete
     void delete(ReferenceImg referenceImg);
 }
