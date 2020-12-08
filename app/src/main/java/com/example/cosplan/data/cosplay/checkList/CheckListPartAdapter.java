@@ -1,4 +1,4 @@
-package com.example.cosplan.data.cosplay.CheckList;
+package com.example.cosplan.data.cosplay.checkList;
 
 import android.app.Application;
 import android.content.Context;
