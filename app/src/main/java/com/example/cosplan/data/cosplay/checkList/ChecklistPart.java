@@ -4,6 +4,7 @@ package com.example.cosplan.data.cosplay.checkList;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import com.example.cosplan.data.cosplay.Cosplay;
@@ -22,6 +23,8 @@ public class ChecklistPart {
     public String mCosplayCheckListPartName;
     @ColumnInfo(name = "CosplayCheckListPartChecked")
     public boolean mCosplayCheckListPartChecked;
+
+    @Ignore
     public ChecklistPart(){}
 
     public ChecklistPart(int mCosplayId, int mCosplayCheckListPartId, String mCosplayCheckListPartName, boolean mCosplayCheckListPartChecked) {

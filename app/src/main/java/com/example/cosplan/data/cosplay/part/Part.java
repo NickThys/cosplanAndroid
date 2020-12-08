@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import com.example.cosplan.data.cosplay.Cosplay;
@@ -42,6 +43,7 @@ public class Part {
     @ColumnInfo(name = "CosplayPartNote")
     public String mCosplayPartNote;
 
+    @Ignore
     public Part(){}
     //Basic input for a new part
     public Part(int cosplayId, int partId, @NonNull String partName, @NotNull String partMakeBuy, String partLink, double partCost, String partStatus, String partEndDate, Bitmap partImage){
