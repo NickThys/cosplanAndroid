@@ -1,5 +1,6 @@
 package com.example.cosplan.data.cosplay.part;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Application;
 import android.app.DatePickerDialog;
@@ -43,7 +44,6 @@ public class PartAdapter extends RecyclerView.Adapter<PartAdapter.PartViewHolder
     private final Application mApplication;
     private Cosplay mCosplay;
     private CosplayViewModel mCosplayViewModel;
-    private TextView mBudget;
     private View v;
 
     public void setCosplay(Cosplay tempCosplay, CosplayViewModel cosplayViewModel, View v){
@@ -94,17 +94,17 @@ public class PartAdapter extends RecyclerView.Adapter<PartAdapter.PartViewHolder
     @Override
     public void onBindViewHolder(@NonNull PartAdapter.PartViewHolder holder, int position) {
         final Part current = mParts.get(position);
-        Bitmap tempPartImage = current.mCosplayPartImg;
-        String tempPartName = current.mCosplayPartName;
-        String tempPartCost = Double.toString(current.mCosplayPartCost);
-        String tempPartStatus = current.mCosplayPartStatus;
-        String tempPartEndDate = current.mCosplayPartEndDate;
+        Bitmap mCosplayPartImg = current.mCosplayPartImg;
+        String mCosplayPartName = current.mCosplayPartName;
+        String mCosplayPartCost = Double.toString(current.mCosplayPartCost);
+        String mCosplayPartStatus = current.mCosplayPartStatus;
+        String mCosplayPartEndDate = current.mCosplayPartEndDate;
 
-        holder.mPartImage.setImageBitmap(tempPartImage);
-        holder.mPartName.setText(tempPartName);
-        holder.mPartCost.setText(tempPartCost);
-        holder.mPartStatus.setText(tempPartStatus);
-        holder.mPartEndDate.setText(tempPartEndDate);
+        holder.mPartImage.setImageBitmap(mCosplayPartImg);
+        holder.mPartName.setText(mCosplayPartName);
+        holder.mPartCost.setText(mCosplayPartCost);
+        holder.mPartStatus.setText(mCosplayPartStatus);
+        holder.mPartEndDate.setText(mCosplayPartEndDate);
         View itemView = holder.itemView;
         mPartViewModel = new PartViewModel(mApplication);
         switch (current.mCosplayPartBuyMake){
@@ -138,6 +138,7 @@ public class PartAdapter extends RecyclerView.Adapter<PartAdapter.PartViewHolder
         }
     }
 
+    @SuppressLint("SetTextI18n")
     public void updatePartDialog(final Part tempPart) {
         final AlertDialog.Builder mDialogBuilder = new AlertDialog.Builder(mContext);
         final View mPartDialog = mInflater.inflate(R.layout.cosplay_screen_part_update, null);
@@ -171,12 +172,11 @@ public class PartAdapter extends RecyclerView.Adapter<PartAdapter.PartViewHolder
         mPartName.setText(tempPart.mCosplayPartName);
         mPartLink.setText(tempPart.mCosplayPartLink);
         mPartCost.setText(Double.toString(tempPart.mCosplayPartCost));
-    //    mPartCost.setEnabled(false);
         mPartDate.setText(tempPart.mCosplayPartEndDate);
         mPartNotes.setText(tempPart.mCosplayPartNote);
         mDialogBuilder.setView(mPartDialog);
-        final Dialog dialog = mDialogBuilder.create();
-        dialog.show();
+        final Dialog mDialog = mDialogBuilder.create();
+        mDialog.show();
 
         //region DateListener
         mPartDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -186,15 +186,15 @@ public class PartAdapter extends RecyclerView.Adapter<PartAdapter.PartViewHolder
                     int year;
                     int month;
                     int day;
-                    String mtemp = mPartDate.getText().toString().trim();
-                    if (!checkDateFormat(mtemp)) {
+                    String mTemp = mPartDate.getText().toString().trim();
+                    if (!checkDateFormat(mTemp)) {
                         Calendar calendar = Calendar.getInstance();
                         year = calendar.get(Calendar.YEAR);
                         month = calendar.get(Calendar.MONTH);
                         day = calendar.get(Calendar.DAY_OF_MONTH);
                     } else {
-                        String mDateComlete = mPartDate.getText().toString();
-                        String[] mDate = mDateComlete.split("/");
+                        String mDateComplete = mPartDate.getText().toString();
+                        String[] mDate = mDateComplete.split("/");
                         day = Integer.parseInt(mDate[0].trim());
                         month = Integer.parseInt(mDate[1].trim());
                         year = Integer.parseInt(mDate[2].trim());
@@ -219,20 +219,20 @@ public class PartAdapter extends RecyclerView.Adapter<PartAdapter.PartViewHolder
         mPartCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.dismiss();
+                mDialog.dismiss();
 
             }
         });
         mPartUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                double OldCost=tempPart.mCosplayPartCost;
+                double mOldCost=tempPart.mCosplayPartCost;
                 Part mTempPart =new Part(tempPart.mCosplayId,tempPart.mCosplayPartId,mPartName.getText().toString(),mPartBuyMake.getSelectedItem().toString(),mPartLink.getText().toString(),Double.parseDouble(mPartCost.getText().toString()),mPartStatus.getSelectedItem().toString(),mPartDate.getText().toString(),((BitmapDrawable)mPartImage.getDrawable()).getBitmap(),mPartNotes.getText().toString());
                 mPartViewModel.update(mTempPart);
-                Cosplay tempCosplay=mCosplay;
-                tempCosplay.mCosplayRemainingBudget=tempCosplay.mCosplayRemainingBudget-Double.parseDouble(mPartCost.getText().toString())+OldCost;
-                mCosplayViewModel.update(tempCosplay);
-                dialog.dismiss();
+                Cosplay mTempCosplay=mCosplay;
+                mTempCosplay.mCosplayRemainingBudget=mTempCosplay.mCosplayRemainingBudget-Double.parseDouble(mPartCost.getText().toString())+mOldCost;
+                mCosplayViewModel.update(mTempCosplay);
+                mDialog.dismiss();
                 updateCosplayHeaderBudget();
             }
         });
@@ -240,7 +240,7 @@ public class PartAdapter extends RecyclerView.Adapter<PartAdapter.PartViewHolder
     public Boolean checkDateFormat(String date){
         if (date == null || !date.matches("^(1[0-9]|0[1-9]|3[0-1]|2[1-9])/(0[1-9]|1[0-2])/[0-9]{4}$"))
             return false;
-        SimpleDateFormat format=new SimpleDateFormat("dd/MM/yyyy");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat format=new SimpleDateFormat("dd/MM/yyyy");
         try {
             format.parse(date);
             return true;
@@ -248,8 +248,9 @@ public class PartAdapter extends RecyclerView.Adapter<PartAdapter.PartViewHolder
             return false;
         }
     }
+    @SuppressLint("SetTextI18n")
     public void updateCosplayHeaderBudget(){
-        mBudget=v.findViewById(R.id.TextView_CosplayHeaderBudget);
+        TextView mBudget = v.findViewById(R.id.TextView_CosplayHeaderBudget);
         double percentage=mCosplay.mCosplayRemainingBudget/mCosplay.mCosplayBudget*100;
         if(percentage<25&&percentage>0){
             mBudget.setTextColor(Color.YELLOW);
