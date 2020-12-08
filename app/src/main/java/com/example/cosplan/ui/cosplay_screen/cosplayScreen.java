@@ -41,9 +41,9 @@ import android.widget.Toast;
 
 import com.example.cosplan.R;
 
-import com.example.cosplan.data.cosplay.CheckList.CheckListPartAdapter;
-import com.example.cosplan.data.cosplay.CheckList.CheckListPartViewModel;
-import com.example.cosplan.data.cosplay.CheckList.ChecklistPart;
+import com.example.cosplan.data.cosplay.checkList.CheckListPartAdapter;
+import com.example.cosplan.data.cosplay.checkList.CheckListPartViewModel;
+import com.example.cosplan.data.cosplay.checkList.ChecklistPart;
 import com.example.cosplan.data.cosplay.Cosplay;
 import com.example.cosplan.data.cosplay.CosplayAdapter;
 import com.example.cosplan.data.cosplay.CosplayViewModel;

@@ -7,8 +7,8 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
-import com.example.cosplan.data.cosplay.CheckList.CheckListPartDao;
-import com.example.cosplan.data.cosplay.CheckList.ChecklistPart;
+import com.example.cosplan.data.cosplay.checkList.CheckListPartDao;
+import com.example.cosplan.data.cosplay.checkList.ChecklistPart;
 import com.example.cosplan.data.cosplay.Events.Event;
 import com.example.cosplan.data.cosplay.Events.EventDao;
 import com.example.cosplan.data.cosplay.Part.Part;

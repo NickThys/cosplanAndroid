@@ -1,4 +1,4 @@
-package com.example.cosplan.data.cosplay.CheckList;
+package com.example.cosplan.data.cosplay.checkList;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
