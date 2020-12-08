@@ -1,4 +1,4 @@
-package com.example.cosplan.data.cosplay.ShoppingList;
+package com.example.cosplan.data.cosplay.shoppingList;
 
 import android.app.Application;
 
