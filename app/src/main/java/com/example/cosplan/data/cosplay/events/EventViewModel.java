@@ -1,4 +1,4 @@
-package com.example.cosplan.data.cosplay.Events;
+package com.example.cosplan.data.cosplay.events;
 
 import android.app.Application;
 
@@ -9,7 +9,7 @@ import androidx.lifecycle.LiveData;
 import java.util.List;
 
 public class EventViewModel extends AndroidViewModel {
-    private EventRepository mEventRepository;
+    private final EventRepository mEventRepository;
     LiveData<List<Event>> mAllEvents;
     private int mCosplayId;
     private String mEventType;

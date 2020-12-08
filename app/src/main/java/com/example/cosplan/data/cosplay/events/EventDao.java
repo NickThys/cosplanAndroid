@@ -1,4 +1,4 @@
-package com.example.cosplan.data.cosplay.Events;
+package com.example.cosplan.data.cosplay.events;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;

@@ -9,8 +9,8 @@ import androidx.room.TypeConverters;
 
 import com.example.cosplan.data.cosplay.checkList.CheckListPartDao;
 import com.example.cosplan.data.cosplay.checkList.ChecklistPart;
-import com.example.cosplan.data.cosplay.Events.Event;
-import com.example.cosplan.data.cosplay.Events.EventDao;
+import com.example.cosplan.data.cosplay.events.Event;
+import com.example.cosplan.data.cosplay.events.EventDao;
 import com.example.cosplan.data.cosplay.Part.Part;
 import com.example.cosplan.data.cosplay.Part.PartDao;
 import com.example.cosplan.data.cosplay.RefImg.ReferenceImg;

@@ -1,5 +1,6 @@
-package com.example.cosplan.data.cosplay.Events;
+package com.example.cosplan.data.cosplay.events;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Application;
 import android.app.DatePickerDialog;
@@ -29,43 +30,45 @@ import java.util.List;
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHolder> {
     List<Event> mEvents;
-    private final LayoutInflater mInflater;
+    private final LayoutInflater mLayoutInflater;
     private final Context mContext;
+    private final Application mApplication;
     private EventViewModel mEventViewModel;
-    private Application mApplication;
     private DatePickerDialog.OnDateSetListener mStartDateSetListener, mEndDateSetListener;
+    private EditText mEventStartDate, mEventEndDate;
 
     public EventAdapter(Context mContext, Application mApplication) {
-        mInflater=LayoutInflater.from(mContext);
+        mLayoutInflater = LayoutInflater.from(mContext);
         this.mContext = mContext;
         this.mApplication = mApplication;
     }
 
-    public class EventViewHolder extends RecyclerView.ViewHolder {
-        private final TextView mEventName,mEventDate,mEventPlace;
+    public static class EventViewHolder extends RecyclerView.ViewHolder {
+        private final TextView mEventName, mEventDate, mEventPlace;
+
         public EventViewHolder(@NonNull View itemView) {
             super(itemView);
-            mEventName=itemView.findViewById(R.id.TextView_EventName);
-            mEventDate=itemView.findViewById(R.id.TextView_EventDate);
-            mEventPlace=itemView.findViewById(R.id.TextView_EventPlace);
+            mEventName = itemView.findViewById(R.id.TextView_EventName);
+            mEventDate = itemView.findViewById(R.id.TextView_EventDate);
+            mEventPlace = itemView.findViewById(R.id.TextView_EventPlace);
         }
     }
 
     @NonNull
     @Override
     public EventAdapter.EventViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView=mInflater.inflate(R.layout.event_row,parent,false  );
+        View itemView = mLayoutInflater.inflate(R.layout.event_row, parent, false);
         return new EventViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull EventAdapter.EventViewHolder holder, int position) {
-        final Event mCurrentEvent=mEvents.get(position);
+        final Event mCurrentEvent = mEvents.get(position);
         holder.mEventName.setText(mCurrentEvent.mCosplayEventName);
         holder.mEventPlace.setText(mCurrentEvent.mCosplayEventPlace);
         holder.mEventDate.setText(String.format("From %s until %s", mCurrentEvent.mCosplayEventBeginDate, mCurrentEvent.mCosplayEventEndDate));
-        View itemView=holder.itemView;
-        mEventViewModel=new EventViewModel(mApplication);
+        View itemView = holder.itemView;
+        mEventViewModel = new EventViewModel(mApplication);
         switch (mCurrentEvent.mCosplayEventType) {
 
             case "Convention":
@@ -102,17 +105,22 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
     public int getItemCount() {
         return mEvents.size();
     }
-    public void setEvents(List<Event> events){
-        mEvents=events;
+
+    public void setEvents(List<Event> events) {
+        mEvents = events;
         notifyDataSetChanged();
     }
-    public Event getEventAtPosition(int mPosition){return mEvents.get(mPosition);}
+
+    public Event getEventAtPosition(int mPosition) {
+        return mEvents.get(mPosition);
+    }
+
     public void updateEventDialog(final Event TempEvent) {
         final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(mContext);
-        final View mEventDialog = mInflater.inflate(R.layout.events_dialog, null);
+        final View mEventDialog = mLayoutInflater.inflate(R.layout.events_dialog, null);
         final TextView mEventTitle;
         final Spinner mEventType;
-        final EditText mEventName, mEventPlace, mEventStartDate, mEventEndDate;
+        final EditText mEventName, mEventPlace;
         final Button mEventAdd, mEventCancel;
         mEventType = mEventDialog.findViewById(R.id.Spinner_NewEventType);
         ArrayAdapter<CharSequence> mEventArrayAdapter = ArrayAdapter.createFromResource(mContext, R.array.EventType, android.R.layout.simple_spinner_item);
@@ -125,7 +133,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         mEventEndDate = mEventDialog.findViewById(R.id.EditText_NewEventEndDate);
         mEventAdd = mEventDialog.findViewById(R.id.Btn_NewEventAdd);
         mEventCancel = mEventDialog.findViewById(R.id.Btn_NewEventCancel);
-        mEventTitle=mEventDialog.findViewById(R.id.TextView_NewEventTitle);
+        mEventTitle = mEventDialog.findViewById(R.id.TextView_NewEventTitle);
         mEventName.setText(TempEvent.mCosplayEventName);
         mEventPlace.setText(TempEvent.mCosplayEventPlace);
         mEventStartDate.setText(TempEvent.mCosplayEventBeginDate);
@@ -141,72 +149,30 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         mEventStartDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    int year;
-                    int month;
-                    int day;
-                    String mtemp = mEventStartDate.getText().toString().trim();
-                    if (!checkDateFormat(mtemp)) {
-                        Calendar calendar = Calendar.getInstance();
-                        year = calendar.get(Calendar.YEAR);
-                        month = calendar.get(Calendar.MONTH);
-                        day = calendar.get(Calendar.DAY_OF_MONTH);
-                    } else {
-                        String mDateComlete = mEventStartDate.getText().toString();
-                        String[] mDate = mDateComlete.split("/");
-                        day = Integer.parseInt(mDate[0].trim());
-                        month = Integer.parseInt(mDate[1].trim());
-                        year = Integer.parseInt(mDate[2].trim());
-                        month = month - 1;
-                    }
-
-                    DatePickerDialog datePickerDialog = new DatePickerDialog(mContext, R.style.Theme_MaterialComponents_Light_Dialog_MinWidth, mStartDateSetListener, year, month, day);
-                    datePickerDialog.getDatePicker().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                    datePickerDialog.show();
-                }
+                ShowDatePickerDialog(hasFocus, true);
             }
         });
         mStartDateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @SuppressLint("DefaultLocale")
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 month = month + 1;
-                mEventStartDate.setText(dayOfMonth + "/" + month + "/" + year);
+                mEventStartDate.setText(String.format("%d/%d/%d", dayOfMonth, month, year));
             }
         };
         //create dateSelector and add the selected date to the Edit text
         mEventEndDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    int year;
-                    int month;
-                    int day;
-                    String mtemp = mEventEndDate.getText().toString().trim();
-                    if (!checkDateFormat(mtemp)) {
-                        Calendar calendar = Calendar.getInstance();
-                        year = calendar.get(Calendar.YEAR);
-                        month = calendar.get(Calendar.MONTH);
-                        day = calendar.get(Calendar.DAY_OF_MONTH);
-                    } else {
-                        String mDateComlete = mEventEndDate.getText().toString();
-                        String[] mDate = mDateComlete.split("/");
-                        day = Integer.parseInt(mDate[0].trim());
-                        month = Integer.parseInt(mDate[1].trim());
-                        year = Integer.parseInt(mDate[2].trim());
-                        month = month - 1;
-                    }
-
-                    DatePickerDialog datePickerDialog = new DatePickerDialog(mContext, R.style.Theme_MaterialComponents_Light_Dialog_MinWidth, mEndDateSetListener, year, month, day);
-                    datePickerDialog.getDatePicker().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                    datePickerDialog.show();
-                }
+                ShowDatePickerDialog(hasFocus, false);
             }
         });
         mEndDateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @SuppressLint("DefaultLocale")
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 month = month + 1;
-                mEventEndDate.setText(dayOfMonth + "/" + month + "/" + year);
+                mEventEndDate.setText(String.format("%d/%d/%d", dayOfMonth, month, year));
             }
         };
         //endregion
@@ -226,14 +192,51 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
             }
         });
     }
-    public Boolean checkDateFormat(String date){
+
+    private void ShowDatePickerDialog(boolean hasFocus, boolean IsStartDate) {
+        EditText mEditTextDate;
+        DatePickerDialog.OnDateSetListener mOnDateSetListener;
+        if (IsStartDate) {
+            mEditTextDate = mEventStartDate;
+            mOnDateSetListener = mStartDateSetListener;
+        } else {
+            mEditTextDate = mEventEndDate;
+            mOnDateSetListener = mEndDateSetListener;
+        }
+        if (hasFocus) {
+            int year;
+            int month;
+            int day;
+            String mTempDate = mEditTextDate.getText().toString().trim();
+            if (!checkDateFormat(mTempDate)) {
+                Calendar calendar = Calendar.getInstance();
+                year = calendar.get(Calendar.YEAR);
+                month = calendar.get(Calendar.MONTH);
+                day = calendar.get(Calendar.DAY_OF_MONTH);
+            } else {
+
+                String mDateComplete = mEditTextDate.getText().toString();
+                String[] mDate = mDateComplete.split("/");
+                day = Integer.parseInt(mDate[0].trim());
+                month = Integer.parseInt(mDate[1].trim());
+                year = Integer.parseInt(mDate[2].trim());
+                month = month - 1;
+            }
+
+            DatePickerDialog datePickerDialog = new DatePickerDialog(mContext, R.style.Theme_MaterialComponents_Light_Dialog_MinWidth, mOnDateSetListener, year, month, day);
+            datePickerDialog.getDatePicker().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            datePickerDialog.show();
+        }
+    }
+
+    public Boolean checkDateFormat(String date) {
         if (date == null || !date.matches("^(1[0-9]|0[1-9]|3[0-1]|2[1-9])/(0[1-9]|1[0-2])/[0-9]{4}$"))
             return false;
-        SimpleDateFormat format=new SimpleDateFormat("dd/MM/yyyy");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         try {
             format.parse(date);
             return true;
-        }catch (ParseException e){
+        } catch (ParseException e) {
             return false;
         }
     }
