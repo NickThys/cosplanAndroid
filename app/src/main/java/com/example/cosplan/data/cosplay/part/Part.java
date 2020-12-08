@@ -1,4 +1,4 @@
-package com.example.cosplan.data.cosplay.Part;
+package com.example.cosplan.data.cosplay.part;
 
 import android.graphics.Bitmap;
 
@@ -9,6 +9,8 @@ import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
 import com.example.cosplan.data.cosplay.Cosplay;
+
+import org.jetbrains.annotations.NotNull;
 
 @Entity(tableName = "CosplayPart_table", foreignKeys = @ForeignKey(onDelete = ForeignKey.CASCADE ,entity = Cosplay.class,
         parentColumns = "Id",
@@ -26,6 +28,7 @@ public class Part {
     @NonNull
     @ColumnInfo(name = "CosplayPartBuyMake")
     public String mCosplayPartBuyMake;
+
     @ColumnInfo(name = "CosplayPartLink")
     public String mCosplayPartLink;
     @ColumnInfo(name = "CosplayPartCost")
@@ -37,11 +40,11 @@ public class Part {
     @ColumnInfo(typeAffinity = ColumnInfo.BLOB,name = "CosplayPartImage")
     public Bitmap mCosplayPartImg;
     @ColumnInfo(name = "CosplayPartNote")
-    public String mCosplaypartNote;
+    public String mCosplayPartNote;
 
     public Part(){}
     //Basic input for a new part
-    public Part(@NonNull int cosplayId, @NonNull int partId, @NonNull String partName, String partMakeBuy, String partLink, double partCost, String partStatus, String partEndDate, Bitmap partImage){
+    public Part(int cosplayId, int partId, @NonNull String partName, @NotNull String partMakeBuy, String partLink, double partCost, String partStatus, String partEndDate, Bitmap partImage){
         mCosplayId=cosplayId;
         mCosplayPartId=partId;
         mCosplayPartName=partName;
@@ -53,7 +56,7 @@ public class Part {
         mCosplayPartImg=partImage;
     }
 
-    public Part(int mCosplayId, int mCosplayPartId, @NonNull String mCosplayPartName, @NonNull String mCosplayPartBuyMake, String mCosplayPartLink, double mCosplayPartCost, String mCosplayPartStatus, String mCosplayPartEndDate, Bitmap mCosplayPartImg, String mCosplaypartNote) {
+    public Part(int mCosplayId, int mCosplayPartId, @NonNull String mCosplayPartName, @NonNull String mCosplayPartBuyMake, String mCosplayPartLink, double mCosplayPartCost, String mCosplayPartStatus, String mCosplayPartEndDate, Bitmap mCosplayPartImg, String mCosplayPartNote) {
         this.mCosplayId = mCosplayId;
         this.mCosplayPartId = mCosplayPartId;
         this.mCosplayPartName = mCosplayPartName;
@@ -63,6 +66,6 @@ public class Part {
         this.mCosplayPartStatus = mCosplayPartStatus;
         this.mCosplayPartEndDate = mCosplayPartEndDate;
         this.mCosplayPartImg = mCosplayPartImg;
-        this.mCosplaypartNote = mCosplaypartNote;
+        this.mCosplayPartNote = mCosplayPartNote;
     }
 }

@@ -1,4 +1,4 @@
-package com.example.cosplan.data.cosplay.Part;
+package com.example.cosplan.data.cosplay.part;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
@@ -13,11 +13,6 @@ import java.util.List;
 public interface PartDao {
     @Insert
     void insert(Part part);
-
-    /*@Query("SELECT * FROM CosplayPart_table WHERE CosplayPartBuyMake='Make' ")
-    LiveData<List<Part>> getPartsToMake();
-    @Query("SELECT * FROM CosplayPart_table WHERE CosplayPartBuyMake='Buy' ")
-    LiveData<List<Part>> getPartsToBuy();*/
     @Query("SELECT * FROM CosplayPart_table WHERE CosplayPartBuyMake='Make' AND CosplayId=:CosplayId")
     LiveData<List<Part>> getPartsToMake(final int CosplayId);
     @Query("SELECT * FROM CosplayPart_table WHERE CosplayPartBuyMake='Buy' AND CosplayId=:CosplayId")

@@ -1,4 +1,4 @@
-package com.example.cosplan.data.cosplay.Part;
+package com.example.cosplan.data.cosplay.part;
 
 import android.app.Application;
 import android.os.AsyncTask;
@@ -10,7 +10,7 @@ import com.example.cosplan.data.cosplay.CosplayDatabase;
 import java.util.List;
 
 public class PartRepository {
-    private PartDao mPartDao;
+    private final PartDao mPartDao;
     private LiveData<List<Part>>mAllPartsToMake;
     private LiveData<List<Part>>mAllPartsToBuy;
     private int mCosplayIdMake;
@@ -23,9 +23,12 @@ public class PartRepository {
         mAllPartsToMake=mPartDao.getPartsToMake(mCosplayIdMake);
         mAllPartsToBuy=mPartDao.getPartsToBuy(mCosplayIdBuy);
     }
-    public void insert(Part part){new insertAsyncTask(mPartDao).execute(part);}
-    public void delete(Part part){new deleteAsyncTask(mPartDao).execute(part);}
-    public void update(Part part){new updateAsyncTask(mPartDao).execute(part);}
+    public void insert(Part part){
+        new insertAsyncTask(mPartDao).execute(part);}
+    public void delete(Part part){
+        new deleteAsyncTask(mPartDao).execute(part);}
+    public void update(Part part){
+        new updateAsyncTask(mPartDao).execute(part);}
 
     LiveData<List<Part>>getAllPartsToMake(int mCosplayIdMake){
         this.mCosplayIdMake = mCosplayIdMake;
@@ -37,34 +40,36 @@ public class PartRepository {
         mAllPartsToBuy=mPartDao.getPartsToBuy(mCosplayIdBuy);
         return mAllPartsToBuy;}
 
-    private class insertAsyncTask extends AsyncTask<Part,Void,Void> {
-        private PartDao dao;
-        insertAsyncTask(PartDao mPartDao) { dao=mPartDao;}
+    private static class insertAsyncTask extends AsyncTask<Part,Void,Void> {
+        private final PartDao mPartDao;
+        insertAsyncTask(PartDao mPartDao) { this.mPartDao =mPartDao;}
 
         @Override
         protected Void doInBackground(Part... parts) {
-            dao.insert(parts[0]);
+            mPartDao.insert(parts[0]);
             return null;
         }
     }
-    private class deleteAsyncTask extends AsyncTask<Part,Void,Void> {
-        private PartDao dao;
-        public deleteAsyncTask(PartDao mPartDao) {dao=mPartDao;}
+    private static class deleteAsyncTask extends AsyncTask<Part,Void,Void> {
+        private final PartDao mPartDao;
+        public deleteAsyncTask(PartDao mPartDao) {
+            this.mPartDao =mPartDao;}
 
         @Override
         protected Void doInBackground(Part... parts) {
-            dao.delete(parts[0]);
+            mPartDao.delete(parts[0]);
             return null;
         }
     }
 
-    private class updateAsyncTask extends AsyncTask<Part,Void,Void> {
-        private PartDao dao;
-        public updateAsyncTask(PartDao mPartDao) {dao=mPartDao;}
+    private static class updateAsyncTask extends AsyncTask<Part,Void,Void> {
+        private final PartDao mPartDao;
+        public updateAsyncTask(PartDao mPartDao) {
+            this.mPartDao =mPartDao;}
 
         @Override
         protected Void doInBackground(Part... parts) {
-            dao.update(parts[0]);
+            mPartDao.update(parts[0]);
             return null;
         }
     }
