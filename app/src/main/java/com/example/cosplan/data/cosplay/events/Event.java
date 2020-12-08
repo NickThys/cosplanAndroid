@@ -3,14 +3,13 @@ package com.example.cosplan.data.cosplay.events;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
-import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import com.example.cosplan.data.cosplay.Cosplay;
 
 @Entity(tableName = "CosplayEvent_table",foreignKeys = @ForeignKey(onDelete = ForeignKey.CASCADE,entity = Cosplay.class,parentColumns = "Id",childColumns = "CosplayId"))
 public class Event {
-    @ColumnInfo(name = "CosplayId")
+    @ColumnInfo(name = "CosplayId",index = true)
     public int mCosplayId;
 
     @PrimaryKey(autoGenerate = true)
@@ -32,7 +31,7 @@ public class Event {
     @ColumnInfo(name = "CosplayEventType")
     public String mCosplayEventType;
 
-    @Ignore
+
     public Event(){}
 
     public Event(int mCosplayId, int mCosplayEventId, String mCosplayEventName, String mCosplayEventPlace,String mCosplayEventBeginDate, String mCosplayEventDate, String mCosplayEventType) {
