@@ -46,10 +46,10 @@ public class PartAdapter extends RecyclerView.Adapter<PartAdapter.PartViewHolder
     private CosplayViewModel mCosplayViewModel;
     private View v;
 
-    public void setCosplay(Cosplay tempCosplay, CosplayViewModel cosplayViewModel, View v){
-        mCosplay=tempCosplay;
-        mCosplayViewModel=cosplayViewModel;
-        this.v=v;
+    public void setCosplay(Cosplay tempCosplay, CosplayViewModel cosplayViewModel, View v) {
+        mCosplay = tempCosplay;
+        mCosplayViewModel = cosplayViewModel;
+        this.v = v;
     }
 
 
@@ -75,9 +75,11 @@ public class PartAdapter extends RecyclerView.Adapter<PartAdapter.PartViewHolder
             mPartEndDate = itemView.findViewById(R.id.TextView_PartEnddate);
         }
     }
-    public Part getPartAtPosition(int mPosition){
+
+    public Part getPartAtPosition(int mPosition) {
         return mParts.get(mPosition);
     }
+
     public void setParts(List<Part> parts) {
         mParts = parts;
         notifyDataSetChanged();
@@ -107,7 +109,7 @@ public class PartAdapter extends RecyclerView.Adapter<PartAdapter.PartViewHolder
         holder.mPartEndDate.setText(mCosplayPartEndDate);
         View itemView = holder.itemView;
         mPartViewModel = new PartViewModel(mApplication);
-        switch (current.mCosplayPartBuyMake){
+        switch (current.mCosplayPartBuyMake) {
             case "Buy":
                 itemView.findViewById(R.id.RecView_PartsToBuy);
                 itemView.setOnClickListener(new View.OnClickListener() {
@@ -201,9 +203,9 @@ public class PartAdapter extends RecyclerView.Adapter<PartAdapter.PartViewHolder
                         month = month - 1;
                     }
 
-                    DatePickerDialog datePickerDialog = new DatePickerDialog(mContext, R.style.Theme_MaterialComponents_Light_Dialog_MinWidth, mEndDateSetListener, year, month, day);
-                    datePickerDialog.getDatePicker().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                    datePickerDialog.show();
+                    DatePickerDialog mDatePickerDialog = new DatePickerDialog(mContext, R.style.Theme_MaterialComponents_Light_Dialog_MinWidth, mEndDateSetListener, year, month, day);
+                    mDatePickerDialog.getDatePicker().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    mDatePickerDialog.show();
                 }
             }
         });
@@ -226,39 +228,39 @@ public class PartAdapter extends RecyclerView.Adapter<PartAdapter.PartViewHolder
         mPartUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                double mOldCost=tempPart.mCosplayPartCost;
-                Part mTempPart =new Part(tempPart.mCosplayId,tempPart.mCosplayPartId,mPartName.getText().toString(),mPartBuyMake.getSelectedItem().toString(),mPartLink.getText().toString(),Double.parseDouble(mPartCost.getText().toString()),mPartStatus.getSelectedItem().toString(),mPartDate.getText().toString(),((BitmapDrawable)mPartImage.getDrawable()).getBitmap(),mPartNotes.getText().toString());
+                double mOldCost = tempPart.mCosplayPartCost;
+                Part mTempPart = new Part(tempPart.mCosplayId, tempPart.mCosplayPartId, mPartName.getText().toString(), mPartBuyMake.getSelectedItem().toString(), mPartLink.getText().toString(), Double.parseDouble(mPartCost.getText().toString()), mPartStatus.getSelectedItem().toString(), mPartDate.getText().toString(), ((BitmapDrawable) mPartImage.getDrawable()).getBitmap(), mPartNotes.getText().toString());
                 mPartViewModel.update(mTempPart);
-                Cosplay mTempCosplay=mCosplay;
-                mTempCosplay.mCosplayRemainingBudget=mTempCosplay.mCosplayRemainingBudget-Double.parseDouble(mPartCost.getText().toString())+mOldCost;
+                Cosplay mTempCosplay = mCosplay;
+                mTempCosplay.mCosplayRemainingBudget = mTempCosplay.mCosplayRemainingBudget - Double.parseDouble(mPartCost.getText().toString()) + mOldCost;
                 mCosplayViewModel.update(mTempCosplay);
                 mDialog.dismiss();
                 updateCosplayHeaderBudget();
             }
         });
     }
-    public Boolean checkDateFormat(String date){
+
+    public Boolean checkDateFormat(String date) {
         if (date == null || !date.matches("^(1[0-9]|0[1-9]|3[0-1]|2[1-9])/(0[1-9]|1[0-2])/[0-9]{4}$"))
             return false;
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat format=new SimpleDateFormat("dd/MM/yyyy");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         try {
             format.parse(date);
             return true;
-        }catch (ParseException e){
+        } catch (ParseException e) {
             return false;
         }
     }
+
     @SuppressLint("SetTextI18n")
-    public void updateCosplayHeaderBudget(){
+    public void updateCosplayHeaderBudget() {
         TextView mBudget = v.findViewById(R.id.TextView_CosplayHeaderBudget);
-        double percentage=mCosplay.mCosplayRemainingBudget/mCosplay.mCosplayBudget*100;
-        if(percentage<25&&percentage>0){
+        double percentage = mCosplay.mCosplayRemainingBudget / mCosplay.mCosplayBudget * 100;
+        if (percentage < 25 && percentage > 0) {
             mBudget.setTextColor(Color.YELLOW);
-        }
-        else if(percentage<=0){
+        } else if (percentage <= 0) {
             mBudget.setTextColor(Color.RED);
-        }
-        else{
+        } else {
             mBudget.setTextColor(Color.GREEN);
 
         }
