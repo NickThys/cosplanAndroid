@@ -19,11 +19,11 @@ import com.example.cosplan.data.cosplay.shoppingList.ShoppingListPart;
 import com.example.cosplan.data.cosplay.shoppingList.ShoppingListPartDao;
 import com.example.cosplan.data.cosplay.WIPImg.WIPImg;
 import com.example.cosplan.data.cosplay.WIPImg.WIPImgDao;
-import com.example.cosplan.data.cosplay.Webshop.Webshop;
-import com.example.cosplan.data.cosplay.Webshop.WebshopDao;
+import com.example.cosplan.data.cosplay.webshop.Webshop;
+import com.example.cosplan.data.cosplay.webshop.WebshopDao;
 
 @TypeConverters(Converters.class)
-@Database(entities = {Cosplay.class, Part.class, ReferenceImg.class, Webshop.class, ChecklistPart.class, ShoppingListPart.class, WIPImg.class, Event.class}, version = 1)
+@Database(entities = {Cosplay.class, Part.class, ReferenceImg.class, Webshop.class, ChecklistPart.class, ShoppingListPart.class, WIPImg.class, Event.class}, version = 1,exportSchema = false)
 public abstract class CosplayDatabase extends RoomDatabase {
     public abstract CosplayDao mCosplayDao();
 

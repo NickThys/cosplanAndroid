@@ -1,4 +1,4 @@
-package com.example.cosplan.data.cosplay.Webshop;
+package com.example.cosplan.data.cosplay.webshop;
 
 import android.app.AlertDialog;
 import android.app.Application;
