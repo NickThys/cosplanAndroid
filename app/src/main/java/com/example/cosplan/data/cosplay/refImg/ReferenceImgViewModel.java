@@ -9,21 +9,27 @@ import androidx.lifecycle.LiveData;
 import java.util.List;
 
 public class ReferenceImgViewModel extends AndroidViewModel {
-    private ReferenceImgRepository mRepository;
+    private final ReferenceImgRepository mReferenceImgRepository;
     LiveData<List<ReferenceImg>> mAllRefImg;
     private int mCosplayId;
 
     public ReferenceImgViewModel(@NonNull Application application) {
         super(application);
-        mRepository=new ReferenceImgRepository(application);
-        mAllRefImg=mRepository.getAllRefImg(mCosplayId);
+        mReferenceImgRepository = new ReferenceImgRepository(application);
+        mAllRefImg = mReferenceImgRepository.getAllRefImg(mCosplayId);
     }
-    public LiveData<List<ReferenceImg>>GetAllRefImg(int mCosplayId){
-        this.mCosplayId=mCosplayId;
-        mAllRefImg=mRepository.getAllRefImg(mCosplayId);
+
+    public LiveData<List<ReferenceImg>> GetAllRefImg(int mCosplayId) {
+        this.mCosplayId = mCosplayId;
+        mAllRefImg = mReferenceImgRepository.getAllRefImg(mCosplayId);
         return mAllRefImg;
     }
-    public void insert(ReferenceImg referenceImg){mRepository.insert(referenceImg);}
 
-    public void delete(ReferenceImg referenceImg) {mRepository.delete(referenceImg);}
+    public void insert(ReferenceImg referenceImg) {
+        mReferenceImgRepository.insert(referenceImg);
+    }
+
+    public void delete(ReferenceImg referenceImg) {
+        mReferenceImgRepository.delete(referenceImg);
+    }
 }
