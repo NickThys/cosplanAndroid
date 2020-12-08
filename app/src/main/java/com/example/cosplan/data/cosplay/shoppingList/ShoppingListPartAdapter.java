@@ -18,28 +18,27 @@ import java.util.List;
 
 public class ShoppingListPartAdapter extends RecyclerView.Adapter<ShoppingListPartAdapter.ShoppingListPartViewHolder> {
     private List<ShoppingListPart> mShoppingListParts;
-  //  private List<String> mShoppingListShops;
-    private final LayoutInflater mInflater;
+    private final LayoutInflater mLayoutInflater;
     private final Application mApplication;
 
-    public List<ShoppingListPart> getmShoppingListParts() {
+    public List<ShoppingListPart> getShoppingListParts() {
         return mShoppingListParts;
     }
 
     public ShoppingListPartAdapter(Context context, Application application) {
-        mInflater = LayoutInflater.from(context);
+        mLayoutInflater = LayoutInflater.from(context);
         mApplication = application;
     }
 
 
-    public class ShoppingListPartViewHolder extends RecyclerView.ViewHolder {
-        private final TextView mShoppingListListPartName,mShoppingListListPartShop;
+    public static class ShoppingListPartViewHolder extends RecyclerView.ViewHolder {
+        private final TextView mShoppingListListPartName, mShoppingListListPartShop;
         private final CheckBox mShoppingListPartPacked;
 
         public ShoppingListPartViewHolder(@NonNull View itemView) {
             super(itemView);
             mShoppingListListPartName = itemView.findViewById(R.id.TextView_ShoppingListPartName);
-            mShoppingListListPartShop=itemView.findViewById(R.id.TextView_ShoppingListPartShop);
+            mShoppingListListPartShop = itemView.findViewById(R.id.TextView_ShoppingListPartShop);
             mShoppingListPartPacked = itemView.findViewById(R.id.CheckBox_ShoppingListPartChecked);
         }
     }
@@ -52,33 +51,30 @@ public class ShoppingListPartAdapter extends RecyclerView.Adapter<ShoppingListPa
         mShoppingListParts = shoppingListParts;
     }
 
- /*   public void setShoppingListShops(List<String> shoppingListShops) {
-        mShoppingListShops = shoppingListShops;
-    }*/
 
     @NonNull
     @Override
     public ShoppingListPartAdapter.ShoppingListPartViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = mInflater.inflate(R.layout.shoppinglist_part_row, parent, false);
+        View itemView = mLayoutInflater.inflate(R.layout.shoppinglist_part_row, parent, false);
         return new ShoppingListPartViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull final ShoppingListPartAdapter.ShoppingListPartViewHolder holder, int position) {
-        final ShoppingListPart current=mShoppingListParts.get(position);
-        String tempName=current.mCosplayShoppingListPartName;
-        String tempShop=current.mCosplayShoppingListPartShop;
-        boolean tempPacked=current.mCosplayShoppingListPartChecked;
-        holder.mShoppingListListPartName.setText(tempName);
-        holder.mShoppingListPartPacked.setChecked(tempPacked);
-        holder.mShoppingListListPartShop.setText(tempShop);
+        final ShoppingListPart mCurrentShoppingListPart = mShoppingListParts.get(position);
+        String mCosplayShoppingListPartName = mCurrentShoppingListPart.mCosplayShoppingListPartName;
+        String mCosplayShoppingListPartShop = mCurrentShoppingListPart.mCosplayShoppingListPartShop;
+        boolean mCosplayShoppingListPartChecked = mCurrentShoppingListPart.mCosplayShoppingListPartChecked;
+        holder.mShoppingListListPartName.setText(mCosplayShoppingListPartName);
+        holder.mShoppingListPartPacked.setChecked(mCosplayShoppingListPartChecked);
+        holder.mShoppingListListPartShop.setText(mCosplayShoppingListPartShop);
         holder.mShoppingListPartPacked.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                ShoppingListPartViewModel viewModel=new ShoppingListPartViewModel(mApplication);
-                ShoppingListPart tempPart=new ShoppingListPart(current.mCosplayId,current.mCosplayShoppingLIstPartId,current.mCosplayShoppingListPartShop,current.mCosplayShoppingListPartName,holder.mShoppingListPartPacked.isChecked());
+                ShoppingListPartViewModel viewModel = new ShoppingListPartViewModel(mApplication);
+                ShoppingListPart mTempShoppingListPart = new ShoppingListPart(mCurrentShoppingListPart.mCosplayId, mCurrentShoppingListPart.mCosplayShoppingLIstPartId, mCurrentShoppingListPart.mCosplayShoppingListPartShop, mCurrentShoppingListPart.mCosplayShoppingListPartName, holder.mShoppingListPartPacked.isChecked());
 
-                viewModel.update(tempPart);
+                viewModel.update(mTempShoppingListPart);
             }
         });
     }

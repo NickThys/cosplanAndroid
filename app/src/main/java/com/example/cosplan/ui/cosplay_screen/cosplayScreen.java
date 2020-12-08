@@ -495,7 +495,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mShoppingListClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mShoppingListPartAdapter.getmShoppingListParts().size()!=0){
+                if(mShoppingListPartAdapter.getShoppingListParts().size()!=0){
                 deleteWholeShoppingListDialog(mShoppingListPartAdapter.getShoppingListPartAtPosition(0));
                 }
             }
