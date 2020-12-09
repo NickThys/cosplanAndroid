@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 
 @Entity(tableName = "CosplayShoppingList_table",foreignKeys = @ForeignKey(onDelete = ForeignKey.CASCADE,entity = Cosplay.class,parentColumns = "Id",childColumns = "CosplayId"))
 public class ShoppingListPart {
-    @ColumnInfo(name = "CosplayId")
+    @ColumnInfo(name = "CosplayId",index = true)
     public int mCosplayId;
 
     @PrimaryKey(autoGenerate = true)

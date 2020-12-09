@@ -15,7 +15,7 @@ import com.example.cosplan.data.cosplay.Cosplay;
                 parentColumns = "Id",
                 childColumns = "CosplayId"))
 public class ReferenceImg {
-    @ColumnInfo(name = "CosplayId")
+    @ColumnInfo(name = "CosplayId",index = true)
     public int mCosplayId;
 
     @PrimaryKey(autoGenerate = true)

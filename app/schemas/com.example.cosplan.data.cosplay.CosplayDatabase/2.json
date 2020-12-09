@@ -1,8 +1,8 @@
 {
   "formatVersion": 1,
   "database": {
-    "version": 1,
-    "identityHash": "79da4948b74e0d9d004f6d7392a19e45",
+    "version": 2,
+    "identityHash": "1a3d0e52dd0b1b76a6854643941a98e6",
     "entities": [
       {
         "tableName": "cosplay_table",
@@ -149,7 +149,16 @@
           ],
           "autoGenerate": true
         },
-        "indices": [],
+        "indices": [
+          {
+            "name": "index_CosplayPart_table_CosplayId",
+            "unique": false,
+            "columnNames": [
+              "CosplayId"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_CosplayPart_table_CosplayId` ON `${TABLE_NAME}` (`CosplayId`)"
+          }
+        ],
         "foreignKeys": [
           {
             "table": "cosplay_table",
@@ -193,7 +202,16 @@
           ],
           "autoGenerate": true
         },
-        "indices": [],
+        "indices": [
+          {
+            "name": "index_CosplayRefImg_table_CosplayId",
+            "unique": false,
+            "columnNames": [
+              "CosplayId"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_CosplayRefImg_table_CosplayId` ON `${TABLE_NAME}` (`CosplayId`)"
+          }
+        ],
         "foreignKeys": [
           {
             "table": "cosplay_table",
@@ -243,7 +261,16 @@
           ],
           "autoGenerate": true
         },
-        "indices": [],
+        "indices": [
+          {
+            "name": "index_CosplayWebshop_table_CosplayId",
+            "unique": false,
+            "columnNames": [
+              "CosplayId"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_CosplayWebshop_table_CosplayId` ON `${TABLE_NAME}` (`CosplayId`)"
+          }
+        ],
         "foreignKeys": [
           {
             "table": "cosplay_table",
@@ -358,7 +385,16 @@
           ],
           "autoGenerate": true
         },
-        "indices": [],
+        "indices": [
+          {
+            "name": "index_CosplayShoppingList_table_CosplayId",
+            "unique": false,
+            "columnNames": [
+              "CosplayId"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_CosplayShoppingList_table_CosplayId` ON `${TABLE_NAME}` (`CosplayId`)"
+          }
+        ],
         "foreignKeys": [
           {
             "table": "cosplay_table",
@@ -402,7 +438,16 @@
           ],
           "autoGenerate": true
         },
-        "indices": [],
+        "indices": [
+          {
+            "name": "index_CosplayWIPImg_table_CosplayId",
+            "unique": false,
+            "columnNames": [
+              "CosplayId"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_CosplayWIPImg_table_CosplayId` ON `${TABLE_NAME}` (`CosplayId`)"
+          }
+        ],
         "foreignKeys": [
           {
             "table": "cosplay_table",
@@ -470,7 +515,16 @@
           ],
           "autoGenerate": true
         },
-        "indices": [],
+        "indices": [
+          {
+            "name": "index_CosplayEvent_table_CosplayId",
+            "unique": false,
+            "columnNames": [
+              "CosplayId"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_CosplayEvent_table_CosplayId` ON `${TABLE_NAME}` (`CosplayId`)"
+          }
+        ],
         "foreignKeys": [
           {
             "table": "cosplay_table",
@@ -489,7 +543,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '79da4948b74e0d9d004f6d7392a19e45')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '1a3d0e52dd0b1b76a6854643941a98e6')"
     ]
   }
 }
