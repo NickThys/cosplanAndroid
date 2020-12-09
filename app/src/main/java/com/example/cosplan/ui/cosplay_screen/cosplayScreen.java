@@ -125,6 +125,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         mListMake = new ArrayList<>();
         mListBuy = new ArrayList<>();
         // Inflate the layout for this fragment
