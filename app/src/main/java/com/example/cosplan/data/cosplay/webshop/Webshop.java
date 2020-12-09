@@ -16,7 +16,7 @@ import com.example.cosplan.data.cosplay.Cosplay;
         parentColumns = "Id",
         childColumns = "CosplayId"))
 public class Webshop implements Parcelable {
-    @ColumnInfo(name = "CosplayId")
+    @ColumnInfo(name = "CosplayId",index = true)
     public int mCosplayId;
 
     @PrimaryKey(autoGenerate = true)
