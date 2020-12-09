@@ -21,8 +21,8 @@
     <string name="FillOutFields">Please fill out all necessary fields: </string>
     <string name="FillOutAllFields">Please fill out all fields.</string>
     <string name="UpdateDb">Update</string>
-    <string name="deleteDatafromdb">Delete</string>
-    <string name="Laber_Belgium">Belgium</string>
+    <string name="DeleteDataFromDatabase">Delete</string>
+    <string name="Label_Belgium">Belgium</string>
     <string name="Label_Netherland">Netherland</string>
     <string name="btn_add_cosplay">Add cosplay</string>
     <string name="btnChooseCosplayImg">Choose a picture</string>
@@ -36,7 +36,7 @@
     <string name="txt_chooseImg_intent">Choose an image</string>
     <string name="txt_dark_mode">Dark Mode</string>
     <string name="txt_compact_mode">Compact mode</string>
-    <string name="txt_cancelDeleteCOsplay">No</string>
+    <string name="txt_cancelDeleteCosplay">No</string>
     <string name="txt_deleteCosplay">Yes</string>
     <string name="ConformationDeleteCosplay">Are you sure you want to delete</string>
     <string name="btnText_cosplay_parts">Parts</string>
@@ -91,9 +91,16 @@
     <string name="EventTitle">New event</string>
     <string name="TitleUpdatePart">Update part</string>
     <string name="ImageFullScreenClose">close</string>
-    <string name="imageDelete">Delete</string>
+    <string name="imageDelete"> Delete</string>
     <string name="CheckListExportToPdf">Export To PDF</string>
     <string name="EventUpdate">Update Event</string>
+    <string name="UpdateWebshop">Update webshop</string>
+    <string name="DeleteImage">Do you want to delete this image</string>
+    <string name="UpdateCosplay">Update cosplay</string>
+    <string name="WholeList">\" the whole list?\"</string>
+    <string name="NoteSaved">The note is saved</string>
+    <string name="ComingSoon">Coming soon</string>
+    <string name="ShoppingLIstDeleted">Shopping list deleted</string>
     <string-array name="BuyMake">
         <item>Buy</item>
         <item>Make</item>

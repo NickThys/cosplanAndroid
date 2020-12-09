@@ -16,49 +16,44 @@ import android.widget.CompoundButton;
 import com.example.cosplan.R;
 
 
+@SuppressWarnings("ConstantConditions")
 public class SettingsFragment extends Fragment {
-    SwitchCompat enableDarkMode, enableCompactMode;
-    SharedPreferences sharedPreferences = null;
+    SwitchCompat mEnableDarkMode;
+    SharedPreferences mSharedPreferences = null;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View root = inflater.inflate(R.layout.fragment_settings, container, false);
-        enableDarkMode = root.findViewById(R.id.Switch_SettingsDarkMode);
-        enableCompactMode = root.findViewById(R.id.Switch_SettingsCompactMode);
+        mEnableDarkMode = root.findViewById(R.id.Switch_SettingsDarkMode);
 
-
-        sharedPreferences = getContext().getSharedPreferences("night", 0);
-        boolean NightmodeEnabled = sharedPreferences.getBoolean("night_mode", false);
+        mSharedPreferences = getContext().getSharedPreferences("night", 0);
+        boolean NightmodeEnabled = mSharedPreferences.getBoolean("night_mode", false);
         if (NightmodeEnabled) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-            enableDarkMode.setChecked(true);
+            mEnableDarkMode.setChecked(true);
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-
         }
-        enableDarkMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        mEnableDarkMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                    enableDarkMode.setChecked(true);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    mEnableDarkMode.setChecked(true);
+                    SharedPreferences.Editor editor = mSharedPreferences.edit();
                     editor.putBoolean("night_mode", true);
                     editor.apply();
-                    getActivity().recreate();
 
                 } else {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                    enableDarkMode.setChecked(false);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    mEnableDarkMode.setChecked(false);
+                    SharedPreferences.Editor editor = mSharedPreferences.edit();
                     editor.putBoolean("night_mode", false);
                     editor.apply();
-                    getActivity().recreate();
                 }
-
+                getActivity().recreate();
             }
         });
-
         return root;
     }
 

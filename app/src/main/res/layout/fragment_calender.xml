@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="3dp"
-        android:text="@string/Laber_Belgium"
+        android:text="@string/Label_Belgium"
         app:fontFamily="sans-serif-black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -31,7 +31,7 @@
 
     <TextView
 
-        android:id="@+id/TextView_ConventoinTitleNetherland"
+        android:id="@+id/TextView_ConventionTitleNetherland"
 
         style="@style/Titles"
         android:layout_width="match_parent"
@@ -43,7 +43,7 @@
         app:layout_constraintTop_toBottomOf="@+id/Guideline_HalfScreen" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/RecView_CalenderBelguim"
+        android:id="@+id/RecView_CalenderBelgium"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="6dp"
@@ -66,7 +66,7 @@
         app:layout_constrainedHeight="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TextView_ConventoinTitleNetherland"
+        app:layout_constraintTop_toBottomOf="@+id/TextView_ConventionTitleNetherland"
         app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

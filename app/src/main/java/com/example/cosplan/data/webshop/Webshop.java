@@ -7,36 +7,35 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-import androidx.versionedparcelable.VersionedParcelize;
 
 
 @Entity(tableName = "webshop_table")
 public class Webshop implements Parcelable {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
-    public int mId;
+    public int mWebshopId;
 
     @NonNull
     @ColumnInfo(name = "Name")
-    public String mSiteName;
+    public String mWebshopName;
     @NonNull
     @ColumnInfo(name = "Link")
-    public String mSiteLink;
+    public String mWebshopLink;
 
     public Webshop() {
     }
 
-    public Webshop(@NonNull int Id,@NonNull String name, @NonNull String link) {
-        this.mId=Id;
-        this.mSiteLink = link;
-        this.mSiteName = name;
+    public Webshop(int mId, @NonNull String mName, @NonNull String mLink) {
+        this.mWebshopId = mId;
+        this.mWebshopLink = mLink;
+        this.mWebshopName = mName;
     }
 
 
     protected Webshop(Parcel in) {
-        mId = in.readInt();
-        mSiteName = in.readString();
-        mSiteLink = in.readString();
+        mWebshopId = in.readInt();
+        mWebshopName = in.readString();
+        mWebshopLink = in.readString();
     }
 
     public static final Creator<Webshop> CREATOR = new Creator<Webshop>() {
@@ -50,16 +49,7 @@ public class Webshop implements Parcelable {
             return new Webshop[size];
         }
     };
-
-    public String getWebsiteLink() {
-        return this.mSiteLink;
-    }
-
-    public String getWebsiteName() {
-        return this.mSiteName;
-    }
-
-
+    
     @Override
     public int describeContents() {
         return 0;
@@ -67,8 +57,8 @@ public class Webshop implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(mId);
-        dest.writeString(mSiteName);
-        dest.writeString(mSiteLink);
+        dest.writeInt(mWebshopId);
+        dest.writeString(mWebshopName);
+        dest.writeString(mWebshopLink);
     }
 }

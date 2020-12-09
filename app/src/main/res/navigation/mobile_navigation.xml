@@ -42,13 +42,13 @@
     <fragment
         android:id="@+id/cosplayScreen"
         android:name="com.example.cosplan.ui.cosplay_screen.cosplayScreen"
-        android:label="fragment_cosplayScreen"
+        android:label="@string/app_name"
         tools:layout="@layout/fragment_cosplay_screen">
         <action
             android:id="@+id/action_cosplay_screen_to_nav_home"
             app:destination="@id/nav_home" />
         <argument
             android:name="current_cosplay"
-            app:argType="com.example.cosplan.data.Coplay.Cosplay" />
+            app:argType="com.example.cosplan.data.cosplay.Cosplay" />
     </fragment>
 </navigation>

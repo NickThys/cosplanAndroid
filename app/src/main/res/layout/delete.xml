@@ -16,21 +16,21 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/Btn_DeleteNo"
+        android:id="@+id/Btn_DeleteCancel"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="6dp"
         android:layout_marginLeft="6dp"
         android:layout_marginEnd="6dp"
         android:layout_marginRight="6dp"
-        android:text="@string/txt_cancelDeleteCOsplay"
-        app:layout_constraintBottom_toBottomOf="@+id/Btn_DeleteYes"
-        app:layout_constraintEnd_toStartOf="@+id/Btn_DeleteYes"
+        android:text="@string/txt_cancelDeleteCosplay"
+        app:layout_constraintBottom_toBottomOf="@+id/Btn_DeleteDelete"
+        app:layout_constraintEnd_toStartOf="@+id/Btn_DeleteDelete"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/Btn_DeleteYes" />
+        app:layout_constraintTop_toTopOf="@+id/Btn_DeleteDelete" />
 
     <Button
-        android:id="@+id/Btn_DeleteYes"
+        android:id="@+id/Btn_DeleteDelete"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -40,7 +40,7 @@
         android:text="@string/txt_deleteCosplay"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/Btn_DeleteNo"
+        app:layout_constraintStart_toEndOf="@+id/Btn_DeleteCancel"
         app:layout_constraintTop_toBottomOf="@+id/TextView_DeleteTitle" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

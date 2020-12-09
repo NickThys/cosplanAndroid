@@ -13,15 +13,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/TextView_SettingsCompactMode"
-        style="@style/txtViews_Settings"
-        android:layout_marginStart="-12dp"
-        android:layout_marginLeft="-12dp"
-        android:text="@string/txt_compact_mode"
-        app:layout_constraintStart_toStartOf="@+id/TextView_SettingsDarkMode"
-        app:layout_constraintTop_toBottomOf="@+id/TextView_SettingsDarkMode" />
-
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/Switch_SettingsDarkMode"
         android:layout_width="wrap_content"
@@ -29,15 +20,6 @@
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
         app:layout_constraintBottom_toBottomOf="@+id/TextView_SettingsDarkMode"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/Switch_SettingsCompactMode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:layout_marginRight="24dp"
-        app:layout_constraintBottom_toBottomOf="@+id/TextView_SettingsCompactMode"
         app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
