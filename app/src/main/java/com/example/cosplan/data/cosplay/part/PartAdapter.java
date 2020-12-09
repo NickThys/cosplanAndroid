@@ -72,7 +72,7 @@ public class PartAdapter extends RecyclerView.Adapter<PartAdapter.PartViewHolder
             mPartName = itemView.findViewById(R.id.TextView_PartName);
             mPartCost = itemView.findViewById(R.id.TextView_PartCost);
             mPartStatus = itemView.findViewById(R.id.TextView_PartStatus);
-            mPartEndDate = itemView.findViewById(R.id.TextView_PartEnddate);
+            mPartEndDate = itemView.findViewById(R.id.TextView_PartEndDate);
         }
     }
 
@@ -163,7 +163,7 @@ public class PartAdapter extends RecyclerView.Adapter<PartAdapter.PartViewHolder
         mPartName = mPartDialog.findViewById(R.id.EditText_PartUpdateName);
         mPartLink = mPartDialog.findViewById(R.id.EditText_PartUpdateLink);
         mPartCost = mPartDialog.findViewById(R.id.EditText_PartUpdateCost);
-        mPartDate = mPartDialog.findViewById(R.id.EditText_PartUpdateEnddate);
+        mPartDate = mPartDialog.findViewById(R.id.EditText_PartUpdateEndDate);
         mPartNotes = mPartDialog.findViewById(R.id.EditText_PartUpdateNotes);
         mPartCancel = mPartDialog.findViewById(R.id.Btn_PartUpdateCancel);
         mPartUpdate = mPartDialog.findViewById(R.id.Btn_PartUpdateUpdate);

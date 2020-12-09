@@ -9,7 +9,7 @@ import androidx.lifecycle.LiveData;
 import java.util.List;
 
 public class WIPImgViewModel extends AndroidViewModel {
-    private WIPImgRepository mRepository;
+    private final WIPImgRepository mRepository;
     LiveData<List<WIPImg>> mAllWIPImgs;
     private int mCosplayId;
     public WIPImgViewModel(@NonNull Application application) {

@@ -31,7 +31,7 @@ public class CalenderFragment extends Fragment {
         final ConventionAdapter mConventionAdapterNetherland=new ConventionAdapter(requireContext());
 
         //region RecyclerView Belgium
-        RecyclerView mRecyclerViewBelgium=root.findViewById(R.id.RecView_CalenderBelguim);
+        RecyclerView mRecyclerViewBelgium=root.findViewById(R.id.RecView_CalenderBelgium);
         mRecyclerViewBelgium.setAdapter(mConventionAdapterBelgium);
         mRecyclerViewBelgium.addItemDecoration(new DividerItemDecoration(requireContext(),DividerItemDecoration.VERTICAL));
         mRecyclerViewBelgium.setLayoutManager(new LinearLayoutManager(requireContext()));

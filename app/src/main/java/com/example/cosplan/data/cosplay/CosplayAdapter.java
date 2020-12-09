@@ -48,7 +48,7 @@ public class CosplayAdapter extends RecyclerView.Adapter<CosplayAdapter.CosplayV
         holder.mCosplayImg.setImageBitmap(mCurrentCosplay.mCosplayIMG);
 
         View itemView=holder.itemView;
-        itemView.findViewById(R.id.cosplayrowLayout);
+        itemView.findViewById(R.id.cosplayRowLayout);
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

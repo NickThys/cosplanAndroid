@@ -21,8 +21,8 @@
     <string name="FillOutFields">Please fill out all necessary fields: </string>
     <string name="FillOutAllFields">Please fill out all fields.</string>
     <string name="UpdateDb">Update</string>
-    <string name="deleteDatafromdb">Delete</string>
-    <string name="Laber_Belgium">Belgium</string>
+    <string name="DeleteDataFromDatabase">Delete</string>
+    <string name="Label_Belgium">Belgium</string>
     <string name="Label_Netherland">Netherland</string>
     <string name="btn_add_cosplay">Add cosplay</string>
     <string name="btnChooseCosplayImg">Choose a picture</string>

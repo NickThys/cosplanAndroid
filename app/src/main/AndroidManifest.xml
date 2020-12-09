@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.cosplan">
     <uses-feature android:name="android.hardware.camera"
         android:required="true" />
@@ -11,7 +12,7 @@
         android:supportsRtl="true"
         android:largeHeap="true"
         android:theme="@style/AppTheme"
-        android:fullBackupContent="@xml/backup_descriptor">
+        tools:ignore="AllowBackup">
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"

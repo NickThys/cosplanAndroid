@@ -92,14 +92,14 @@
         android:ems="10"
         android:hint="@string/NewPart_CostHint"
         android:inputType="numberDecimal"
-        app:layout_constraintBottom_toTopOf="@+id/EditText_PartUpdateEnddate"
+        app:layout_constraintBottom_toTopOf="@+id/EditText_PartUpdateEndDate"
         app:layout_constraintEnd_toEndOf="@+id/EditText_PartUpdateLink"
         app:layout_constraintStart_toStartOf="@+id/EditText_PartUpdateLink"
         app:layout_constraintTop_toBottomOf="@+id/EditText_PartUpdateLink"
         android:importantForAutofill="no" />
 
     <EditText
-        android:id="@+id/EditText_PartUpdateEnddate"
+        android:id="@+id/EditText_PartUpdateEndDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
@@ -129,7 +129,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_min="50dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/EditText_PartUpdateEnddate" />
+        app:layout_constraintTop_toBottomOf="@+id/EditText_PartUpdateEndDate" />
 
     <Button
         android:id="@+id/Btn_PartUpdateCancel"

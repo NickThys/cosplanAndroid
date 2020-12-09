@@ -39,6 +39,7 @@ public class WebshopFragment extends Fragment {
     private AlertDialog.Builder mDialogBuilder;
     private Dialog mDialog;
 
+    @SuppressWarnings("ConstantConditions")
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         final View root = inflater.inflate(R.layout.fragment_webshop, container, false);
@@ -48,7 +49,7 @@ public class WebshopFragment extends Fragment {
 
         RecyclerView mRecyclerView = root.findViewById(R.id.recyclerView);
         mRecyclerView.setAdapter(mWebshopAdapter);
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL));
         mRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         //Delete webshop
         ItemTouchHelper mItemTouchHelper = new ItemTouchHelper(
@@ -144,26 +145,28 @@ public class WebshopFragment extends Fragment {
             }
         });
         mAdd.setOnClickListener(new View.OnClickListener() {
+            @SuppressWarnings("ConstantConditions")
             @Override
             public void onClick(View v) {
-                if (inputCheck(mSiteName.getText().toString(), mSiteLink.getText().toString())) {
+                //noinspection ConstantConditions
+                if (mSiteName.getText().toString().contains("")|| mSiteLink.getText().toString().contains("")) {
+
+                    Toast.makeText(requireContext(), R.string.FillOutAllFields, Toast.LENGTH_SHORT).show();
+
+                } else {
                     Webshop temp = new Webshop(0, mSiteName.getText().toString(), mSiteLink.getText().toString());
                     mWebshopViewModel.insert(temp);
                     closeKeyboard(v);
                     mDialog.dismiss();
-                } else {
-                    Toast.makeText(requireContext(), R.string.FillOutAllFields, Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
 
     private void closeKeyboard(View view) {
-        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        @SuppressWarnings("ConstantConditions") InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
-    private boolean inputCheck(String name, String link) {
-        return !(name == null || link == null);
-    }
+
 }

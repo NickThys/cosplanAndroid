@@ -41,6 +41,7 @@ import java.util.Calendar;
 import java.util.List;
 
 
+@SuppressWarnings("ConstantConditions")
 public class CosplayFragment extends Fragment {
     private CosplayViewModel mCosplayViewModel;
     private AlertDialog.Builder mDialogBuilder;
@@ -62,7 +63,7 @@ public class CosplayFragment extends Fragment {
 
         RecyclerView mRecyclerView = root.findViewById(R.id.RecView_Cosplay);
         mRecyclerView.setAdapter(cosplayAdapter);
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL));
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(requireContext(),DividerItemDecoration.VERTICAL));
         mRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         ItemTouchHelper mItemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT) {
