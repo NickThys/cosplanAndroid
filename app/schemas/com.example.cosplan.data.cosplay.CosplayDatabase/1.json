@@ -1,0 +1,486 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "46cb583782d5003ae06e2e3c08be03fd",
+    "entities": [
+      {
+        "tableName": "cosplay_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`Id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `CosplayName` TEXT NOT NULL, `CosplayStartDate` TEXT NOT NULL, `CosplayEndDate` TEXT NOT NULL, `CosplayBudget` REAL NOT NULL, `CosplayCurrentBudget` REAL NOT NULL, `CosplayIMG` BLOB NOT NULL, `CosplayNote` TEXT, `NumberOfParts` INTEGER NOT NULL, `CosplayPercentage` REAL NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "mCosplayId",
+            "columnName": "Id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mCosplayName",
+            "columnName": "CosplayName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mCosplayStartDate",
+            "columnName": "CosplayStartDate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mCosplayEndDate",
+            "columnName": "CosplayEndDate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mCosplayBudget",
+            "columnName": "CosplayBudget",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mCosplayRemainingBudget",
+            "columnName": "CosplayCurrentBudget",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mCosplayIMG",
+            "columnName": "CosplayIMG",
+            "affinity": "BLOB",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mCosplayNote",
+            "columnName": "CosplayNote",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mNumberOfParts",
+            "columnName": "NumberOfParts",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mCosplayPercentage",
+            "columnName": "CosplayPercentage",
+            "affinity": "REAL",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "Id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "CosplayPart_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`CosplayId` INTEGER NOT NULL, `CosplayPartId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `CosplayPartName` TEXT NOT NULL, `CosplayPartBuyMake` TEXT NOT NULL, `CosplayPartLink` TEXT, `CosplayPartCost` REAL NOT NULL, `CosplayPartStatus` TEXT, `CosplayPartEndDate` TEXT, `CosplayPartImage` BLOB, `CosplayPartNote` TEXT, FOREIGN KEY(`CosplayId`) REFERENCES `cosplay_table`(`Id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "mCosplayId",
+            "columnName": "CosplayId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mCosplayPartId",
+            "columnName": "CosplayPartId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mCosplayPartName",
+            "columnName": "CosplayPartName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mCosplayPartBuyMake",
+            "columnName": "CosplayPartBuyMake",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mCosplayPartLink",
+            "columnName": "CosplayPartLink",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mCosplayPartCost",
+            "columnName": "CosplayPartCost",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mCosplayPartStatus",
+            "columnName": "CosplayPartStatus",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mCosplayPartEndDate",
+            "columnName": "CosplayPartEndDate",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mCosplayPartImg",
+            "columnName": "CosplayPartImage",
+            "affinity": "BLOB",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mCosplayPartNote",
+            "columnName": "CosplayPartNote",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "CosplayPartId"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "cosplay_table",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "CosplayId"
+            ],
+            "referencedColumns": [
+              "Id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "CosplayRefImg_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`CosplayId` INTEGER NOT NULL, `CosplayRefImgId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `CosplayRefImgImage` BLOB, FOREIGN KEY(`CosplayId`) REFERENCES `cosplay_table`(`Id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "mCosplayId",
+            "columnName": "CosplayId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mCosplayRefImgId",
+            "columnName": "CosplayRefImgId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mCosplayRefImgImage",
+            "columnName": "CosplayRefImgImage",
+            "affinity": "BLOB",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "CosplayRefImgId"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "cosplay_table",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "CosplayId"
+            ],
+            "referencedColumns": [
+              "Id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "CosplayWebshop_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`CosplayId` INTEGER NOT NULL, `CosplayWebshopId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `CosplayWebshopName` TEXT, `CosplayWebshopLink` TEXT, FOREIGN KEY(`CosplayId`) REFERENCES `cosplay_table`(`Id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "mCosplayId",
+            "columnName": "CosplayId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mCosplayWebshopId",
+            "columnName": "CosplayWebshopId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mCosplayWebshopName",
+            "columnName": "CosplayWebshopName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mCosplayWebshopLink",
+            "columnName": "CosplayWebshopLink",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "CosplayWebshopId"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "cosplay_table",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "CosplayId"
+            ],
+            "referencedColumns": [
+              "Id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "CosplayChecklist_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`CosplayId` INTEGER NOT NULL, `CosplayCheckListPartId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `CosplayCheckListPartName` TEXT, `CosplayCheckListPartChecked` INTEGER NOT NULL, FOREIGN KEY(`CosplayId`) REFERENCES `cosplay_table`(`Id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "mCosplayId",
+            "columnName": "CosplayId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mCosplayCheckListPartId",
+            "columnName": "CosplayCheckListPartId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mCosplayCheckListPartName",
+            "columnName": "CosplayCheckListPartName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mCosplayCheckListPartChecked",
+            "columnName": "CosplayCheckListPartChecked",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "CosplayCheckListPartId"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "cosplay_table",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "CosplayId"
+            ],
+            "referencedColumns": [
+              "Id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "CosplayShoppingList_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`CosplayId` INTEGER NOT NULL, `CosplayShoppingListPartId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `CosplayShoppingListPartShop` TEXT, `CosplayShoppingListPartName` TEXT, `CosplayShoppingListPartChecked` INTEGER NOT NULL, FOREIGN KEY(`CosplayId`) REFERENCES `cosplay_table`(`Id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "mCosplayId",
+            "columnName": "CosplayId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mCosplayShoppingLIstPartId",
+            "columnName": "CosplayShoppingListPartId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mCosplayShoppingListPartShop",
+            "columnName": "CosplayShoppingListPartShop",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mCosplayShoppingListPartName",
+            "columnName": "CosplayShoppingListPartName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mCosplayShoppingListPartChecked",
+            "columnName": "CosplayShoppingListPartChecked",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "CosplayShoppingListPartId"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "cosplay_table",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "CosplayId"
+            ],
+            "referencedColumns": [
+              "Id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "CosplayWIPImg_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`CosplayId` INTEGER NOT NULL, `CosplayWIPImgId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `CosplayWIPImgImage` BLOB, FOREIGN KEY(`CosplayId`) REFERENCES `cosplay_table`(`Id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "mCosplayId",
+            "columnName": "CosplayId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mCosplayWIPImgId",
+            "columnName": "CosplayWIPImgId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mCosplayWIPImgImage",
+            "columnName": "CosplayWIPImgImage",
+            "affinity": "BLOB",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "CosplayWIPImgId"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "cosplay_table",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "CosplayId"
+            ],
+            "referencedColumns": [
+              "Id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "CosplayEvent_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`CosplayId` INTEGER NOT NULL, `CosplayEventId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `CosplayEventName` TEXT, `CosplayEventPlace` TEXT, `CosplayEventBeginDate` TEXT, `CosplayEventEndDate` TEXT, `CosplayEventType` TEXT, FOREIGN KEY(`CosplayId`) REFERENCES `cosplay_table`(`Id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "mCosplayId",
+            "columnName": "CosplayId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mCosplayEventId",
+            "columnName": "CosplayEventId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mCosplayEventName",
+            "columnName": "CosplayEventName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mCosplayEventPlace",
+            "columnName": "CosplayEventPlace",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mCosplayEventBeginDate",
+            "columnName": "CosplayEventBeginDate",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mCosplayEventEndDate",
+            "columnName": "CosplayEventEndDate",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mCosplayEventType",
+            "columnName": "CosplayEventType",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "CosplayEventId"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "cosplay_table",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "CosplayId"
+            ],
+            "referencedColumns": [
+              "Id"
+            ]
+          }
+        ]
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '46cb583782d5003ae06e2e3c08be03fd')"
+    ]
+  }
+}

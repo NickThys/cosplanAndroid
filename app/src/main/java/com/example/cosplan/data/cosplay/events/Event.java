@@ -9,7 +9,7 @@ import com.example.cosplan.data.cosplay.Cosplay;
 
 @Entity(tableName = "CosplayEvent_table",foreignKeys = @ForeignKey(onDelete = ForeignKey.CASCADE,entity = Cosplay.class,parentColumns = "Id",childColumns = "CosplayId"))
 public class Event {
-    @ColumnInfo(name = "CosplayId",index = true)
+    @ColumnInfo(name = "CosplayId")
     public int mCosplayId;
 
     @PrimaryKey(autoGenerate = true)

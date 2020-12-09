@@ -17,7 +17,7 @@ import org.jetbrains.annotations.NotNull;
         parentColumns = "Id",
         childColumns = "CosplayId"))
 public class Part {
-    @ColumnInfo(name = "CosplayId",index = true)
+    @ColumnInfo(name = "CosplayId")
     public int mCosplayId;
 
     @PrimaryKey(autoGenerate = true)

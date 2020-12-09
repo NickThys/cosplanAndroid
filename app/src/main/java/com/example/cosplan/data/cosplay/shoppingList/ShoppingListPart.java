@@ -1,6 +1,5 @@
 package com.example.cosplan.data.cosplay.shoppingList;
 
-import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
@@ -13,18 +12,16 @@ import org.jetbrains.annotations.NotNull;
 
 @Entity(tableName = "CosplayShoppingList_table",foreignKeys = @ForeignKey(onDelete = ForeignKey.CASCADE,entity = Cosplay.class,parentColumns = "Id",childColumns = "CosplayId"))
 public class ShoppingListPart {
-    @ColumnInfo(name = "CosplayId",index = true)
+    @ColumnInfo(name = "CosplayId")
     public int mCosplayId;
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "CosplayShoppingListPartId")
     public int mCosplayShoppingLIstPartId;
 
-    @NonNull
     @ColumnInfo(name = "CosplayShoppingListPartShop")
     public String mCosplayShoppingListPartShop;
 
-    @NonNull
     @ColumnInfo(name = "CosplayShoppingListPartName")
     public String mCosplayShoppingListPartName;
 

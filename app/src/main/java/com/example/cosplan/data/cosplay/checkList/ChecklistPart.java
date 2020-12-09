@@ -13,7 +13,7 @@ import com.example.cosplan.data.cosplay.Cosplay;
         parentColumns = "Id",
         childColumns = "CosplayId"))
 public class ChecklistPart {
-    @ColumnInfo(name = "CosplayId",index = true)
+    @ColumnInfo(name = "CosplayId")
     public int mCosplayId;
 
     @PrimaryKey(autoGenerate = true)

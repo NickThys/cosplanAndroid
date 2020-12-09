@@ -3,7 +3,6 @@ package com.example.cosplan.data.cosplay.refImg;
 
 import android.graphics.Bitmap;
 
-import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
@@ -16,14 +15,14 @@ import com.example.cosplan.data.cosplay.Cosplay;
                 parentColumns = "Id",
                 childColumns = "CosplayId"))
 public class ReferenceImg {
-    @ColumnInfo(name = "CosplayId", index = true)
+    @ColumnInfo(name = "CosplayId")
     public int mCosplayId;
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "CosplayRefImgId")
     public int mCosplayRefImgId;
 
-    @NonNull
+
     @ColumnInfo(typeAffinity = ColumnInfo.BLOB, name = "CosplayRefImgImage")
     public Bitmap mCosplayRefImgImage;
 
@@ -31,7 +30,7 @@ public class ReferenceImg {
     public ReferenceImg() {
     }
 
-    public ReferenceImg(int cosplayId, int RefImgId, @NonNull Bitmap RefImgImage) {
+    public ReferenceImg(int cosplayId, int RefImgId,Bitmap RefImgImage) {
         mCosplayId = cosplayId;
         mCosplayRefImgId = RefImgId;
         mCosplayRefImgImage = RefImgImage;
