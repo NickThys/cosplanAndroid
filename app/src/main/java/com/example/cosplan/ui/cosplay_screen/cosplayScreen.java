@@ -1,5 +1,6 @@
 package com.example.cosplan.ui.cosplay_screen;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
@@ -45,7 +46,6 @@ import com.example.cosplan.data.cosplay.checkList.CheckListPartAdapter;
 import com.example.cosplan.data.cosplay.checkList.CheckListPartViewModel;
 import com.example.cosplan.data.cosplay.checkList.ChecklistPart;
 import com.example.cosplan.data.cosplay.Cosplay;
-import com.example.cosplan.data.cosplay.CosplayAdapter;
 import com.example.cosplan.data.cosplay.CosplayViewModel;
 import com.example.cosplan.data.cosplay.events.Event;
 import com.example.cosplan.data.cosplay.events.EventAdapter;
@@ -82,7 +82,6 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
     private CosplayViewModel cosplayViewModel;
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
-    private CosplayAdapter cosplayAdapter;
     private PartViewModel mPartViewModel;
     private ReferenceImgViewModel referenceImgViewModel;
     private WebshopAdapter mWebshopAdapter;
@@ -97,15 +96,13 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
     private EventViewModel mEventViewModel;
     private PartAdapter mPartAdapterBuy;
     private PartAdapter mPartAdapterMake;
-    private TextView mName, mStartDate, mEndDate, mPercentage, mBudget;
+    private TextView mName, mEndDate, mPercentage, mBudget;
     private ImageView mImage;
-    private ImageButton mUpdateCosplay;
     private ImageView mPartImage;
     private EditText mCosplayName, mCosplayStartDate, mCosplayEndDate, mCosplayBudget, mPartName, mPartLink, mPartCost, mPartEndDate, mCosplayNote;
-    private Spinner mPartmakeBuy;
-    private Button mPartChooseImage, mPartCancel, mPartAddPart, mCosplayNotesSave, mRefImgAdd, mCheckListPartClear,mCheckListExportToPDF, mWIPImgAddPicture, mWIPImgTakePicture, mChoosePicture, mCancel, mUpdateCosplays, mCosplayParts, mCosplayNotes, mCosplayRefPic, mCosplayWIPPic, mCosplayChecklist, mCosplayShoppinglist, mCosplayWebshop, mCosplayEvents, mShoppingListAdd, mShoppingListCancel, mShoppingListClear;
-    private FloatingActionButton mfabAddPart, mCheckListPartAdd, mFabAddCosplayWebshop, mFabShoppingListAdd, mFabEventsAdd;
-    private RecyclerView mRVRefImg, mRVWIPImg, mRecViewCosplayWebshop, mRVCheckListPart, mRVShoppingList, mRecViewEventsConvention, mRecViewEventsShoots, mRecViewEventsCharity;
+    private Spinner mSpinnerPartMakeBuy;
+    private RecyclerView mRVRefImg;
+    private RecyclerView mRecViewWIPImg;
     private ImageView mCosplayImage;
 
     private EventAdapter mEventConventionAdapter, mEventShootAdapter, mEventCharityAdapter;
@@ -114,14 +111,15 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
 
     private DatePickerDialog.OnDateSetListener mStartDateSetListener, mEndDateSetListener;
     private static final int GALLERY_REQUEST_CODE = 1, GALLERY_REQUEST_CODE_PART = 2, GALLERY_REQUEST_CODE_REF_IMG = 3, GALLERY_REQUEST_CODE_WIP_IMG = 4, CAMERA_REQUEST_CODE_WIP_IMG = 5;
-    private List<Part> mPartsList,mListMake,mListBuy;
+    private List<Part> mListMake;
+    private List<Part> mListBuy;
 
+    @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-         mPartsList = new ArrayList<>();
-         mListMake=new ArrayList<>();
-         mListBuy=new ArrayList<>();
+        mListMake = new ArrayList<>();
+        mListBuy = new ArrayList<>();
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_cosplay_screen, container, false);
         //region Views of all the fragments
@@ -135,25 +133,28 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         final View WebshopsView = inflater.inflate(R.layout.cosplay_screen_webshops, container, false);
         //endregion
 
+        //noinspection ConstantConditions
         referenceImgAdapter = new ReferenceImgAdapter(null, requireContext(), getActivity().getApplication());
         wipImgAdapter = new WIPImgAdapter(null, requireContext(), getActivity().getApplication());
         mPartAdapterMake = new PartAdapter(requireContext(), getActivity().getApplication());
         mPartAdapterBuy = new PartAdapter(requireContext(), getActivity().getApplication());
-        final ShoppingListPartAdapter shoppingListPartAdapter = new ShoppingListPartAdapter(requireContext(), getActivity().getApplication());
+        //final ShoppingListPartAdapter shoppingListPartAdapter = new ShoppingListPartAdapter(requireContext(), getActivity().getApplication());
 
         mEventConventionAdapter = new EventAdapter(requireContext(), getActivity().getApplication());
         mEventShootAdapter = new EventAdapter(requireContext(), getActivity().getApplication());
         mEventCharityAdapter = new EventAdapter(requireContext(), getActivity().getApplication());
 
         cosplayViewModel = new ViewModelProvider(this).get(CosplayViewModel.class);
-        tempCosplay = cosplayScreenArgs.fromBundle(getArguments()).getCurrentCosplay();
+        if (getArguments() != null) {
+            tempCosplay = cosplayScreenArgs.fromBundle(getArguments()).getCurrentCosplay();
+        }
         final ViewGroup fl = v.findViewById(R.id.FrameLayout_Content);
         //Initial view for the framelayout
         fl.addView(PartsView);
-        cosplayAdapter = new CosplayAdapter(getContext());
+        //CosplayAdapter cosplayAdapter = new CosplayAdapter(getContext());
 
-        mPartAdapterBuy.setCosplay(tempCosplay,cosplayViewModel,v);
-        mPartAdapterMake.setCosplay(tempCosplay,cosplayViewModel,v);
+        mPartAdapterBuy.setCosplay(tempCosplay, cosplayViewModel, v);
+        mPartAdapterMake.setCosplay(tempCosplay, cosplayViewModel, v);
 
         //region initiate parts
         //Items from the header
@@ -162,43 +163,43 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mPercentage = v.findViewById(R.id.TextView_CosplayHeaderPercentage);
         mBudget = v.findViewById(R.id.TextView_CosplayHeaderBudget);
         mImage = v.findViewById(R.id.ImageView_CosplayHeaderImage);
-        mUpdateCosplay = v.findViewById(R.id.ImageButton_CosplayHeaderUpdate);
+        ImageButton mUpdateCosplay = v.findViewById(R.id.ImageButton_CosplayHeaderUpdate);
         //Items from the button bar
-        mCosplayParts = v.findViewById(R.id.Btn_BtnBar_CosplayParts);
-        mCosplayNotes = v.findViewById(R.id.Btn_BtnBar_CosplayNotes);
-        mCosplayRefPic = v.findViewById(R.id.Btn_BtnBar_CosplayRefImage);
-        mCosplayWIPPic = v.findViewById(R.id.Btn_BtnBar_CosplayWIPImage);
-        mCosplayChecklist = v.findViewById(R.id.Btn_BtnBar_CosplayChecklist);
-        mCosplayShoppinglist = v.findViewById(R.id.Btn_BtnBar_CosplayShoppinglist);
-        mCosplayWebshop = v.findViewById(R.id.Btn_BtnBar_CosplayWebshops);
-        mCosplayEvents = v.findViewById(R.id.Btn_BtnBar_CosplayEvents);
+        Button mCosplayParts = v.findViewById(R.id.Btn_BtnBar_CosplayParts);
+        Button mCosplayNotes = v.findViewById(R.id.Btn_BtnBar_CosplayNotes);
+        Button mCosplayRefPic = v.findViewById(R.id.Btn_BtnBar_CosplayRefImage);
+        Button mCosplayWIPPic = v.findViewById(R.id.Btn_BtnBar_CosplayWIPImage);
+        Button mCosplayChecklist = v.findViewById(R.id.Btn_BtnBar_CosplayChecklist);
+        Button mCosplayShoppinglist = v.findViewById(R.id.Btn_BtnBar_CosplayShoppinglist);
+        Button mCosplayWebshop = v.findViewById(R.id.Btn_BtnBar_CosplayWebshops);
+        Button mCosplayEvents = v.findViewById(R.id.Btn_BtnBar_CosplayEvents);
         //Items from the Notes
         mCosplayNote = NotesView.findViewById(R.id.EditText_CosplayNoteText);
-        mCosplayNotesSave = NotesView.findViewById(R.id.Btn_CosplayNoteSave);
+        Button mCosplayNotesSave = NotesView.findViewById(R.id.Btn_CosplayNoteSave);
         //Items from the Ref Img
         mRVRefImg = RefImgView.findViewById(R.id.RecView_RefImg);
-        mRefImgAdd = RefImgView.findViewById(R.id.Btn_RefImgAdd);
+        Button mRefImgAdd = RefImgView.findViewById(R.id.Btn_RefImgAdd);
         //items from the webshops
-        mRecViewCosplayWebshop = WebshopsView.findViewById(R.id.RecView_CosplayWebshop);
-        mFabAddCosplayWebshop = WebshopsView.findViewById(R.id.Fab_CosplayWebshopAdd);
+        RecyclerView mRecViewCosplayWebshop = WebshopsView.findViewById(R.id.RecView_CosplayWebshop);
+        FloatingActionButton mFabAddCosplayWebshop = WebshopsView.findViewById(R.id.Fab_CosplayWebshopAdd);
         //items from the Checklist,
-        mRVCheckListPart = CheckListView.findViewById(R.id.RecView_CheckList);
-        mCheckListPartAdd = CheckListView.findViewById(R.id.FAB_CheckListAdd);
-        mCheckListPartClear = CheckListView.findViewById(R.id.Btn_CheckListClearCheckBox);
-        mCheckListExportToPDF=CheckListView.findViewById(R.id.Btn_CheckListExportToPDF);
+        RecyclerView mRVCheckListPart = CheckListView.findViewById(R.id.RecView_CheckList);
+        FloatingActionButton mCheckListPartAdd = CheckListView.findViewById(R.id.FAB_CheckListAdd);
+        Button mCheckListPartClear = CheckListView.findViewById(R.id.Btn_CheckListClearCheckBox);
+        Button mCheckListExportToPDF = CheckListView.findViewById(R.id.Btn_CheckListExportToPDF);
         //items from the ShoppingList;
-        mRVShoppingList = ShoppingListView.findViewById(R.id.RecView_Shoppinglist);
-        mFabShoppingListAdd = ShoppingListView.findViewById(R.id.Fab_ShoppinglistAdd);
-        mShoppingListClear = ShoppingListView.findViewById(R.id.Btn_ShoppinglistClear);
+        RecyclerView mRVShoppingList = ShoppingListView.findViewById(R.id.RecView_Shoppinglist);
+        FloatingActionButton mFabShoppingListAdd = ShoppingListView.findViewById(R.id.Fab_ShoppinglistAdd);
+        Button mShoppingListClear = ShoppingListView.findViewById(R.id.Btn_ShoppinglistClear);
         //items from the WIP img
-        mRVWIPImg = WipImgView.findViewById(R.id.RecView_WipImages);
-        mWIPImgAddPicture = WipImgView.findViewById(R.id.Btn_WipImagesGetImage);
-        mWIPImgTakePicture = WipImgView.findViewById(R.id.Btn_WipImagesTakePicture);
+        mRecViewWIPImg = WipImgView.findViewById(R.id.RecView_WipImages);
+        Button mWIPImgAddPicture = WipImgView.findViewById(R.id.Btn_WipImagesGetImage);
+        Button mWIPImgTakePicture = WipImgView.findViewById(R.id.Btn_WipImagesTakePicture);
         //items from the events
-        mRecViewEventsConvention = EventsView.findViewById(R.id.RecView_EventConvention);
-        mRecViewEventsShoots = EventsView.findViewById(R.id.RecView_EventShoot);
-        mRecViewEventsCharity = EventsView.findViewById(R.id.RecView_EventCharity);
-        mFabEventsAdd = EventsView.findViewById(R.id.Fab_EventAdd);
+        RecyclerView mRecViewEventsConvention = EventsView.findViewById(R.id.RecView_EventConvention);
+        RecyclerView mRecViewEventsShoots = EventsView.findViewById(R.id.RecView_EventShoot);
+        RecyclerView mRecViewEventsCharity = EventsView.findViewById(R.id.RecView_EventCharity);
+        FloatingActionButton mFabEventsAdd = EventsView.findViewById(R.id.Fab_EventAdd);
         //endregion
 
         //region Header
@@ -209,14 +210,14 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mImage.setImageBitmap(tempCosplay.mCosplayIMG);
         updateCosplayPercentage();
         mPercentage.setText(String.format("%s%%", tempCosplay.mCosplayPercentage));
-        mfabAddPart = v.findViewById(R.id.Fab_PartsAdd);
+        FloatingActionButton mFabAddPart = v.findViewById(R.id.Fab_PartsAdd);
 
         //onclick listener from the header
         mUpdateCosplay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 UpdateCosplayDialog(tempCosplay);
-               // tempCosplay=temp;
+                // tempCosplay=temp;
             }
         });
         //endregion
@@ -280,12 +281,13 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             }
         });
         //endregion
+        List<Part> mPartsList = new ArrayList<>();
         mPartsList.clear();
         //region Part View
         //recyclerview Make
         RecyclerView recyclerViewMake = v.findViewById(R.id.RecView_PartsToMake);
         recyclerViewMake.setAdapter(mPartAdapterMake);
-        recyclerViewMake.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+        recyclerViewMake.addItemDecoration(new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL));
         recyclerViewMake.setLayoutManager(new LinearLayoutManager(requireContext()));
         ItemTouchHelper helperMake = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
@@ -316,7 +318,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         //recyclerview buy
         final RecyclerView recyclerViewBuy = v.findViewById(R.id.RecView_PartsToBuy);
         recyclerViewBuy.setAdapter(mPartAdapterBuy);
-        recyclerViewBuy.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+        recyclerViewBuy.addItemDecoration(new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL));
         recyclerViewBuy.setLayoutManager(new LinearLayoutManager(requireContext()));
         ItemTouchHelper helperBuy = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
@@ -343,7 +345,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             }
         });
         //fab to add a new cosplay part
-        mfabAddPart.setOnClickListener(new View.OnClickListener() {
+        mFabAddPart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AddNewCosplayPartDialog(tempCosplay);
@@ -368,7 +370,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mRefImgAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //addcospimg to db
+                //add cosplay img to db
                 Intent intent = new Intent();
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -380,7 +382,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         //region webshops
         mWebshopAdapter = new WebshopAdapter(requireContext(), getActivity().getApplication());
         mRecViewCosplayWebshop.setAdapter(mWebshopAdapter);
-        mRecViewCosplayWebshop.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+        mRecViewCosplayWebshop.addItemDecoration(new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL));
         mRecViewCosplayWebshop.setLayoutManager(new LinearLayoutManager(requireContext()));
         ItemTouchHelper mHelperWebshop = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
@@ -430,7 +432,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         });
         mHelperCheckListPart.attachToRecyclerView(mRVCheckListPart);
         mCheckListPartViewModel = new ViewModelProvider(this).get(CheckListPartViewModel.class);
-        final List<ChecklistPart> mAllCheckListParts = new LinkedList<ChecklistPart>();
+        final List<ChecklistPart> mAllCheckListParts = new LinkedList<>();
         mCheckListPartViewModel.getAllCheckListParts(tempCosplay.mCosplayId).observe(getViewLifecycleOwner(), new Observer<List<ChecklistPart>>() {
             @Override
             public void onChanged(List<ChecklistPart> checklistParts) {
@@ -495,8 +497,8 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mShoppingListClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mShoppingListPartAdapter.getShoppingListParts().size()!=0){
-                deleteWholeShoppingListDialog(mShoppingListPartAdapter.getShoppingListPartAtPosition(0));
+                if (mShoppingListPartAdapter.getShoppingListParts().size() != 0) {
+                    deleteWholeShoppingListDialog(mShoppingListPartAdapter.getShoppingListPartAtPosition(0));
                 }
             }
         });
@@ -525,7 +527,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         //region Events
         //Region Convention
         mRecViewEventsConvention.setAdapter(mEventConventionAdapter);
-        mRecViewEventsConvention.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+        mRecViewEventsConvention.addItemDecoration(new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL));
         mRecViewEventsConvention.setLayoutManager(new LinearLayoutManager(requireContext()));
         ItemTouchHelper mHelperEventConvention = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
@@ -551,7 +553,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
 
         //Region Convention
         mRecViewEventsShoots.setAdapter(mEventShootAdapter);
-        mRecViewEventsShoots.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+        mRecViewEventsShoots.addItemDecoration(new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL));
         mRecViewEventsShoots.setLayoutManager(new LinearLayoutManager(requireContext()));
         ItemTouchHelper mHelperEventShoot = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
@@ -576,7 +578,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         });
         //Region Convention
         mRecViewEventsCharity.setAdapter(mEventCharityAdapter);
-        mRecViewEventsCharity.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+        mRecViewEventsCharity.addItemDecoration(new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL));
         mRecViewEventsCharity.setLayoutManager(new LinearLayoutManager(requireContext()));
         ItemTouchHelper mHelperEventCharity = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
@@ -611,11 +613,12 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         return v;
     }
 
+    @SuppressLint("SetTextI18n")
     private void deletePartDialog(final Part myPart, final Cosplay cosplay) {
         dialogBuilder = new AlertDialog.Builder(requireContext());
         final View deleteCosplayView = getLayoutInflater().inflate(R.layout.delete, null);
         TextView mDeleteText = deleteCosplayView.findViewById(R.id.TextView_DeleteTitle);
-        mDeleteText.setText(getString(R.string.ConformationDeleteCheckListPart) + myPart.mCosplayPartName);
+        mDeleteText.setText(R.string.ConformationDeleteCheckListPart + myPart.mCosplayPartName);
         Button yes, no;
         no = deleteCosplayView.findViewById(R.id.Btn_DeleteCancel);
         yes = deleteCosplayView.findViewById(R.id.Btn_DeleteDelete);
@@ -627,9 +630,8 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             public void onClick(View v) {
                 mPartViewModel.delete(myPart);
                 Toast.makeText(requireContext(), myPart.mCosplayPartName + " deleted", Toast.LENGTH_SHORT).show();
-                Cosplay tempCosplay = cosplay;
-                tempCosplay.mCosplayRemainingBudget += myPart.mCosplayPartCost;
-                cosplayViewModel.update(tempCosplay);
+                cosplay.mCosplayRemainingBudget += myPart.mCosplayPartCost;
+                cosplayViewModel.update(cosplay);
                 updateCosplayHeaderBudget();
                 updateCosplayPercentage();
                 dialog.dismiss();
@@ -676,8 +678,8 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             }
         });
         GridLayoutManager gridLayoutManager = new GridLayoutManager(requireContext(), 3, GridLayoutManager.VERTICAL, false);
-        mRVWIPImg.setLayoutManager(gridLayoutManager);
-        mRVWIPImg.setAdapter(wipImgAdapter);
+        mRecViewWIPImg.setLayoutManager(gridLayoutManager);
+        mRecViewWIPImg.setAdapter(wipImgAdapter);
     }
 
     public void reloadEventsAdapter() {
@@ -686,54 +688,53 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mEventCharityAdapter.notifyDataSetChanged();
     }
 
-    public void updateCosplayHeaderBudget(){
-        double percentage=tempCosplay.mCosplayRemainingBudget/tempCosplay.mCosplayBudget*100;
-        if(percentage<25&&percentage>0){
+    @SuppressLint("SetTextI18n")
+    public void updateCosplayHeaderBudget() {
+        double percentage = tempCosplay.mCosplayRemainingBudget / tempCosplay.mCosplayBudget * 100;
+        if (percentage < 25 && percentage > 0) {
             mBudget.setTextColor(Color.YELLOW);
-        }
-        else if(percentage<=0){
+        } else if (percentage <= 0) {
             mBudget.setTextColor(Color.RED);
-        }
-        else{
+        } else {
             mBudget.setTextColor(Color.GREEN);
 
         }
         mBudget.setText(Double.toString(tempCosplay.mCosplayRemainingBudget));
     }
 
-    public void updateCosplayPercentage(){
-        tempCosplay.mNumberOfParts=mListBuy.size()+mListMake.size();
-        double PartFinished=0;
-        for (Part mPart:mListMake
-             ) {
-            if (mPart.mCosplayPartStatus.equals("Finished")){
-                PartFinished++;
-            }
-        }
-        for (Part mPart:mListBuy
+    public void updateCosplayPercentage() {
+        tempCosplay.mNumberOfParts = mListBuy.size() + mListMake.size();
+        double PartFinished = 0;
+        for (Part mPart : mListMake
         ) {
-            if (mPart.mCosplayPartStatus.equals("Finished")){
+            if (mPart.mCosplayPartStatus.equals("Finished")) {
                 PartFinished++;
             }
         }
-        if (!(PartFinished ==0) &&!(tempCosplay.mNumberOfParts==0)) {
-            tempCosplay.mCosplayPercentage = PartFinished/tempCosplay.mNumberOfParts*100;
+        for (Part mPart : mListBuy
+        ) {
+            if (mPart.mCosplayPartStatus.equals("Finished")) {
+                PartFinished++;
+            }
         }
-        else{
-            tempCosplay.mCosplayPercentage=0.0;
+        if (!(PartFinished == 0) && !(tempCosplay.mNumberOfParts == 0)) {
+            tempCosplay.mCosplayPercentage = PartFinished / tempCosplay.mNumberOfParts * 100;
+        } else {
+            tempCosplay.mCosplayPercentage = 0.0;
         }
         cosplayViewModel.update(tempCosplay);
-        DecimalFormat form=new DecimalFormat("0.00");
-        mPercentage.setText(form.format(tempCosplay.mCosplayPercentage)+" %");
+        DecimalFormat form = new DecimalFormat("0.00");
+        mPercentage.setText(String.format("%s %%", form.format(tempCosplay.mCosplayPercentage)));
 
     }
 
     //All dialogs
+    @SuppressLint("SetTextI18n")
     public void deleteDialog(final Event mEvent) {
         dialogBuilder = new AlertDialog.Builder(requireContext());
         final View deleteCosplayView = getLayoutInflater().inflate(R.layout.delete, null);
         TextView mDeleteText = deleteCosplayView.findViewById(R.id.TextView_DeleteTitle);
-        mDeleteText.setText(getString(R.string.ConformationDeleteCheckListPart) + mEvent.mCosplayEventName);
+        mDeleteText.setText(R.string.ConformationDeleteCheckListPart + mEvent.mCosplayEventName);
         final Button yes, no;
         no = deleteCosplayView.findViewById(R.id.Btn_DeleteCancel);
         yes = deleteCosplayView.findViewById(R.id.Btn_DeleteDelete);
@@ -763,11 +764,12 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
 
     }
 
+    @SuppressLint("SetTextI18n")
     public void deleteShoppingListPartDialog(final ShoppingListPart mShoppingListPart) {
         dialogBuilder = new AlertDialog.Builder(requireContext());
         final View deleteCosplayView = getLayoutInflater().inflate(R.layout.delete, null);
         TextView mDeleteText = deleteCosplayView.findViewById(R.id.TextView_DeleteTitle);
-        mDeleteText.setText(getString(R.string.ConformationDeleteCheckListPart) + mShoppingListPart.mCosplayShoppingListPartName);
+        mDeleteText.setText(R.string.ConformationDeleteCheckListPart + mShoppingListPart.mCosplayShoppingListPartName);
         Button yes, no;
         no = deleteCosplayView.findViewById(R.id.Btn_DeleteCancel);
         yes = deleteCosplayView.findViewById(R.id.Btn_DeleteDelete);
@@ -793,11 +795,12 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         });
     }
 
+    @SuppressLint("SetTextI18n")
     public void deleteCheckListPartDialog(final ChecklistPart mCheckListPart) {
         dialogBuilder = new AlertDialog.Builder(requireContext());
         final View deleteCosplayView = getLayoutInflater().inflate(R.layout.delete, null);
         TextView mDeleteText = deleteCosplayView.findViewById(R.id.TextView_DeleteTitle);
-        mDeleteText.setText(getString(R.string.ConformationDeleteCheckListPart) + mCheckListPart.mCosplayCheckListPartName);
+        mDeleteText.setText(R.string.ConformationDeleteCheckListPart + mCheckListPart.mCosplayCheckListPartName);
         Button yes, no;
         no = deleteCosplayView.findViewById(R.id.Btn_DeleteCancel);
         yes = deleteCosplayView.findViewById(R.id.Btn_DeleteDelete);
@@ -822,20 +825,21 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         });
     }
 
+    @SuppressLint("SetTextI18n")
     public void UpdateCosplayDialog(final Cosplay cosplay) {
         dialogBuilder = new AlertDialog.Builder(requireContext());
-        final View[] cosplayPopUpView = {getLayoutInflater().inflate(R.layout.add_cosplay, null)};
+        @SuppressLint("InflateParams") final View[] cosplayPopUpView = {getLayoutInflater().inflate(R.layout.add_cosplay, null)};
         mCosplayName = cosplayPopUpView[0].findViewById(R.id.EditText_NewCosplayName);
         mCosplayStartDate = cosplayPopUpView[0].findViewById(R.id.EditText_NewCosplayBeginDate);
         mCosplayEndDate = cosplayPopUpView[0].findViewById(R.id.EditText_NewCosplayEndDate);
         mCosplayBudget = cosplayPopUpView[0].findViewById(R.id.EditText_NewCosplayBudget);
         mCosplayImage = cosplayPopUpView[0].findViewById(R.id.ImageView_NewCosplayImgPreview);
-        mChoosePicture = cosplayPopUpView[0].findViewById(R.id.Btn_NewCosplayChooseImg);
-        mCancel = cosplayPopUpView[0].findViewById(R.id.Btn_NewCosplayCancel);
-        mUpdateCosplays = cosplayPopUpView[0].findViewById(R.id.Btn_NewCosplayAdd);
+        Button mChoosePicture = cosplayPopUpView[0].findViewById(R.id.Btn_NewCosplayChooseImg);
+        Button mCancel = cosplayPopUpView[0].findViewById(R.id.Btn_NewCosplayCancel);
+        Button mUpdateCosplays = cosplayPopUpView[0].findViewById(R.id.Btn_NewCosplayAdd);
         dialogBuilder.setView(cosplayPopUpView[0]);
 
-        mUpdateCosplays.setText("Update Cosplay");
+        mUpdateCosplays.setText(R.string.UpdateCosplay);
         mCosplayName.setText(cosplay.mCosplayName);
         mCosplayStartDate.setText(cosplay.mCosplayStartDate);
         mCosplayEndDate.setText(cosplay.mCosplayEndDate);
@@ -844,26 +848,26 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
 
         dialog = dialogBuilder.create();
         dialog.show();
-        //region Dateselector
-        //create dateSelector and add the selected date to the Edit text
+        //region Date selector
+        //create date Selector and add the selected date to the Edit text
         mCosplayStartDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    @SuppressWarnings("ConstantConditions") InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
                     int year;
                     int month;
                     int day;
-                    String mtemp = mCosplayStartDate.getText().toString().trim();
-                    if (!checkDateFormat(mtemp)) {
+                    String mTempStartDate = mCosplayStartDate.getText().toString().trim();
+                    if (!checkDateFormat(mTempStartDate)) {
                         Calendar calendar = Calendar.getInstance();
                         year = calendar.get(Calendar.YEAR);
                         month = calendar.get(Calendar.MONTH);
                         day = calendar.get(Calendar.DAY_OF_MONTH);
                     } else {
-                        String mDateComlete = mCosplayStartDate.getText().toString();
-                        String[] mDate = mDateComlete.split("/");
+                        String mDateComplete = mCosplayStartDate.getText().toString();
+                        String[] mDate = mDateComplete.split("/");
                         day = Integer.parseInt(mDate[0].trim());
                         month = Integer.parseInt(mDate[1].trim());
                         year = Integer.parseInt(mDate[2].trim());
@@ -892,15 +896,15 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                     int year;
                     int month;
                     int day;
-                    String mtemp = mCosplayEndDate.getText().toString().trim();
-                    if (!checkDateFormat(mtemp)) {
+                    String mTempEndDate = mCosplayEndDate.getText().toString().trim();
+                    if (!checkDateFormat(mTempEndDate)) {
                         Calendar calendar = Calendar.getInstance();
                         year = calendar.get(Calendar.YEAR);
                         month = calendar.get(Calendar.MONTH);
                         day = calendar.get(Calendar.DAY_OF_MONTH);
                     } else {
-                        String mDateComlete = mCosplayEndDate.getText().toString();
-                        String[] mDate = mDateComlete.split("/");
+                        String mDateComplete = mCosplayEndDate.getText().toString();
+                        String[] mDate = mDateComplete.split("/");
                         day = Integer.parseInt(mDate[0].trim());
                         month = Integer.parseInt(mDate[1].trim());
                         year = Integer.parseInt(mDate[2].trim());
@@ -942,22 +946,22 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
 
             }
         });
-        //Add Copslay to the database
+        //Add Cosplay to the database
         mUpdateCosplays.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                double mTempExpences = cosplay.mCosplayBudget - cosplay.mCosplayRemainingBudget;
+                double mTempExpenses = cosplay.mCosplayBudget - cosplay.mCosplayRemainingBudget;
                 double mCost;
                 if (!mCosplayBudget.getText().toString().equals("")) {
                     mCost = Double.parseDouble(mCosplayBudget.getText().toString());
                 } else {
                     mCost = 0.0;
                 }
-                Cosplay CosUP = new Cosplay(cosplay.mCosplayId, mCosplayName.getText().toString(), mCosplayStartDate.getText().toString(), mCosplayEndDate.getText().toString(), mCost, mCost - mTempExpences, ((BitmapDrawable) mCosplayImage.getDrawable()).getBitmap(), mCosplayNote.getText().toString());
+                Cosplay CosUP = new Cosplay(cosplay.mCosplayId, mCosplayName.getText().toString(), mCosplayStartDate.getText().toString(), mCosplayEndDate.getText().toString(), mCost, mCost - mTempExpenses, ((BitmapDrawable) mCosplayImage.getDrawable()).getBitmap(), mCosplayNote.getText().toString());
 
                 cosplayViewModel.update(CosUP);
                 dialog.dismiss();
-                tempCosplay=CosUP;
+                tempCosplay = CosUP;
                 mName.setText(CosUP.mCosplayName);
                 mEndDate.setText(CosUP.mCosplayEndDate);
                 updateCosplayHeaderBudget();
@@ -1073,20 +1077,20 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         dialogBuilder = new AlertDialog.Builder(requireContext());
         final View PartPopUpView = getLayoutInflater().inflate(R.layout.add_cosplay_part, null);
         mPartName = PartPopUpView.findViewById(R.id.EditText_NewPartName);
-        mPartmakeBuy = PartPopUpView.findViewById(R.id.Spinner_NewPartBuyMake);
-        if (mPartmakeBuy != null) {
-            mPartmakeBuy.setOnItemSelectedListener(this);
+        mSpinnerPartMakeBuy = PartPopUpView.findViewById(R.id.Spinner_NewPartBuyMake);
+        if (mSpinnerPartMakeBuy != null) {
+            mSpinnerPartMakeBuy.setOnItemSelectedListener(this);
         }
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(requireContext(), R.array.BuyMake, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mPartmakeBuy.setAdapter(adapter);
+        mSpinnerPartMakeBuy.setAdapter(adapter);
         mPartLink = PartPopUpView.findViewById(R.id.EditText_NewPartLink);
         mPartEndDate = PartPopUpView.findViewById(R.id.EditText_NewPartEndDate);
         mPartCost = PartPopUpView.findViewById(R.id.EditText_NewPartCost);
         mPartImage = PartPopUpView.findViewById(R.id.ImageView_NewPartImgPreview);
-        mPartChooseImage = PartPopUpView.findViewById(R.id.Btn_NewPartChoosePartImg);
-        mPartCancel = PartPopUpView.findViewById(R.id.Btn_NewPartCancel);
-        mPartAddPart = PartPopUpView.findViewById(R.id.Btn_NewPartAdd);
+        Button mPartChooseImage = PartPopUpView.findViewById(R.id.Btn_NewPartChoosePartImg);
+        Button mPartCancel = PartPopUpView.findViewById(R.id.Btn_NewPartCancel);
+        Button mPartAddPart = PartPopUpView.findViewById(R.id.Btn_NewPartAdd);
         //mPartChooseImage.setEnabled(false);
         dialogBuilder.setView(PartPopUpView);
         dialog = dialogBuilder.create();
@@ -1101,15 +1105,15 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                     int year;
                     int month;
                     int day;
-                    String mtemp = mPartEndDate.getText().toString().trim();
-                    if (!checkDateFormat(mtemp)) {
+                    String mTempEndDate = mPartEndDate.getText().toString().trim();
+                    if (!checkDateFormat(mTempEndDate)) {
                         Calendar calendar = Calendar.getInstance();
                         year = calendar.get(Calendar.YEAR);
                         month = calendar.get(Calendar.MONTH);
                         day = calendar.get(Calendar.DAY_OF_MONTH);
                     } else {
-                        String mDateComlete = mPartEndDate.getText().toString();
-                        String[] mDate = mDateComlete.split("/");
+                        String mDateComplete = mPartEndDate.getText().toString();
+                        String[] mDate = mDateComplete.split("/");
                         day = Integer.parseInt(mDate[0].trim());
                         month = Integer.parseInt(mDate[1].trim());
                         year = Integer.parseInt(mDate[2].trim());
@@ -1123,10 +1127,11 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             }
         });
         mEndDateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @SuppressLint({"SetTextI18n", "DefaultLocale"})
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 month = month + 1;
-                mPartEndDate.setText(dayOfMonth + "/" + month + "/" + year);
+                mPartEndDate.setText(String.format("%d/%d/%d", dayOfMonth, month, year));
             }
         };
         //endregion
@@ -1160,11 +1165,10 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                     } else {
                         mCost = 0.0;
                     }
-                    Part temp = new Part(cosplay.mCosplayId, 0, mPartName.getText().toString(), mPartmakeBuy.getSelectedItem().toString(), mPartLink.getText().toString(), mCost, "Planned", mPartEndDate.getText().toString(), ((BitmapDrawable) mPartImage.getDrawable()).getBitmap());
+                    Part temp = new Part(cosplay.mCosplayId, 0, mPartName.getText().toString(), mSpinnerPartMakeBuy.getSelectedItem().toString(), mPartLink.getText().toString(), mCost, "Planned", mPartEndDate.getText().toString(), ((BitmapDrawable) mPartImage.getDrawable()).getBitmap());
                     mPartViewModel.insert(temp);
-                    Cosplay tempCosplay = cosplay;
-                    tempCosplay.mCosplayRemainingBudget -= temp.mCosplayPartCost;
-                    cosplayViewModel.update(tempCosplay);
+                    cosplay.mCosplayRemainingBudget -= temp.mCosplayPartCost;
+                    cosplayViewModel.update(cosplay);
                     updateCosplayHeaderBudget();
                     updateCosplayPercentage();
                     dialog.dismiss();
@@ -1176,11 +1180,12 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         });
     }
 
+    @SuppressLint("SetTextI18n")
     public void deleteWholeShoppingListDialog(final ShoppingListPart part) {
         dialogBuilder = new AlertDialog.Builder(requireContext());
         final View deleteCosplayView = getLayoutInflater().inflate(R.layout.delete, null);
         TextView mDeleteText = deleteCosplayView.findViewById(R.id.TextView_DeleteTitle);
-        mDeleteText.setText(getString(R.string.ConformationDeleteCheckListPart) + " the whole list?");
+        mDeleteText.setText(R.string.ConformationDeleteCheckListPart + getString(R.string.WholeList));
         final Button yes, no;
         no = deleteCosplayView.findViewById(R.id.Btn_DeleteCancel);
         yes = deleteCosplayView.findViewById(R.id.Btn_DeleteDelete);
@@ -1218,7 +1223,9 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         }
         ArrayAdapter<CharSequence> mEventArrayAdapter = ArrayAdapter.createFromResource(requireContext(), R.array.EventType, android.R.layout.simple_spinner_item);
         mEventArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mEventType.setAdapter(mEventArrayAdapter);
+        if (mEventType != null) {
+            mEventType.setAdapter(mEventArrayAdapter);
+        }
         mEventName = mEventDialog.findViewById(R.id.EditText_NewEventName);
         mEventPlace = mEventDialog.findViewById(R.id.EditText_NewEventPlace);
         mEventStartDate = mEventDialog.findViewById(R.id.EditText_NewEventBeginDate);
@@ -1238,15 +1245,15 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                     int year;
                     int month;
                     int day;
-                    String mtemp = mEventStartDate.getText().toString().trim();
-                    if (!checkDateFormat(mtemp)) {
+                    String mTempStartDate = mEventStartDate.getText().toString().trim();
+                    if (!checkDateFormat(mTempStartDate)) {
                         Calendar calendar = Calendar.getInstance();
                         year = calendar.get(Calendar.YEAR);
                         month = calendar.get(Calendar.MONTH);
                         day = calendar.get(Calendar.DAY_OF_MONTH);
                     } else {
-                        String mDateComlete = mEventStartDate.getText().toString();
-                        String[] mDate = mDateComlete.split("/");
+                        String mDateComplete = mEventStartDate.getText().toString();
+                        String[] mDate = mDateComplete.split("/");
                         day = Integer.parseInt(mDate[0].trim());
                         month = Integer.parseInt(mDate[1].trim());
                         year = Integer.parseInt(mDate[2].trim());
@@ -1260,10 +1267,11 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             }
         });
         mStartDateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @SuppressLint({"SetTextI18n", "DefaultLocale"})
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 month = month + 1;
-                mEventStartDate.setText(dayOfMonth + "/" + month + "/" + year);
+                mEventStartDate.setText(String.format("%d/%d/%d", dayOfMonth, month, year));
             }
         };
         //create dateSelector and add the selected date to the Edit text
@@ -1274,15 +1282,15 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                     int year;
                     int month;
                     int day;
-                    String mtemp = mEventEndDate.getText().toString().trim();
-                    if (!checkDateFormat(mtemp)) {
+                    String mTempEndDate = mEventEndDate.getText().toString().trim();
+                    if (!checkDateFormat(mTempEndDate)) {
                         Calendar calendar = Calendar.getInstance();
                         year = calendar.get(Calendar.YEAR);
                         month = calendar.get(Calendar.MONTH);
                         day = calendar.get(Calendar.DAY_OF_MONTH);
                     } else {
-                        String mDateComlete = mEventEndDate.getText().toString();
-                        String[] mDate = mDateComlete.split("/");
+                        String mDateComplete = mEventEndDate.getText().toString();
+                        String[] mDate = mDateComplete.split("/");
                         day = Integer.parseInt(mDate[0].trim());
                         month = Integer.parseInt(mDate[1].trim());
                         year = Integer.parseInt(mDate[2].trim());
@@ -1296,10 +1304,11 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             }
         });
         mEndDateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @SuppressLint({"SetTextI18n", "DefaultLocale"})
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 month = month + 1;
-                mEventEndDate.setText(dayOfMonth + "/" + month + "/" + year);
+                mEventEndDate.setText(String.format("%d/%d/%d", dayOfMonth, month, year));
             }
         };
         //endregion
@@ -1314,7 +1323,10 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             @Override
             public void onClick(View v) {
                 if (!mEventName.getText().toString().equals("") && !mEventStartDate.getText().toString().equals("") && !mEventEndDate.getText().toString().equals("")) {
-                    Event mTempEvent = new Event(tempCosplay.mCosplayId, 0, mEventName.getText().toString(), mEventPlace.getText().toString(), mEventStartDate.getText().toString(), mEventEndDate.getText().toString(), mEventType.getSelectedItem().toString());
+                    Event mTempEvent = null;
+                    if (mEventType != null) {
+                        mTempEvent = new Event(tempCosplay.mCosplayId, 0, mEventName.getText().toString(), mEventPlace.getText().toString(), mEventStartDate.getText().toString(), mEventEndDate.getText().toString(), mEventType.getSelectedItem().toString());
+                    }
                     mEventViewModel.insert(mTempEvent);
                     dialog.dismiss();
                 } else {
@@ -1326,10 +1338,11 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
     }
 
     private void closeKeyboard(View view) {
-        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        @SuppressWarnings("ConstantConditions") InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
+    @SuppressWarnings("ConstantConditions")
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         Uri imageData;
@@ -1347,13 +1360,13 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         }
         if (requestCode == GALLERY_REQUEST_CODE_REF_IMG && data != null) {
             imageData = data.getData();
-            InputStream imagestream = null;
+            InputStream mImageStream = null;
             try {
-                imagestream = getContext().getContentResolver().openInputStream(imageData);
+                mImageStream = getContext().getContentResolver().openInputStream(imageData);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
-            ReferenceImg temp = new ReferenceImg(tempCosplay.mCosplayId, 0, BitmapFactory.decodeStream(imagestream));
+            ReferenceImg temp = new ReferenceImg(tempCosplay.mCosplayId, 0, BitmapFactory.decodeStream(mImageStream));
             referenceImgViewModel.insert(temp);
             setRefImageInGrid(tempCosplay, referenceImgAdapter);
         }
@@ -1377,17 +1390,19 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             setWipImagesInGrid(tempCosplay, wipImgAdapter);
         }
     }
-    public Boolean checkDateFormat(String date){
+
+    public Boolean checkDateFormat(String date) {
         if (date == null || !date.matches("^(1[0-9]|0[1-9]|3[0-1]|2[1-9])/(0[1-9]|1[0-2])/[0-9]{4}$"))
             return false;
-        SimpleDateFormat format=new SimpleDateFormat("dd/MM/yyyy");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         try {
             format.parse(date);
             return true;
-        }catch (ParseException e){
+        } catch (ParseException e) {
             return false;
         }
     }
+
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
