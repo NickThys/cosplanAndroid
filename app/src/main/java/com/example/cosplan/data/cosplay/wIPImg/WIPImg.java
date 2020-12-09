@@ -18,13 +18,12 @@ import org.jetbrains.annotations.NotNull;
                 parentColumns = "Id",
                 childColumns = "CosplayId"))
 public class WIPImg {
-    @ColumnInfo(name = "CosplayId", index = true)
+    @ColumnInfo(name = "CosplayId")
     public int mCosplayId;
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "CosplayWIPImgId")
     public int mCosplayWIPImgId;
-    @NonNull
     @ColumnInfo(name = "CosplayWIPImgImage")
     public Bitmap mCosplayWIPImgImage;
 
