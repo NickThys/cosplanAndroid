@@ -693,7 +693,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             int mYear;
             int mMonth;
             int mDay;
-            
+
             String mTempStartDate = editTextDate.getText().toString().trim();
             if (!checkDateFormat(mTempStartDate)) {
                 Calendar mCalendar = Calendar.getInstance();
