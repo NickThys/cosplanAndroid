@@ -689,9 +689,11 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         if (hasFocus) {
             InputMethodManager mInputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             mInputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
+
             int mYear;
             int mMonth;
             int mDay;
+            
             String mTempStartDate = editTextDate.getText().toString().trim();
             if (!checkDateFormat(mTempStartDate)) {
                 Calendar mCalendar = Calendar.getInstance();
