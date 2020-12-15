@@ -84,25 +84,18 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
     private AlertDialog mDialog;
     private PartViewModel mPartViewModel;
     private PartAdapter mPartAdapterBuy, mPartAdapterMake;
-
     private ReferenceImgViewModel mReferenceImgViewModel;
     private ReferenceImgAdapter mReferenceImgAdapter = null;
-
     private WebshopAdapter mWebshopAdapter;
     private WebshopViewModel mWebshopViewModel;
-
     private CheckListPartViewModel mCheckListPartViewModel;
     private CheckListPartAdapter mCheckListPartAdapter;
-
     private ShoppingListPartAdapter mShoppingListPartAdapter;
     private ShoppingListPartViewModel mShoppingListViewModel;
-
     private WIPImgViewModel mWipImgViewModel;
     private WIPImgAdapter mWipImgAdapter = null;
-
     private EventViewModel mEventViewModel;
     private EventAdapter mEventConventionAdapter, mEventShootAdapter, mEventCharityAdapter;
-
     private TextView mName, mEndDate, mPercentage, mBudget;
     private ImageView mImage, mPartImage, mCosplayImage;
     private EditText mCosplayName, mCosplayStartDate, mCosplayEndDate, mCosplayBudget, mPartName, mPartLink, mPartCost, mPartEndDate, mCosplayNote;
@@ -141,7 +134,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         final View WebshopsView = inflater.inflate(R.layout.cosplay_screen_webshops, container, false);
         //endregion
 
-        //noinspection ConstantConditions
+
         mReferenceImgAdapter = new ReferenceImgAdapter(null, requireContext(), getActivity().getApplication());
         mWipImgAdapter = new WIPImgAdapter(null, requireContext(), getActivity().getApplication());
         mPartAdapterMake = new PartAdapter(requireContext(), getActivity().getApplication());
@@ -694,7 +687,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
 
     private void DatePickerDialog(View v, EditText editTextDate, DatePickerDialog.OnDateSetListener listener, boolean hasFocus) {
         if (hasFocus) {
-            @SuppressWarnings("ConstantConditions") InputMethodManager mInputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            InputMethodManager mInputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             mInputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
             int mYear;
             int mMonth;
