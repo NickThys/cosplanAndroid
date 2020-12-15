@@ -3,7 +3,7 @@ name: Android Build
 on: pull_request
 
 jobs:
-  buld:
+  build:
 
     runs-on: ubuntu-latest
 
