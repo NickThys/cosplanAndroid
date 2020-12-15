@@ -752,8 +752,9 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
     public void addNewCosplayChecklistPartDialog(final Cosplay cosplay) {
         final View checkListPopUpView = getLayoutInflater().inflate(R.layout.cosplay_checklist_addpart, null);
         final EditText mCheckListPartName = checkListPopUpView.findViewById(R.id.EditText_NewChecklistPartName);
-        Button mCheckListCancel = checkListPopUpView.findViewById(R.id.Btn_NewChecklistPartCancel);
         final Button mChecklistAdd = checkListPopUpView.findViewById(R.id.Btn_NewChecklistPartAdd);
+
+        Button mCheckListCancel = checkListPopUpView.findViewById(R.id.Btn_NewChecklistPartCancel);
 
         mDialogBuilder = new AlertDialog.Builder(requireContext());
 
@@ -1235,11 +1236,11 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
     }
 
     private void closeKeyboard(View view) {
-        @SuppressWarnings("ConstantConditions") InputMethodManager mInputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        InputMethodManager mInputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         mInputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
-    @SuppressWarnings("ConstantConditions")
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         Uri mImageData;
