@@ -67,6 +67,8 @@ import com.example.cosplan.data.cosplay.webshop.WebshopAdapter;
 import com.example.cosplan.data.cosplay.webshop.WebshopViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.text.DecimalFormat;
@@ -602,9 +604,9 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
     }
 
     private void CreateIntent(int galleryRequestCodeRefImg) {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
+        Intent intent = new Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+       /* intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);*/
         startActivityForResult(Intent.createChooser(intent, getString(R.string.txt_chooseImg_intent)), galleryRequestCodeRefImg);
     }
 
