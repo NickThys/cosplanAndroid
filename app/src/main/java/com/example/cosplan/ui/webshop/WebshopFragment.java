@@ -39,7 +39,7 @@ public class WebshopFragment extends Fragment {
     private WebshopAdapter mWebshopAdapter;
     private AlertDialog.Builder mDialogBuilder;
     private Dialog mDialog;
-    
+
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         final View root = inflater.inflate(R.layout.fragment_webshop, container, false);

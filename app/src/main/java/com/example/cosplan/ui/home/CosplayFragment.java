@@ -40,8 +40,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
-
-@SuppressWarnings("ConstantConditions")
 public class CosplayFragment extends Fragment {
     private CosplayViewModel mCosplayViewModel;
     private AlertDialog.Builder mDialogBuilder;
