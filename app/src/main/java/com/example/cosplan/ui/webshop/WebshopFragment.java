@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,8 +39,7 @@ public class WebshopFragment extends Fragment {
     private WebshopAdapter mWebshopAdapter;
     private AlertDialog.Builder mDialogBuilder;
     private Dialog mDialog;
-
-    @SuppressWarnings("ConstantConditions")
+    
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         final View root = inflater.inflate(R.layout.fragment_webshop, container, false);
@@ -145,11 +145,10 @@ public class WebshopFragment extends Fragment {
             }
         });
         mAdd.setOnClickListener(new View.OnClickListener() {
-            @SuppressWarnings("ConstantConditions")
+
             @Override
             public void onClick(View v) {
-                //noinspection ConstantConditions
-                if (mSiteName.getText().toString().contains("")|| mSiteLink.getText().toString().contains("")) {
+                if (TextUtils.isEmpty(mSiteName.getText().toString())|| TextUtils.isEmpty(mSiteLink.getText().toString())) {
 
                     Toast.makeText(requireContext(), R.string.FillOutAllFields, Toast.LENGTH_SHORT).show();
 
@@ -163,8 +162,7 @@ public class WebshopFragment extends Fragment {
         });
     }
 
-    private void closeKeyboard(View view) {
-        @SuppressWarnings("ConstantConditions") InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+    private void closeKeyboard(View view) {InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
