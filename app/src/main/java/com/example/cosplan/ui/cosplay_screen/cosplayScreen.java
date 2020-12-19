@@ -29,6 +29,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -75,8 +76,12 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -370,13 +375,14 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                 Toast.makeText(requireContext(), getResources().getText(R.string.NoteSaved), Toast.LENGTH_SHORT).show();
             }
         });
-        //RefImg
+        //endregion
+        //region RefImg
         setRefImageInGrid(mTempCosplay, mReferenceImgAdapter);
         mRefImgAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //add cosplay img to db
-                checkPermission(Manifest.permission.READ_EXTERNAL_STORAGE,STORAGE_PERMISSION_CODE,GALLERY_REQUEST_CODE_REF_IMG);
+                checkPermission(Manifest.permission.READ_EXTERNAL_STORAGE,STORAGE_PERMISSION_CODE,GALLERY_REQUEST_CODE_REF_IMG,true);
             }
         });
         //endregion
@@ -510,13 +516,13 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mWIPImgAddPicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkPermission(Manifest.permission.READ_EXTERNAL_STORAGE,STORAGE_PERMISSION_CODE,GALLERY_REQUEST_CODE_WIP_IMG);
+                checkPermission(Manifest.permission.READ_EXTERNAL_STORAGE,STORAGE_PERMISSION_CODE,GALLERY_REQUEST_CODE_WIP_IMG,true);
             }
         });
         mWIPImgTakePicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkPermission(Manifest.permission.CAMERA,CAMERA_PERMISSION_CODE,CAMERA_REQUEST_CODE_WIP_IMG);
+                checkPermission(Manifest.permission.CAMERA,CAMERA_PERMISSION_CODE,CAMERA_REQUEST_CODE_WIP_IMG,false);
 
             }
         });
@@ -611,7 +617,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         return mRoot;
     }
 
-    public void checkPermission(String permission, int requestCode,int GALLERY_REQUEST_CODE)
+    public void checkPermission(String permission, int requestCode,int GALLERY_REQUEST_CODE,boolean isGalleryRequest)
     {
         if (ContextCompat.checkSelfPermission(requireContext(), permission)
                 == PackageManager.PERMISSION_DENIED) {
@@ -626,7 +632,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                     "Permission already granted",
                     Toast.LENGTH_SHORT)
                     .show();*/
-            if (requestCode==GALLERY_REQUEST_CODE)
+            if (isGalleryRequest)
             CreateIntent(GALLERY_REQUEST_CODE,true);
             else
                 CreateIntent(CAMERA_REQUEST_CODE_WIP_IMG,false);
@@ -901,7 +907,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mPartChooseImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkPermission(Manifest.permission.READ_EXTERNAL_STORAGE,STORAGE_PERMISSION_CODE,GALLERY_REQUEST_CODE_PART);
+                checkPermission(Manifest.permission.READ_EXTERNAL_STORAGE,STORAGE_PERMISSION_CODE,GALLERY_REQUEST_CODE_PART,true);
 
             }
         });
@@ -1243,7 +1249,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mChoosePicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkPermission(Manifest.permission.READ_EXTERNAL_STORAGE,STORAGE_PERMISSION_CODE,GALLERY_REQUEST_CODE);
+                checkPermission(Manifest.permission.READ_EXTERNAL_STORAGE,STORAGE_PERMISSION_CODE,GALLERY_REQUEST_CODE,true);
             }
         });
         //Add Cosplay to the database
@@ -1318,9 +1324,42 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         if (requestCode == CAMERA_REQUEST_CODE_WIP_IMG && data != null) {
             Bitmap img = (Bitmap) data.getExtras().get("data");
 
-            WIPImg temp = new WIPImg(mTempCosplay.mCosplayId, 0, img);
-            mWipImgViewModel.insert(temp);
-            setWipImagesInGrid(mTempCosplay, mWipImgAdapter);
+            if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    == PackageManager.PERMISSION_DENIED) {
+
+                // Requesting the permission
+                ActivityCompat.requestPermissions(requireActivity(),
+                        new String[] { Manifest.permission.WRITE_EXTERNAL_STORAGE },
+                        102);
+            }
+            else {
+                OutputStream mOutputStream=null;
+                File mFilePath= Environment.getExternalStorageDirectory();
+                File dir=new File(mFilePath.getAbsolutePath()+"/WIPImg/");
+                dir.mkdir();
+                String fileName="WIP"+System.currentTimeMillis()+".jpg";
+                File file=new File(dir,fileName);
+                try {
+                    mOutputStream=new FileOutputStream(file);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+                img.compress(Bitmap.CompressFormat.JPEG,100,mOutputStream);
+                WIPImg temp = new WIPImg(mTempCosplay.mCosplayId, 0,mFilePath.getAbsolutePath()+"/WIPImg/"+fileName );
+                mWipImgViewModel.insert(temp);
+                setWipImagesInGrid(mTempCosplay, mWipImgAdapter);
+                try {
+                    mOutputStream.flush();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    mOutputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
         }
     }
 
