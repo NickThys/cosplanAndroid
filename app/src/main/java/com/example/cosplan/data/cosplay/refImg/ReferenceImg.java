@@ -23,14 +23,14 @@ public class ReferenceImg {
     public int mCosplayRefImgId;
 
 
-    @ColumnInfo(typeAffinity = ColumnInfo.BLOB, name = "CosplayRefImgImage")
-    public Bitmap mCosplayRefImgImage;
+    @ColumnInfo(name = "CosplayRefImgImage")
+    public String mCosplayRefImgImage;
 
 
     public ReferenceImg() {
     }
 
-    public ReferenceImg(int cosplayId, int RefImgId,Bitmap RefImgImage) {
+    public ReferenceImg(int cosplayId, int RefImgId,String RefImgImage) {
         mCosplayId = cosplayId;
         mCosplayRefImgId = RefImgId;
         mCosplayRefImgImage = RefImgImage;

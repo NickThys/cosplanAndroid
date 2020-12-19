@@ -1,10 +1,13 @@
 package com.example.cosplan.ui.cosplay_screen;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -15,6 +18,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -40,6 +45,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.cosplan.MainActivity;
 import com.example.cosplan.R;
 
 import com.example.cosplan.data.cosplay.checkList.CheckListPartAdapter;
@@ -113,6 +119,8 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             GALLERY_REQUEST_CODE_REF_IMG = 3,
             GALLERY_REQUEST_CODE_WIP_IMG = 4,
             CAMERA_REQUEST_CODE_WIP_IMG = 5;
+    private static final int CAMERA_PERMISSION_CODE = 100;
+    private static final int STORAGE_PERMISSION_CODE = 101;
     private List<Part> mListMake;
     private List<Part> mListBuy;
 
@@ -368,7 +376,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             @Override
             public void onClick(View v) {
                 //add cosplay img to db
-                CreateIntent(GALLERY_REQUEST_CODE_REF_IMG);
+                checkPermission(Manifest.permission.READ_EXTERNAL_STORAGE,STORAGE_PERMISSION_CODE,GALLERY_REQUEST_CODE_REF_IMG);
             }
         });
         //endregion
@@ -502,14 +510,14 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mWIPImgAddPicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CreateIntent(GALLERY_REQUEST_CODE_WIP_IMG);
+                checkPermission(Manifest.permission.READ_EXTERNAL_STORAGE,STORAGE_PERMISSION_CODE,GALLERY_REQUEST_CODE_WIP_IMG);
             }
         });
         mWIPImgTakePicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent, CAMERA_REQUEST_CODE_WIP_IMG);
+                checkPermission(Manifest.permission.CAMERA,CAMERA_PERMISSION_CODE,CAMERA_REQUEST_CODE_WIP_IMG);
+
             }
         });
         //endregion
@@ -603,11 +611,40 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         return mRoot;
     }
 
-    private void CreateIntent(int galleryRequestCodeRefImg) {
-        Intent intent = new Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+    public void checkPermission(String permission, int requestCode,int GALLERY_REQUEST_CODE)
+    {
+        if (ContextCompat.checkSelfPermission(requireContext(), permission)
+                == PackageManager.PERMISSION_DENIED) {
+
+            // Requesting the permission
+            ActivityCompat.requestPermissions(requireActivity(),
+                    new String[] { permission },
+                    requestCode);
+        }
+        else {
+          /*  Toast.makeText(requireContext(),
+                    "Permission already granted",
+                    Toast.LENGTH_SHORT)
+                    .show();*/
+            if (requestCode==GALLERY_REQUEST_CODE)
+            CreateIntent(GALLERY_REQUEST_CODE,true);
+            else
+                CreateIntent(CAMERA_REQUEST_CODE_WIP_IMG,false);
+        }
+    }
+    private void CreateIntent(int galleryRequestCodeRefImg,boolean IsGalleryRequest) {
+
+
+        if (IsGalleryRequest){
+            Intent intent = new Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
        /* intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);*/
-        startActivityForResult(Intent.createChooser(intent, getString(R.string.txt_chooseImg_intent)), galleryRequestCodeRefImg);
+            startActivityForResult(Intent.createChooser(intent, getString(R.string.txt_chooseImg_intent)), galleryRequestCodeRefImg);
+        }else{
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivityForResult(intent, CAMERA_REQUEST_CODE_WIP_IMG);
+        }
+
     }
 
     public void checkListClearCheckBoxes(List<ChecklistPart> allParts) {
@@ -864,7 +901,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mPartChooseImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CreateIntent(GALLERY_REQUEST_CODE_PART);
+                checkPermission(Manifest.permission.READ_EXTERNAL_STORAGE,STORAGE_PERMISSION_CODE,GALLERY_REQUEST_CODE_PART);
 
             }
         });
@@ -1206,7 +1243,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mChoosePicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CreateIntent(GALLERY_REQUEST_CODE);
+                checkPermission(Manifest.permission.READ_EXTERNAL_STORAGE,STORAGE_PERMISSION_CODE,GALLERY_REQUEST_CODE);
             }
         });
         //Add Cosplay to the database
@@ -1262,7 +1299,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
-            ReferenceImg temp = new ReferenceImg(mTempCosplay.mCosplayId, 0, BitmapFactory.decodeStream(mImageStream));
+            ReferenceImg temp = new ReferenceImg(mTempCosplay.mCosplayId, 0, getPathFromUri(mImageData));
             mReferenceImgViewModel.insert(temp);
             setRefImageInGrid(mTempCosplay, mReferenceImgAdapter);
         }
@@ -1298,7 +1335,17 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             return false;
         }
     }
-
+    public String getPathFromUri(Uri mContentUri){
+        String res=null;
+        String[] proj={MediaStore.Images.Media.DATA};
+        Cursor cursor=getContext().getContentResolver().query(mContentUri,proj,null,null,null  );
+        if (cursor.moveToFirst()){
+            int column_index=cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            res=cursor.getString(column_index);
+        }
+        cursor.close();
+        return res;
+    }
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
