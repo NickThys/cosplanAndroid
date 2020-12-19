@@ -1311,7 +1311,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
-            WIPImg temp = new WIPImg(mTempCosplay.mCosplayId, 0, BitmapFactory.decodeStream(imageStream));
+            WIPImg temp = new WIPImg(mTempCosplay.mCosplayId, 0, getPathFromUri(mImageData));
             mWipImgViewModel.insert(temp);
             setWipImagesInGrid(mTempCosplay, mWipImgAdapter);
         }

@@ -4,6 +4,9 @@ import android.app.AlertDialog;
 import android.app.Application;
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +21,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cosplan.R;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.List;
 
 public class WIPImgAdapter extends RecyclerView.Adapter<WIPImgAdapter.WIPImgViewHolder> {
@@ -46,7 +51,20 @@ public class WIPImgAdapter extends RecyclerView.Adapter<WIPImgAdapter.WIPImgView
     @Override
     public void onBindViewHolder(@NonNull WIPImgAdapter.WIPImgViewHolder holder, final int position) {
         final WIPImg mCurrent=mWIPImgs.get(position);
-        holder.mImageViewWIPImg.setImageBitmap(mCurrent.mCosplayWIPImgImage);
+
+        Uri selectedImageUri=null;
+        if (mCurrent.mCosplayWIPImgImage != null) {
+            File f = new File(mCurrent.mCosplayWIPImgImage);
+            selectedImageUri = Uri.fromFile(f);
+        }
+        Bitmap mBitmap=null;
+        try {
+            mBitmap= BitmapFactory.decodeStream(mContext.getContentResolver().openInputStream(selectedImageUri));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        holder.mImageViewWIPImg.setImageBitmap(mBitmap);
+
         View itemView=holder.itemView;
         mWipImgViewModel=new WIPImgViewModel(mApplication);
         itemView.setOnClickListener(new View.OnClickListener() {
@@ -57,7 +75,18 @@ public class WIPImgAdapter extends RecyclerView.Adapter<WIPImgAdapter.WIPImgView
                 ImageView mImageView=mImageDialog.findViewById(R.id.ImageView_ImageFullScreen);
                 ImageButton mClose=mImageDialog.findViewById(R.id.ImageBtn_ImageClose);
                 Button mDelete=mImageDialog.findViewById(R.id.Btn_ImageDelete);
-                mImageView.setImageBitmap(mCurrent.mCosplayWIPImgImage);
+                Uri selectedImageUri=null;
+                if (mCurrent.mCosplayWIPImgImage != null) {
+                    File f = new File(mCurrent.mCosplayWIPImgImage);
+                    selectedImageUri = Uri.fromFile(f);
+                }
+                Bitmap mBitmap=null;
+                try {
+                    mBitmap= BitmapFactory.decodeStream(mContext.getContentResolver().openInputStream(selectedImageUri));
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+                mImageView.setImageBitmap(mBitmap);
                 mDialogBuilder.setView(mImageDialog);
                 mDialog=mDialogBuilder.create();
                 mDialog.show();
