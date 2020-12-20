@@ -7,9 +7,11 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,10 +32,13 @@ import com.example.cosplan.data.cosplay.CosplayViewModel;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Set;
 
 public class PartAdapter extends RecyclerView.Adapter<PartAdapter.PartViewHolder> {
     private List<Part> mParts;
@@ -96,13 +101,14 @@ public class PartAdapter extends RecyclerView.Adapter<PartAdapter.PartViewHolder
     @Override
     public void onBindViewHolder(@NonNull PartAdapter.PartViewHolder holder, int position) {
         final Part current = mParts.get(position);
-        Bitmap mCosplayPartImg = current.mCosplayPartImg;
+        String mCosplayPartImg = current.mCosplayPartImg;
         String mCosplayPartName = current.mCosplayPartName;
         String mCosplayPartCost = Double.toString(current.mCosplayPartCost);
         String mCosplayPartStatus = current.mCosplayPartStatus;
         String mCosplayPartEndDate = current.mCosplayPartEndDate;
 
-        holder.mPartImage.setImageBitmap(mCosplayPartImg);
+        SetImageFromUri(holder.mPartImage,mCosplayPartImg);
+
         holder.mPartName.setText(mCosplayPartName);
         holder.mPartCost.setText(mCosplayPartCost);
         holder.mPartStatus.setText(mCosplayPartStatus);
@@ -168,7 +174,7 @@ public class PartAdapter extends RecyclerView.Adapter<PartAdapter.PartViewHolder
         mPartCancel = mPartDialog.findViewById(R.id.Btn_PartUpdateCancel);
         mPartUpdate = mPartDialog.findViewById(R.id.Btn_PartUpdateUpdate);
 
-        mPartImage.setImageBitmap(tempPart.mCosplayPartImg);
+        SetImageFromUri(mPartImage,tempPart.mCosplayPartImg);
         mPartBuyMake.setSelection(mPartArrayAdapterMakeBuy.getPosition(tempPart.mCosplayPartBuyMake));
         mPartStatus.setSelection(mPartArrayAdapterStatus.getPosition(tempPart.mCosplayPartStatus));
         mPartName.setText(tempPart.mCosplayPartName);
@@ -229,7 +235,7 @@ public class PartAdapter extends RecyclerView.Adapter<PartAdapter.PartViewHolder
             @Override
             public void onClick(View v) {
                 double mOldCost = tempPart.mCosplayPartCost;
-                Part mTempPart = new Part(tempPart.mCosplayId, tempPart.mCosplayPartId, mPartName.getText().toString(), mPartBuyMake.getSelectedItem().toString(), mPartLink.getText().toString(), Double.parseDouble(mPartCost.getText().toString()), mPartStatus.getSelectedItem().toString(), mPartDate.getText().toString(), ((BitmapDrawable) mPartImage.getDrawable()).getBitmap(), mPartNotes.getText().toString());
+                Part mTempPart = new Part(tempPart.mCosplayId, tempPart.mCosplayPartId, mPartName.getText().toString(), mPartBuyMake.getSelectedItem().toString(), mPartLink.getText().toString(), Double.parseDouble(mPartCost.getText().toString()), mPartStatus.getSelectedItem().toString(), mPartDate.getText().toString(), tempPart.mCosplayPartImg, mPartNotes.getText().toString());
                 mPartViewModel.update(mTempPart);
                 Cosplay mTempCosplay = mCosplay;
                 mTempCosplay.mCosplayRemainingBudget = mTempCosplay.mCosplayRemainingBudget - Double.parseDouble(mPartCost.getText().toString()) + mOldCost;
@@ -251,7 +257,20 @@ public class PartAdapter extends RecyclerView.Adapter<PartAdapter.PartViewHolder
             return false;
         }
     }
-
+    public void SetImageFromUri(ImageView mImageView,String mImagePath){
+        Uri selectedImageUri=null;
+        if (mImagePath != null) {
+            File f = new File(mImagePath);
+            selectedImageUri = Uri.fromFile(f);
+        }
+        Bitmap mBitmap=null;
+        try {
+            mBitmap= BitmapFactory.decodeStream(mContext.getContentResolver().openInputStream(selectedImageUri));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        mImageView.setImageBitmap(mBitmap);
+    }
     @SuppressLint("SetTextI18n")
     public void updateCosplayHeaderBudget() {
         TextView mBudget = v.findViewById(R.id.TextView_CosplayHeaderBudget);

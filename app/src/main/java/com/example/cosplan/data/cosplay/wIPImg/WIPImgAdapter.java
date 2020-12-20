@@ -4,6 +4,9 @@ import android.app.AlertDialog;
 import android.app.Application;
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +21,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cosplan.R;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.List;
 
 public class WIPImgAdapter extends RecyclerView.Adapter<WIPImgAdapter.WIPImgViewHolder> {
@@ -42,11 +47,26 @@ public class WIPImgAdapter extends RecyclerView.Adapter<WIPImgAdapter.WIPImgView
         View view= mLayoutInflater.inflate(R.layout.custum_row_image,parent,false);
         return new WIPImgViewHolder(view);
     }
-
+    public void SetImageFromUri(ImageView mImageView,String mImagePath){
+        Uri selectedImageUri=null;
+        if (mImagePath != null) {
+            File f = new File(mImagePath);
+            selectedImageUri = Uri.fromFile(f);
+        }
+        Bitmap mBitmap=null;
+        try {
+            mBitmap= BitmapFactory.decodeStream(mContext.getContentResolver().openInputStream(selectedImageUri));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        mImageView.setImageBitmap(mBitmap);
+    }
     @Override
     public void onBindViewHolder(@NonNull WIPImgAdapter.WIPImgViewHolder holder, final int position) {
         final WIPImg mCurrent=mWIPImgs.get(position);
-        holder.mImageViewWIPImg.setImageBitmap(mCurrent.mCosplayWIPImgImage);
+
+      SetImageFromUri(holder.mImageViewWIPImg,mCurrent.mCosplayWIPImgImage);
+
         View itemView=holder.itemView;
         mWipImgViewModel=new WIPImgViewModel(mApplication);
         itemView.setOnClickListener(new View.OnClickListener() {
@@ -57,7 +77,9 @@ public class WIPImgAdapter extends RecyclerView.Adapter<WIPImgAdapter.WIPImgView
                 ImageView mImageView=mImageDialog.findViewById(R.id.ImageView_ImageFullScreen);
                 ImageButton mClose=mImageDialog.findViewById(R.id.ImageBtn_ImageClose);
                 Button mDelete=mImageDialog.findViewById(R.id.Btn_ImageDelete);
-                mImageView.setImageBitmap(mCurrent.mCosplayWIPImgImage);
+
+                SetImageFromUri(mImageView,mCurrent.mCosplayWIPImgImage);
+
                 mDialogBuilder.setView(mImageDialog);
                 mDialog=mDialogBuilder.create();
                 mDialog.show();
@@ -94,7 +116,7 @@ public class WIPImgAdapter extends RecyclerView.Adapter<WIPImgAdapter.WIPImgView
         }
     }
     public void deleteDialog(final WIPImg mCurrent) {
-        mDialogBuilder = new AlertDialog.Builder(mContext);
+        AlertDialog.Builder mDialogBuilder = new AlertDialog.Builder(mContext);
         final View deleteCosplayView = mLayoutInflater.inflate(R.layout.delete, null);
         TextView mDeleteText = deleteCosplayView.findViewById(R.id.TextView_DeleteTitle);
         mDeleteText.setText( R.string.DeleteImage);
@@ -102,7 +124,7 @@ public class WIPImgAdapter extends RecyclerView.Adapter<WIPImgAdapter.WIPImgView
         mBtnCancel = deleteCosplayView.findViewById(R.id.Btn_DeleteCancel);
         mBtnDelete = deleteCosplayView.findViewById(R.id.Btn_DeleteDelete);
         mDialogBuilder.setView(deleteCosplayView);
-        mDialog = mDialogBuilder.create();
+        final Dialog mDialog = mDialogBuilder.create();
         mDialog.show();
 
         mBtnDelete.setOnClickListener(new View.OnClickListener() {

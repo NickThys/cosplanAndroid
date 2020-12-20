@@ -30,9 +30,23 @@ public class Cosplay implements Parcelable {
     public double mCosplayBudget;
     @ColumnInfo(name = "CosplayCurrentBudget")
     public double mCosplayRemainingBudget;
+
+    public Cosplay(int mCosplayId, @NonNull String mCosplayName, @NonNull String mCosplayStartDate, @NonNull String mCosplayEndDate, double mCosplayBudget, double mCosplayRemainingBudget, @NonNull String mCosplayIMG, String mCosplayNote, int mNumberOfParts, double mCosplayPercentage) {
+        this.mCosplayId = mCosplayId;
+        this.mCosplayName = mCosplayName;
+        this.mCosplayStartDate = mCosplayStartDate;
+        this.mCosplayEndDate = mCosplayEndDate;
+        this.mCosplayBudget = mCosplayBudget;
+        this.mCosplayRemainingBudget = mCosplayRemainingBudget;
+        this.mCosplayIMG = mCosplayIMG;
+        this.mCosplayNote = mCosplayNote;
+        this.mNumberOfParts = mNumberOfParts;
+        this.mCosplayPercentage = mCosplayPercentage;
+    }
+
     @NonNull
-    @ColumnInfo(typeAffinity = ColumnInfo.BLOB, name = "CosplayIMG")
-    public Bitmap mCosplayIMG;
+    @ColumnInfo( name = "CosplayIMG")
+    public String  mCosplayIMG;
     @ColumnInfo(name = "CosplayNote")
     public String mCosplayNote;
     @ColumnInfo(name = "NumberOfParts")
@@ -43,7 +57,7 @@ public class Cosplay implements Parcelable {
     public Cosplay() {
     }
 
-    public Cosplay(int mCosplayId, @NonNull String mCosplayName, @NonNull String mCosplayStartDate, @NonNull String mCosplayEndDate, double mCosplayBudget, double mCosplayCurrentBudget, @NonNull Bitmap mCosplayIMG) {
+    public Cosplay(int mCosplayId, @NonNull String mCosplayName, @NonNull String mCosplayStartDate, @NonNull String mCosplayEndDate, double mCosplayBudget, double mCosplayCurrentBudget, @NonNull String mCosplayIMG) {
         this.mCosplayId = mCosplayId;
         this.mCosplayName = mCosplayName;
         this.mCosplayStartDate = mCosplayStartDate;
@@ -64,7 +78,7 @@ public class Cosplay implements Parcelable {
 //    }
 // --Commented out by Inspection STOP (7/12/2020 22:41)
 
-    public Cosplay(int Id, @NonNull String Name, @NonNull String StartDate, @NonNull String EndDate, double Budget, @NonNull Bitmap Img, String note) {
+    public Cosplay(int Id, @NonNull String Name, @NonNull String StartDate, @NonNull String EndDate, double Budget, @NonNull String Img, String note) {
         this.mCosplayId = Id;
         this.mCosplayName = Name;
         this.mCosplayStartDate = StartDate;
@@ -74,7 +88,7 @@ public class Cosplay implements Parcelable {
         this.mCosplayNote = note;
     }
 
-    public Cosplay(int mCosplayId, @NonNull String mCosplayName, @NonNull String mCosplayStartDate, @NonNull String mCosplayEndDate, double mCosplayBudget, double mCosplayCurrentBudget, @NonNull Bitmap mCosplayIMG, String mCosplayNote) {
+    public Cosplay(int mCosplayId, @NonNull String mCosplayName, @NonNull String mCosplayStartDate, @NonNull String mCosplayEndDate, double mCosplayBudget, double mCosplayCurrentBudget, @NonNull String mCosplayIMG, String mCosplayNote) {
         this.mCosplayId = mCosplayId;
         this.mCosplayName = mCosplayName;
         this.mCosplayStartDate = mCosplayStartDate;
@@ -85,14 +99,37 @@ public class Cosplay implements Parcelable {
         this.mCosplayNote = mCosplayNote;
     }
 
+
     protected Cosplay(Parcel in) {
         mCosplayId = in.readInt();
         mCosplayName = in.readString();
         mCosplayStartDate = in.readString();
         mCosplayEndDate = in.readString();
         mCosplayBudget = in.readDouble();
-        mCosplayIMG = in.readParcelable(Bitmap.class.getClassLoader());
+        mCosplayRemainingBudget = in.readDouble();
+        mCosplayIMG = in.readString();
         mCosplayNote = in.readString();
+        mNumberOfParts = in.readInt();
+        mCosplayPercentage = in.readDouble();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(mCosplayId);
+        dest.writeString(mCosplayName);
+        dest.writeString(mCosplayStartDate);
+        dest.writeString(mCosplayEndDate);
+        dest.writeDouble(mCosplayBudget);
+        dest.writeDouble(mCosplayRemainingBudget);
+        dest.writeString(mCosplayIMG);
+        dest.writeString(mCosplayNote);
+        dest.writeInt(mNumberOfParts);
+        dest.writeDouble(mCosplayPercentage);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public static final Creator<Cosplay> CREATOR = new Creator<Cosplay>() {
@@ -106,20 +143,4 @@ public class Cosplay implements Parcelable {
             return new Cosplay[size];
         }
     };
-
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(mCosplayId);
-        dest.writeString(mCosplayName);
-        dest.writeString(mCosplayStartDate);
-        dest.writeString(mCosplayEndDate);
-        dest.writeDouble(mCosplayBudget);
-        dest.writeParcelable(mCosplayIMG, flags);
-    }
 }
