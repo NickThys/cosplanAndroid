@@ -1021,7 +1021,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         TextView mDeleteText = mDeleteCosplayView.findViewById(R.id.TextView_DeleteTitle);
 
         mDialogBuilder = new AlertDialog.Builder(requireContext());
-        mDeleteText.setText(R.string.ConformationDeleteCheckListPart + mEvent.mCosplayEventName);
+        mDeleteText.setText(getString(R.string.ConformationDeleteCheckListPart)+" " + mEvent.mCosplayEventName);
         mDialogBuilder.setView(mDeleteCosplayView);
         mDialog = mDialogBuilder.create();
         mDialog.show();
@@ -1053,7 +1053,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         Button mBtnDelete = mDeleteCosplayView.findViewById(R.id.Btn_DeleteDelete);
 
         mDialogBuilder = new AlertDialog.Builder(requireContext());
-        mDeleteText.setText(R.string.ConformationDeleteCheckListPart + mShoppingListPart.mCosplayShoppingListPartName);
+        mDeleteText.setText(getString(R.string.ConformationDeleteCheckListPart )+" "+ mShoppingListPart.mCosplayShoppingListPartName);
         mDialogBuilder.setView(mDeleteCosplayView);
         mDialog = mDialogBuilder.create();
         mDialog.show();
@@ -1083,7 +1083,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         Button mBtnDelete = mDeleteCosplayView.findViewById(R.id.Btn_DeleteDelete);
 
         mDialogBuilder = new AlertDialog.Builder(requireContext());
-        mDeleteText.setText(R.string.ConformationDeleteCheckListPart + mCheckListPart.mCosplayCheckListPartName);
+        mDeleteText.setText(getString(R.string.ConformationDeleteCheckListPart)+" " + mCheckListPart.mCosplayCheckListPartName);
         mDialogBuilder.setView(mDeleteCosplayView);
         mDialog = mDialogBuilder.create();
         mDialog.show();
@@ -1111,7 +1111,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         TextView mDeleteText = deleteCosplayView.findViewById(R.id.TextView_DeleteTitle);
 
         mDialogBuilder = new AlertDialog.Builder(requireContext());
-        mDeleteText.setText(R.string.ConformationDeleteCheckListPart + getString(R.string.WholeList));
+        mDeleteText.setText(getString(R.string.ConformationDeleteCheckListPart)+" " + getString(R.string.WholeList));
 
         mDialogBuilder.setView(deleteCosplayView);
         mDialog = mDialogBuilder.create();
@@ -1140,7 +1140,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         TextView mDeleteText = deleteCosplayView.findViewById(R.id.TextView_DeleteTitle);
 
         mDialogBuilder = new AlertDialog.Builder(requireContext());
-        mDeleteText.setText(R.string.ConformationDeleteCheckListPart + myPart.mCosplayPartName);
+        mDeleteText.setText(getResources().getText(R.string.ConformationDeleteCheckListPart)+" " + myPart.mCosplayPartName);
         mDialogBuilder.setView(deleteCosplayView);
         mDialog = mDialogBuilder.create();
         mDialog.show();

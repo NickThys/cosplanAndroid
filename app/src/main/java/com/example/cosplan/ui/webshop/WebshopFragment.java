@@ -93,7 +93,7 @@ public class WebshopFragment extends Fragment {
         final View mDeleteCosplayView = getLayoutInflater().inflate(R.layout.delete, null);
         TextView mDeleteText = mDeleteCosplayView.findViewById(R.id.TextView_DeleteTitle);
 
-        mDeleteText.setText(String.format("%s%s", getString(R.string.ConformationDeleteCheckListPart), mWebshop.mWebshopName));
+        mDeleteText.setText( getString(R.string.ConformationDeleteCheckListPart)+" "+ mWebshop.mWebshopName);
         final Button mBtnDelete, mBtnCancel;
         mBtnCancel = mDeleteCosplayView.findViewById(R.id.Btn_DeleteCancel);
         mBtnDelete = mDeleteCosplayView.findViewById(R.id.Btn_DeleteDelete);
