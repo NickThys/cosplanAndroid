@@ -1,11 +1,13 @@
 package com.example.cosplan;
 
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -49,7 +51,13 @@ public class MainActivity extends AppCompatActivity  {
 
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
-      
+        sharedPreferences=getSharedPreferences("prefs",MODE_PRIVATE);
+        int showDialog=sharedPreferences.getInt("FirstStart",0);
+        switch (showDialog){
+            case 0:
+                showUpdateDialog1();
+                break;
+        }
     }
 
     @Override
@@ -64,7 +72,25 @@ public class MainActivity extends AppCompatActivity  {
         super.onSaveInstanceState(outState);
         outState.clear();
     }
-
+    private void showUpdateDialog1(){
+        new AlertDialog.Builder(this)
+                .setTitle("Update 1.1.1")
+                .setMessage("Bugs fixed in this update: \n" +
+                        "* Unable to add webshops to the webshop list.\n" +
+                        "* App doesn't crash when you choose a image\n" +
+                        "\nI'm so sorry but in order to fix the bug with the images, I had to change the way the app stores the images. Therefore the images you chose will no longer be displayed.\n" +
+                                "You can replace most of the images except for the images assigned to the parts."
+                        ).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        }).create().show();
+        sharedPreferences=getSharedPreferences("prefs",MODE_PRIVATE);
+        SharedPreferences.Editor editor=sharedPreferences.edit();
+        editor.putInt("FirstStart",1);
+        editor.apply();
+    }
 
 
 }
