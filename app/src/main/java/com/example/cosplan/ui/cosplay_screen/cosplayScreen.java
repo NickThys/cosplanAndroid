@@ -45,8 +45,6 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.example.cosplan.MainActivity;
 import com.example.cosplan.R;
 
 import com.example.cosplan.data.cosplay.checkList.CheckListPartAdapter;
@@ -74,8 +72,7 @@ import com.example.cosplan.data.cosplay.webshop.WebshopAdapter;
 import com.example.cosplan.data.cosplay.webshop.WebshopViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -129,7 +126,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
     private List<Part> mListMake;
     private List<Part> mListBuy;
 
-    @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
+
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -1140,7 +1137,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         });
     }
 
-    @SuppressLint("SetTextI18n")
+
     private void deletePartDialog(final Part myPart, final Cosplay cosplay) {
         final View deleteCosplayView = getLayoutInflater().inflate(R.layout.delete, null);
         Button mBtnCancel = deleteCosplayView.findViewById(R.id.Btn_DeleteCancel);
@@ -1362,7 +1359,20 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
 
         }
     }
-
+    public void SetImageFromUri(ImageView mImageView,String mImagePath){
+        Uri selectedImageUri=null;
+        if (mImagePath != null) {
+            File f = new File(mImagePath);
+            selectedImageUri = Uri.fromFile(f);
+        }
+        Bitmap mBitmap=null;
+        try {
+            mBitmap= BitmapFactory.decodeStream(requireContext().getContentResolver().openInputStream(selectedImageUri));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        mImageView.setImageBitmap(mBitmap);
+    }
     public Boolean checkDateFormat(String date) {
         if (date == null || !date.matches("^(1[0-9]|0[1-9]|3[0-1]|2[1-9])/(0[1-9]|1[0-2])/[0-9]{4}$"))
             return false;

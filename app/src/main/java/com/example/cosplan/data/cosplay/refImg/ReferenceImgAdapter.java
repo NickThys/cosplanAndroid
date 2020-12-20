@@ -52,25 +52,28 @@ public class ReferenceImgAdapter extends RecyclerView.Adapter<ReferenceImgAdapte
         View view = mLayoutInflater.inflate(R.layout.custum_row_image, parent, false);
         return new ReferenceImgViewHolder(view);
     }
-
-    @Override
-    public void onBindViewHolder(@NonNull ReferenceImgViewHolder holder, int position) {
-        final ReferenceImg mCurrentReferenceImg = mRefImgs.get(position);
+    public void SetImageFromUri(ImageView mImageView,String mImagePath){
         Uri selectedImageUri=null;
-        if (mCurrentReferenceImg.mCosplayRefImgImage != null) {
-            File f = new File(mCurrentReferenceImg.mCosplayRefImgImage);
+        if (mImagePath != null) {
+            File f = new File(mImagePath);
             selectedImageUri = Uri.fromFile(f);
         }
         Bitmap mBitmap=null;
         try {
-            mBitmap=BitmapFactory.decodeStream(mContext.getContentResolver().openInputStream(selectedImageUri));
+            mBitmap= BitmapFactory.decodeStream(mContext.getContentResolver().openInputStream(selectedImageUri));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        holder.ImageViewRefImg.setImageBitmap(mBitmap);
+        mImageView.setImageBitmap(mBitmap);
+    }
+    @Override
+    public void onBindViewHolder(@NonNull ReferenceImgViewHolder holder, int position) {
+        final ReferenceImg mCurrentReferenceImg = mRefImgs.get(position);
+
+        SetImageFromUri(holder.ImageViewRefImg,mCurrentReferenceImg.mCosplayRefImgImage);
+
         View itemView = holder.itemView;
         mRefImgViewModel = new ReferenceImgViewModel(mApplication);
-        final Uri finalSelectedImageUri = selectedImageUri;
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,7 +83,8 @@ public class ReferenceImgAdapter extends RecyclerView.Adapter<ReferenceImgAdapte
                 ImageView mImageView = mImageDialog.findViewById(R.id.ImageView_ImageFullScreen);
                 ImageButton mCloseView = mImageDialog.findViewById(R.id.ImageBtn_ImageClose);
                 Button mDeleteImage = mImageDialog.findViewById(R.id.Btn_ImageDelete);
-                mImageView.setImageURI(finalSelectedImageUri);
+                SetImageFromUri(mImageView,mCurrentReferenceImg.mCosplayRefImgImage);
+
                 mDialogBuilder.setView(mImageDialog);
                 final Dialog mDialog = mDialogBuilder.create();
                 mDialog.show();
