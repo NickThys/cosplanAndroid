@@ -1,14 +1,20 @@
 package com.example.cosplan.ui.home;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +27,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -35,6 +43,8 @@ import com.example.cosplan.data.cosplay.CosplayAdapter;
 import com.example.cosplan.data.cosplay.CosplayViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -48,7 +58,7 @@ public class CosplayFragment extends Fragment {
 
     private EditText mCosplayName, mCosplayStartDate, mCosplayEndDate, mCosplayBudget;
     private ImageView mCosplayImage;
-
+    private String mCosplayUri;
     private DatePickerDialog.OnDateSetListener mStartDateSetListener;
     private DatePickerDialog.OnDateSetListener mEndDateSetListener;
 
@@ -193,12 +203,20 @@ public class CosplayFragment extends Fragment {
         mChoosePicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, getString(R.string.txt_chooseImg_intent)), GALLERY_REQUEST_CODE);
+                if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
+                        == PackageManager.PERMISSION_DENIED) {
 
-            }
+                    // Requesting the permission
+                    ActivityCompat.requestPermissions(requireActivity(),
+                            new String[] {Manifest.permission.READ_EXTERNAL_STORAGE},
+                            101);
+                }
+                else {
+                    Intent intent = new Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(Intent.createChooser(intent, getString(R.string.txt_chooseImg_intent)), GALLERY_REQUEST_CODE);
+
+                }
+      }
         });
 
         //Add Cosplay to the database
@@ -212,7 +230,7 @@ public class CosplayFragment extends Fragment {
                     } else {
                         mCost = 0.0;
                     }
-                    Cosplay temp = new Cosplay(0,mCosplayName.getText().toString(),mCosplayStartDate.getText().toString(),mCosplayEndDate.getText().toString(),mCost,mCost,((BitmapDrawable)mCosplayImage.getDrawable()).getBitmap());
+                    Cosplay temp = new Cosplay(0,mCosplayName.getText().toString(),mCosplayStartDate.getText().toString(),mCosplayEndDate.getText().toString(),mCost,mCost,mCosplayUri);
 
                     mCosplayViewModel.insert(temp);
                     mDialog.dismiss();
@@ -225,7 +243,20 @@ public class CosplayFragment extends Fragment {
         });
 
     }
-
+    public void SetImageFromUri(ImageView mImageView,String mImagePath){
+        Uri selectedImageUri=null;
+        if (mImagePath != null) {
+            File f = new File(mImagePath);
+            selectedImageUri = Uri.fromFile(f);
+        }
+        Bitmap mBitmap=null;
+        try {
+            mBitmap= BitmapFactory.decodeStream(requireContext().getContentResolver().openInputStream(selectedImageUri));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        mImageView.setImageBitmap(mBitmap);
+    }
     private void ShowDatePickerDialog(boolean hasFocus,boolean IsStartDate) {
         EditText mEditTextDate;
         DatePickerDialog.OnDateSetListener mOnDateSetListener;
@@ -279,13 +310,25 @@ public class CosplayFragment extends Fragment {
         super.onSaveInstanceState(outState);
         outState.clear();
     }
+    public String getPathFromUri(Uri mContentUri){
+        String res=null;
+        String[] proj={MediaStore.Images.Media.DATA};
+        Cursor cursor=getContext().getContentResolver().query(mContentUri,proj,null,null,null  );
+        if (cursor.moveToFirst()){
+            int column_index=cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            res=cursor.getString(column_index);
+        }
+        cursor.close();
+        return res;
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == GALLERY_REQUEST_CODE) {
             if (data != null) {
                 Uri imageData = data.getData();
-                mCosplayImage.setImageURI(imageData);
+                mCosplayUri=getPathFromUri(imageData);
+                SetImageFromUri(mCosplayImage,mCosplayUri);
             }
         }
     }
