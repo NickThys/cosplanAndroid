@@ -47,14 +47,10 @@ public class WIPImgAdapter extends RecyclerView.Adapter<WIPImgAdapter.WIPImgView
         View view= mLayoutInflater.inflate(R.layout.custum_row_image,parent,false);
         return new WIPImgViewHolder(view);
     }
-
-    @Override
-    public void onBindViewHolder(@NonNull WIPImgAdapter.WIPImgViewHolder holder, final int position) {
-        final WIPImg mCurrent=mWIPImgs.get(position);
-
+    public void SetImageFromUri(ImageView mImageView,String mImagePath){
         Uri selectedImageUri=null;
-        if (mCurrent.mCosplayWIPImgImage != null) {
-            File f = new File(mCurrent.mCosplayWIPImgImage);
+        if (mImagePath != null) {
+            File f = new File(mImagePath);
             selectedImageUri = Uri.fromFile(f);
         }
         Bitmap mBitmap=null;
@@ -63,7 +59,13 @@ public class WIPImgAdapter extends RecyclerView.Adapter<WIPImgAdapter.WIPImgView
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        holder.mImageViewWIPImg.setImageBitmap(mBitmap);
+        mImageView.setImageBitmap(mBitmap);
+    }
+    @Override
+    public void onBindViewHolder(@NonNull WIPImgAdapter.WIPImgViewHolder holder, final int position) {
+        final WIPImg mCurrent=mWIPImgs.get(position);
+
+      SetImageFromUri(holder.mImageViewWIPImg,mCurrent.mCosplayWIPImgImage);
 
         View itemView=holder.itemView;
         mWipImgViewModel=new WIPImgViewModel(mApplication);
@@ -75,18 +77,9 @@ public class WIPImgAdapter extends RecyclerView.Adapter<WIPImgAdapter.WIPImgView
                 ImageView mImageView=mImageDialog.findViewById(R.id.ImageView_ImageFullScreen);
                 ImageButton mClose=mImageDialog.findViewById(R.id.ImageBtn_ImageClose);
                 Button mDelete=mImageDialog.findViewById(R.id.Btn_ImageDelete);
-                Uri selectedImageUri=null;
-                if (mCurrent.mCosplayWIPImgImage != null) {
-                    File f = new File(mCurrent.mCosplayWIPImgImage);
-                    selectedImageUri = Uri.fromFile(f);
-                }
-                Bitmap mBitmap=null;
-                try {
-                    mBitmap= BitmapFactory.decodeStream(mContext.getContentResolver().openInputStream(selectedImageUri));
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-                mImageView.setImageBitmap(mBitmap);
+
+                SetImageFromUri(mImageView,mCurrent.mCosplayWIPImgImage);
+
                 mDialogBuilder.setView(mImageDialog);
                 mDialog=mDialogBuilder.create();
                 mDialog.show();
