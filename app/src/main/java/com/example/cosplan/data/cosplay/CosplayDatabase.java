@@ -76,12 +76,14 @@ public abstract class CosplayDatabase extends RoomDatabase {
             //region wip img
             database.execSQL("DROP TABlE CosplayWIPImg_table");
             database.execSQL("CREATE TABLE IF NOT EXISTS `CosplayWIPImg_table` (`CosplayId` INTEGER NOT NULL, `CosplayWIPImgId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `CosplayWIPImgImage` TEXT, FOREIGN KEY(`CosplayId`) REFERENCES `cosplay_table`(`Id`) ON UPDATE NO ACTION ON DELETE CASCADE )");
+            database.execSQL("CREATE INDEX index_wip_img ON  CosplayWIPImg_table(CosplayId)");
 
             //endregion
             //region ref img
             database.execSQL("DROP TABlE CosplayRefImg_table");
 
             database.execSQL("CREATE TABLE IF NOT EXISTS `CosplayRefImg_table` (`CosplayId` INTEGER NOT NULL, `CosplayRefImgId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `CosplayRefImgImage` TEXT, FOREIGN KEY(`CosplayId`) REFERENCES `cosplay_table`(`Id`) ON UPDATE NO ACTION ON DELETE CASCADE )");
+            database.execSQL("CREATE INDEX index_reference_img ON  CosplayRefImg_table(CosplayId)");
 
             //endregion
             //region part
