@@ -116,7 +116,7 @@ public class WIPImgAdapter extends RecyclerView.Adapter<WIPImgAdapter.WIPImgView
         }
     }
     public void deleteDialog(final WIPImg mCurrent) {
-        mDialogBuilder = new AlertDialog.Builder(mContext);
+        AlertDialog.Builder mDialogBuilder = new AlertDialog.Builder(mContext);
         final View deleteCosplayView = mLayoutInflater.inflate(R.layout.delete, null);
         TextView mDeleteText = deleteCosplayView.findViewById(R.id.TextView_DeleteTitle);
         mDeleteText.setText( R.string.DeleteImage);
@@ -124,7 +124,7 @@ public class WIPImgAdapter extends RecyclerView.Adapter<WIPImgAdapter.WIPImgView
         mBtnCancel = deleteCosplayView.findViewById(R.id.Btn_DeleteCancel);
         mBtnDelete = deleteCosplayView.findViewById(R.id.Btn_DeleteDelete);
         mDialogBuilder.setView(deleteCosplayView);
-        mDialog = mDialogBuilder.create();
+        final Dialog mDialog = mDialogBuilder.create();
         mDialog.show();
 
         mBtnDelete.setOnClickListener(new View.OnClickListener() {
