@@ -111,7 +111,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
     private EditText mCosplayName, mCosplayStartDate, mCosplayEndDate, mCosplayBudget, mPartName, mPartLink, mPartCost, mPartEndDate, mCosplayNote;
     private Spinner mSpinnerPartMakeBuy;
     private RecyclerView mRVRefImg, mRecViewWIPImg;
-
+    private String mPartUri,MCosplayUri;
 
     private Cosplay mTempCosplay = null;
 
@@ -918,7 +918,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                     } else {
                         mCost = 0.0;
                     }
-                    Part temp = new Part(mCosplay.mCosplayId, 0, mPartName.getText().toString(), mSpinnerPartMakeBuy.getSelectedItem().toString(), mPartLink.getText().toString(), mCost, "Planned", mPartEndDate.getText().toString(), ((BitmapDrawable) mPartImage.getDrawable()).getBitmap());
+                    Part temp = new Part(mCosplay.mCosplayId, 0, mPartName.getText().toString(), mSpinnerPartMakeBuy.getSelectedItem().toString(), mPartLink.getText().toString(), mCost, "Planned", mPartEndDate.getText().toString(),mPartUri );
                     mPartViewModel.insert(temp);
                     mCosplay.mCosplayRemainingBudget -= temp.mCosplayPartCost;
                     mCosplayViewModel.update(mCosplay);
@@ -1292,7 +1292,8 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         }
         if (requestCode == GALLERY_REQUEST_CODE_PART && data != null) {
             mImageData = data.getData();
-            mPartImage.setImageURI(mImageData);
+            mPartUri=getPathFromUri(mImageData);
+            SetImageFromUri(mPartImage,mPartUri);
         }
         if (requestCode == GALLERY_REQUEST_CODE_REF_IMG && data != null) {
             mImageData = data.getData();
