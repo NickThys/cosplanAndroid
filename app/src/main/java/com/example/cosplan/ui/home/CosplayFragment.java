@@ -4,6 +4,8 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -108,6 +110,16 @@ public class CosplayFragment extends Fragment {
         return root;
     }
 
+    public static Uri getUriFromDrawableResId(Context context, int drawableResId) {
+        StringBuilder builder = new StringBuilder().append(ContentResolver.SCHEME_ANDROID_RESOURCE)
+                .append("://")
+                .append(context.getResources().getResourcePackageName(drawableResId))
+                .append("/")
+                .append(context.getResources().getResourceTypeName(drawableResId))
+                .append("/")
+                .append(context.getResources().getResourceEntryName(drawableResId));
+        return Uri.parse(builder.toString());
+    }
 
     public void DeleteCosplayDialog(final Cosplay cosplay){
         mDialogBuilder =new AlertDialog.Builder(requireContext());
@@ -223,7 +235,7 @@ public class CosplayFragment extends Fragment {
         mAddNewCosplay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!mCosplayName.getText().toString().equals("")){
+                if (!mCosplayName.getText().toString().equals("")&&mCosplayUri!=null){
                     double mCost;
                     if (!mCosplayBudget.getText().toString().equals("")) {
                         mCost = Double.parseDouble(mCosplayBudget.getText().toString());
@@ -236,7 +248,7 @@ public class CosplayFragment extends Fragment {
                     mDialog.dismiss();
                 }
                 else{
-                    Toast.makeText(requireContext(), getResources().getString(R.string.FillOutAllFields), Toast.LENGTH_LONG).show();
+                    Toast.makeText(requireContext(), getResources().getString(R.string.FillOutFields)+getResources().getString(R.string.WebsiteName)+", Image" , Toast.LENGTH_LONG).show();
                 }
 
             }
