@@ -24,9 +24,9 @@ public class WIPImg {
     @ColumnInfo(name = "CosplayWIPImgId")
     public int mCosplayWIPImgId;
     @ColumnInfo(name = "CosplayWIPImgImage")
-    public Bitmap mCosplayWIPImgImage;
+    public String mCosplayWIPImgImage;
 
-    public WIPImg(int mCosplayId, int mCosplayWIPImgId, @NotNull Bitmap mCosplayWIPImgImage) {
+    public WIPImg(int mCosplayId, int mCosplayWIPImgId, @NotNull String mCosplayWIPImgImage) {
         this.mCosplayId = mCosplayId;
         this.mCosplayWIPImgId = mCosplayWIPImgId;
         this.mCosplayWIPImgImage = mCosplayWIPImgImage;

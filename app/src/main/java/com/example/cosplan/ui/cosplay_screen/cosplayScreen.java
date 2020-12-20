@@ -1,10 +1,13 @@
 package com.example.cosplan.ui.cosplay_screen;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -15,6 +18,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -24,6 +29,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,7 +45,6 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.cosplan.R;
 
 import com.example.cosplan.data.cosplay.checkList.CheckListPartAdapter;
@@ -67,8 +72,13 @@ import com.example.cosplan.data.cosplay.webshop.WebshopAdapter;
 import com.example.cosplan.data.cosplay.webshop.WebshopViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -101,7 +111,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
     private EditText mCosplayName, mCosplayStartDate, mCosplayEndDate, mCosplayBudget, mPartName, mPartLink, mPartCost, mPartEndDate, mCosplayNote;
     private Spinner mSpinnerPartMakeBuy;
     private RecyclerView mRVRefImg, mRecViewWIPImg;
-
+    private String mPartUri,mCosplayUri;
 
     private Cosplay mTempCosplay = null;
 
@@ -111,10 +121,12 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             GALLERY_REQUEST_CODE_REF_IMG = 3,
             GALLERY_REQUEST_CODE_WIP_IMG = 4,
             CAMERA_REQUEST_CODE_WIP_IMG = 5;
+    private static final int CAMERA_PERMISSION_CODE = 100;
+    private static final int STORAGE_PERMISSION_CODE = 101;
     private List<Part> mListMake;
     private List<Part> mListBuy;
 
-    @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
+
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -204,7 +216,8 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mName.setText(mTempCosplay.mCosplayName);
         mEndDate.setText(mTempCosplay.mCosplayEndDate);
         updateCosplayHeaderBudget();
-        mImage.setImageBitmap(mTempCosplay.mCosplayIMG);
+        SetImageFromUri(mImage,mTempCosplay.mCosplayIMG);
+
         updateCosplayPercentage();
         mPercentage.setText(String.format("%s%%", mTempCosplay.mCosplayPercentage));
         FloatingActionButton mFabAddPart = mRoot.findViewById(R.id.Fab_PartsAdd);
@@ -353,20 +366,21 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mCosplayNotesSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Cosplay CosUP = new Cosplay(mTempCosplay.mCosplayId, mTempCosplay.mCosplayName, mTempCosplay.mCosplayStartDate, mTempCosplay.mCosplayEndDate, mTempCosplay.mCosplayBudget, mTempCosplay.mCosplayIMG, mCosplayNote.getText().toString());
+                Cosplay CosUP = new Cosplay(mTempCosplay.mCosplayId, mTempCosplay.mCosplayName, mTempCosplay.mCosplayStartDate, mTempCosplay.mCosplayEndDate, mTempCosplay.mCosplayBudget,mTempCosplay.mCosplayRemainingBudget, mTempCosplay.mCosplayIMG, mCosplayNote.getText().toString(),mTempCosplay.mNumberOfParts,mTempCosplay.mCosplayPercentage);
 
                 mCosplayViewModel.update(CosUP);
                 closeKeyboard(v);
                 Toast.makeText(requireContext(), getResources().getText(R.string.NoteSaved), Toast.LENGTH_SHORT).show();
             }
         });
-        //RefImg
+        //endregion
+        //region RefImg
         setRefImageInGrid(mTempCosplay, mReferenceImgAdapter);
         mRefImgAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //add cosplay img to db
-                CreateIntent(GALLERY_REQUEST_CODE_REF_IMG);
+                checkPermission(Manifest.permission.READ_EXTERNAL_STORAGE,STORAGE_PERMISSION_CODE,GALLERY_REQUEST_CODE_REF_IMG,true);
             }
         });
         //endregion
@@ -500,14 +514,14 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mWIPImgAddPicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CreateIntent(GALLERY_REQUEST_CODE_WIP_IMG);
+                checkPermission(Manifest.permission.READ_EXTERNAL_STORAGE,STORAGE_PERMISSION_CODE,GALLERY_REQUEST_CODE_WIP_IMG,true);
             }
         });
         mWIPImgTakePicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent, CAMERA_REQUEST_CODE_WIP_IMG);
+                checkPermission(Manifest.permission.CAMERA,CAMERA_PERMISSION_CODE,CAMERA_REQUEST_CODE_WIP_IMG,false);
+
             }
         });
         //endregion
@@ -601,11 +615,39 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         return mRoot;
     }
 
-    private void CreateIntent(int galleryRequestCodeRefImg) {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, getString(R.string.txt_chooseImg_intent)), galleryRequestCodeRefImg);
+    public void checkPermission(String permission, int requestCode,int GALLERY_REQUEST_CODE,boolean isGalleryRequest)
+    {
+        if (ContextCompat.checkSelfPermission(requireContext(), permission)
+                == PackageManager.PERMISSION_DENIED) {
+
+            // Requesting the permission
+            ActivityCompat.requestPermissions(requireActivity(),
+                    new String[] { permission },
+                    requestCode);
+        }
+        else {
+          /*  Toast.makeText(requireContext(),
+                    "Permission already granted",
+                    Toast.LENGTH_SHORT)
+                    .show();*/
+            if (isGalleryRequest)
+            CreateIntent(GALLERY_REQUEST_CODE,true);
+            else
+                CreateIntent(CAMERA_REQUEST_CODE_WIP_IMG,false);
+        }
+    }
+    private void CreateIntent(int galleryRequestCodeRefImg,boolean IsGalleryRequest) {
+
+
+        if (IsGalleryRequest){
+            Intent intent = new Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+            startActivityForResult(Intent.createChooser(intent, getString(R.string.txt_chooseImg_intent)), galleryRequestCodeRefImg);
+        }else{
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivityForResult(intent, CAMERA_REQUEST_CODE_WIP_IMG);
+        }
+
     }
 
     public void checkListClearCheckBoxes(List<ChecklistPart> allParts) {
@@ -646,7 +688,6 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mEventCharityAdapter.notifyDataSetChanged();
     }
 
-    @SuppressLint("SetTextI18n")
     public void updateCosplayHeaderBudget() {
         double mPercentage = mTempCosplay.mCosplayRemainingBudget / mTempCosplay.mCosplayBudget * 100;
         if (mPercentage < 25 && mPercentage > 0) {
@@ -862,21 +903,21 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mPartChooseImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CreateIntent(GALLERY_REQUEST_CODE_PART);
+                checkPermission(Manifest.permission.READ_EXTERNAL_STORAGE,STORAGE_PERMISSION_CODE,GALLERY_REQUEST_CODE_PART,true);
 
             }
         });
         mPartAddPart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!mPartName.getText().toString().equals("")) {
+                if (!mPartName.getText().toString().equals("")&&mPartUri!=null) {
                     double mCost;
                     if (!mPartCost.getText().toString().equals("")) {
                         mCost = Double.parseDouble(mPartCost.getText().toString());
                     } else {
                         mCost = 0.0;
                     }
-                    Part temp = new Part(mCosplay.mCosplayId, 0, mPartName.getText().toString(), mSpinnerPartMakeBuy.getSelectedItem().toString(), mPartLink.getText().toString(), mCost, "Planned", mPartEndDate.getText().toString(), ((BitmapDrawable) mPartImage.getDrawable()).getBitmap());
+                    Part temp = new Part(mCosplay.mCosplayId, 0, mPartName.getText().toString(), mSpinnerPartMakeBuy.getSelectedItem().toString(), mPartLink.getText().toString(), mCost, "Planned", mPartEndDate.getText().toString(),mPartUri );
                     mPartViewModel.insert(temp);
                     mCosplay.mCosplayRemainingBudget -= temp.mCosplayPartCost;
                     mCosplayViewModel.update(mCosplay);
@@ -884,7 +925,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                     updateCosplayPercentage();
                     mDialog.dismiss();
                 } else {
-                    String tempString = getResources().getString(R.string.FillOutFields) + " " + getResources().getString(R.string.txtName);
+                    String tempString = getResources().getString(R.string.FillOutFields) + " " + getResources().getString(R.string.txtName)+", image";
                     Toast.makeText(requireContext(), tempString, Toast.LENGTH_LONG).show();
                 }
             }
@@ -980,7 +1021,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         TextView mDeleteText = mDeleteCosplayView.findViewById(R.id.TextView_DeleteTitle);
 
         mDialogBuilder = new AlertDialog.Builder(requireContext());
-        mDeleteText.setText(R.string.ConformationDeleteCheckListPart + mEvent.mCosplayEventName);
+        mDeleteText.setText(getString(R.string.ConformationDeleteCheckListPart)+" " + mEvent.mCosplayEventName);
         mDialogBuilder.setView(mDeleteCosplayView);
         mDialog = mDialogBuilder.create();
         mDialog.show();
@@ -1005,7 +1046,6 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         });
     }
 
-    @SuppressLint("SetTextI18n")
     public void deleteShoppingListPartDialog(final ShoppingListPart mShoppingListPart) {
         final View mDeleteCosplayView = getLayoutInflater().inflate(R.layout.delete, null);
         TextView mDeleteText = mDeleteCosplayView.findViewById(R.id.TextView_DeleteTitle);
@@ -1013,7 +1053,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         Button mBtnDelete = mDeleteCosplayView.findViewById(R.id.Btn_DeleteDelete);
 
         mDialogBuilder = new AlertDialog.Builder(requireContext());
-        mDeleteText.setText(R.string.ConformationDeleteCheckListPart + mShoppingListPart.mCosplayShoppingListPartName);
+        mDeleteText.setText(getString(R.string.ConformationDeleteCheckListPart )+" "+ mShoppingListPart.mCosplayShoppingListPartName);
         mDialogBuilder.setView(mDeleteCosplayView);
         mDialog = mDialogBuilder.create();
         mDialog.show();
@@ -1036,7 +1076,6 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         });
     }
 
-    @SuppressLint("SetTextI18n")
     public void deleteCheckListPartDialog(final ChecklistPart mCheckListPart) {
         final View mDeleteCosplayView = getLayoutInflater().inflate(R.layout.delete, null);
         TextView mDeleteText = mDeleteCosplayView.findViewById(R.id.TextView_DeleteTitle);
@@ -1044,7 +1083,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         Button mBtnDelete = mDeleteCosplayView.findViewById(R.id.Btn_DeleteDelete);
 
         mDialogBuilder = new AlertDialog.Builder(requireContext());
-        mDeleteText.setText(R.string.ConformationDeleteCheckListPart + mCheckListPart.mCosplayCheckListPartName);
+        mDeleteText.setText(getString(R.string.ConformationDeleteCheckListPart)+" " + mCheckListPart.mCosplayCheckListPartName);
         mDialogBuilder.setView(mDeleteCosplayView);
         mDialog = mDialogBuilder.create();
         mDialog.show();
@@ -1065,7 +1104,6 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             }
         });
     }
-    @SuppressLint("SetTextI18n")
     public void deleteWholeShoppingListDialog(final ShoppingListPart part) {
         final View deleteCosplayView = getLayoutInflater().inflate(R.layout.delete, null);
         Button mBtnCancel = deleteCosplayView.findViewById(R.id.Btn_DeleteCancel);
@@ -1073,7 +1111,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         TextView mDeleteText = deleteCosplayView.findViewById(R.id.TextView_DeleteTitle);
 
         mDialogBuilder = new AlertDialog.Builder(requireContext());
-        mDeleteText.setText(R.string.ConformationDeleteCheckListPart + getString(R.string.WholeList));
+        mDeleteText.setText(getString(R.string.ConformationDeleteCheckListPart)+" " + getString(R.string.WholeList));
 
         mDialogBuilder.setView(deleteCosplayView);
         mDialog = mDialogBuilder.create();
@@ -1095,7 +1133,6 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         });
     }
 
-    @SuppressLint("SetTextI18n")
     private void deletePartDialog(final Part myPart, final Cosplay cosplay) {
         final View deleteCosplayView = getLayoutInflater().inflate(R.layout.delete, null);
         Button mBtnCancel = deleteCosplayView.findViewById(R.id.Btn_DeleteCancel);
@@ -1103,7 +1140,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         TextView mDeleteText = deleteCosplayView.findViewById(R.id.TextView_DeleteTitle);
 
         mDialogBuilder = new AlertDialog.Builder(requireContext());
-        mDeleteText.setText(R.string.ConformationDeleteCheckListPart + myPart.mCosplayPartName);
+        mDeleteText.setText(getResources().getText(R.string.ConformationDeleteCheckListPart)+" " + myPart.mCosplayPartName);
         mDialogBuilder.setView(deleteCosplayView);
         mDialog = mDialogBuilder.create();
         mDialog.show();
@@ -1134,7 +1171,6 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         });
     }
 
-    @SuppressLint("SetTextI18n")
     public void UpdateCosplayDialog(final Cosplay cosplay) {
         @SuppressLint("InflateParams") final View[] cosplayPopUpView = {getLayoutInflater().inflate(R.layout.add_cosplay, null)};
         Button mChoosePicture = cosplayPopUpView[0].findViewById(R.id.Btn_NewCosplayChooseImg);
@@ -1154,8 +1190,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mCosplayStartDate.setText(cosplay.mCosplayStartDate);
         mCosplayEndDate.setText(cosplay.mCosplayEndDate);
         mCosplayBudget.setText(Double.toString(cosplay.mCosplayBudget));
-        mCosplayImage.setImageBitmap(cosplay.mCosplayIMG);
-
+        SetImageFromUri(mCosplayImage,cosplay.mCosplayIMG);
         mDialog = mDialogBuilder.create();
         mDialog.show();
         //region Date selector
@@ -1204,7 +1239,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mChoosePicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CreateIntent(GALLERY_REQUEST_CODE);
+                checkPermission(Manifest.permission.READ_EXTERNAL_STORAGE,STORAGE_PERMISSION_CODE,GALLERY_REQUEST_CODE,true);
             }
         });
         //Add Cosplay to the database
@@ -1218,7 +1253,13 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                 } else {
                     mCost = 0.0;
                 }
-                Cosplay mCosUpdate = new Cosplay(cosplay.mCosplayId, mCosplayName.getText().toString(), mCosplayStartDate.getText().toString(), mCosplayEndDate.getText().toString(), mCost, mCost - mTempExpenses, ((BitmapDrawable) mCosplayImage.getDrawable()).getBitmap(), mCosplayNote.getText().toString());
+                String mPath=cosplay.mCosplayIMG;
+                if(mCosplayUri!=null){
+                    mPath=mCosplayUri;
+                }
+
+
+                Cosplay mCosUpdate = new Cosplay(cosplay.mCosplayId, mCosplayName.getText().toString(), mCosplayStartDate.getText().toString(), mCosplayEndDate.getText().toString(), mCost, mCost - mTempExpenses, mPath, mCosplayNote.getText().toString(),cosplay.mNumberOfParts,cosplay.mCosplayPercentage);
 
                 mCosplayViewModel.update(mCosUpdate);
                 mDialog.dismiss();
@@ -1226,7 +1267,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                 mName.setText(mCosUpdate.mCosplayName);
                 mEndDate.setText(mCosUpdate.mCosplayEndDate);
                 updateCosplayHeaderBudget();
-                mImage.setImageBitmap(mCosUpdate.mCosplayIMG);
+                SetImageFromUri(mImage,mCosUpdate.mCosplayIMG);
                 mPercentage.setText(String.format("%s%%", mCosUpdate.mCosplayPercentage));
                 mCosplayNote.setText(mCosUpdate.mCosplayNote);
 
@@ -1246,11 +1287,13 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         Uri mImageData;
         if (requestCode == GALLERY_REQUEST_CODE && data != null) {
             mImageData = data.getData();
-            mCosplayImage.setImageURI(mImageData);
+            mCosplayUri=getPathFromUri(mImageData);
+            SetImageFromUri(mCosplayImage,mCosplayUri);
         }
         if (requestCode == GALLERY_REQUEST_CODE_PART && data != null) {
             mImageData = data.getData();
-            mPartImage.setImageURI(mImageData);
+            mPartUri=getPathFromUri(mImageData);
+            SetImageFromUri(mPartImage,mPartUri);
         }
         if (requestCode == GALLERY_REQUEST_CODE_REF_IMG && data != null) {
             mImageData = data.getData();
@@ -1260,7 +1303,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
-            ReferenceImg temp = new ReferenceImg(mTempCosplay.mCosplayId, 0, BitmapFactory.decodeStream(mImageStream));
+            ReferenceImg temp = new ReferenceImg(mTempCosplay.mCosplayId, 0, getPathFromUri(mImageData));
             mReferenceImgViewModel.insert(temp);
             setRefImageInGrid(mTempCosplay, mReferenceImgAdapter);
         }
@@ -1272,19 +1315,65 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
-            WIPImg temp = new WIPImg(mTempCosplay.mCosplayId, 0, BitmapFactory.decodeStream(imageStream));
+            WIPImg temp = new WIPImg(mTempCosplay.mCosplayId, 0, getPathFromUri(mImageData));
             mWipImgViewModel.insert(temp);
             setWipImagesInGrid(mTempCosplay, mWipImgAdapter);
         }
         if (requestCode == CAMERA_REQUEST_CODE_WIP_IMG && data != null) {
             Bitmap img = (Bitmap) data.getExtras().get("data");
 
-            WIPImg temp = new WIPImg(mTempCosplay.mCosplayId, 0, img);
-            mWipImgViewModel.insert(temp);
-            setWipImagesInGrid(mTempCosplay, mWipImgAdapter);
+            if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    == PackageManager.PERMISSION_DENIED) {
+
+                // Requesting the permission
+                ActivityCompat.requestPermissions(requireActivity(),
+                        new String[] { Manifest.permission.WRITE_EXTERNAL_STORAGE },
+                        102);
+            }
+            else {
+                OutputStream mOutputStream=null;
+                File mFilePath= Environment.getExternalStorageDirectory();
+                File dir=new File(mFilePath.getAbsolutePath()+"/WIPImg/");
+                dir.mkdir();
+                String fileName="WIP"+System.currentTimeMillis()+".jpg";
+                File file=new File(dir,fileName);
+                try {
+                    mOutputStream=new FileOutputStream(file);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+                img.compress(Bitmap.CompressFormat.JPEG,100,mOutputStream);
+                WIPImg temp = new WIPImg(mTempCosplay.mCosplayId, 0,mFilePath.getAbsolutePath()+"/WIPImg/"+fileName );
+                mWipImgViewModel.insert(temp);
+                setWipImagesInGrid(mTempCosplay, mWipImgAdapter);
+                try {
+                    mOutputStream.flush();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    mOutputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
         }
     }
-
+    public void SetImageFromUri(ImageView mImageView,String mImagePath){
+        Uri selectedImageUri=null;
+        if (mImagePath != null) {
+            File f = new File(mImagePath);
+            selectedImageUri = Uri.fromFile(f);
+        }
+        Bitmap mBitmap=null;
+        try {
+            mBitmap= BitmapFactory.decodeStream(requireContext().getContentResolver().openInputStream(selectedImageUri));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        mImageView.setImageBitmap(mBitmap);
+    }
     public Boolean checkDateFormat(String date) {
         if (date == null || !date.matches("^(1[0-9]|0[1-9]|3[0-1]|2[1-9])/(0[1-9]|1[0-2])/[0-9]{4}$"))
             return false;
@@ -1296,7 +1385,17 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             return false;
         }
     }
-
+    public String getPathFromUri(Uri mContentUri){
+        String res=null;
+        String[] proj={MediaStore.Images.Media.DATA};
+        Cursor cursor=getContext().getContentResolver().query(mContentUri,proj,null,null,null  );
+        if (cursor.moveToFirst()){
+            int column_index=cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            res=cursor.getString(column_index);
+        }
+        cursor.close();
+        return res;
+    }
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);

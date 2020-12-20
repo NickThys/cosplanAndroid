@@ -10,8 +10,8 @@ android {
         applicationId "com.cosplan"
         minSdkVersion 14
         targetSdkVersion 30
-        versionCode 9
-        versionName "1.1"
+        versionCode 10
+        versionName "1.1.1"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
@@ -36,7 +36,7 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-
+    implementation 'id.zelory:compressor:3.0.0'
     //Navigation
     implementation 'androidx.navigation:navigation-fragment:2.3.2'
     implementation 'androidx.navigation:navigation-ui:2.3.2'

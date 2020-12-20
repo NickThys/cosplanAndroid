@@ -1,6 +1,9 @@
 package com.example.cosplan.data.cosplay;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,15 +17,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.cosplan.R;
 import com.example.cosplan.ui.home.CosplayFragmentDirections;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.text.DecimalFormat;
 import java.util.List;
 
 public class CosplayAdapter extends RecyclerView.Adapter<CosplayAdapter.CosplayViewHolder> {
     private List<Cosplay> mCosplays;
     private final LayoutInflater mLayoutInflater;
-
+    private final Context mContext;
     public CosplayAdapter(Context context) {
         mLayoutInflater = LayoutInflater.from(context);
+        mContext=context;
     }
 
     @NonNull
@@ -45,8 +51,7 @@ public class CosplayAdapter extends RecyclerView.Adapter<CosplayAdapter.CosplayV
         holder.mCosplayName.setText(mCurrentCosplay.mCosplayName);
         holder.mCosplayEndDate.setText(mCurrentCosplay.mCosplayEndDate);
         holder.mCosplayPercentage.setText(String.format("%s %%", form.format(mCurrentCosplay.mCosplayPercentage)));
-        holder.mCosplayImg.setImageBitmap(mCurrentCosplay.mCosplayIMG);
-
+        SetImageFromUri(holder.mCosplayImg,mCurrentCosplay.mCosplayIMG);
         View itemView=holder.itemView;
         itemView.findViewById(R.id.cosplayRowLayout);
         itemView.setOnClickListener(new View.OnClickListener() {
@@ -57,7 +62,20 @@ public class CosplayAdapter extends RecyclerView.Adapter<CosplayAdapter.CosplayV
             }
         });
     }
-
+    public void SetImageFromUri(ImageView mImageView,String mImagePath){
+        Uri selectedImageUri=null;
+        if (mImagePath != null) {
+            File f = new File(mImagePath);
+            selectedImageUri = Uri.fromFile(f);
+        }
+        Bitmap mBitmap=null;
+        try {
+            mBitmap= BitmapFactory.decodeStream(mContext.getContentResolver().openInputStream(selectedImageUri));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        mImageView.setImageBitmap(mBitmap);
+    }
     @Override
     public int getItemCount() {
         if (mCosplays != null) {
