@@ -1135,12 +1135,12 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mBtnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cosplay.mCosplayRemainingBudget += myPart.mCosplayPartCost;
+               ;
+                cosplay.mCosplayRemainingBudget= Math.round(( cosplay.mCosplayRemainingBudget += myPart.mCosplayPartCost)*100.0)/100.0;
 
                 mPartViewModel.delete(myPart);
                 Toast.makeText(requireContext(), myPart.mCosplayPartName +getResources().getText( R.string.imageDelete), Toast.LENGTH_SHORT).show();
 
-                cosplay.mCosplayRemainingBudget= Math.round((cosplay.mCosplayRemainingBudget + myPart.mCosplayPartCost)*100.0)/100.0;
 
                 mCosplayViewModel.update(cosplay);
                 updateCosplayHeaderBudget();
