@@ -9,7 +9,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.view.LayoutInflater;
@@ -38,7 +37,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Set;
 
 public class PartAdapter extends RecyclerView.Adapter<PartAdapter.PartViewHolder> {
     private List<Part> mParts;
@@ -146,6 +144,7 @@ public class PartAdapter extends RecyclerView.Adapter<PartAdapter.PartViewHolder
         }
     }
 
+    @SuppressLint("SetTextI18n")
     public void updatePartDialog(final Part tempPart) {
         final AlertDialog.Builder mDialogBuilder = new AlertDialog.Builder(mContext);
         final View mPartDialog = mInflater.inflate(R.layout.cosplay_screen_part_update, null);

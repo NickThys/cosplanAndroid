@@ -12,9 +12,9 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
@@ -52,6 +52,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
+@SuppressWarnings("ConstantConditions")
 public class CosplayFragment extends Fragment {
     private CosplayViewModel mCosplayViewModel;
     private AlertDialog.Builder mDialogBuilder;
@@ -108,17 +109,6 @@ public class CosplayFragment extends Fragment {
         });
 
         return root;
-    }
-
-    public static Uri getUriFromDrawableResId(Context context, int drawableResId) {
-        StringBuilder builder = new StringBuilder().append(ContentResolver.SCHEME_ANDROID_RESOURCE)
-                .append("://")
-                .append(context.getResources().getResourcePackageName(drawableResId))
-                .append("/")
-                .append(context.getResources().getResourceTypeName(drawableResId))
-                .append("/")
-                .append(context.getResources().getResourceEntryName(drawableResId));
-        return Uri.parse(builder.toString());
     }
 
     public void DeleteCosplayDialog(final Cosplay cosplay){
@@ -219,9 +209,11 @@ public class CosplayFragment extends Fragment {
                         == PackageManager.PERMISSION_DENIED) {
 
                     // Requesting the permission
-                    ActivityCompat.requestPermissions(requireActivity(),
-                            new String[] {Manifest.permission.READ_EXTERNAL_STORAGE},
-                            101);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                        ActivityCompat.requestPermissions(requireActivity(),
+                                new String[] {Manifest.permission.READ_EXTERNAL_STORAGE},
+                                101);
+                    }
                 }
                 else {
                     Intent intent = new Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI);

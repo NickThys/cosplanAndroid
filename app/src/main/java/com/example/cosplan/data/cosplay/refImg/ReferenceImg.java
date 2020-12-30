@@ -1,8 +1,6 @@
 package com.example.cosplan.data.cosplay.refImg;
 
 
-import android.graphics.Bitmap;
-
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;

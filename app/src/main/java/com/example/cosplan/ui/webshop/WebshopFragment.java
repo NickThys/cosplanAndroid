@@ -1,5 +1,6 @@
 package com.example.cosplan.ui.webshop;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -33,6 +34,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.List;
 
 
+@SuppressWarnings("ConstantConditions")
 public class WebshopFragment extends Fragment {
 
     private WebshopViewModel mWebshopViewModel;
@@ -88,6 +90,7 @@ public class WebshopFragment extends Fragment {
         return root;
     }
 
+    @SuppressLint("SetTextI18n")
     public void deleteDialog(final Webshop mWebshop) {
         mDialogBuilder = new AlertDialog.Builder(requireContext());
         final View mDeleteCosplayView = getLayoutInflater().inflate(R.layout.delete, null);

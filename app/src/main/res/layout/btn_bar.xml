@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/ContentCosplay"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <!--Grey dividers between the buttons -->
 
     <View
-        android:id="@+id/Divider_Top"
         android:layout_width="0dp"
         android:layout_height="1dp"
         android:background="@android:color/darker_gray"
@@ -18,7 +16,6 @@
         app:layout_constraintTop_toTopOf="@+id/Btn_BtnBar_CosplayParts" />
 
     <View
-        android:id="@+id/Divider_Middle"
         android:layout_width="0dp"
         android:layout_height="1dp"
         android:background="@android:color/darker_gray"
@@ -28,7 +25,6 @@
         app:layout_constraintTop_toTopOf="@+id/Btn_BtnBar_CosplayChecklist" />
 
     <View
-        android:id="@+id/Divider_Bottom"
         android:layout_width="0dp"
         android:layout_height="1dp"
         android:background="@android:color/darker_gray"
