@@ -9,7 +9,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.view.LayoutInflater;
@@ -38,7 +37,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Set;
 
 public class PartAdapter extends RecyclerView.Adapter<PartAdapter.PartViewHolder> {
     private List<Part> mParts;
@@ -238,7 +236,7 @@ public class PartAdapter extends RecyclerView.Adapter<PartAdapter.PartViewHolder
                 Part mTempPart = new Part(tempPart.mCosplayId, tempPart.mCosplayPartId, mPartName.getText().toString(), mPartBuyMake.getSelectedItem().toString(), mPartLink.getText().toString(), Double.parseDouble(mPartCost.getText().toString()), mPartStatus.getSelectedItem().toString(), mPartDate.getText().toString(), tempPart.mCosplayPartImg, mPartNotes.getText().toString());
                 mPartViewModel.update(mTempPart);
                 Cosplay mTempCosplay = mCosplay;
-                mTempCosplay.mCosplayRemainingBudget = mTempCosplay.mCosplayRemainingBudget - Double.parseDouble(mPartCost.getText().toString()) + mOldCost;
+                mTempCosplay.mCosplayRemainingBudget =Math.round((mTempCosplay.mCosplayRemainingBudget - Double.parseDouble(mPartCost.getText().toString()) + mOldCost)*100.0)/100.0;
                 mCosplayViewModel.update(mTempCosplay);
                 mDialog.dismiss();
                 updateCosplayHeaderBudget();

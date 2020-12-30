@@ -1,7 +1,6 @@
 package com.example.cosplan.data.cosplay;
 
 
-import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
 
