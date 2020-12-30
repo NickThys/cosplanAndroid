@@ -146,7 +146,6 @@ public class PartAdapter extends RecyclerView.Adapter<PartAdapter.PartViewHolder
         }
     }
 
-    @SuppressLint("SetTextI18n")
     public void updatePartDialog(final Part tempPart) {
         final AlertDialog.Builder mDialogBuilder = new AlertDialog.Builder(mContext);
         final View mPartDialog = mInflater.inflate(R.layout.cosplay_screen_part_update, null);
@@ -238,7 +237,7 @@ public class PartAdapter extends RecyclerView.Adapter<PartAdapter.PartViewHolder
                 Part mTempPart = new Part(tempPart.mCosplayId, tempPart.mCosplayPartId, mPartName.getText().toString(), mPartBuyMake.getSelectedItem().toString(), mPartLink.getText().toString(), Double.parseDouble(mPartCost.getText().toString()), mPartStatus.getSelectedItem().toString(), mPartDate.getText().toString(), tempPart.mCosplayPartImg, mPartNotes.getText().toString());
                 mPartViewModel.update(mTempPart);
                 Cosplay mTempCosplay = mCosplay;
-                mTempCosplay.mCosplayRemainingBudget = mTempCosplay.mCosplayRemainingBudget - Double.parseDouble(mPartCost.getText().toString()) + mOldCost;
+                mTempCosplay.mCosplayRemainingBudget =Math.round((mTempCosplay.mCosplayRemainingBudget - Double.parseDouble(mPartCost.getText().toString()) + mOldCost)*100.0)/100.0;
                 mCosplayViewModel.update(mTempCosplay);
                 mDialog.dismiss();
                 updateCosplayHeaderBudget();
