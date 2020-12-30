@@ -1,15 +1,8 @@
 <resources>
     <string name="app_name">cosplan</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
 
     <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
     <string name="Slogan_Cosplan">Stop procrastinating and go craft!</string>
     <string name="menu_calender">Convention calender</string>
     <string name="menu_webshop">Webshops</string>
@@ -17,11 +10,9 @@
     <string name="WebsiteName">Name</string>
     <string name="WebsiteLink">Website</string>
     <string name="AddWebshopToDb">Add webshop</string>
-    <string name="ToastSuccessNewWebshop">Webshop successfully added</string>
     <string name="FillOutFields">Please fill out all necessary fields: </string>
     <string name="FillOutAllFields">Please fill out all fields.</string>
     <string name="UpdateDb">Update</string>
-    <string name="DeleteDataFromDatabase">Delete</string>
     <string name="Label_Belgium">Belgium</string>
     <string name="Label_Netherland">Netherland</string>
     <string name="btn_add_cosplay">Add cosplay</string>
@@ -35,7 +26,6 @@
     <string name="btnCancel">Cancel</string>
     <string name="txt_chooseImg_intent">Choose an image</string>
     <string name="txt_dark_mode">Dark Mode</string>
-    <string name="txt_compact_mode">Compact mode</string>
     <string name="txt_cancelDeleteCosplay">No</string>
     <string name="txt_deleteCosplay">Yes</string>
     <string name="ConformationDeleteCosplay">Are you sure you want to delete</string>

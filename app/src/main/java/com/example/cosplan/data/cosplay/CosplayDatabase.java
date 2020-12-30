@@ -25,7 +25,6 @@ import com.example.cosplan.data.cosplay.wIPImg.WIPImgDao;
 import com.example.cosplan.data.cosplay.webshop.Webshop;
 import com.example.cosplan.data.cosplay.webshop.WebshopDao;
 
-@TypeConverters(Converters.class)
 @Database(entities = {Cosplay.class, Part.class, ReferenceImg.class, Webshop.class, ChecklistPart.class, ShoppingListPart.class, WIPImg.class, Event.class}, version = 3)
 public abstract class CosplayDatabase extends RoomDatabase {
     public abstract CosplayDao mCosplayDao();

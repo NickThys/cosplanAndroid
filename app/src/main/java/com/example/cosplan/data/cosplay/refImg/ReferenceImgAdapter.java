@@ -3,7 +3,6 @@ package com.example.cosplan.data.cosplay.refImg;
 import android.app.AlertDialog;
 import android.app.Application;
 import android.app.Dialog;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
