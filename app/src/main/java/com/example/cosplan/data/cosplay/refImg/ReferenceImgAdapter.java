@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Application;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -17,6 +18,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ShareCompat;
+import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cosplan.R;
@@ -51,20 +54,6 @@ public class ReferenceImgAdapter extends RecyclerView.Adapter<ReferenceImgAdapte
         View view = mLayoutInflater.inflate(R.layout.custum_row_image, parent, false);
         return new ReferenceImgViewHolder(view);
     }
-    public void SetImageFromUri(ImageView mImageView,String mImagePath){
-        Uri selectedImageUri=null;
-        if (mImagePath != null) {
-            File f = new File(mImagePath);
-            selectedImageUri = Uri.fromFile(f);
-        }
-        Bitmap mBitmap=null;
-        try {
-            mBitmap= BitmapFactory.decodeStream(mContext.getContentResolver().openInputStream(selectedImageUri));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        mImageView.setImageBitmap(mBitmap);
-    }
     @Override
     public void onBindViewHolder(@NonNull ReferenceImgViewHolder holder, int position) {
         final ReferenceImg mCurrentReferenceImg = mRefImgs.get(position);
@@ -81,6 +70,7 @@ public class ReferenceImgAdapter extends RecyclerView.Adapter<ReferenceImgAdapte
                 View mImageDialog = mLayoutInflater.inflate(R.layout.image_fullscreen, null);
                 ImageView mImageView = mImageDialog.findViewById(R.id.ImageView_ImageFullScreen);
                 ImageButton mCloseView = mImageDialog.findViewById(R.id.ImageBtn_ImageClose);
+                ImageButton mShareImage=mImageDialog.findViewById(R.id.ImageBtn_ImageShare);
                 Button mDeleteImage = mImageDialog.findViewById(R.id.Btn_ImageDelete);
                 SetImageFromUri(mImageView,mCurrentReferenceImg.mCosplayRefImgImage);
 
@@ -88,6 +78,12 @@ public class ReferenceImgAdapter extends RecyclerView.Adapter<ReferenceImgAdapte
                 final Dialog mDialog = mDialogBuilder.create();
                 mDialog.show();
 
+                mShareImage.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        shareImage(mCurrentReferenceImg.mCosplayRefImgImage,v);
+                    }
+                });
                 mCloseView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -105,6 +101,18 @@ public class ReferenceImgAdapter extends RecyclerView.Adapter<ReferenceImgAdapte
         });
     }
 
+    private void shareImage(String mCosplayRefImgImage,View v) {
+        Uri uri= Uri.parse(mCosplayRefImgImage);
+
+        Intent shareIntent=new Intent();
+        shareIntent.setAction(Intent.ACTION_SEND);
+        shareIntent.putExtra(Intent.EXTRA_STREAM,uri);
+        shareIntent.setType("Image/png");
+        v.getContext().startActivity(Intent.createChooser(shareIntent,"Share image to"));
+
+
+    }
+
     @Override
     public int getItemCount() {
         return mRefImgs.size();
@@ -119,7 +127,7 @@ public class ReferenceImgAdapter extends RecyclerView.Adapter<ReferenceImgAdapte
         }
     }
 
-    public void deleteDialog(final ReferenceImg mCurrent) {
+    private void deleteDialog(final ReferenceImg mCurrent) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(mContext);
         final View deleteCosplayView = mLayoutInflater.inflate(R.layout.delete, null);
         TextView mDeleteText = deleteCosplayView.findViewById(R.id.TextView_DeleteTitle);
@@ -147,5 +155,35 @@ public class ReferenceImgAdapter extends RecyclerView.Adapter<ReferenceImgAdapte
                 mDialog.dismiss();
             }
         });
+    }
+
+
+    public void SetImageFromUri(ImageView mImageView,String mImagePath){
+        Uri selectedImageUri=null;
+        if (mImagePath != null) {
+            File f = new File(mImagePath);
+            selectedImageUri = Uri.fromFile(f);
+        }
+        Bitmap mBitmap=null;
+        try {
+            mBitmap= BitmapFactory.decodeStream(mContext.getContentResolver().openInputStream(selectedImageUri));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        mImageView.setImageBitmap(mBitmap);
+    }
+    public Uri uriToImage(String mImagePath){
+        Uri selectedImageUri=null;
+        if (mImagePath != null) {
+            File f = new File(mImagePath);
+            selectedImageUri = Uri.fromFile(f);
+        }
+        Bitmap mBitmap=null;
+        try {
+            mBitmap= BitmapFactory.decodeStream(mContext.getContentResolver().openInputStream(selectedImageUri));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return selectedImageUri;
     }
 }
