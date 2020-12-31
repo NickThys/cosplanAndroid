@@ -107,7 +107,7 @@ public class ReferenceImgAdapter extends RecyclerView.Adapter<ReferenceImgAdapte
         Intent shareIntent=new Intent();
         shareIntent.setAction(Intent.ACTION_SEND);
         shareIntent.putExtra(Intent.EXTRA_STREAM,uri);
-        shareIntent.setType("Image/png");
+        shareIntent.setType("Image/*");
         v.getContext().startActivity(Intent.createChooser(shareIntent,"Share image to"));
 
 

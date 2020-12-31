@@ -10,8 +10,8 @@ android {
         applicationId "com.cosplan"
         minSdkVersion 16
         targetSdkVersion 30
-        versionCode 12
-        versionName "1.1.9"
+        versionCode 13
+        versionName "1.1.9.1"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
