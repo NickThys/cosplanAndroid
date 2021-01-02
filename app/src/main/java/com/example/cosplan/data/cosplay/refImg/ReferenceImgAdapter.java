@@ -104,12 +104,10 @@ public class ReferenceImgAdapter extends RecyclerView.Adapter<ReferenceImgAdapte
     private void shareImage(String mCosplayRefImgImage,View v) {
         Uri uri= Uri.parse(mCosplayRefImgImage);
 
-        Intent shareIntent=new Intent();
-        shareIntent.setAction(Intent.ACTION_SEND);
+        Intent shareIntent=new Intent(Intent.ACTION_SEND);
         shareIntent.putExtra(Intent.EXTRA_STREAM,uri);
-        shareIntent.setType("Image/*");
+        shareIntent.setType("image/*");
         v.getContext().startActivity(Intent.createChooser(shareIntent,"Share image to"));
-
 
     }
 
