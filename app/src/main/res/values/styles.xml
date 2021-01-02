@@ -20,6 +20,7 @@
         <item name="android:textSize">18sp</item>;
         <item name="android:gravity">center</item>
         <item name="android:textStyle">bold</item>
+        <item name="fontFamily">sans-serif-black</item>
     </style>
 
     <style name="txtViews_Settings" parent="AppTheme">
@@ -44,19 +45,19 @@
     <style name="DialogButtonRight">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginEnd">12dp</item>
-        <item name="android:layout_marginRight">12dp</item>
+        <item name="android:layout_marginEnd">32dp</item>
+        <item name="android:layout_marginRight">32dp</item>
         <item name="android:layout_marginBottom">12dp</item>
     </style>
 
     <style name="DialogButtonLeft">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginStart">12dp</item>
-        <item name="android:layout_marginLeft">12dp</item>
+        <item name="android:layout_marginStart">32dp</item>
+        <item name="android:layout_marginLeft">32dp</item>
         <item name="android:layout_marginTop">8dp</item>
-        <item name="android:layout_marginEnd">6dp</item>
-        <item name="android:layout_marginRight">6dp</item>
+        <item name="android:layout_marginEnd">12dp</item>
+        <item name="android:layout_marginRight">12dp</item>
         <item name="android:layout_marginBottom">12dp</item>
     </style>
 
@@ -66,5 +67,28 @@
         <item name="android:layout_marginTop">16dp</item>
         <item name="android:ems">10</item>
         <item name="android:minWidth">200dp</item>
+    </style>
+
+    <style name="ButtonFullWidth">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:layout_marginEnd">16dp</item>
+        <item name="android:layout_marginRight">16dp</item>
+        <item name="android:layout_marginBottom">16dp</item>
+    </style>
+
+    <style name="RevView_Images">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+    </style>
+
+    <style name="RecView_List">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_marginBottom">16dp</item>
     </style>
 </resources>

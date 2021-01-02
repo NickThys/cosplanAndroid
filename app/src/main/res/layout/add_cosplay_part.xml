@@ -35,11 +35,11 @@
         android:layout_marginRight="32dp"
         android:ems="10"
         android:hint="@string/NewPart_NameHint"
+        android:importantForAutofill="no"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TextView_NewPartTitle"
-        android:importantForAutofill="no" />
+        app:layout_constraintTop_toBottomOf="@+id/TextView_NewPartTitle" />
 
     <EditText
         android:id="@+id/EditText_NewPartLink"
@@ -48,11 +48,11 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="@string/NewPart_LinkHint"
+        android:importantForAutofill="no"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="@+id/Spinner_NewPartBuyMake"
         app:layout_constraintStart_toStartOf="@+id/Spinner_NewPartBuyMake"
-        app:layout_constraintTop_toBottomOf="@+id/Spinner_NewPartBuyMake"
-        android:importantForAutofill="no" />
+        app:layout_constraintTop_toBottomOf="@+id/Spinner_NewPartBuyMake" />
 
     <EditText
         android:id="@+id/EditText_NewPartCost"
@@ -61,11 +61,11 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="@string/NewPart_CostHint"
+        android:importantForAutofill="no"
         android:inputType="numberDecimal"
         app:layout_constraintEnd_toEndOf="@+id/EditText_NewPartLink"
         app:layout_constraintStart_toStartOf="@+id/EditText_NewPartLink"
-        app:layout_constraintTop_toBottomOf="@+id/EditText_NewPartLink"
-        android:importantForAutofill="no" />
+        app:layout_constraintTop_toBottomOf="@+id/EditText_NewPartLink" />
 
     <EditText
         android:id="@+id/EditText_NewPartEndDate"
@@ -74,22 +74,22 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="@string/NewPart_EndDateHint"
+        android:importantForAutofill="no"
         android:inputType="date"
         app:layout_constraintEnd_toEndOf="@+id/EditText_NewPartCost"
         app:layout_constraintStart_toStartOf="@+id/EditText_NewPartCost"
-        app:layout_constraintTop_toBottomOf="@+id/EditText_NewPartCost"
-        android:importantForAutofill="no" />
+        app:layout_constraintTop_toBottomOf="@+id/EditText_NewPartCost" />
 
     <ImageView
         android:id="@+id/ImageView_NewPartImgPreview"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginTop="8dp"
+        android:contentDescription="@string/NewPart_ImageViewContentDescription"
         app:layout_constraintEnd_toEndOf="@+id/Btn_NewPartChoosePartImg"
         app:layout_constraintStart_toStartOf="@+id/Btn_NewPartChoosePartImg"
         app:layout_constraintTop_toBottomOf="@+id/Btn_NewPartChoosePartImg"
-        app:srcCompat="@drawable/cosplanv2"
-        android:contentDescription="@string/NewPart_ImageViewContentDescription" />
+        app:srcCompat="@drawable/cosplanv2" />
 
     <Button
         android:id="@+id/Btn_NewPartChoosePartImg"
@@ -103,19 +103,19 @@
 
     <Button
         android:id="@+id/Btn_NewPartAdd"
+        style="@style/DialogButtonRight"
         android:text="@string/NewPart_AddPart"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/Btn_NewPartCancel"
-        app:layout_constraintTop_toTopOf="@+id/Btn_NewPartCancel"
-        style="@style/DialogButtonRight" />
+        app:layout_constraintTop_toTopOf="@+id/Btn_NewPartCancel" />
 
     <Button
         android:id="@+id/Btn_NewPartCancel"
+        style="@style/DialogButtonLeft"
         android:text="@string/NewPart_CancelPart"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/Btn_NewPartAdd"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ImageView_NewPartImgPreview"
-        style="@style/DialogButtonLeft" />
+        app:layout_constraintTop_toBottomOf="@+id/ImageView_NewPartImgPreview" />
 </androidx.constraintlayout.widget.ConstraintLayout>

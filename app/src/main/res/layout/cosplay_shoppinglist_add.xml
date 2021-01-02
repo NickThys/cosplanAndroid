@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/TextView_NewShoppingListTitle"
         style="@style/Titles"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginLeft="12dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="12dp"
         android:layout_marginRight="12dp"
+        android:layout_marginBottom="12dp"
         android:text="@string/Shoppinglist_AddTitle"
+        app:layout_constraintBottom_toTopOf="@+id/EditText_NewShoppingListName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,19 +26,19 @@
         android:id="@+id/EditText_NewShoppingListName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
         android:layout_marginTop="12dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
         android:ems="10"
         android:hint="@string/txtName"
+        android:importantForAutofill="no"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TextView_NewShoppingListTitle"
-        android:importantForAutofill="no" />
+        app:layout_constraintTop_toBottomOf="@+id/TextView_NewShoppingListTitle" />
 
     <EditText
         android:id="@+id/EditText_NewShoppingListShop"
@@ -45,31 +47,31 @@
         android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="@string/ShoppingListShop"
+        android:importantForAutofill="no"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="@+id/EditText_NewShoppingListName"
         app:layout_constraintStart_toStartOf="@+id/EditText_NewShoppingListName"
-        app:layout_constraintTop_toBottomOf="@+id/EditText_NewShoppingListName"
-        android:importantForAutofill="no" />
+        app:layout_constraintTop_toBottomOf="@+id/EditText_NewShoppingListName" />
 
     <Button
         android:id="@+id/Btn_NewShoppingListAdd"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:layout_marginBottom="8dp"
+        style="@style/DialogButtonRight"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
         android:text="@string/NewPart_AddPart"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/EditText_NewShoppingListShop"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/Btn_NewShoppingListCancel"
-        app:layout_constraintTop_toBottomOf="@+id/EditText_NewShoppingListShop" />
+        app:layout_constraintTop_toTopOf="@+id/Btn_NewShoppingListCancel" />
 
     <Button
         android:id="@+id/Btn_NewShoppingListCancel"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        style="@style/DialogButtonLeft"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
         android:text="@string/btnCancel"
         app:layout_constraintEnd_toStartOf="@+id/Btn_NewShoppingListAdd"
-        app:layout_constraintStart_toStartOf="@+id/EditText_NewShoppingListShop"
-        app:layout_constraintTop_toTopOf="@+id/Btn_NewShoppingListAdd" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/EditText_NewShoppingListShop" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
