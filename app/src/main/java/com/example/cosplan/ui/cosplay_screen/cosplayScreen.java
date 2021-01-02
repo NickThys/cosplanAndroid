@@ -314,7 +314,6 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         });
         //endregion
 
-
         //region Part View
 
         //region recyclerview Make
@@ -395,7 +394,6 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mCosplayNotesSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // Cosplay CosUP = new Cosplay(mTempCosplay.mCosplayId, mTempCosplay.mCosplayName, mTempCosplay.mCosplayStartDate, mTempCosplay.mCosplayEndDate, mTempCosplay.mCosplayBudget, mTempCosplay.mCosplayRemainingBudget, mTempCosplay.mCosplayIMG, mCosplayNote.getText().toString(), mTempCosplay.mNumberOfParts, mTempCosplay.mCosplayPercentage);
                 mTempCosplay.mCosplayNote=mCosplayNote.getText().toString();
                 mCosplayViewModel.update(mTempCosplay);
                 closeKeyboard(v);
@@ -1312,24 +1310,12 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         }
         if (requestCode == GALLERY_REQUEST_CODE_REF_IMG && data != null) {
             mImageData = data.getData();
-            InputStream mImageStream = null;
-            try {
-                mImageStream = getContext().getContentResolver().openInputStream(mImageData);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
             ReferenceImg temp = new ReferenceImg(mTempCosplay.mCosplayId, 0, getPathFromUri(mImageData));
             mReferenceImgViewModel.insert(temp);
             setRefImageInGrid(mTempCosplay, mReferenceImgAdapter);
         }
         if (requestCode == GALLERY_REQUEST_CODE_WIP_IMG && data != null) {
             mImageData = data.getData();
-            InputStream imageStream = null;
-            try {
-                imageStream = getContext().getContentResolver().openInputStream(mImageData);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
             WIPImg temp = new WIPImg(mTempCosplay.mCosplayId, 0, getPathFromUri(mImageData));
             mWipImgViewModel.insert(temp);
             setWipImagesInGrid(mTempCosplay, mWipImgAdapter);
