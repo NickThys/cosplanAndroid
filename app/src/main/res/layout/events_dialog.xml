@@ -19,65 +19,59 @@
         android:id="@+id/Spinner_NewEventType"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        app:layout_constraintEnd_toEndOf="@+id/EditText_NewEventName"
-        app:layout_constraintStart_toStartOf="@+id/EditText_NewEventName"
-        app:layout_constraintTop_toBottomOf="@+id/TextView_NewEventTitle" />
-
-    <EditText
-        android:id="@+id/EditText_NewEventName"
-        android:layout_width="0dp"
-        android:layout_height="49dp"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
-        android:ems="10"
-        android:hint="@string/txtName"
+        android:layout_marginBottom="6dp"
+        app:layout_constraintBottom_toTopOf="@+id/EditText_NewEventName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/TextView_NewEventTitle" />
+
+    <EditText
+        android:id="@+id/EditText_NewEventName"
+        style="@style/EditTextInputForm"
         android:importantForAutofill="no"
+        android:hint="@string/txtName"
         android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/EditText_NewEventPlace"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Spinner_NewEventType" />
 
     <EditText
         android:id="@+id/EditText_NewEventPlace"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:ems="10"
-        android:hint="@string/ConventionPlace"
+        style="@style/EditTextInputForm"
         android:importantForAutofill="no"
         android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="@+id/EditText_NewEventName"
-        app:layout_constraintStart_toStartOf="@+id/EditText_NewEventName"
+        android:hint="@string/ConventionPlace"
+        app:layout_constraintBottom_toTopOf="@+id/EditText_NewEventBeginDate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/EditText_NewEventName" />
 
     <EditText
         android:id="@+id/EditText_NewEventBeginDate"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:ems="10"
-        android:hint="@string/txtStartDate"
+        style="@style/EditTextInputForm"
         android:importantForAutofill="no"
         android:inputType="date"
-        app:layout_constraintEnd_toEndOf="@+id/EditText_NewEventName"
-        app:layout_constraintStart_toStartOf="@+id/EditText_NewEventName"
+        android:hint="@string/txtStartDate"
+        app:layout_constraintBottom_toTopOf="@+id/EditText_NewEventEndDate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/EditText_NewEventPlace" />
 
     <EditText
         android:id="@+id/EditText_NewEventEndDate"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:ems="10"
+        style="@style/EditTextInputForm"
         android:hint="@string/txtEndDate"
         android:importantForAutofill="no"
         android:inputType="date"
-        app:layout_constraintEnd_toEndOf="@+id/EditText_NewEventName"
-        app:layout_constraintStart_toStartOf="@+id/EditText_NewEventName"
+        app:layout_constraintBottom_toTopOf="@+id/Btn_NewEventCancel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/EditText_NewEventBeginDate" />
 
     <Button
