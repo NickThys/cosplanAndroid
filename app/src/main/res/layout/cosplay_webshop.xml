@@ -8,49 +8,38 @@
     <TextView
         android:id="@+id/txt_cosplayWebshop"
         style="@style/Titles"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
         android:text="@string/NewCosplayWebsiteTitle"
+        app:layout_constraintBottom_toTopOf="@+id/EditText_NewCosplayWebsiteName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/EditText_NewCosplayWebsiteName"
-        style="@style/EditText"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
+style="@style/EditTextInputForm"
         android:hint="@string/WebsiteName"
         android:importantForAutofill="no"
         android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/EditText_NewCosplayWebsiteLink"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_cosplayWebshop"
-        app:layout_constraintWidth_min="300dp" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_cosplayWebshop" />
 
     <EditText
         android:id="@+id/EditText_NewCosplayWebsiteLink"
-        style="@style/EditText"
+        style="@style/EditTextInputForm"
         android:hint="@string/WebsiteLink"
         android:importantForAutofill="no"
         android:inputType="text"
-        app:layout_constraintEnd_toEndOf="@+id/EditText_NewCosplayWebsiteName"
-        app:layout_constraintStart_toStartOf="@+id/EditText_NewCosplayWebsiteName"
+        app:layout_constraintBottom_toTopOf="@+id/Btn_NewCosplayWebsiteAdd"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/EditText_NewCosplayWebsiteName"
-        app:layout_constraintWidth_min="200dp" />
+ />
 
     <Button
         android:id="@+id/Btn_NewCosplayWebsiteAdd"
         style="@style/DialogButtonRight"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
         android:text="@string/AddWebshopToDb"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -60,8 +49,6 @@
     <Button
         android:id="@+id/Btn_NewCosplayWebsiteCancel"
         style="@style/DialogButtonLeft"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
         android:text="@string/btnCancel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/Btn_NewCosplayWebsiteAdd"
