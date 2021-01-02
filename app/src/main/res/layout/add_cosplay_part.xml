@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <Spinner
@@ -9,6 +9,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/EditText_NewPartLink"
         app:layout_constraintEnd_toEndOf="@+id/EditText_NewPartName"
         app:layout_constraintStart_toStartOf="@+id/EditText_NewPartName"
         app:layout_constraintTop_toBottomOf="@+id/EditText_NewPartName" />
@@ -16,24 +17,15 @@
     <TextView
         android:id="@+id/TextView_NewPartTitle"
         style="@style/Titles"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:text="@string/title_newCosplayPart"
+        app:layout_constraintBottom_toTopOf="@+id/EditText_NewPartName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/EditText_NewPartName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:ems="10"
+        style="@style/EditTextInputForm"
         android:hint="@string/NewPart_NameHint"
         android:importantForAutofill="no"
         android:inputType="textPersonName"
@@ -43,41 +35,36 @@
 
     <EditText
         android:id="@+id/EditText_NewPartLink"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:ems="10"
+        style="@style/EditTextInputForm"
+        android:layout_marginBottom="6dp"
         android:hint="@string/NewPart_LinkHint"
         android:importantForAutofill="no"
         android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="@+id/Spinner_NewPartBuyMake"
-        app:layout_constraintStart_toStartOf="@+id/Spinner_NewPartBuyMake"
+        app:layout_constraintBottom_toTopOf="@+id/EditText_NewPartCost"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Spinner_NewPartBuyMake" />
 
     <EditText
         android:id="@+id/EditText_NewPartCost"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:ems="10"
+        style="@style/EditTextInputForm"
         android:hint="@string/NewPart_CostHint"
         android:importantForAutofill="no"
         android:inputType="numberDecimal"
-        app:layout_constraintEnd_toEndOf="@+id/EditText_NewPartLink"
-        app:layout_constraintStart_toStartOf="@+id/EditText_NewPartLink"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/EditText_NewPartLink" />
 
     <EditText
         android:id="@+id/EditText_NewPartEndDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:ems="10"
+        style="@style/EditTextInputForm"
+
         android:hint="@string/NewPart_EndDateHint"
         android:importantForAutofill="no"
         android:inputType="date"
-        app:layout_constraintEnd_toEndOf="@+id/EditText_NewPartCost"
-        app:layout_constraintStart_toStartOf="@+id/EditText_NewPartCost"
+        app:layout_constraintBottom_toTopOf="@+id/Btn_NewPartChoosePartImg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/EditText_NewPartCost" />
 
     <ImageView
@@ -86,19 +73,20 @@
         android:layout_height="100dp"
         android:layout_marginTop="8dp"
         android:contentDescription="@string/NewPart_ImageViewContentDescription"
-        app:layout_constraintEnd_toEndOf="@+id/Btn_NewPartChoosePartImg"
-        app:layout_constraintStart_toStartOf="@+id/Btn_NewPartChoosePartImg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Btn_NewPartChoosePartImg"
         app:srcCompat="@drawable/cosplanv2" />
 
     <Button
         android:id="@+id/Btn_NewPartChoosePartImg"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        style="@style/ButtonFullWidth"
+        android:layout_width="wrap_content"
+        android:layout_marginBottom="8dp"
         android:text="@string/NewPart_ChooseImage"
-        app:layout_constraintEnd_toEndOf="@+id/EditText_NewPartEndDate"
-        app:layout_constraintStart_toStartOf="@+id/EditText_NewPartEndDate"
+        app:layout_constraintBottom_toTopOf="@+id/ImageView_NewPartImgPreview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/EditText_NewPartEndDate" />
 
     <Button
