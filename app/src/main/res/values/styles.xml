@@ -48,16 +48,16 @@
     <style name="DialogButtonRight">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginEnd">32dp</item>
-        <item name="android:layout_marginRight">32dp</item>
+        <item name="android:layout_marginEnd">16dp</item>
+        <item name="android:layout_marginRight">16dp</item>
         <item name="android:layout_marginBottom">12dp</item>
     </style>
 
     <style name="DialogButtonLeft">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginStart">32dp</item>
-        <item name="android:layout_marginLeft">32dp</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginLeft">16dp</item>
         <item name="android:layout_marginTop">8dp</item>
         <item name="android:layout_marginEnd">12dp</item>
         <item name="android:layout_marginRight">12dp</item>
@@ -90,11 +90,11 @@
     <style name="EditTextInputForm">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginStart">32dp</item>
-        <item name="android:layout_marginLeft">32dp</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginLeft">16dp</item>
         <item name="android:layout_marginTop">6dp</item>
-        <item name="android:layout_marginEnd">32dp</item>
-        <item name="android:layout_marginRight">32dp</item>
+        <item name="android:layout_marginEnd">16dp</item>
+        <item name="android:layout_marginRight">16dp</item>
         <item name="android:ems">10</item>
     </style>
 </resources>
