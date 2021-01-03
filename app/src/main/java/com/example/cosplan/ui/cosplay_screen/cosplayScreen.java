@@ -238,7 +238,6 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         SetImageFromUri(mImage, mTempCosplay.mCosplayIMG);
 
         updateCosplayPercentage();
-        mPercentage.setText(String.format("%s%%", mTempCosplay.mCosplayPercentage));
         FloatingActionButton mFabAddPart = mRoot.findViewById(R.id.Fab_PartsAdd);
         //endregion
 
