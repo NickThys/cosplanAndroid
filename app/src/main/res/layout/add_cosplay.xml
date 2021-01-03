@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -23,55 +24,49 @@
 
         <EditText
             android:id="@+id/EditText_NewCosplayName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:height="48dp"
-            android:ems="10"
+            style="@style/EditTextInputForm"
             android:hint="@string/editTextHintName"
             android:importantForAutofill="no"
             android:inputType="textPersonName"
+            app:layout_constraintBottom_toTopOf="@+id/EditText_NewCosplayBeginDate"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/TextView_NewCosplayTitle" />
 
         <EditText
             android:id="@+id/EditText_NewCosplayBeginDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:height="48dp"
-            android:ems="10"
+            style="@style/EditTextInputForm"
+
             android:hint="@string/txtStartDate"
             android:importantForAutofill="no"
             android:inputType="date"
-            app:layout_constraintEnd_toEndOf="@+id/EditText_NewCosplayName"
+            app:layout_constraintBottom_toTopOf="@+id/EditText_NewCosplayEndDate"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/EditText_NewCosplayName" />
 
         <EditText
             android:id="@+id/EditText_NewCosplayEndDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:height="48dp"
-            android:ems="10"
+            style="@style/EditTextInputForm"
+
             android:hint="@string/txtEndDate"
             android:importantForAutofill="no"
             android:inputType="date"
-            app:layout_constraintEnd_toEndOf="@+id/EditText_NewCosplayBeginDate"
+            app:layout_constraintBottom_toTopOf="@+id/EditText_NewCosplayBudget"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/EditText_NewCosplayBeginDate" />
 
         <EditText
             android:id="@+id/EditText_NewCosplayBudget"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:height="48dp"
-            android:ems="10"
+            style="@style/EditTextInputForm"
+
             android:hint="@string/txtBudget"
             android:importantForAutofill="no"
             android:inputType="numberDecimal"
-            app:layout_constraintEnd_toEndOf="@+id/EditText_NewCosplayEndDate"
+            app:layout_constraintBottom_toTopOf="@+id/Btn_NewCosplayChooseImg"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/EditText_NewCosplayEndDate" />
 
         <ImageView
@@ -90,7 +85,6 @@
             android:id="@+id/Btn_NewCosplayChooseImg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
             android:height="48dp"
             android:text="@string/btnChooseCosplayImg"
             app:layout_constraintEnd_toEndOf="parent"
@@ -99,23 +93,20 @@
 
         <Button
             android:id="@+id/Btn_NewCosplayAdd"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            style="@style/DialogButtonRight"
             android:text="@string/btn_add_cosplay"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/ImageView_NewCosplayImgPreview"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/Btn_NewCosplayCancel"
-            app:layout_constraintTop_toBottomOf="@+id/ImageView_NewCosplayImgPreview" />
+            app:layout_constraintTop_toTopOf="@+id/Btn_NewCosplayCancel" />
 
         <Button
             android:id="@+id/Btn_NewCosplayCancel"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            style="@style/DialogButtonLeft"
             android:text="@string/btnCancel"
-            app:layout_constraintBottom_toBottomOf="@+id/Btn_NewCosplayAdd"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/Btn_NewCosplayAdd"
-            app:layout_constraintStart_toStartOf="@+id/ImageView_NewCosplayImgPreview"
-            app:layout_constraintTop_toTopOf="@+id/Btn_NewCosplayAdd" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ImageView_NewCosplayImgPreview" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

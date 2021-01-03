@@ -56,14 +56,7 @@
 
         <EditText
             android:id="@+id/EditText_PartUpdateName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="72dp"
-            android:layout_marginLeft="72dp"
-            android:layout_marginTop="6dp"
-            android:layout_marginEnd="72dp"
-            android:layout_marginRight="72dp"
-            android:ems="10"
+style="@style/EditTextInputForm"
             android:hint="@string/txtName"
             android:importantForAutofill="no"
             android:inputType="textPersonName"
@@ -74,59 +67,51 @@
 
         <EditText
             android:id="@+id/EditText_PartUpdateLink"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:ems="10"
+            style="@style/EditTextInputForm"
+
             android:hint="@string/NewPart_LinkHint"
             android:importantForAutofill="no"
             android:inputType="textPersonName"
             app:layout_constraintBottom_toTopOf="@+id/EditText_PartUpdateCost"
-            app:layout_constraintEnd_toEndOf="@+id/EditText_PartUpdateName"
-            app:layout_constraintStart_toStartOf="@+id/EditText_PartUpdateName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/EditText_PartUpdateName" />
 
         <EditText
             android:id="@+id/EditText_PartUpdateCost"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:ems="10"
+            style="@style/EditTextInputForm"
+
             android:hint="@string/NewPart_CostHint"
             android:importantForAutofill="no"
             android:inputType="numberDecimal"
             app:layout_constraintBottom_toTopOf="@+id/EditText_PartUpdateEndDate"
-            app:layout_constraintEnd_toEndOf="@+id/EditText_PartUpdateLink"
-            app:layout_constraintStart_toStartOf="@+id/EditText_PartUpdateLink"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/EditText_PartUpdateLink" />
 
         <EditText
             android:id="@+id/EditText_PartUpdateEndDate"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:ems="10"
+            style="@style/EditTextInputForm"
+
             android:hint="@string/txtEndDate"
             android:importantForAutofill="no"
             android:inputType="date"
             app:layout_constraintBottom_toTopOf="@+id/EditText_PartUpdateNotes"
-            app:layout_constraintEnd_toEndOf="@+id/EditText_PartUpdateCost"
-            app:layout_constraintStart_toStartOf="@+id/EditText_PartUpdateCost"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/EditText_PartUpdateCost" />
 
         <EditText
             android:id="@+id/EditText_PartUpdateNotes"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:ems="10"
+            style="@style/EditTextInputForm"
             android:gravity="start|top"
             android:hint="@string/btnText_notes"
             android:importantForAutofill="no"
             android:inputType="textMultiLine"
-            app:layout_constraintEnd_toEndOf="@+id/EditText_PartUpdateEndDate"
+            app:layout_constraintBottom_toTopOf="@+id/Btn_PartUpdateCancel"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHeight_min="50dp"
-            app:layout_constraintStart_toStartOf="@+id/EditText_PartUpdateEndDate"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/EditText_PartUpdateEndDate" />
 
         <Button

@@ -57,7 +57,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
     @NonNull
     @Override
     public EventAdapter.EventViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = mLayoutInflater.inflate(R.layout.event_row, parent, false);
+        View itemView = mLayoutInflater.inflate(R.layout.custom_event_row, parent, false);
         return new EventViewHolder(itemView);
     }
 
@@ -117,7 +117,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
 
     public void updateEventDialog(final Event TempEvent) {
         final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(mContext);
-        final View mEventDialog = mLayoutInflater.inflate(R.layout.events_dialog, null);
+        final View mEventDialog = mLayoutInflater.inflate(R.layout.cosplay_event_add, null);
         final TextView mEventTitle;
         final Spinner mEventType;
         final EditText mEventName, mEventPlace;

@@ -91,7 +91,7 @@ public class WebshopFragment extends Fragment {
     @SuppressLint("SetTextI18n")
     public void deleteDialog(final Webshop mWebshop) {
         mDialogBuilder = new AlertDialog.Builder(requireContext());
-        final View mDeleteCosplayView = getLayoutInflater().inflate(R.layout.delete, null);
+        final View mDeleteCosplayView = getLayoutInflater().inflate(R.layout.delete_dialog, null);
         TextView mDeleteText = mDeleteCosplayView.findViewById(R.id.TextView_DeleteTitle);
 
         mDeleteText.setText( getString(R.string.ConformationDeleteCheckListPart)+" "+ mWebshop.mWebshopName);

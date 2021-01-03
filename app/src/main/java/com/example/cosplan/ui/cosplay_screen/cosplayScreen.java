@@ -554,7 +554,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         //endregion
 
         //region Events
-        //Region Convention
+        //region Convention
         mRecViewEventsConvention.setAdapter(mEventConventionAdapter);
         mRecViewEventsConvention.addItemDecoration(new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL));
         mRecViewEventsConvention.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -579,8 +579,9 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                 mEventConventionAdapter.setEvents(events);
             }
         });
+        //endregion
 
-        //Region Convention
+        //region Shoots
         mRecViewEventsShoots.setAdapter(mEventShootAdapter);
         mRecViewEventsShoots.addItemDecoration(new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL));
         mRecViewEventsShoots.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -605,7 +606,9 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                 mEventShootAdapter.setEvents(events);
             }
         });
-        //Region Convention
+        //endregion
+
+        //region Charity
         mRecViewEventsCharity.setAdapter(mEventCharityAdapter);
         mRecViewEventsCharity.addItemDecoration(new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL));
         mRecViewEventsCharity.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -630,6 +633,8 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                 mEventCharityAdapter.setEvents(events);
             }
         });
+        //endregion
+
         mFabEventsAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -946,7 +951,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         });
     }
     private void addNewCosplayEventDialog(final Cosplay tempCosplay) {
-        final View mEventDialog = getLayoutInflater().inflate(R.layout.events_dialog, null);
+        final View mEventDialog = getLayoutInflater().inflate(R.layout.cosplay_event_add, null);
         final Spinner mEventType = mEventDialog.findViewById(R.id.Spinner_NewEventType);
         final EditText mEventName = mEventDialog.findViewById(R.id.EditText_NewEventName);
         final EditText mEventPlace = mEventDialog.findViewById(R.id.EditText_NewEventPlace);
@@ -1027,7 +1032,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
     }
 
     private void deleteEventDialog(final Event mEvent) {
-        final View mDeleteCosplayView = getLayoutInflater().inflate(R.layout.delete, null);
+        final View mDeleteCosplayView = getLayoutInflater().inflate(R.layout.delete_dialog, null);
         Button mBtnCancel = mDeleteCosplayView.findViewById(R.id.Btn_DeleteCancel);
         Button mBtnDelete = mDeleteCosplayView.findViewById(R.id.Btn_DeleteDelete);
 
@@ -1059,7 +1064,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         });
     }
     private void deleteShoppingListPartDialog(final ShoppingListPart mShoppingListPart) {
-        final View mDeleteCosplayView = getLayoutInflater().inflate(R.layout.delete, null);
+        final View mDeleteCosplayView = getLayoutInflater().inflate(R.layout.delete_dialog, null);
         TextView mDeleteText = mDeleteCosplayView.findViewById(R.id.TextView_DeleteTitle);
         Button mBtnCancel = mDeleteCosplayView.findViewById(R.id.Btn_DeleteCancel);
         Button mBtnDelete = mDeleteCosplayView.findViewById(R.id.Btn_DeleteDelete);
@@ -1088,7 +1093,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         });
     }
     private void deleteCheckListPartDialog(final ChecklistPart mCheckListPart) {
-        final View mDeleteCosplayView = getLayoutInflater().inflate(R.layout.delete, null);
+        final View mDeleteCosplayView = getLayoutInflater().inflate(R.layout.delete_dialog, null);
         TextView mDeleteText = mDeleteCosplayView.findViewById(R.id.TextView_DeleteTitle);
         Button mBtnCancel = mDeleteCosplayView.findViewById(R.id.Btn_DeleteCancel);
         Button mBtnDelete = mDeleteCosplayView.findViewById(R.id.Btn_DeleteDelete);
@@ -1116,7 +1121,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         });
     }
     private void deleteWholeShoppingListDialog(final ShoppingListPart part) {
-        final View deleteCosplayView = getLayoutInflater().inflate(R.layout.delete, null);
+        final View deleteCosplayView = getLayoutInflater().inflate(R.layout.delete_dialog, null);
         Button mBtnCancel = deleteCosplayView.findViewById(R.id.Btn_DeleteCancel);
         Button mBtnDelete = deleteCosplayView.findViewById(R.id.Btn_DeleteDelete);
         TextView mDeleteText = deleteCosplayView.findViewById(R.id.TextView_DeleteTitle);
@@ -1144,7 +1149,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         });
     }
     private void deletePartDialog(final Part myPart, final Cosplay cosplay) {
-        final View deleteCosplayView = getLayoutInflater().inflate(R.layout.delete, null);
+        final View deleteCosplayView = getLayoutInflater().inflate(R.layout.delete_dialog, null);
         Button mBtnCancel = deleteCosplayView.findViewById(R.id.Btn_DeleteCancel);
         Button mBtnDelete = deleteCosplayView.findViewById(R.id.Btn_DeleteDelete);
         TextView mDeleteText = deleteCosplayView.findViewById(R.id.TextView_DeleteTitle);

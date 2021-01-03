@@ -111,7 +111,7 @@ public class CosplayFragment extends Fragment {
 
     public void DeleteCosplayDialog(final Cosplay cosplay){
         mDialogBuilder =new AlertDialog.Builder(requireContext());
-        final View mDeleteCosplayView=getLayoutInflater().inflate(R.layout.delete,null);
+        final View mDeleteCosplayView=getLayoutInflater().inflate(R.layout.delete_dialog,null);
 
         TextView mDeleteText=mDeleteCosplayView.findViewById(R.id.TextView_DeleteTitle);
         mDeleteText.setText(String.format("%s%s", getString(R.string.ConformationDeleteCosplay), cosplay.mCosplayName));
