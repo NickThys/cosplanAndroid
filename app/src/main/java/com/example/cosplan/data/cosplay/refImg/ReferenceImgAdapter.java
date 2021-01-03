@@ -78,7 +78,7 @@ public class ReferenceImgAdapter extends RecyclerView.Adapter<ReferenceImgAdapte
             public void onClick(View v) {
 
                 AlertDialog.Builder mDialogBuilder = new AlertDialog.Builder(mContext);
-                View mImageDialog = mLayoutInflater.inflate(R.layout.image_fullscreen, null);
+                View mImageDialog = mLayoutInflater.inflate(R.layout.cosplay_image_full_screen, null);
                 ImageView mImageView = mImageDialog.findViewById(R.id.ImageView_ImageFullScreen);
                 ImageButton mCloseView = mImageDialog.findViewById(R.id.ImageBtn_ImageClose);
                 Button mDeleteImage = mImageDialog.findViewById(R.id.Btn_ImageDelete);
@@ -121,7 +121,7 @@ public class ReferenceImgAdapter extends RecyclerView.Adapter<ReferenceImgAdapte
 
     public void deleteDialog(final ReferenceImg mCurrent) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(mContext);
-        final View deleteCosplayView = mLayoutInflater.inflate(R.layout.delete, null);
+        final View deleteCosplayView = mLayoutInflater.inflate(R.layout.delete_dialog, null);
         TextView mDeleteText = deleteCosplayView.findViewById(R.id.TextView_DeleteTitle);
         mDeleteText.setText(R.string.DeleteImage);
         final Button mBtnDelete, mBtnCancel;

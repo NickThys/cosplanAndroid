@@ -23,8 +23,8 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        style="@style/Titles"
         android:id="@+id/TextView_EventConventionTitle"
+        style="@style/Titles"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
@@ -34,8 +34,8 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        style="@style/Titles"
         android:id="@+id/TextView_EventShootTitle"
+        style="@style/Titles"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/Shoot"
@@ -44,8 +44,8 @@
         app:layout_constraintTop_toTopOf="@+id/Guideline_33Percent" />
 
     <TextView
-        style="@style/Titles"
         android:id="@+id/TextView_EventCharityTitle"
+        style="@style/Titles"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/Charity"
@@ -89,9 +89,9 @@
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/Fab_EventAdd"
         style="@style/FAB"
+        android:contentDescription="@string/ShoppingListAdd"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_add"
-        android:contentDescription="@string/ShoppingListAdd" />
+        app:srcCompat="@drawable/ic_add" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

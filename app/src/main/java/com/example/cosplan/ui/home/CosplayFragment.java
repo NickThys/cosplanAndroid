@@ -4,8 +4,6 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.content.ContentResolver;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -52,7 +50,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
-@SuppressWarnings("ConstantConditions")
+
 public class CosplayFragment extends Fragment {
     private CosplayViewModel mCosplayViewModel;
     private AlertDialog.Builder mDialogBuilder;
@@ -113,7 +111,7 @@ public class CosplayFragment extends Fragment {
 
     public void DeleteCosplayDialog(final Cosplay cosplay){
         mDialogBuilder =new AlertDialog.Builder(requireContext());
-        final View mDeleteCosplayView=getLayoutInflater().inflate(R.layout.delete,null);
+        final View mDeleteCosplayView=getLayoutInflater().inflate(R.layout.delete_dialog,null);
 
         TextView mDeleteText=mDeleteCosplayView.findViewById(R.id.TextView_DeleteTitle);
         mDeleteText.setText(String.format("%s%s", getString(R.string.ConformationDeleteCosplay), cosplay.mCosplayName));

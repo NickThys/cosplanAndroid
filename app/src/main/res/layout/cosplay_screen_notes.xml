@@ -15,7 +15,6 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginBottom="1dp"
         android:hint="@string/btnText_notes"
         android:importantForAutofill="no"
         android:inputType="textMultiLine"
@@ -26,16 +25,11 @@
 
     <Button
         android:id="@+id/Btn_CosplayNoteSave"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="16dp"
         android:text="@string/CosplayNotesSave"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/EditText_CosplayNoteText"
+        style="@style/ButtonFullWidth" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

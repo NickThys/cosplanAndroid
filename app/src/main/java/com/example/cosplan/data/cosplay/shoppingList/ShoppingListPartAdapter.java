@@ -55,7 +55,7 @@ public class ShoppingListPartAdapter extends RecyclerView.Adapter<ShoppingListPa
     @NonNull
     @Override
     public ShoppingListPartAdapter.ShoppingListPartViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = mLayoutInflater.inflate(R.layout.shoppinglist_part_row, parent, false);
+        View itemView = mLayoutInflater.inflate(R.layout.custom_shoppinglist_part_row, parent, false);
         return new ShoppingListPartViewHolder(itemView);
     }
 

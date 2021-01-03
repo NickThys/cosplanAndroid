@@ -4,45 +4,45 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
- <!--Grey dividers between the buttons -->
+    <!--Grey dividers between the buttons -->
 
- <View
-     android:layout_width="0dp"
-     android:layout_height="1dp"
-     android:background="@android:color/darker_gray"
-     app:layout_constraintBottom_toBottomOf="@+id/Btn_BtnBar_CosplayParts"
-     app:layout_constraintEnd_toEndOf="parent"
-     app:layout_constraintStart_toStartOf="parent"
-     app:layout_constraintTop_toTopOf="@+id/Btn_BtnBar_CosplayChecklist" />
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintBottom_toBottomOf="@+id/Btn_BtnBar_CosplayParts"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/Btn_BtnBar_CosplayChecklist" />
 
- <View
-     android:layout_width="0dp"
-     android:layout_height="1dp"
-     android:background="@android:color/darker_gray"
-     app:layout_constraintBottom_toTopOf="@+id/Btn_BtnBar_CosplayParts"
-     app:layout_constraintEnd_toEndOf="parent"
-     app:layout_constraintStart_toStartOf="parent"
-     app:layout_constraintTop_toTopOf="@+id/Btn_BtnBar_CosplayParts" />
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintBottom_toTopOf="@+id/Btn_BtnBar_CosplayParts"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/Btn_BtnBar_CosplayParts" />
 
- <View
-     android:layout_width="0dp"
-     android:layout_height="1dp"
-     android:background="@android:color/darker_gray"
-     app:layout_constraintBottom_toBottomOf="@+id/Btn_BtnBar_CosplayChecklist"
-     app:layout_constraintEnd_toEndOf="parent"
-     app:layout_constraintStart_toStartOf="parent"
-     app:layout_constraintTop_toBottomOf="@+id/Btn_BtnBar_CosplayChecklist" />
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintBottom_toBottomOf="@+id/Btn_BtnBar_CosplayChecklist"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Btn_BtnBar_CosplayChecklist" />
 
- <Button
-     android:id="@+id/Btn_BtnBar_CosplayParts"
-     style="?android:attr/borderlessButtonStyle"
-     android:layout_width="0dp"
-     android:layout_height="wrap_content"
-     android:minHeight="0dp"
-     android:text="@string/btnText_cosplay_parts"
-     app:layout_constraintEnd_toStartOf="@+id/Btn_BtnBar_CosplayRefImage"
-     app:layout_constraintStart_toStartOf="parent"
-     app:layout_constraintTop_toTopOf="parent" />
+    <Button
+        android:id="@+id/Btn_BtnBar_CosplayParts"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:minHeight="0dp"
+        android:text="@string/btnText_cosplay_parts"
+        app:layout_constraintEnd_toStartOf="@+id/Btn_BtnBar_CosplayRefImage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/Btn_BtnBar_CosplayWIPImage"
@@ -127,7 +127,5 @@
         app:layout_constraintStart_toEndOf="@+id/Btn_BtnBar_CosplayRefImage"
         app:layout_constraintTop_toTopOf="@+id/Btn_BtnBar_CosplayParts" />
 
-    <!-- guidelines that devide te screen in 4 parts.
-           Those are used to give the buttons the same width-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

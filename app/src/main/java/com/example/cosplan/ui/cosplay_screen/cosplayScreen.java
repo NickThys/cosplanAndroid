@@ -77,7 +77,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -128,7 +127,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             CAMERA_REQUEST_CODE_WIP_IMG = 5,
             CAMERA_PERMISSION_CODE = 100,
             STORAGE_PERMISSION_CODE = 101;
-    private List<Part> mListMake, mListBuy;
+    private List<Part> mListMake, mListBuy,mPartsList;
 
 
     @SuppressWarnings("ConstantConditions")
@@ -138,11 +137,11 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
 
         mListMake = new ArrayList<>();
         mListBuy = new ArrayList<>();
-        List<Part> mPartsList = new ArrayList<>();
-        mPartsList.clear();
+        mPartsList = new ArrayList<>();
 
         // Inflate the layout for this fragment
         View mRoot = inflater.inflate(R.layout.fragment_cosplay_screen, container, false);
+
         //region Views of all the fragments
         final View PartsView = inflater.inflate(R.layout.cosplay_screen_parts, container, false);
         final View RefImgView = inflater.inflate(R.layout.cosplay_screen_ref_img, container, false);
@@ -154,6 +153,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         final View WebshopsView = inflater.inflate(R.layout.cosplay_screen_webshops, container, false);
         //endregion
 
+        //region Adapters for all the items
         mReferenceImgAdapter = new ReferenceImgAdapter(null, requireContext(), getActivity().getApplication());
         mWipImgAdapter = new WIPImgAdapter(null, requireContext(), getActivity().getApplication());
         mPartAdapterMake = new PartAdapter(requireContext(), getActivity().getApplication());
@@ -161,14 +161,17 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mEventConventionAdapter = new EventAdapter(requireContext(), getActivity().getApplication());
         mEventShootAdapter = new EventAdapter(requireContext(), getActivity().getApplication());
         mEventCharityAdapter = new EventAdapter(requireContext(), getActivity().getApplication());
+        //endregion
 
         mCosplayViewModel = new ViewModelProvider(this).get(CosplayViewModel.class);
         if (getArguments() != null) {
             mTempCosplay = cosplayScreenArgs.fromBundle(getArguments()).getCurrentCosplay();
         }
-        final ViewGroup mFrameLayoutContent = mRoot.findViewById(R.id.FrameLayout_Content);
         //Initial view for the framelayout
+        final ViewGroup mFrameLayoutContent = mRoot.findViewById(R.id.FrameLayout_Content);
         mFrameLayoutContent.addView(PartsView);
+
+        //set parts to the cosplaypart view
         mPartAdapterBuy.setCosplay(mTempCosplay, mCosplayViewModel, mRoot);
         mPartAdapterMake.setCosplay(mTempCosplay, mCosplayViewModel, mRoot);
 
@@ -180,6 +183,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mBudget = mRoot.findViewById(R.id.TextView_CosplayHeaderBudget);
         mImage = mRoot.findViewById(R.id.ImageView_CosplayHeaderImage);
         ImageButton mUpdateCosplay = mRoot.findViewById(R.id.ImageButton_CosplayHeaderUpdate);
+
         //Items from the button bar
         Button mCosplayParts = mRoot.findViewById(R.id.Btn_BtnBar_CosplayParts);
         Button mCosplayNotes = mRoot.findViewById(R.id.Btn_BtnBar_CosplayNotes);
@@ -189,28 +193,35 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         Button mCosplayShoppinglist = mRoot.findViewById(R.id.Btn_BtnBar_CosplayShoppinglist);
         Button mCosplayWebshop = mRoot.findViewById(R.id.Btn_BtnBar_CosplayWebshops);
         Button mCosplayEvents = mRoot.findViewById(R.id.Btn_BtnBar_CosplayEvents);
+
         //Items from the Notes
         mCosplayNote = NotesView.findViewById(R.id.EditText_CosplayNoteText);
         Button mCosplayNotesSave = NotesView.findViewById(R.id.Btn_CosplayNoteSave);
+
         //Items from the Ref Img
         mRVRefImg = RefImgView.findViewById(R.id.RecView_RefImg);
         Button mRefImgAdd = RefImgView.findViewById(R.id.Btn_RefImgAdd);
+
         //items from the webshops
         RecyclerView mRecViewCosplayWebshop = WebshopsView.findViewById(R.id.RecView_CosplayWebshop);
         FloatingActionButton mFabAddCosplayWebshop = WebshopsView.findViewById(R.id.Fab_CosplayWebshopAdd);
+
         //items from the Checklist,
         RecyclerView mRecViewCheckListPart = CheckListView.findViewById(R.id.RecView_CheckList);
         FloatingActionButton mCheckListPartAdd = CheckListView.findViewById(R.id.FAB_CheckListAdd);
         Button mCheckListPartClear = CheckListView.findViewById(R.id.Btn_CheckListClearCheckBox);
         Button mCheckListExportToPDF = CheckListView.findViewById(R.id.Btn_CheckListExportToPDF);
+
         //items from the ShoppingList;
         RecyclerView mRecViewShoppingList = ShoppingListView.findViewById(R.id.RecView_Shoppinglist);
         FloatingActionButton mFabShoppingListAdd = ShoppingListView.findViewById(R.id.Fab_ShoppinglistAdd);
         Button mShoppingListClear = ShoppingListView.findViewById(R.id.Btn_ShoppinglistClear);
+
         //items from the WIP img
         mRecViewWIPImg = WipImgView.findViewById(R.id.RecView_WipImages);
         Button mWIPImgAddPicture = WipImgView.findViewById(R.id.Btn_WipImagesGetImage);
         Button mWIPImgTakePicture = WipImgView.findViewById(R.id.Btn_WipImagesTakePicture);
+
         //items from the events
         RecyclerView mRecViewEventsConvention = EventsView.findViewById(R.id.RecView_EventConvention);
         RecyclerView mRecViewEventsShoots = EventsView.findViewById(R.id.RecView_EventShoot);
@@ -219,7 +230,8 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         //endregion
 
         //region Header
-        //Adding text to the items from the header
+
+        //region Adding text to the items from the header
         mName.setText(mTempCosplay.mCosplayName);
         mEndDate.setText(mTempCosplay.mCosplayEndDate);
         updateCosplayHeaderBudget();
@@ -228,14 +240,17 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         updateCosplayPercentage();
         mPercentage.setText(String.format("%s%%", mTempCosplay.mCosplayPercentage));
         FloatingActionButton mFabAddPart = mRoot.findViewById(R.id.Fab_PartsAdd);
+        //endregion
 
-        //onclick listener from the header
+        //region onclick listener from the header
         mUpdateCosplay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 updateCosplayDialog(mTempCosplay);
             }
         });
+        //endregion
+
         //endregion
 
         //region Button Bar
@@ -298,9 +313,9 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         });
         //endregion
 
-
         //region Part View
-        //recyclerview Make
+
+        //region recyclerview Make
         RecyclerView mRecyclerViewMake = mRoot.findViewById(R.id.RecView_PartsToMake);
         mRecyclerViewMake.setAdapter(mPartAdapterMake);
         mRecyclerViewMake.addItemDecoration(new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL));
@@ -330,7 +345,9 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                 updateCosplayPercentage();
             }
         });
-        //recyclerview buy
+        //endregion
+
+        //region recyclerview buy
         final RecyclerView mRecyclerViewBuy = mRoot.findViewById(R.id.RecView_PartsToBuy);
         mRecyclerViewBuy.setAdapter(mPartAdapterBuy);
         mRecyclerViewBuy.addItemDecoration(new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL));
@@ -359,6 +376,8 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                 updateCosplayPercentage();
             }
         });
+        //endregion
+
         //fab to add a new cosplay part
         mFabAddPart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -366,6 +385,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                 addNewCosplayPartDialog(mTempCosplay);
             }
         });
+
         //endregion
 
         //region Notes
@@ -373,9 +393,8 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mCosplayNotesSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Cosplay CosUP = new Cosplay(mTempCosplay.mCosplayId, mTempCosplay.mCosplayName, mTempCosplay.mCosplayStartDate, mTempCosplay.mCosplayEndDate, mTempCosplay.mCosplayBudget, mTempCosplay.mCosplayRemainingBudget, mTempCosplay.mCosplayIMG, mCosplayNote.getText().toString(), mTempCosplay.mNumberOfParts, mTempCosplay.mCosplayPercentage);
-
-                mCosplayViewModel.update(CosUP);
+                mTempCosplay.mCosplayNote=mCosplayNote.getText().toString();
+                mCosplayViewModel.update(mTempCosplay);
                 closeKeyboard(v);
                 Toast.makeText(requireContext(), getResources().getText(R.string.NoteSaved), Toast.LENGTH_SHORT).show();
             }
@@ -535,7 +554,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         //endregion
 
         //region Events
-        //Region Convention
+        //region Convention
         mRecViewEventsConvention.setAdapter(mEventConventionAdapter);
         mRecViewEventsConvention.addItemDecoration(new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL));
         mRecViewEventsConvention.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -560,8 +579,9 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                 mEventConventionAdapter.setEvents(events);
             }
         });
+        //endregion
 
-        //Region Convention
+        //region Shoots
         mRecViewEventsShoots.setAdapter(mEventShootAdapter);
         mRecViewEventsShoots.addItemDecoration(new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL));
         mRecViewEventsShoots.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -586,7 +606,9 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                 mEventShootAdapter.setEvents(events);
             }
         });
-        //Region Convention
+        //endregion
+
+        //region Charity
         mRecViewEventsCharity.setAdapter(mEventCharityAdapter);
         mRecViewEventsCharity.addItemDecoration(new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL));
         mRecViewEventsCharity.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -611,6 +633,8 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                 mEventCharityAdapter.setEvents(events);
             }
         });
+        //endregion
+
         mFabEventsAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -927,7 +951,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         });
     }
     private void addNewCosplayEventDialog(final Cosplay tempCosplay) {
-        final View mEventDialog = getLayoutInflater().inflate(R.layout.events_dialog, null);
+        final View mEventDialog = getLayoutInflater().inflate(R.layout.cosplay_event_add, null);
         final Spinner mEventType = mEventDialog.findViewById(R.id.Spinner_NewEventType);
         final EditText mEventName = mEventDialog.findViewById(R.id.EditText_NewEventName);
         final EditText mEventPlace = mEventDialog.findViewById(R.id.EditText_NewEventPlace);
@@ -1008,7 +1032,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
     }
 
     private void deleteEventDialog(final Event mEvent) {
-        final View mDeleteCosplayView = getLayoutInflater().inflate(R.layout.delete, null);
+        final View mDeleteCosplayView = getLayoutInflater().inflate(R.layout.delete_dialog, null);
         Button mBtnCancel = mDeleteCosplayView.findViewById(R.id.Btn_DeleteCancel);
         Button mBtnDelete = mDeleteCosplayView.findViewById(R.id.Btn_DeleteDelete);
 
@@ -1040,7 +1064,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         });
     }
     private void deleteShoppingListPartDialog(final ShoppingListPart mShoppingListPart) {
-        final View mDeleteCosplayView = getLayoutInflater().inflate(R.layout.delete, null);
+        final View mDeleteCosplayView = getLayoutInflater().inflate(R.layout.delete_dialog, null);
         TextView mDeleteText = mDeleteCosplayView.findViewById(R.id.TextView_DeleteTitle);
         Button mBtnCancel = mDeleteCosplayView.findViewById(R.id.Btn_DeleteCancel);
         Button mBtnDelete = mDeleteCosplayView.findViewById(R.id.Btn_DeleteDelete);
@@ -1069,7 +1093,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         });
     }
     private void deleteCheckListPartDialog(final ChecklistPart mCheckListPart) {
-        final View mDeleteCosplayView = getLayoutInflater().inflate(R.layout.delete, null);
+        final View mDeleteCosplayView = getLayoutInflater().inflate(R.layout.delete_dialog, null);
         TextView mDeleteText = mDeleteCosplayView.findViewById(R.id.TextView_DeleteTitle);
         Button mBtnCancel = mDeleteCosplayView.findViewById(R.id.Btn_DeleteCancel);
         Button mBtnDelete = mDeleteCosplayView.findViewById(R.id.Btn_DeleteDelete);
@@ -1097,7 +1121,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         });
     }
     private void deleteWholeShoppingListDialog(final ShoppingListPart part) {
-        final View deleteCosplayView = getLayoutInflater().inflate(R.layout.delete, null);
+        final View deleteCosplayView = getLayoutInflater().inflate(R.layout.delete_dialog, null);
         Button mBtnCancel = deleteCosplayView.findViewById(R.id.Btn_DeleteCancel);
         Button mBtnDelete = deleteCosplayView.findViewById(R.id.Btn_DeleteDelete);
         TextView mDeleteText = deleteCosplayView.findViewById(R.id.TextView_DeleteTitle);
@@ -1125,7 +1149,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         });
     }
     private void deletePartDialog(final Part myPart, final Cosplay cosplay) {
-        final View deleteCosplayView = getLayoutInflater().inflate(R.layout.delete, null);
+        final View deleteCosplayView = getLayoutInflater().inflate(R.layout.delete_dialog, null);
         Button mBtnCancel = deleteCosplayView.findViewById(R.id.Btn_DeleteCancel);
         Button mBtnDelete = deleteCosplayView.findViewById(R.id.Btn_DeleteDelete);
         TextView mDeleteText = deleteCosplayView.findViewById(R.id.TextView_DeleteTitle);
@@ -1290,24 +1314,12 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         }
         if (requestCode == GALLERY_REQUEST_CODE_REF_IMG && data != null) {
             mImageData = data.getData();
-            InputStream mImageStream = null;
-            try {
-                mImageStream = getContext().getContentResolver().openInputStream(mImageData);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
             ReferenceImg temp = new ReferenceImg(mTempCosplay.mCosplayId, 0, getPathFromUri(mImageData));
             mReferenceImgViewModel.insert(temp);
             setRefImageInGrid(mTempCosplay, mReferenceImgAdapter);
         }
         if (requestCode == GALLERY_REQUEST_CODE_WIP_IMG && data != null) {
             mImageData = data.getData();
-            InputStream imageStream = null;
-            try {
-                imageStream = getContext().getContentResolver().openInputStream(mImageData);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
             WIPImg temp = new WIPImg(mTempCosplay.mCosplayId, 0, getPathFromUri(mImageData));
             mWipImgViewModel.insert(temp);
             setWipImagesInGrid(mTempCosplay, mWipImgAdapter);

@@ -16,7 +16,6 @@ import android.widget.CompoundButton;
 import com.example.cosplan.R;
 
 
-@SuppressWarnings("ConstantConditions")
 public class SettingsFragment extends Fragment {
     SwitchCompat mEnableDarkMode;
     SharedPreferences mSharedPreferences = null;

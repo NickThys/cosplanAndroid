@@ -126,8 +126,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/Btn_BtnBar_CosplayEvents"
         app:layout_constraintTop_toTopOf="@+id/Btn_BtnBar_CosplayEvents" />
-
-    <!-- guidelines that devide te screen in 4 parts.
-           Those are used to give the buttons the same width-->
-
 </androidx.constraintlayout.widget.ConstraintLayout>

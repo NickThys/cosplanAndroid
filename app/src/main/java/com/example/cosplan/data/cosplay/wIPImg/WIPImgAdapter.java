@@ -73,7 +73,7 @@ public class WIPImgAdapter extends RecyclerView.Adapter<WIPImgAdapter.WIPImgView
             @Override
             public void onClick(View v) {
                 mDialogBuilder=new AlertDialog.Builder(mContext);
-                View mImageDialog= mLayoutInflater.inflate(R.layout.image_fullscreen,null);
+                View mImageDialog= mLayoutInflater.inflate(R.layout.cosplay_image_full_screen,null);
                 ImageView mImageView=mImageDialog.findViewById(R.id.ImageView_ImageFullScreen);
                 ImageButton mClose=mImageDialog.findViewById(R.id.ImageBtn_ImageClose);
                 Button mDelete=mImageDialog.findViewById(R.id.Btn_ImageDelete);
@@ -117,7 +117,7 @@ public class WIPImgAdapter extends RecyclerView.Adapter<WIPImgAdapter.WIPImgView
     }
     public void deleteDialog(final WIPImg mCurrent) {
         AlertDialog.Builder mDialogBuilder = new AlertDialog.Builder(mContext);
-        final View deleteCosplayView = mLayoutInflater.inflate(R.layout.delete, null);
+        final View deleteCosplayView = mLayoutInflater.inflate(R.layout.delete_dialog, null);
         TextView mDeleteText = deleteCosplayView.findViewById(R.id.TextView_DeleteTitle);
         mDeleteText.setText( R.string.DeleteImage);
         final Button mBtnDelete, mBtnCancel;
