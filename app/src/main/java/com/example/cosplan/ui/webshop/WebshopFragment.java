@@ -33,8 +33,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
-
-@SuppressWarnings("ConstantConditions")
 public class WebshopFragment extends Fragment {
 
     private WebshopViewModel mWebshopViewModel;

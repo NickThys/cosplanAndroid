@@ -4,8 +4,6 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.content.ContentResolver;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -52,7 +50,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
-@SuppressWarnings("ConstantConditions")
+
 public class CosplayFragment extends Fragment {
     private CosplayViewModel mCosplayViewModel;
     private AlertDialog.Builder mDialogBuilder;
