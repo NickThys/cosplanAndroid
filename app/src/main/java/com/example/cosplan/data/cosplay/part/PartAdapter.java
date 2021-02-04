@@ -11,6 +11,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,7 +39,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
-public class PartAdapter extends RecyclerView.Adapter<PartAdapter.PartViewHolder> {
+public class PartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<Part> mParts;
     private final LayoutInflater mInflater;
     private final Context mContext;
@@ -48,7 +49,8 @@ public class PartAdapter extends RecyclerView.Adapter<PartAdapter.PartViewHolder
     private Cosplay mCosplay;
     private CosplayViewModel mCosplayViewModel;
     private View v;
-
+private static int TYPE_SMALL=1;
+private static int TYPE_NORMAL=2;
     public void setCosplay(Cosplay tempCosplay, CosplayViewModel cosplayViewModel, View v) {
         mCosplay = tempCosplay;
         mCosplayViewModel = cosplayViewModel;
@@ -73,31 +75,41 @@ public class PartAdapter extends RecyclerView.Adapter<PartAdapter.PartViewHolder
         notifyDataSetChanged();
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        if(TextUtils.isEmpty(mParts.get(position).mCosplayPartImg)){
+            return TYPE_SMALL;
+        }
+        else{
+            return TYPE_NORMAL;
+        }
+    }
 
     @NotNull
     @Override
-    public PartAdapter.PartViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = mInflater.inflate(R.layout.custum_cosplay_part_row, parent, false);
-        return new PartViewHolder(itemView);
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view;
+        if (viewType==TYPE_SMALL){
+            view=mInflater.inflate(R.layout.custom_cosplay_part_row_small,parent,false);
+            return new PartSmallViewHolder(view);
+        }else{
+            view = mInflater.inflate(R.layout.custum_cosplay_part_row, parent, false);
+        return new PartViewHolder(view);}
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PartAdapter.PartViewHolder holder, int position) {
-        final Part current = mParts.get(position);
-        String mCosplayPartImg = current.mCosplayPartImg;
-        String mCosplayPartName = current.mCosplayPartName;
-        String mCosplayPartCost = Double.toString(current.mCosplayPartCost);
-        String mCosplayPartStatus = current.mCosplayPartStatus;
-        String mCosplayPartEndDate = current.mCosplayPartEndDate;
-
-        SetImageFromUri(holder.mPartImage,mCosplayPartImg);
-
-        holder.mPartName.setText(mCosplayPartName);
-        holder.mPartCost.setText(mCosplayPartCost);
-        holder.mPartStatus.setText(mCosplayPartStatus);
-        holder.mPartEndDate.setText(mCosplayPartEndDate);
-        View itemView = holder.itemView;
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        final Part current=mParts.get(position);
+    if (getItemViewType(position)==TYPE_SMALL){
+        ((PartSmallViewHolder)holder).setPartText(current);
+        }
+    else{
+        ((PartViewHolder)holder).setPartText(current);
+    }
         mPartViewModel = new PartViewModel(mApplication);
+
+        View itemView = holder.itemView;
+
         switch (current.mCosplayPartBuyMake) {
             case "Buy":
                 itemView.findViewById(R.id.RecView_PartsToBuy);
@@ -119,6 +131,8 @@ public class PartAdapter extends RecyclerView.Adapter<PartAdapter.PartViewHolder
                 break;
         }
     }
+
+
 
     @Override
     public int getItemCount() {
