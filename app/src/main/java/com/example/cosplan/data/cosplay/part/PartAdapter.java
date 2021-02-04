@@ -306,10 +306,10 @@ public class PartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         public PartSmallViewHolder(@NonNull View itemView) {
             super(itemView);
-            mPartSmallName = itemView.findViewById(R.id.TextView_PartName);
-            mPartSmallCost = itemView.findViewById(R.id.TextView_PartCost);
-            mPartSmallStatus = itemView.findViewById(R.id.TextView_PartStatus);
-            mPartSmallEndDate = itemView.findViewById(R.id.TextView_PartEndDate);
+            mPartSmallName = itemView.findViewById(R.id.textView_PartSmallName);
+            mPartSmallCost = itemView.findViewById(R.id.textView_PartSmallCost);
+            mPartSmallStatus = itemView.findViewById(R.id.textView_PartSmallStatus);
+            mPartSmallEndDate = itemView.findViewById(R.id.textView_PartSmallEndDate);
         }
 
         void setPartText(Part mPart) {
