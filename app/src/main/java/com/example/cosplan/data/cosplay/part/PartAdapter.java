@@ -11,6 +11,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,7 +39,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
-public class PartAdapter extends RecyclerView.Adapter<PartAdapter.PartViewHolder> {
+public class PartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<Part> mParts;
     private final LayoutInflater mInflater;
     private final Context mContext;
@@ -48,6 +49,8 @@ public class PartAdapter extends RecyclerView.Adapter<PartAdapter.PartViewHolder
     private Cosplay mCosplay;
     private CosplayViewModel mCosplayViewModel;
     private View v;
+    private static int TYPE_SMALL = 1;
+    private static int TYPE_NORMAL = 2;
 
     public void setCosplay(Cosplay tempCosplay, CosplayViewModel cosplayViewModel, View v) {
         mCosplay = tempCosplay;
@@ -62,22 +65,6 @@ public class PartAdapter extends RecyclerView.Adapter<PartAdapter.PartViewHolder
         this.mContext = context;
     }
 
-    static class PartViewHolder extends RecyclerView.ViewHolder {
-        private final ImageView mPartImage;
-        private final TextView mPartName;
-        private final TextView mPartCost;
-        private final TextView mPartStatus;
-        private final TextView mPartEndDate;
-
-        public PartViewHolder(@NonNull View itemView) {
-            super(itemView);
-            mPartImage = itemView.findViewById(R.id.ImageView_PartImage);
-            mPartName = itemView.findViewById(R.id.TextView_PartName);
-            mPartCost = itemView.findViewById(R.id.TextView_PartCost);
-            mPartStatus = itemView.findViewById(R.id.TextView_PartStatus);
-            mPartEndDate = itemView.findViewById(R.id.TextView_PartEndDate);
-        }
-    }
 
     public Part getPartAtPosition(int mPosition) {
         return mParts.get(mPosition);
@@ -88,31 +75,40 @@ public class PartAdapter extends RecyclerView.Adapter<PartAdapter.PartViewHolder
         notifyDataSetChanged();
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        if (!checkIfImageExists(mParts.get(position).mCosplayPartImg)){
+            return TYPE_SMALL;
+        } else {
+            return TYPE_NORMAL;
+        }
+    }
 
     @NotNull
     @Override
-    public PartAdapter.PartViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = mInflater.inflate(R.layout.custum_cosplay_part_row, parent, false);
-        return new PartViewHolder(itemView);
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view;
+        if (viewType == TYPE_SMALL) {
+            view = mInflater.inflate(R.layout.custom_cosplay_part_row_small, parent, false);
+            return new PartSmallViewHolder(view);
+        } else {
+            view = mInflater.inflate(R.layout.custum_cosplay_part_row, parent, false);
+            return new PartViewHolder(view);
+        }
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PartAdapter.PartViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         final Part current = mParts.get(position);
-        String mCosplayPartImg = current.mCosplayPartImg;
-        String mCosplayPartName = current.mCosplayPartName;
-        String mCosplayPartCost = Double.toString(current.mCosplayPartCost);
-        String mCosplayPartStatus = current.mCosplayPartStatus;
-        String mCosplayPartEndDate = current.mCosplayPartEndDate;
-
-        SetImageFromUri(holder.mPartImage,mCosplayPartImg);
-
-        holder.mPartName.setText(mCosplayPartName);
-        holder.mPartCost.setText(mCosplayPartCost);
-        holder.mPartStatus.setText(mCosplayPartStatus);
-        holder.mPartEndDate.setText(mCosplayPartEndDate);
-        View itemView = holder.itemView;
+        if (getItemViewType(position) == TYPE_SMALL) {
+            ((PartSmallViewHolder) holder).setPartText(current);
+        } else {
+            ((PartViewHolder) holder).setPartText(current);
+        }
         mPartViewModel = new PartViewModel(mApplication);
+
+        View itemView = holder.itemView;
+
         switch (current.mCosplayPartBuyMake) {
             case "Buy":
                 itemView.findViewById(R.id.RecView_PartsToBuy);
@@ -135,6 +131,7 @@ public class PartAdapter extends RecyclerView.Adapter<PartAdapter.PartViewHolder
         }
     }
 
+
     @Override
     public int getItemCount() {
         if (mParts != null) {
@@ -144,7 +141,6 @@ public class PartAdapter extends RecyclerView.Adapter<PartAdapter.PartViewHolder
         }
     }
 
-    @SuppressLint("SetTextI18n")
     public void updatePartDialog(final Part tempPart) {
         final AlertDialog.Builder mDialogBuilder = new AlertDialog.Builder(mContext);
         final View mPartDialog = mInflater.inflate(R.layout.cosplay_screen_part_update, null);
@@ -172,7 +168,7 @@ public class PartAdapter extends RecyclerView.Adapter<PartAdapter.PartViewHolder
         mPartCancel = mPartDialog.findViewById(R.id.Btn_PartUpdateCancel);
         mPartUpdate = mPartDialog.findViewById(R.id.Btn_PartUpdateUpdate);
 
-        SetImageFromUri(mPartImage,tempPart.mCosplayPartImg);
+        SetImageFromUri(mPartImage, tempPart.mCosplayPartImg);
         mPartBuyMake.setSelection(mPartArrayAdapterMakeBuy.getPosition(tempPart.mCosplayPartBuyMake));
         mPartStatus.setSelection(mPartArrayAdapterStatus.getPosition(tempPart.mCosplayPartStatus));
         mPartName.setText(tempPart.mCosplayPartName);
@@ -236,7 +232,7 @@ public class PartAdapter extends RecyclerView.Adapter<PartAdapter.PartViewHolder
                 Part mTempPart = new Part(tempPart.mCosplayId, tempPart.mCosplayPartId, mPartName.getText().toString(), mPartBuyMake.getSelectedItem().toString(), mPartLink.getText().toString(), Double.parseDouble(mPartCost.getText().toString()), mPartStatus.getSelectedItem().toString(), mPartDate.getText().toString(), tempPart.mCosplayPartImg, mPartNotes.getText().toString());
                 mPartViewModel.update(mTempPart);
                 Cosplay mTempCosplay = mCosplay;
-                mTempCosplay.mCosplayRemainingBudget =Math.round((mTempCosplay.mCosplayRemainingBudget - Double.parseDouble(mPartCost.getText().toString()) + mOldCost)*100.0)/100.0;
+                mTempCosplay.mCosplayRemainingBudget = Math.round((mTempCosplay.mCosplayRemainingBudget - Double.parseDouble(mPartCost.getText().toString()) + mOldCost) * 100.0) / 100.0;
                 mCosplayViewModel.update(mTempCosplay);
                 mDialog.dismiss();
                 updateCosplayHeaderBudget();
@@ -255,21 +251,38 @@ public class PartAdapter extends RecyclerView.Adapter<PartAdapter.PartViewHolder
             return false;
         }
     }
-    public void SetImageFromUri(ImageView mImageView,String mImagePath){
-        Uri selectedImageUri=null;
+
+    public void SetImageFromUri(ImageView mImageView, String mImagePath) {
+        Uri selectedImageUri = null;
         if (mImagePath != null) {
             File f = new File(mImagePath);
             selectedImageUri = Uri.fromFile(f);
         }
-        Bitmap mBitmap=null;
+        Bitmap mBitmap = null;
         try {
-            mBitmap= BitmapFactory.decodeStream(mContext.getContentResolver().openInputStream(selectedImageUri));
+            mBitmap = BitmapFactory.decodeStream(mContext.getContentResolver().openInputStream(selectedImageUri));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         mImageView.setImageBitmap(mBitmap);
     }
-    @SuppressLint("SetTextI18n")
+
+    public boolean checkIfImageExists(String mImagePath) {
+        Uri selectedImageUri = null;
+        if (mImagePath != null) {
+            File f = new File(mImagePath);
+            selectedImageUri = Uri.fromFile(f);
+        }
+        Bitmap mBitmap = null;
+        try {
+            mBitmap = BitmapFactory.decodeStream(mContext.getContentResolver().openInputStream(selectedImageUri));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
     public void updateCosplayHeaderBudget() {
         TextView mBudget = v.findViewById(R.id.TextView_CosplayHeaderBudget);
         double percentage = mCosplay.mCosplayRemainingBudget / mCosplay.mCosplayBudget * 100;
@@ -282,6 +295,55 @@ public class PartAdapter extends RecyclerView.Adapter<PartAdapter.PartViewHolder
 
         }
         mBudget.setText(Double.toString(mCosplay.mCosplayRemainingBudget));
+    }
+
+
+    class PartSmallViewHolder extends RecyclerView.ViewHolder {
+        private final TextView mPartSmallName;
+        private final TextView mPartSmallCost;
+        private final TextView mPartSmallStatus;
+        private final TextView mPartSmallEndDate;
+
+        public PartSmallViewHolder(@NonNull View itemView) {
+            super(itemView);
+            mPartSmallName = itemView.findViewById(R.id.textView_PartSmallName);
+            mPartSmallCost = itemView.findViewById(R.id.textView_PartSmallCost);
+            mPartSmallStatus = itemView.findViewById(R.id.textView_PartSmallStatus);
+            mPartSmallEndDate = itemView.findViewById(R.id.textView_PartSmallEndDate);
+        }
+
+        void setPartText(Part mPart) {
+            mPartSmallName.setText(mPart.mCosplayPartName);
+            mPartSmallCost.setText(Double.toString(mPart.mCosplayPartCost));
+            mPartSmallStatus.setText(mPart.mCosplayPartStatus);
+            mPartSmallEndDate.setText(mPart.mCosplayPartEndDate);
+        }
+    }
+
+    class PartViewHolder extends RecyclerView.ViewHolder {
+        private final ImageView mPartImage;
+        private final TextView mPartName;
+        private final TextView mPartCost;
+        private final TextView mPartStatus;
+        private final TextView mPartEndDate;
+
+        public PartViewHolder(@NonNull View itemView) {
+            super(itemView);
+            mPartImage = itemView.findViewById(R.id.ImageView_PartImage);
+            mPartName = itemView.findViewById(R.id.TextView_PartName);
+            mPartCost = itemView.findViewById(R.id.TextView_PartCost);
+            mPartStatus = itemView.findViewById(R.id.TextView_PartStatus);
+            mPartEndDate = itemView.findViewById(R.id.TextView_PartEndDate);
+        }
+
+        void setPartText(Part mPart) {
+
+            SetImageFromUri(mPartImage, mPart.mCosplayPartImg);
+            mPartName.setText(mPart.mCosplayPartName);
+            mPartCost.setText(Double.toString(mPart.mCosplayPartCost));
+            mPartStatus.setText(mPart.mCosplayPartStatus);
+            mPartEndDate.setText(mPart.mCosplayPartEndDate);
+        }
     }
 }
 
