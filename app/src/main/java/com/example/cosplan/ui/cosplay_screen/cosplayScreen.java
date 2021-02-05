@@ -928,7 +928,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mPartAddPart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!mPartName.getText().toString().equals("") && mPartUri != null) {
+                if (!mPartName.getText().toString().equals("")) {
                     double mCost;
                     if (!mPartCost.getText().toString().equals("")) {
                         mCost = Double.parseDouble(mPartCost.getText().toString());
@@ -943,7 +943,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                     updateCosplayPercentage();
                     mDialog.dismiss();
                 } else {
-                    String tempString = getResources().getString(R.string.FillOutFields) + " " + getResources().getString(R.string.txtName) + ", image";
+                    String tempString = getResources().getString(R.string.FillOutFields) + " " + getResources().getString(R.string.txtName) ;
                     Toast.makeText(requireContext(), tempString, Toast.LENGTH_LONG).show();
                 }
             }

@@ -49,8 +49,8 @@ public class PartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Cosplay mCosplay;
     private CosplayViewModel mCosplayViewModel;
     private View v;
-    private static int TYPE_SMALL = 1;
-    private static int TYPE_NORMAL = 2;
+    private static final int TYPE_SMALL = 1;
+    private static final int TYPE_NORMAL = 2;
 
     public void setCosplay(Cosplay tempCosplay, CosplayViewModel cosplayViewModel, View v) {
         mCosplay = tempCosplay;
@@ -77,7 +77,7 @@ public class PartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemViewType(int position) {
-        if (!checkIfImageExists(mParts.get(position).mCosplayPartImg)){
+        if (mParts.get(position).mCosplayPartImg==null||!checkIfImageExists(mParts.get(position).mCosplayPartImg)){
             return TYPE_SMALL;
         } else {
             return TYPE_NORMAL;
