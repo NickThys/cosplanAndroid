@@ -26,6 +26,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.cosplan.CosplayPartUpdate;
 import com.example.cosplan.R;
 import com.example.cosplan.data.cosplay.Cosplay;
 import com.example.cosplan.data.cosplay.CosplayViewModel;
@@ -115,7 +116,10 @@ public class PartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        updatePartDialog(current);
+                        //   updatePartDialog(current);
+                        Intent intent=new Intent(mContext, CosplayPartUpdate.class);
+                        intent.putExtra("part",current);
+                        mContext.startActivity(intent);
                     }
                 });
                 break;
@@ -124,7 +128,11 @@ public class PartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        updatePartDialog(current);
+                      //  updatePartDialog(current);
+                        Intent intent=new Intent(mContext, CosplayPartUpdate.class);
+                        intent.putExtra("part",current);
+                        mContext.startActivity(intent);
+
                     }
                 });
                 break;
