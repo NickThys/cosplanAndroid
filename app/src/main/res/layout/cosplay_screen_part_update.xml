@@ -2,12 +2,13 @@
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/TextView_PartUpdateTitle"
@@ -26,7 +27,7 @@
             android:layout_height="120dp"
             android:layout_marginTop="8dp"
             android:contentDescription="@string/NewPart_ImageViewContentDescription"
-            app:layout_constraintBottom_toTopOf="@+id/Spinner_PartUpdateMakeBuy"
+            app:layout_constraintBottom_toTopOf="@+id/Btn_PartUpdateImage"
             app:layout_constraintEnd_toEndOf="@+id/Spinner_PartUpdateMakeBuy"
             app:layout_constraintStart_toStartOf="@+id/Spinner_PartUpdateMakeBuy"
             app:layout_constraintTop_toBottomOf="@+id/TextView_PartUpdateTitle"
@@ -36,12 +37,11 @@
             android:id="@+id/Spinner_PartUpdateMakeBuy"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
             android:minHeight="45dp"
             app:layout_constraintBottom_toTopOf="@+id/Spinner_PartUpdateStatus"
             app:layout_constraintEnd_toEndOf="@+id/Spinner_PartUpdateStatus"
             app:layout_constraintStart_toStartOf="@+id/Spinner_PartUpdateStatus"
-            app:layout_constraintTop_toBottomOf="@+id/ImageView_PartUpdateImage" />
+            app:layout_constraintTop_toBottomOf="@+id/Btn_PartUpdateImage" />
 
         <Spinner
             android:id="@+id/Spinner_PartUpdateStatus"
@@ -56,7 +56,7 @@
 
         <EditText
             android:id="@+id/EditText_PartUpdateName"
-style="@style/EditTextInputForm"
+            style="@style/EditTextInputForm"
             android:hint="@string/txtName"
             android:importantForAutofill="no"
             android:inputType="textPersonName"
@@ -104,6 +104,7 @@ style="@style/EditTextInputForm"
         <EditText
             android:id="@+id/EditText_PartUpdateNotes"
             style="@style/EditTextInputForm"
+            android:layout_height="0dp"
             android:gravity="start|top"
             android:hint="@string/btnText_notes"
             android:importantForAutofill="no"
@@ -135,6 +136,18 @@ style="@style/EditTextInputForm"
             app:layout_constraintBaseline_toBaselineOf="@+id/Btn_PartUpdateCancel"
             app:layout_constraintEnd_toEndOf="@+id/EditText_PartUpdateNotes"
             app:layout_constraintStart_toEndOf="@+id/Btn_PartUpdateCancel" />
+
+        <Button
+            android:id="@+id/Btn_PartUpdateImage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp"
+            android:text="Update image"
+            app:layout_constraintBottom_toTopOf="@+id/Spinner_PartUpdateMakeBuy"
+            app:layout_constraintEnd_toEndOf="@+id/Spinner_PartUpdateMakeBuy"
+            app:layout_constraintStart_toStartOf="@+id/Spinner_PartUpdateMakeBuy"
+            app:layout_constraintTop_toBottomOf="@+id/ImageView_PartUpdateImage" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
