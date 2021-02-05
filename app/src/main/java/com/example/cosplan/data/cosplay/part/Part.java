@@ -1,5 +1,8 @@
 package com.example.cosplan.data.cosplay.part;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -14,7 +17,7 @@ import org.jetbrains.annotations.NotNull;
 @Entity(tableName = "CosplayPart_table", foreignKeys = @ForeignKey(onDelete = ForeignKey.CASCADE ,entity = Cosplay.class,
         parentColumns = "Id",
         childColumns = "CosplayId"))
-public class Part {
+public class Part implements Parcelable {
     @ColumnInfo(name = "CosplayId",index = true)
     public int mCosplayId;
 
@@ -67,5 +70,49 @@ public class Part {
         this.mCosplayPartEndDate = mCosplayPartEndDate;
         this.mCosplayPartImg = mCosplayPartImg;
         this.mCosplayPartNote = mCosplayPartNote;
+    }
+
+    protected Part(Parcel in) {
+        mCosplayId = in.readInt();
+        mCosplayPartId = in.readInt();
+        mCosplayPartName = in.readString();
+        mCosplayPartBuyMake = in.readString();
+        mCosplayPartLink = in.readString();
+        mCosplayPartCost = in.readDouble();
+        mCosplayPartStatus = in.readString();
+        mCosplayPartEndDate = in.readString();
+        mCosplayPartImg = in.readString();
+        mCosplayPartNote = in.readString();
+    }
+
+    public static final Creator<Part> CREATOR = new Creator<Part>() {
+        @Override
+        public Part createFromParcel(Parcel in) {
+            return new Part(in);
+        }
+
+        @Override
+        public Part[] newArray(int size) {
+            return new Part[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(mCosplayId);
+        dest.writeInt(mCosplayPartId);
+        dest.writeString(mCosplayPartName);
+        dest.writeString(mCosplayPartBuyMake);
+        dest.writeString(mCosplayPartLink);
+        dest.writeDouble(mCosplayPartCost);
+        dest.writeString(mCosplayPartStatus);
+        dest.writeString(mCosplayPartEndDate);
+        dest.writeString(mCosplayPartImg);
+        dest.writeString(mCosplayPartNote);
     }
 }

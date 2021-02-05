@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+    tools:context=".CosplayPartUpdate">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/TextView_PartUpdateTitle"
+                style="@style/Titles"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/TitleUpdatePart"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/ImageView_PartUpdateImage"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_marginTop="8dp"
+                android:contentDescription="@string/NewPart_ImageViewContentDescription"
+                app:layout_constraintBottom_toTopOf="@+id/Btn_PartUpdateImage"
+                app:layout_constraintEnd_toEndOf="@+id/Spinner_PartUpdateMakeBuy"
+                app:layout_constraintStart_toStartOf="@+id/Spinner_PartUpdateMakeBuy"
+                app:layout_constraintTop_toBottomOf="@+id/TextView_PartUpdateTitle"
+                app:srcCompat="@drawable/cosplanv2" />
+
+            <Spinner
+                android:id="@+id/Spinner_PartUpdateMakeBuy"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:minHeight="45dp"
+                app:layout_constraintBottom_toTopOf="@+id/Spinner_PartUpdateStatus"
+                app:layout_constraintEnd_toEndOf="@+id/Spinner_PartUpdateStatus"
+                app:layout_constraintStart_toStartOf="@+id/Spinner_PartUpdateStatus"
+                app:layout_constraintTop_toBottomOf="@+id/Btn_PartUpdateImage" />
+
+            <Spinner
+                android:id="@+id/Spinner_PartUpdateStatus"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:minHeight="45dp"
+                app:layout_constraintBottom_toTopOf="@+id/EditText_PartUpdateName"
+                app:layout_constraintEnd_toEndOf="@+id/EditText_PartUpdateName"
+                app:layout_constraintStart_toStartOf="@+id/EditText_PartUpdateName"
+                app:layout_constraintTop_toBottomOf="@+id/Spinner_PartUpdateMakeBuy" />
+
+            <EditText
+                android:id="@+id/EditText_PartUpdateName"
+                style="@style/EditTextInputForm"
+                android:hint="@string/txtName"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName"
+                app:layout_constraintBottom_toTopOf="@+id/EditText_PartUpdateLink"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Spinner_PartUpdateStatus" />
+
+            <EditText
+                android:id="@+id/EditText_PartUpdateLink"
+                style="@style/EditTextInputForm"
+
+                android:hint="@string/NewPart_LinkHint"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName"
+                app:layout_constraintBottom_toTopOf="@+id/EditText_PartUpdateCost"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/EditText_PartUpdateName" />
+
+            <EditText
+                android:id="@+id/EditText_PartUpdateCost"
+                style="@style/EditTextInputForm"
+
+                android:hint="@string/NewPart_CostHint"
+                android:importantForAutofill="no"
+                android:inputType="numberDecimal"
+                app:layout_constraintBottom_toTopOf="@+id/EditText_PartUpdateEndDate"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/EditText_PartUpdateLink" />
+
+            <EditText
+                android:id="@+id/EditText_PartUpdateEndDate"
+                style="@style/EditTextInputForm"
+
+                android:hint="@string/txtEndDate"
+                android:importantForAutofill="no"
+                android:inputType="date"
+                app:layout_constraintBottom_toTopOf="@+id/EditText_PartUpdateNotes"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/EditText_PartUpdateCost" />
+
+            <EditText
+                android:id="@+id/EditText_PartUpdateNotes"
+                style="@style/EditTextInputForm"
+                android:layout_height="0dp"
+                android:gravity="start|top"
+                android:hint="@string/btnText_notes"
+                android:importantForAutofill="no"
+                android:inputType="textMultiLine"
+                app:layout_constraintBottom_toTopOf="@+id/Btn_PartUpdateCancel"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_min="50dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/EditText_PartUpdateEndDate" />
+
+            <Button
+                android:id="@+id/Btn_PartUpdateCancel"
+                style="@style/DialogButtonLeft"
+
+                android:layout_marginStart="-12dp"
+                android:layout_marginLeft="-12dp"
+                android:text="@string/btnCancel"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/Btn_PartUpdateUpdate"
+                app:layout_constraintStart_toStartOf="@+id/EditText_PartUpdateNotes"
+                app:layout_constraintTop_toBottomOf="@+id/EditText_PartUpdateNotes" />
+
+            <Button
+                android:id="@+id/Btn_PartUpdateUpdate"
+                style="@style/DialogButtonRight"
+                android:layout_marginEnd="-12dp"
+                android:layout_marginRight="-12dp"
+                android:text="@string/UpdateDb"
+                app:layout_constraintBaseline_toBaselineOf="@+id/Btn_PartUpdateCancel"
+                app:layout_constraintEnd_toEndOf="@+id/EditText_PartUpdateNotes"
+                app:layout_constraintStart_toEndOf="@+id/Btn_PartUpdateCancel" />
+
+            <Button
+                android:id="@+id/Btn_PartUpdateImage"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="6dp"
+                android:text="Update image"
+                app:layout_constraintBottom_toTopOf="@+id/Spinner_PartUpdateMakeBuy"
+                app:layout_constraintEnd_toEndOf="@+id/Spinner_PartUpdateMakeBuy"
+                app:layout_constraintStart_toStartOf="@+id/Spinner_PartUpdateMakeBuy"
+                app:layout_constraintTop_toBottomOf="@+id/ImageView_PartUpdateImage" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>

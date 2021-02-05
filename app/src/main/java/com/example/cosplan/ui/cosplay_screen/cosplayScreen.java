@@ -2,6 +2,7 @@ package com.example.cosplan.ui.cosplay_screen;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
@@ -1360,6 +1361,12 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                     e.printStackTrace();
                 }
             }
+
+        }
+        if(requestCode == 6 && data != null){
+            mImageData = data.getData();
+            mPartUri = getPathFromUri(mImageData);
+//            SetImageFromUri(mPartAdapterBuy.mPartImage, mPartUri);
 
         }
     }
