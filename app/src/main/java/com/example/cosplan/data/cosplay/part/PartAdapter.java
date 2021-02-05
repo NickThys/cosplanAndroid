@@ -1,17 +1,21 @@
 package com.example.cosplan.data.cosplay.part;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Application;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.InetAddresses;
 import android.net.Uri;
-import android.text.TextUtils;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,6 +54,7 @@ public class PartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Cosplay mCosplay;
     private CosplayViewModel mCosplayViewModel;
     private View v;
+    private String mCosplayPartUri=null;
     private static final int TYPE_SMALL = 1;
     private static final int TYPE_NORMAL = 2;
 
@@ -119,6 +124,7 @@ public class PartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         //   updatePartDialog(current);
                         Intent intent=new Intent(mContext, CosplayPartUpdate.class);
                         intent.putExtra("part",current);
+                        intent.putExtra("cosplay",mCosplay);
                         mContext.startActivity(intent);
                     }
                 });
@@ -131,6 +137,8 @@ public class PartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                       //  updatePartDialog(current);
                         Intent intent=new Intent(mContext, CosplayPartUpdate.class);
                         intent.putExtra("part",current);
+                        intent.putExtra("cosplay",mCosplay);
+
                         mContext.startActivity(intent);
 
                     }
@@ -150,12 +158,15 @@ public class PartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     public void updatePartDialog(final Part tempPart) {
+        ImageView mPartImage;
+        Button mPartCancel;
+        Button mPartUpdate;
+         Button mPartUpdateImage;
+
         final AlertDialog.Builder mDialogBuilder = new AlertDialog.Builder(mContext);
         final View mPartDialog = mInflater.inflate(R.layout.cosplay_screen_part_update, null);
         final Spinner mPartBuyMake, mPartStatus;
-        final ImageView mPartImage;
         final EditText mPartName, mPartLink, mPartCost, mPartDate, mPartNotes;
-        final Button mPartCancel, mPartUpdate;
 
         mPartBuyMake = mPartDialog.findViewById(R.id.Spinner_PartUpdateMakeBuy);
         ArrayAdapter<CharSequence> mPartArrayAdapterMakeBuy = ArrayAdapter.createFromResource(mContext, R.array.BuyMake, android.R.layout.simple_spinner_item);
@@ -175,7 +186,8 @@ public class PartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         mPartNotes = mPartDialog.findViewById(R.id.EditText_PartUpdateNotes);
         mPartCancel = mPartDialog.findViewById(R.id.Btn_PartUpdateCancel);
         mPartUpdate = mPartDialog.findViewById(R.id.Btn_PartUpdateUpdate);
-
+        mPartUpdateImage=mPartDialog.findViewById(R.id.Btn_PartUpdateImage);
+        if(tempPart.mCosplayPartImg!=null)
         SetImageFromUri(mPartImage, tempPart.mCosplayPartImg);
         mPartBuyMake.setSelection(mPartArrayAdapterMakeBuy.getPosition(tempPart.mCosplayPartBuyMake));
         mPartStatus.setSelection(mPartArrayAdapterStatus.getPosition(tempPart.mCosplayPartStatus));
@@ -225,7 +237,14 @@ public class PartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             }
         };
         //endregion
+       mPartUpdateImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 
+                ((Activity) mContext).startActivityForResult(Intent.createChooser(intent, v.getResources().getString(R.string.txt_chooseImg_intent)), 6);
+            }
+        });
         mPartCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -237,7 +256,7 @@ public class PartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             @Override
             public void onClick(View v) {
                 double mOldCost = tempPart.mCosplayPartCost;
-                Part mTempPart = new Part(tempPart.mCosplayId, tempPart.mCosplayPartId, mPartName.getText().toString(), mPartBuyMake.getSelectedItem().toString(), mPartLink.getText().toString(), Double.parseDouble(mPartCost.getText().toString()), mPartStatus.getSelectedItem().toString(), mPartDate.getText().toString(), tempPart.mCosplayPartImg, mPartNotes.getText().toString());
+                Part mTempPart = new Part(tempPart.mCosplayId, tempPart.mCosplayPartId, mPartName.getText().toString(), mPartBuyMake.getSelectedItem().toString(), mPartLink.getText().toString(), Double.parseDouble(mPartCost.getText().toString()), mPartStatus.getSelectedItem().toString(), mPartDate.getText().toString(), mCosplayPartUri, mPartNotes.getText().toString());
                 mPartViewModel.update(mTempPart);
                 Cosplay mTempCosplay = mCosplay;
                 mTempCosplay.mCosplayRemainingBudget = Math.round((mTempCosplay.mCosplayRemainingBudget - Double.parseDouble(mPartCost.getText().toString()) + mOldCost) * 100.0) / 100.0;
@@ -305,6 +324,17 @@ public class PartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         mBudget.setText(Double.toString(mCosplay.mCosplayRemainingBudget));
     }
 
+    public String getPathFromUri(Uri mContentUri) {
+        String res = null;
+        String[] proj = {MediaStore.Images.Media.DATA};
+        Cursor cursor = mContext.getContentResolver().query(mContentUri, proj, null, null, null);
+        if (cursor.moveToFirst()) {
+            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            res = cursor.getString(column_index);
+        }
+        cursor.close();
+        return res;
+    }
 
     class PartSmallViewHolder extends RecyclerView.ViewHolder {
         private final TextView mPartSmallName;
