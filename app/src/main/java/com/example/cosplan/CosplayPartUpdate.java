@@ -47,22 +47,22 @@ public class CosplayPartUpdate extends AppCompatActivity {
     CosplayViewModel cosplayViewModel;
     private DatePickerDialog.OnDateSetListener mEndDateSetListener;
     private PartViewModel mPartViewModel;
-String mPartUri;
-  /*  @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-    }*/
-  ImageView mPartImage;
+    String mPartUri;
+    /*  @Override
+      public void onBackPressed() {
+          super.onBackPressed();
+      }*/
+    ImageView mPartImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cosplay_part_update);
-        Intent intent=getIntent();
-        tempPart=intent.getParcelableExtra("part");
-        mCosplay=intent.getParcelableExtra("cosplay");
+        Intent intent = getIntent();
+        tempPart = intent.getParcelableExtra("part");
+        mCosplay = intent.getParcelableExtra("cosplay");
         mPartViewModel = new PartViewModel(this.getApplication());
-cosplayViewModel=new ViewModelProvider(this).get(CosplayViewModel.class);
+        cosplayViewModel = new ViewModelProvider(this).get(CosplayViewModel.class);
         Button mPartCancel;
         Button mPartUpdate;
         Button mPartUpdateImage;
@@ -88,8 +88,8 @@ cosplayViewModel=new ViewModelProvider(this).get(CosplayViewModel.class);
         mPartNotes = findViewById(R.id.EditText_PartUpdateNotes);
         mPartCancel = findViewById(R.id.Btn_PartUpdateCancel);
         mPartUpdate = findViewById(R.id.Btn_PartUpdateUpdate);
-        mPartUpdateImage=findViewById(R.id.Btn_PartUpdateImage);
-        if(tempPart.mCosplayPartImg!=null)
+        mPartUpdateImage = findViewById(R.id.Btn_PartUpdateImage);
+        if (tempPart.mCosplayPartImg != null)
             SetImageFromUri(mPartImage, tempPart.mCosplayPartImg);
         mPartBuyMake.setSelection(mPartArrayAdapterMakeBuy.getPosition(tempPart.mCosplayPartBuyMake));
         mPartStatus.setSelection(mPartArrayAdapterStatus.getPosition(tempPart.mCosplayPartStatus));
@@ -146,7 +146,7 @@ cosplayViewModel=new ViewModelProvider(this).get(CosplayViewModel.class);
         mPartCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // startActivity(new Intent(getApplicationContext(), CosplayMain.class));
+                // startActivity(new Intent(getApplicationContext(), CosplayMain.class));
                 finish();
             }
         });
@@ -167,6 +167,7 @@ cosplayViewModel=new ViewModelProvider(this).get(CosplayViewModel.class);
         });
 
     }
+
     public void SetImageFromUri(ImageView mImageView, String mImagePath) {
         Uri selectedImageUri = null;
         if (mImagePath != null) {
@@ -181,6 +182,7 @@ cosplayViewModel=new ViewModelProvider(this).get(CosplayViewModel.class);
         }
         mImageView.setImageBitmap(mBitmap);
     }
+
     public Boolean checkDateFormat(String date) {
         if (date == null || !date.matches("^(1[0-9]|0[1-9]|3[0-1]|2[1-9])/(0[1-9]|1[0-2])/[0-9]{4}$"))
             return false;
@@ -192,6 +194,7 @@ cosplayViewModel=new ViewModelProvider(this).get(CosplayViewModel.class);
             return false;
         }
     }
+
     public String getPathFromUri(Uri mContentUri) {
         String res = null;
         String[] proj = {MediaStore.Images.Media.DATA};
@@ -203,11 +206,12 @@ cosplayViewModel=new ViewModelProvider(this).get(CosplayViewModel.class);
         cursor.close();
         return res;
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 6 && data != null) {
-           Uri mImageData = data.getData();
+            Uri mImageData = data.getData();
             mPartUri = getPathFromUri(mImageData);
             SetImageFromUri(mPartImage, mPartUri);
         }

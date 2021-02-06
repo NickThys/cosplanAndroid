@@ -42,7 +42,9 @@ public class CosplayAdapter extends RecyclerView.Adapter<CosplayAdapter.CosplayV
         mCosplays = cosplays;
         notifyDataSetChanged();
     }
-
+    public List<Cosplay> getCosplays(){
+        return mCosplays;
+    }
     @Override
     public void onBindViewHolder(@NonNull CosplayViewHolder holder, int position) {
         final Cosplay mCurrentCosplay = mCosplays.get(position);

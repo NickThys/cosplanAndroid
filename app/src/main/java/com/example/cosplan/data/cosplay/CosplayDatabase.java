@@ -24,7 +24,7 @@ import com.example.cosplan.data.cosplay.wIPImg.WIPImgDao;
 import com.example.cosplan.data.cosplay.webshop.Webshop;
 import com.example.cosplan.data.cosplay.webshop.WebshopDao;
 
-@Database(entities = {Cosplay.class, Part.class, ReferenceImg.class, Webshop.class, ChecklistPart.class, ShoppingListPart.class, WIPImg.class, Event.class}, version = 3)
+@Database(entities = {Cosplay.class, Part.class, ReferenceImg.class, Webshop.class, ChecklistPart.class, ShoppingListPart.class, WIPImg.class, Event.class}, version = 4)
 public abstract class CosplayDatabase extends RoomDatabase {
     public abstract CosplayDao mCosplayDao();
 
@@ -48,7 +48,7 @@ public abstract class CosplayDatabase extends RoomDatabase {
         if (INSTANCE == null) {
             synchronized (CosplayDatabase.class) {
                 if (INSTANCE == null) {
-                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(), CosplayDatabase.class, "cosplayDatabase").addMigrations(MIGRATION_1_2,MIGRATION_2_3).build();
+                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(), CosplayDatabase.class, "cosplayDatabase").addMigrations(MIGRATION_1_2,MIGRATION_2_3,MIGRATION_3_4).build();
                 }
             }
         }
@@ -110,6 +110,15 @@ public abstract class CosplayDatabase extends RoomDatabase {
 
             //endregion
 
+
+        }
+    }; static final Migration MIGRATION_3_4 = new Migration(3,4) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            //region wip img
+  database.execSQL("ALTER TABLE cosplay_table ADD COLUMN CosplayPosition INTEGER NOT NULL DEFAULT '0'");
+
+            //endregion
 
         }
     };

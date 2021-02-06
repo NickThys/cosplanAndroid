@@ -29,8 +29,18 @@ public class Cosplay implements Parcelable {
     public double mCosplayBudget;
     @ColumnInfo(name = "CosplayCurrentBudget")
     public double mCosplayRemainingBudget;
-
-    public Cosplay(int mCosplayId, @NonNull String mCosplayName, @NonNull String mCosplayStartDate, @NonNull String mCosplayEndDate, double mCosplayBudget, double mCosplayRemainingBudget, @NonNull String mCosplayIMG, String mCosplayNote, int mNumberOfParts, double mCosplayPercentage) {
+    @NonNull
+    @ColumnInfo( name = "CosplayIMG")
+    public String  mCosplayIMG;
+    @ColumnInfo(name = "CosplayNote")
+    public String mCosplayNote;
+    @ColumnInfo(name = "NumberOfParts")
+    public int mNumberOfParts;
+    @ColumnInfo(name = "CosplayPercentage")
+    public double mCosplayPercentage;
+    @ColumnInfo(name="CosplayPosition")
+    public int mCosplayPosition;
+    public Cosplay(int mCosplayId, @NonNull String mCosplayName, @NonNull String mCosplayStartDate, @NonNull String mCosplayEndDate, double mCosplayBudget, double mCosplayRemainingBudget, @NonNull String mCosplayIMG, String mCosplayNote, int mNumberOfParts, double mCosplayPercentage,int mCosplayPosition) {
         this.mCosplayId = mCosplayId;
         this.mCosplayName = mCosplayName;
         this.mCosplayStartDate = mCosplayStartDate;
@@ -41,22 +51,15 @@ public class Cosplay implements Parcelable {
         this.mCosplayNote = mCosplayNote;
         this.mNumberOfParts = mNumberOfParts;
         this.mCosplayPercentage = mCosplayPercentage;
+        this.mCosplayPosition=mCosplayPosition;
+
     }
 
-    @NonNull
-    @ColumnInfo( name = "CosplayIMG")
-    public String  mCosplayIMG;
-    @ColumnInfo(name = "CosplayNote")
-    public String mCosplayNote;
-    @ColumnInfo(name = "NumberOfParts")
-    public int mNumberOfParts;
-    @ColumnInfo(name = "CosplayPercentage")
-    public double mCosplayPercentage;
 
     public Cosplay() {
     }
 
-    public Cosplay(int mCosplayId, @NonNull String mCosplayName, @NonNull String mCosplayStartDate, @NonNull String mCosplayEndDate, double mCosplayBudget, double mCosplayCurrentBudget, @NonNull String mCosplayIMG) {
+    public Cosplay(int mCosplayId, @NonNull String mCosplayName, @NonNull String mCosplayStartDate, @NonNull String mCosplayEndDate, double mCosplayBudget, double mCosplayCurrentBudget, @NonNull String mCosplayIMG,int mCosplayPosition) {
         this.mCosplayId = mCosplayId;
         this.mCosplayName = mCosplayName;
         this.mCosplayStartDate = mCosplayStartDate;
@@ -64,6 +67,7 @@ public class Cosplay implements Parcelable {
         this.mCosplayBudget = mCosplayBudget;
         this.mCosplayRemainingBudget = mCosplayCurrentBudget;
         this.mCosplayIMG = mCosplayIMG;
+        this.mCosplayPosition=mCosplayPosition;
     }
 
 // --Commented out by Inspection START (7/12/2020 22:41):
