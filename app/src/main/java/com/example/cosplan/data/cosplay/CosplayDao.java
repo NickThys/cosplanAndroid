@@ -15,7 +15,7 @@ public interface CosplayDao {
     @Insert
     void insert(Cosplay cosplay);
 
-    @Query("SELECT *FROM cosplay_table")
+    @Query("SELECT *FROM cosplay_table ORDER BY CosplayPosition ASC")
     LiveData<List<Cosplay>> getAllCosplays();
 
     @Delete
