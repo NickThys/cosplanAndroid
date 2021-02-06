@@ -1276,8 +1276,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                     mPath = mCosplayUri;
                 }
 
-
-                Cosplay mCosUpdate = new Cosplay(cosplay.mCosplayId, mCosplayName.getText().toString(), mCosplayStartDate.getText().toString(), mCosplayEndDate.getText().toString(), mCost, mCost - mTempExpenses, mPath, mCosplayNote.getText().toString(), cosplay.mNumberOfParts, cosplay.mCosplayPercentage);
+                Cosplay mCosUpdate = new Cosplay(cosplay.mCosplayId, mCosplayName.getText().toString(), mCosplayStartDate.getText().toString(), mCosplayEndDate.getText().toString(), mCost, mCost - mTempExpenses, mPath, mCosplayNote.getText().toString(), cosplay.mNumberOfParts, cosplay.mCosplayPercentage,cosplay.mCosplayPosition);
 
                 mCosplayViewModel.update(mCosUpdate);
                 mDialog.dismiss();

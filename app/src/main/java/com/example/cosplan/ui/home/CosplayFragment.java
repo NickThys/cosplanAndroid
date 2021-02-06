@@ -15,6 +15,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,7 +49,10 @@ import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
+
+import static android.content.ContentValues.TAG;
 
 
 public class CosplayFragment extends Fragment {
@@ -62,23 +66,34 @@ public class CosplayFragment extends Fragment {
     private String mCosplayUri;
     private DatePickerDialog.OnDateSetListener mStartDateSetListener;
     private DatePickerDialog.OnDateSetListener mEndDateSetListener;
+    CosplayAdapter cosplayAdapter ;
 
     public static final int GALLERY_REQUEST_CODE = 1;
 
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_cosplay, container, false);
-        final CosplayAdapter cosplayAdapter = new CosplayAdapter(requireContext());
+        cosplayAdapter = new CosplayAdapter(requireContext());
 
         RecyclerView mRecyclerView = root.findViewById(R.id.RecView_Cosplay);
         mRecyclerView.setAdapter(cosplayAdapter);
         mRecyclerView.addItemDecoration(new DividerItemDecoration(requireContext(),DividerItemDecoration.VERTICAL));
         mRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
-
-        ItemTouchHelper mItemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT) {
+        ItemTouchHelper mItemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP|ItemTouchHelper.DOWN, ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                return false;
+                int Currentposition=viewHolder.getAdapterPosition();
+                int TargetPosition=target.getAdapterPosition();
+                Log.d(TAG, "onMove: CP="+Currentposition+"  TP="+TargetPosition);
+                Collections.swap(cosplayAdapter.getCosplays(),Currentposition,TargetPosition);
+                recyclerView.getAdapter().notifyItemMoved(Currentposition,TargetPosition);
+                // TODO: 6/02/2021 loop trough the array so that it can assaing its position to the Column;
+                for (int position=0;position<cosplayAdapter.getCosplays().size();position++){
+                    Cosplay mcosplay=cosplayAdapter.getCosplayAtPosition(position);
+                    mcosplay.mCosplayPosition=position;
+                    mCosplayViewModel.update(mcosplay);
+                }
+                return true;
             }
 
             @Override
@@ -97,6 +112,7 @@ public class CosplayFragment extends Fragment {
                 cosplayAdapter.setCosplays(cosplays);
             }
         });
+
         //Add the FAB to go to the add cosplay popup
         FloatingActionButton mFabAddCosplay = root.findViewById(R.id.Fab_CosplayAdd);
         mFabAddCosplay.setOnClickListener(new View.OnClickListener() {
@@ -232,7 +248,7 @@ public class CosplayFragment extends Fragment {
                     } else {
                         mCost = 0.0;
                     }
-                    Cosplay temp = new Cosplay(0,mCosplayName.getText().toString(),mCosplayStartDate.getText().toString(),mCosplayEndDate.getText().toString(),mCost,mCost,mCosplayUri);
+                    Cosplay temp = new Cosplay(0,mCosplayName.getText().toString(),mCosplayStartDate.getText().toString(),mCosplayEndDate.getText().toString(),mCost,mCost,mCosplayUri,cosplayAdapter.getCosplays().size());
 
                     mCosplayViewModel.insert(temp);
                     mDialog.dismiss();
