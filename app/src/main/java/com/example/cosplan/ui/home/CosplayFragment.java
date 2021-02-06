@@ -53,6 +53,7 @@ import java.util.Collections;
 import java.util.List;
 
 import static android.content.ContentValues.TAG;
+import static androidx.recyclerview.widget.ItemTouchHelper.ACTION_STATE_DRAG;
 
 
 public class CosplayFragment extends Fragment {
@@ -66,7 +67,7 @@ public class CosplayFragment extends Fragment {
     private String mCosplayUri;
     private DatePickerDialog.OnDateSetListener mStartDateSetListener;
     private DatePickerDialog.OnDateSetListener mEndDateSetListener;
-    CosplayAdapter cosplayAdapter ;
+    CosplayAdapter cosplayAdapter;
 
     public static final int GALLERY_REQUEST_CODE = 1;
 
@@ -77,20 +78,33 @@ public class CosplayFragment extends Fragment {
 
         RecyclerView mRecyclerView = root.findViewById(R.id.RecView_Cosplay);
         mRecyclerView.setAdapter(cosplayAdapter);
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(requireContext(),DividerItemDecoration.VERTICAL));
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL));
         mRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
-        ItemTouchHelper mItemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP|ItemTouchHelper.DOWN, ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT) {
+        ItemTouchHelper mItemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP | ItemTouchHelper.DOWN, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+
+            @Override
+            public void onSelectedChanged(@Nullable RecyclerView.ViewHolder viewHolder, int actionState) {
+                super.onSelectedChanged(viewHolder, actionState);
+                if (actionState == ACTION_STATE_DRAG)
+                    viewHolder.itemView.setAlpha(0.5f);
+            }
+
+            @Override
+            public void clearView(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
+                super.clearView(recyclerView, viewHolder);
+                viewHolder.itemView.setAlpha(1f);
+            }
+
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                int Currentposition=viewHolder.getAdapterPosition();
-                int TargetPosition=target.getAdapterPosition();
-                Log.d(TAG, "onMove: CP="+Currentposition+"  TP="+TargetPosition);
-                Collections.swap(cosplayAdapter.getCosplays(),Currentposition,TargetPosition);
-                recyclerView.getAdapter().notifyItemMoved(Currentposition,TargetPosition);
-                // TODO: 6/02/2021 loop trough the array so that it can assaing its position to the Column;
-                for (int position=0;position<cosplayAdapter.getCosplays().size();position++){
-                    Cosplay mcosplay=cosplayAdapter.getCosplayAtPosition(position);
-                    mcosplay.mCosplayPosition=position;
+                int Currentposition = viewHolder.getAdapterPosition();
+                int TargetPosition = target.getAdapterPosition();
+                Log.d(TAG, "onMove: CP=" + Currentposition + "  TP=" + TargetPosition);
+                Collections.swap(cosplayAdapter.getCosplays(), Currentposition, TargetPosition);
+                recyclerView.getAdapter().notifyItemMoved(Currentposition, TargetPosition);
+                for (int position = 0; position < cosplayAdapter.getCosplays().size(); position++) {
+                    Cosplay mcosplay = cosplayAdapter.getCosplayAtPosition(position);
+                    mcosplay.mCosplayPosition = position;
                     mCosplayViewModel.update(mcosplay);
                 }
                 return true;
@@ -98,8 +112,8 @@ public class CosplayFragment extends Fragment {
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                int position=viewHolder.getAdapterPosition();
-                Cosplay myCosplay=cosplayAdapter.getCosplayAtPosition(position);
+                int position = viewHolder.getAdapterPosition();
+                Cosplay myCosplay = cosplayAdapter.getCosplayAtPosition(position);
                 DeleteCosplayDialog(myCosplay);
             }
         });
@@ -125,26 +139,26 @@ public class CosplayFragment extends Fragment {
         return root;
     }
 
-    public void DeleteCosplayDialog(final Cosplay cosplay){
-        mDialogBuilder =new AlertDialog.Builder(requireContext());
-        final View mDeleteCosplayView=getLayoutInflater().inflate(R.layout.delete_dialog,null);
+    public void DeleteCosplayDialog(final Cosplay cosplay) {
+        mDialogBuilder = new AlertDialog.Builder(requireContext());
+        final View mDeleteCosplayView = getLayoutInflater().inflate(R.layout.delete_dialog, null);
 
-        TextView mDeleteText=mDeleteCosplayView.findViewById(R.id.TextView_DeleteTitle);
+        TextView mDeleteText = mDeleteCosplayView.findViewById(R.id.TextView_DeleteTitle);
         mDeleteText.setText(String.format("%s%s", getString(R.string.ConformationDeleteCosplay), cosplay.mCosplayName));
 
-        Button mBtnDelete,mBtnCancel;
-        mBtnCancel=mDeleteCosplayView.findViewById(R.id.Btn_DeleteCancel);
-        mBtnDelete=mDeleteCosplayView.findViewById(R.id.Btn_DeleteDelete);
+        Button mBtnDelete, mBtnCancel;
+        mBtnCancel = mDeleteCosplayView.findViewById(R.id.Btn_DeleteCancel);
+        mBtnDelete = mDeleteCosplayView.findViewById(R.id.Btn_DeleteDelete);
 
         mDialogBuilder.setView(mDeleteCosplayView);
         mDialog = mDialogBuilder.create();
         mDialog.show();
 
-        mBtnDelete.setOnClickListener(new View.OnClickListener()        {
+        mBtnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               mCosplayViewModel.delete(cosplay);
-                Toast.makeText(requireContext(), cosplay.mCosplayName+ " deleted",Toast.LENGTH_SHORT).show();
+                mCosplayViewModel.delete(cosplay);
+                Toast.makeText(requireContext(), cosplay.mCosplayName + " deleted", Toast.LENGTH_SHORT).show();
                 mDialog.dismiss();
             }
         });
@@ -156,6 +170,7 @@ public class CosplayFragment extends Fragment {
             }
         });
     }
+
     public void createNewCosplayDialog() {
         mDialogBuilder = new AlertDialog.Builder(requireContext());
         final View mCosplayPopUpView = getLayoutInflater().inflate(R.layout.add_cosplay, null);
@@ -178,7 +193,7 @@ public class CosplayFragment extends Fragment {
         mCosplayStartDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-             ShowDatePickerDialog(hasFocus,true);
+                ShowDatePickerDialog(hasFocus, true);
             }
         });
         mStartDateSetListener = new DatePickerDialog.OnDateSetListener() {
@@ -194,7 +209,7 @@ public class CosplayFragment extends Fragment {
         mCosplayEndDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                ShowDatePickerDialog(hasFocus,false);
+                ShowDatePickerDialog(hasFocus, false);
             }
         });
 
@@ -225,68 +240,67 @@ public class CosplayFragment extends Fragment {
                     // Requesting the permission
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                         ActivityCompat.requestPermissions(requireActivity(),
-                                new String[] {Manifest.permission.READ_EXTERNAL_STORAGE},
+                                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                                 101);
                     }
-                }
-                else {
-                    Intent intent = new Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                } else {
+                    Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                     startActivityForResult(Intent.createChooser(intent, getString(R.string.txt_chooseImg_intent)), GALLERY_REQUEST_CODE);
 
                 }
-      }
+            }
         });
 
         //Add Cosplay to the database
         mAddNewCosplay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!mCosplayName.getText().toString().equals("")&&mCosplayUri!=null){
+                if (!mCosplayName.getText().toString().equals("") && mCosplayUri != null) {
                     double mCost;
                     if (!mCosplayBudget.getText().toString().equals("")) {
                         mCost = Double.parseDouble(mCosplayBudget.getText().toString());
                     } else {
                         mCost = 0.0;
                     }
-                    Cosplay temp = new Cosplay(0,mCosplayName.getText().toString(),mCosplayStartDate.getText().toString(),mCosplayEndDate.getText().toString(),mCost,mCost,mCosplayUri,cosplayAdapter.getCosplays().size());
+                    Cosplay temp = new Cosplay(0, mCosplayName.getText().toString(), mCosplayStartDate.getText().toString(), mCosplayEndDate.getText().toString(), mCost, mCost, mCosplayUri, cosplayAdapter.getCosplays().size());
 
                     mCosplayViewModel.insert(temp);
                     mDialog.dismiss();
-                }
-                else{
-                    Toast.makeText(requireContext(), getResources().getString(R.string.FillOutFields)+getResources().getString(R.string.WebsiteName)+", Image" , Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(requireContext(), getResources().getString(R.string.FillOutFields) + getResources().getString(R.string.WebsiteName) + ", Image", Toast.LENGTH_LONG).show();
                 }
 
             }
         });
 
     }
-    public void SetImageFromUri(ImageView mImageView,String mImagePath){
-        Uri selectedImageUri=null;
+
+    public void SetImageFromUri(ImageView mImageView, String mImagePath) {
+        Uri selectedImageUri = null;
         if (mImagePath != null) {
             File f = new File(mImagePath);
             selectedImageUri = Uri.fromFile(f);
         }
-        Bitmap mBitmap=null;
+        Bitmap mBitmap = null;
         try {
-            mBitmap= BitmapFactory.decodeStream(requireContext().getContentResolver().openInputStream(selectedImageUri));
+            mBitmap = BitmapFactory.decodeStream(requireContext().getContentResolver().openInputStream(selectedImageUri));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         mImageView.setImageBitmap(mBitmap);
     }
-    private void ShowDatePickerDialog(boolean hasFocus,boolean IsStartDate) {
+
+    private void ShowDatePickerDialog(boolean hasFocus, boolean IsStartDate) {
         EditText mEditTextDate;
         DatePickerDialog.OnDateSetListener mOnDateSetListener;
         if (IsStartDate) {
             mEditTextDate = mCosplayStartDate;
-            mOnDateSetListener=mStartDateSetListener;
-        }
-        else {
+            mOnDateSetListener = mStartDateSetListener;
+        } else {
             mEditTextDate = mCosplayEndDate;
-            mOnDateSetListener=mEndDateSetListener;
+            mOnDateSetListener = mEndDateSetListener;
         }
-            if (hasFocus) {
+        if (hasFocus) {
             int year;
             int month;
             int day;
@@ -312,29 +326,31 @@ public class CosplayFragment extends Fragment {
         }
     }
 
-    public Boolean checkDateFormat(String date){
+    public Boolean checkDateFormat(String date) {
         if (date == null || !date.matches("^(1[0-9]|0[1-9]|3[0-1]|2[1-9])/(0[1-9]|1[0-2])/[0-9]{4}$"))
             return false;
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat format=new SimpleDateFormat("dd/MM/yyyy");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         try {
             format.parse(date);
             return true;
-        }catch (ParseException e){
+        } catch (ParseException e) {
             return false;
         }
     }
+
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.clear();
     }
-    public String getPathFromUri(Uri mContentUri){
-        String res=null;
-        String[] proj={MediaStore.Images.Media.DATA};
-        Cursor cursor=getContext().getContentResolver().query(mContentUri,proj,null,null,null  );
-        if (cursor.moveToFirst()){
-            int column_index=cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-            res=cursor.getString(column_index);
+
+    public String getPathFromUri(Uri mContentUri) {
+        String res = null;
+        String[] proj = {MediaStore.Images.Media.DATA};
+        Cursor cursor = getContext().getContentResolver().query(mContentUri, proj, null, null, null);
+        if (cursor.moveToFirst()) {
+            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            res = cursor.getString(column_index);
         }
         cursor.close();
         return res;
@@ -345,8 +361,8 @@ public class CosplayFragment extends Fragment {
         if (requestCode == GALLERY_REQUEST_CODE) {
             if (data != null) {
                 Uri imageData = data.getData();
-                mCosplayUri=getPathFromUri(imageData);
-                SetImageFromUri(mCosplayImage,mCosplayUri);
+                mCosplayUri = getPathFromUri(imageData);
+                SetImageFromUri(mCosplayImage, mCosplayUri);
             }
         }
     }
