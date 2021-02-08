@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -68,7 +69,7 @@
         android:hint="@string/NewPart_EndDateHint"
         android:importantForAutofill="no"
         android:inputType="date"
-        app:layout_constraintBottom_toTopOf="@+id/Btn_NewPartChoosePartImg"
+        app:layout_constraintBottom_toTopOf="@+id/CheckBox_AddPartDeadlineToCalender"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/EditText_NewPartCost" />
@@ -93,7 +94,7 @@
         app:layout_constraintBottom_toTopOf="@+id/ImageView_NewPartImgPreview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/EditText_NewPartEndDate" />
+        app:layout_constraintTop_toBottomOf="@+id/CheckBox_AddPartDeadlineToCalender" />
 
     <Button
         android:id="@+id/Btn_NewPartAdd"
@@ -112,5 +113,16 @@
         app:layout_constraintEnd_toStartOf="@+id/Btn_NewPartAdd"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ImageView_NewPartImgPreview" />
+
+    <CheckBox
+        android:id="@+id/CheckBox_AddPartDeadlineToCalender"
+
+        style="@style/EditTextInputForm"
+        android:text="Add the end date to the calender"
+
+        app:layout_constraintBottom_toTopOf="@+id/Btn_NewPartChoosePartImg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/EditText_NewPartEndDate" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

@@ -110,16 +110,14 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
     private EventViewModel mEventViewModel;
     private EventAdapter mEventConventionAdapter, mEventShootAdapter, mEventCharityAdapter;
     //endregion
-
+    //region Fields
     private TextView mName, mEndDate, mPercentage, mBudget;
     private ImageView mImage, mPartImage, mCosplayImage;
     private EditText mCosplayName, mCosplayStartDate, mCosplayEndDate, mCosplayBudget, mPartName, mPartLink, mPartCost, mPartEndDate, mCosplayNote;
     private Spinner mSpinnerPartMakeBuy;
     private RecyclerView mRVRefImg, mRecViewWIPImg;
-
     private Cosplay mTempCosplay = null;
     private DatePickerDialog.OnDateSetListener mStartDateSetListener, mEndDateSetListener;
-
     private String mPartUri, mCosplayUri;
     private static final int GALLERY_REQUEST_CODE = 1,
             GALLERY_REQUEST_CODE_PART = 2,
@@ -129,7 +127,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             CAMERA_PERMISSION_CODE = 100,
             STORAGE_PERMISSION_CODE = 101;
     private List<Part> mListMake, mListBuy,mPartsList;
-
+//endregion
 
     @SuppressWarnings("ConstantConditions")
     @Override
@@ -647,7 +645,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         return mRoot;
     }
 
-    public void checkPermission(String permission, int requestCode, int GALLERY_REQUEST_CODE, boolean isGalleryRequest) {
+    private void checkPermission(String permission, int requestCode, int GALLERY_REQUEST_CODE, boolean isGalleryRequest) {
         if (ContextCompat.checkSelfPermission(requireContext(), permission)
                 == PackageManager.PERMISSION_DENIED) {
 
