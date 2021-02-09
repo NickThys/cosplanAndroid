@@ -32,6 +32,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Environment;
 import android.provider.CalendarContract;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -958,7 +959,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                     mCosplayViewModel.update(mCosplay);
                     updateCosplayHeaderBudget();
                     updateCosplayPercentage();
-                    if (mCheckBoxPartEvent.isChecked()) {
+                    if (mCheckBoxPartEvent.isChecked()&& !TextUtils.isEmpty(temp.mCosplayPartEndDate)) {
                         // TODO: 9/02/2021 Create intent to the calender 
                         Log.d(TAG, "onClick: go to calender");
                         //region intent
