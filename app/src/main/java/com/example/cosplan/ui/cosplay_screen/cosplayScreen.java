@@ -31,6 +31,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +39,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -87,6 +89,8 @@ import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 
+import static android.content.ContentValues.TAG;
+
 @SuppressWarnings("ALL")
 public class cosplayScreen extends Fragment implements AdapterView.OnItemSelectedListener {
 
@@ -116,6 +120,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
     private EditText mCosplayName, mCosplayStartDate, mCosplayEndDate, mCosplayBudget, mPartName, mPartLink, mPartCost, mPartEndDate, mCosplayNote;
     private Spinner mSpinnerPartMakeBuy;
     private RecyclerView mRVRefImg, mRecViewWIPImg;
+    private CheckBox mCheckBoxPartEvent;
     private Cosplay mTempCosplay = null;
     private DatePickerDialog.OnDateSetListener mStartDateSetListener, mEndDateSetListener;
     private String mPartUri, mCosplayUri;
@@ -888,6 +893,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mPartEndDate = PartPopUpView.findViewById(R.id.EditText_NewPartEndDate);
         mPartCost = PartPopUpView.findViewById(R.id.EditText_NewPartCost);
         mPartImage = PartPopUpView.findViewById(R.id.ImageView_NewPartImgPreview);
+        mCheckBoxPartEvent=PartPopUpView.findViewById(R.id.CheckBox_AddPartDeadlineToCalender);
         mDialogBuilder.setView(PartPopUpView);
         mDialog = mDialogBuilder.create();
         mDialog.show();
@@ -940,6 +946,11 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                     mCosplayViewModel.update(mCosplay);
                     updateCosplayHeaderBudget();
                     updateCosplayPercentage();
+                    if(mCheckBoxPartEvent.isChecked())
+                    {
+                        // TODO: 9/02/2021 Create intent to the calender 
+                        Log.d(TAG, "onClick: go to calender");
+                    }
                     mDialog.dismiss();
                 } else {
                     String tempString = getResources().getString(R.string.FillOutFields) + " " + getResources().getString(R.string.txtName) ;
