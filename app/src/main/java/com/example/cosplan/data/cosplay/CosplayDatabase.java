@@ -117,7 +117,7 @@ public abstract class CosplayDatabase extends RoomDatabase {
         public void migrate(@NonNull SupportSQLiteDatabase database) {
             //region wip img
   database.execSQL("ALTER TABLE cosplay_table ADD COLUMN CosplayPosition INTEGER NOT NULL DEFAULT '0'");
-
+  database.execSQL("ALTER TABLE CosplayPart_table ADD COLUMN CosplayPartEventId TEXT NOT NULL DEFAULT ''");
             //endregion
 
         }
