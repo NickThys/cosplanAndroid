@@ -90,6 +90,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 import static android.content.ContentValues.TAG;
 
@@ -960,19 +961,28 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                     updateCosplayHeaderBudget();
                     updateCosplayPercentage();
                     if (mCheckBoxPartEvent.isChecked()&& !TextUtils.isEmpty(temp.mCosplayPartEndDate)) {
-                        // TODO: 9/02/2021 Create intent to the calender 
+                        // TODO: 9/02/2021 Create intent to the calender
+                        int tempNumber=0;
+                        Random r=new Random();
+                        tempNumber=r.nextInt(100000);
+                        String mEventId=Integer.toString(mCosplay.mCosplayId)+Integer.toString(tempNumber);
                         Log.d(TAG, "onClick: go to calender");
+                        Log.d(TAG, "Event id: "+mEventId);
+
                         //region intent
                         Calendar starttime=Calendar.getInstance();
                         Calendar endtime=Calendar.getInstance();
                         starttime.set(date[0],date[1],date[2],9,00);
                         endtime.set(date[0],date[1],date[2],10,00);
 
-                        Intent intent=new Intent(Intent.ACTION_INSERT).setData(CalendarContract.Events.CONTENT_URI)
+                        Intent intent=new Intent(Intent.ACTION_INSERT)
+                                .setData(CalendarContract.Events.CONTENT_URI)
+                                .putExtra(CalendarContract.EXTRA_EVENT_ID,mEventId)
                                 .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME,starttime.getTimeInMillis())
                                 .putExtra(CalendarContract.EXTRA_EVENT_END_TIME,endtime.getTimeInMillis())
                                 .putExtra(CalendarContract.Events.TITLE,"Finish "+temp.mCosplayPartName);
                         startActivity(intent);
+
                         //endregion
                     }
 
