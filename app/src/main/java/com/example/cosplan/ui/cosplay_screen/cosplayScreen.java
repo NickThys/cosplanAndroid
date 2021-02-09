@@ -165,6 +165,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mWipImgAdapter = new WIPImgAdapter(null, requireContext(), getActivity().getApplication());
         mPartAdapterMake = new PartAdapter(requireContext(), getActivity().getApplication());
         mPartAdapterBuy = new PartAdapter(requireContext(), getActivity().getApplication());
+
         mEventConventionAdapter = new EventAdapter(requireContext(), getActivity().getApplication());
         mEventShootAdapter = new EventAdapter(requireContext(), getActivity().getApplication());
         mEventCharityAdapter = new EventAdapter(requireContext(), getActivity().getApplication());
@@ -320,6 +321,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         //endregion
 
         //region Part View
+        mPartViewModel=new PartViewModel(this.getActivity().getApplication());
 
         //region recyclerview Make
         RecyclerView mRecyclerViewMake = mRoot.findViewById(R.id.RecView_PartsToMake);
@@ -341,7 +343,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             }
         });
         mItemTouchHelperMake.attachToRecyclerView(mRecyclerViewMake);
-        mPartViewModel = new ViewModelProvider(this).get(PartViewModel.class);
+       // mPartViewModel = new ViewModelProvider(this).get(PartViewModel.class);
         mPartViewModel.getAllPartsToMake(mTempCosplay.mCosplayId).observe(getViewLifecycleOwner(), new Observer<List<Part>>() {
             @Override
             public void onChanged(List<Part> parts) {
@@ -372,7 +374,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
             }
         });
         mItemTouchHelperBuy.attachToRecyclerView(mRecyclerViewBuy);
-        mPartViewModel = new ViewModelProvider(this).get(PartViewModel.class);
+        //mPartViewModel = new ViewModelProvider(this).get(PartViewModel.class);
         mPartViewModel.getAllPartsToBuy(mTempCosplay.mCosplayId).observe(getViewLifecycleOwner(), new Observer<List<Part>>() {
             @Override
             public void onChanged(List<Part> parts) {
@@ -388,7 +390,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         mFabAddPart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addNewCosplayPartDialog(mTempCosplay);
+                addNewCosplayPartDialog(mTempCosplay,mPartViewModel);
             }
         });
 
@@ -883,7 +885,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
         });
     }
 
-    private void addNewCosplayPartDialog(final Cosplay mCosplay) {
+    private void addNewCosplayPartDialog(final Cosplay mCosplay, final PartViewModel VM) {
         final View PartPopUpView = getLayoutInflater().inflate(R.layout.add_cosplay_part, null);
         Button mPartChooseImage = PartPopUpView.findViewById(R.id.Btn_NewPartChoosePartImg);
         Button mPartCancel = PartPopUpView.findViewById(R.id.Btn_NewPartCancel);
@@ -968,7 +970,9 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                         String mEventId=Integer.toString(mCosplay.mCosplayId)+Integer.toString(tempNumber);
                         Log.d(TAG, "onClick: go to calender");
                         Log.d(TAG, "Event id: "+mEventId);
+                        temp.mCosplayPartEventId=mEventId;
 
+                        VM.update(temp);
                         //region intent
                         Calendar starttime=Calendar.getInstance();
                         Calendar endtime=Calendar.getInstance();

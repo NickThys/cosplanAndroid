@@ -46,19 +46,6 @@ public class Part implements Parcelable {
     @ColumnInfo(name = "CosplayPartEventId")
     public String mCosplayPartEventId;
 
-    public Part(int mCosplayId, int mCosplayPartId, @NonNull String mCosplayPartName, @NonNull String mCosplayPartBuyMake, String mCosplayPartLink, double mCosplayPartCost, String mCosplayPartStatus, String mCosplayPartEndDate, String mCosplayPartImg, String mCosplayPartNote, String mCosplayPartEventId) {
-        this.mCosplayId = mCosplayId;
-        this.mCosplayPartId = mCosplayPartId;
-        this.mCosplayPartName = mCosplayPartName;
-        this.mCosplayPartBuyMake = mCosplayPartBuyMake;
-        this.mCosplayPartLink = mCosplayPartLink;
-        this.mCosplayPartCost = mCosplayPartCost;
-        this.mCosplayPartStatus = mCosplayPartStatus;
-        this.mCosplayPartEndDate = mCosplayPartEndDate;
-        this.mCosplayPartImg = mCosplayPartImg;
-        this.mCosplayPartNote = mCosplayPartNote;
-        this.mCosplayPartEventId = mCosplayPartEventId;
-    }
 
     @Ignore
     public Part(){}
