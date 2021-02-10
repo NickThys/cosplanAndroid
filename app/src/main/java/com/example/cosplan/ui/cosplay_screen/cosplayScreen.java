@@ -956,7 +956,7 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                     } else {
                         mCost = 0.0;
                     }
-                    Part temp = new Part(mCosplay.mCosplayId, 0, mPartName.getText().toString(), mSpinnerPartMakeBuy.getSelectedItem().toString(), mPartLink.getText().toString(), mCost, "Planned", mPartEndDate.getText().toString(), mPartUri);
+                    final Part temp = new Part(mCosplay.mCosplayId, 0, mPartName.getText().toString(), mSpinnerPartMakeBuy.getSelectedItem().toString(), mPartLink.getText().toString(), mCost, "Planned", mPartEndDate.getText().toString(), mPartUri);
                     mPartViewModel.insert(temp);
                     mCosplay.mCosplayRemainingBudget = Math.round((mCosplay.mCosplayRemainingBudget - temp.mCosplayPartCost) * 100.0) / 100.0;
                     mCosplayViewModel.update(mCosplay);
@@ -967,12 +967,21 @@ public class cosplayScreen extends Fragment implements AdapterView.OnItemSelecte
                         int tempNumber=0;
                         Random r=new Random();
                         tempNumber=r.nextInt(100000);
-                        String mEventId=Integer.toString(mCosplay.mCosplayId)+Integer.toString(tempNumber);
+                        final String mEventId=Integer.toString(mCosplay.mCosplayId)+Integer.toString(tempNumber);
                         Log.d(TAG, "onClick: go to calender");
                         Log.d(TAG, "Event id: "+mEventId);
-                        temp.mCosplayPartEventId=mEventId;
+                        VM.getLastCreatedPart(mCosplay.mCosplayId).observe(getViewLifecycleOwner(), new Observer<Part>() {
+                            @Override
+                            public void onChanged(Part part) {
+                                temp.mCosplayPartId=part.mCosplayPartId;
+                                temp.mCosplayPartEventId=mEventId;
 
-                        VM.update(temp);
+                                VM.update(temp);
+                            }
+
+                        });
+                        //VM.getLastCreatedPart(mCosplay.mCosplayId).mCosplayPartId;
+
                         //region intent
                         Calendar starttime=Calendar.getInstance();
                         Calendar endtime=Calendar.getInstance();

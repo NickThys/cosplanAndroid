@@ -13,14 +13,15 @@ public class PartRepository {
     private final PartDao mPartDao;
     private LiveData<List<Part>> mAllPartsToMake;
     private LiveData<List<Part>> mAllPartsToBuy;
-    private Part mLastCreatedPart;
+    private LiveData<Part> mLastCreatedPart;
     private int mCosplayIdMake;
     private int mCosplayIdBuy;
+    private int mCosplayId;
 
     PartRepository(Application application) {
         CosplayDatabase db = CosplayDatabase.getDatabase(application);
         mPartDao = db.mPartDao();
-
+        mLastCreatedPart=mPartDao.getLastCreatedPart(this.mCosplayId);
         mAllPartsToMake = mPartDao.getPartsToMake(mCosplayIdMake);
         mAllPartsToBuy = mPartDao.getPartsToBuy(mCosplayIdBuy);
     }
@@ -50,8 +51,9 @@ public class PartRepository {
         return mAllPartsToBuy;
     }
 
-    Part getLastCreatedPart(int mCosplayId) {
-        mLastCreatedPart = mPartDao.getLastCreatedPart(mCosplayId);
+    LiveData<Part> getLastCreatedPart(int mCosplayId) {
+        this.mCosplayId=mCosplayId;
+        mLastCreatedPart = mPartDao.getLastCreatedPart(this.mCosplayId);
         return mLastCreatedPart;
     }
 

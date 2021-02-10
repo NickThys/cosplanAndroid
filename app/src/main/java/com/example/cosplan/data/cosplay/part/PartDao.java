@@ -24,5 +24,5 @@ public interface PartDao {
     void update(Part part);
 
     @Query("SELECT * FROM CosplayPart_table WHERE CosplayPartId=(SELECT MAX(CosplayPartId)FROM COSPLAYPART_TABLE)AND CosplayId=:CosplayId")
-    Part getLastCreatedPart(final int CosplayId);
+    LiveData<Part> getLastCreatedPart(final int CosplayId);
 }
