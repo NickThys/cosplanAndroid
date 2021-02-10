@@ -23,5 +23,6 @@ public interface PartDao {
     @Update
     void update(Part part);
 
-
+    @Query("SELECT * FROM CosplayPart_table WHERE CosplayPartId=(SELECT MAX(CosplayPartId)FROM COSPLAYPART_TABLE)AND CosplayId=:CosplayId")
+    Part getLastCreatedPart(final int CosplayId);
 }
