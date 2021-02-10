@@ -14,6 +14,7 @@ public class PartViewModel extends AndroidViewModel {
     private final PartRepository mPartRepository;
     LiveData<List<Part>> mAllPartsToMake;
     LiveData<List<Part>> mAllPartsToBuy;
+    Part mLastCreatedPart;
     private int mCosplayIdMake;
     private int mCosplayIdBuy;
 
@@ -35,6 +36,11 @@ public class PartViewModel extends AndroidViewModel {
         mCosplayIdBuy = mCosplayId;
         mAllPartsToBuy = mPartRepository.getAllPartsToBuy(mCosplayIdBuy);
         return mAllPartsToBuy;
+    }
+
+    public Part getLastCreatedPart(int mCosplayId) {
+        mLastCreatedPart=mPartRepository.getLastCreatedPart(mCosplayId);
+        return mLastCreatedPart;
     }
 
     public void insert(Part part) {
